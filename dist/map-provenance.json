@@ -1,0 +1,73 @@
+{
+  "boundary_source": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_ACS2024/MapServer/28/query",
+  "water_source": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Hydro/MapServer/1/query",
+  "boundary_vintage": "ACS 2024 incorporated places",
+  "water_vintage": "TIGERweb Hydro service at download time",
+  "download_date": "2026-11-03",
+  "la_included_municipalities": [
+    "Los Angeles",
+    "Santa Monica",
+    "Pasadena",
+    "South Pasadena",
+    "Alhambra",
+    "San Gabriel",
+    "Monterey Park",
+    "Rosemead",
+    "El Monte",
+    "South El Monte",
+    "Montebello",
+    "Pico Rivera",
+    "Commerce",
+    "Bell",
+    "Bell Gardens",
+    "Cudahy",
+    "Maywood",
+    "Huntington Park",
+    "Vernon",
+    "South Gate",
+    "Downey",
+    "Lynwood",
+    "Paramount",
+    "Compton",
+    "Gardena",
+    "Hawthorne",
+    "Lawndale",
+    "Inglewood",
+    "El Segundo",
+    "Manhattan Beach",
+    "Hermosa Beach",
+    "Redondo Beach",
+    "Torrance",
+    "Carson",
+    "Long Beach",
+    "Beverly Hills",
+    "Culver City",
+    "West Hollywood",
+    "Glendale",
+    "Burbank",
+    "San Fernando",
+    "Signal Hill"
+  ],
+  "la_method": "Union of listed municipalities, with enclosed terrestrial municipal/unincorporated gaps filled, then water removed. Custom study region, not an official metro boundary.",
+  "grid": "500m UTM squares, EPSG:32618 for NYC/Philadelphia and EPSG:32611 for LA, clipped to land; 2m topology-preserving simplification; fragments under 1m2 omitted.",
+  "report": {
+    "nyc": {
+      "cells": 3689,
+      "land_km2": 777.71,
+      "removed_water_km2": 445.15,
+      "coverage_error": 2.440356088958791e-10
+    },
+    "philly": {
+      "cells": 1579,
+      "land_km2": 347.54,
+      "removed_water_km2": 21.03,
+      "coverage_error": 1.7891768514222566e-10
+    },
+    "la": {
+      "cells": 9427,
+      "land_km2": 2208.91,
+      "removed_water_km2": 259.45,
+      "coverage_error": 2.492172754585819e-10
+    }
+  }
+}
