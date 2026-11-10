@@ -1,5 +1,15 @@
 # HeatScape
 
+## Philadelphia route-and-shade prototype — November 2026
+
+The main website now opens a desktop-first Center City explorer with real OSM building geometry, 2D/3D views, summer-time building shadows, and shortest versus lower-sun candidate routes. Distances use miles and feet. This is an unvalidated building-only model; tree shade, trained AI, verified sidewalk access and cooling-site availability are not yet connected.
+
+See [PHILADELPHIA.md](PHILADELPHIA.md) for the current implementation, data provenance, limitations and checks. Run `node check-engine.cjs` to check the routing and shadow engine. The previous heat-grid website remains at [dist/legacy.html](dist/legacy.html).
+
+---
+
+## Previous heat-grid prototype (archived)
+
 An interactive urban surface heat research prototype for New York City, Philadelphia, and an expanded Los Angeles study region.
 
 ## Current status
