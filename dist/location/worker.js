@@ -20,17 +20,12 @@ async function loadCity(python){
   await python.runPythonAsync(await bridge.text());
   return python.globals.get('city_route');
 }
-self.onmessage=async ({data:{id,query,address,suggest,trip,buildingWindow}})=>{
+self.onmessage=async ({data:{id,query,address,suggest,trip}})=>{
   try{
     runtime ??= initialize().catch(error=>{runtime=null;throw error;});
     const python=await runtime;
     let matches;
-    if(buildingWindow){
-      await python.runPythonAsync('from city_buildings import viewport_footprints');
-      const footprints=python.globals.get('viewport_footprints');
-      try{matches=JSON.parse(await footprints(JSON.stringify(buildingWindow)));}
-      finally{footprints.destroy();}
-    }else if(trip){
+    if(trip){
       city ??= loadCity(python).catch(error=>{city=null;throw error;});
       const route=await city;
       matches=JSON.parse(await route(JSON.stringify(trip)));

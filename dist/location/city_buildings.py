@@ -1,5 +1,4 @@
 """Fetch Philadelphia building footprints for a map window and project their shadows."""
-import json
 import math
 from urllib.parse import urlencode
 
@@ -91,11 +90,3 @@ def shadows(features, azimuth, altitude):
                     shapes.append({"type": "Feature", "properties": {},
                                    "geometry": {"type": "Polygon", "coordinates": [quad]}})
     return collection(shapes)
-
-
-async def viewport_footprints(payload):
-    """Return only geometry for the flat building layer."""
-    buildings = await fetch_buildings(json.loads(payload), include_center=True)
-    features = [{"type": "Feature", "geometry": building["geometry"], "properties": {}}
-                for building in buildings]
-    return json.dumps(collection(features), separators=(",", ":"))
