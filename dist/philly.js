@@ -18,7 +18,7 @@ const searches=new Map();
 function lookup(query,address=false,suggest=false){return requestLocation({query,address,suggest});}
 function requestLocation(payload){
   if(!locationWorker){
-    locationWorker=new Worker('location/worker.js?v=philly');
+    locationWorker=new Worker('location/worker.js?v=city-shade');
     locationWorker.onmessage=({data})=>{
       const pending=searches.get(data.id);
       if(!pending)return;
@@ -114,7 +114,7 @@ async function calculate(zoom=false){
     map.getSource('shade-route').setData(empty);
     marker('start',route.start.coord);
     marker('end',route.end.coord);
-    $('results').innerHTML=`<button class="route-card direct" data-route="fast" aria-pressed="true"><div class="card-title">Shortest walk<small>PHILADELPHIA</small></div><div class="route-stats"><strong>${Math.round(route.fast.length/80.4672)} <span>min</span></strong><span>· ${(route.fast.length/1609.344).toFixed(2)} mi</span></div></button><p class="result-note">Shade comparisons are available for trips within the dashed Center City study area.</p>`;
+    $('results').innerHTML=`<button class="route-card direct" data-route="fast" aria-pressed="true"><div class="card-title">Shortest walk<small>PHILADELPHIA</small></div><div class="route-stats"><strong>${Math.round(route.fast.length/80.4672)} <span>min</span></strong><span>· ${(route.fast.length/1609.344).toFixed(2)} mi</span></div></button><p class="result-note">Building shadows appear on the map. Route sun comparisons are available within the dashed Center City study area.</p>`;
     selectRoute('fast');
     selected='shade';
     $('routeStatus').textContent=status;
@@ -132,18 +132,71 @@ async function calculate(zoom=false){
 $('cityOverview').onclick=()=>{
   if(ready)map.fitBounds(cityBounds,{padding:45,pitch:map.getPitch(),bearing:map.getBearing(),duration:650});
 };
+let citySun, sceneTimer, sceneVersion=0, displayedWindow;
+function queueCityScene(){
+  const version=++sceneVersion;
+  clearTimeout(sceneTimer);
+  sceneTimer=setTimeout(()=>renderCityScene(version),220);
+}
+async function renderCityScene(version){
+  if(!citySun||!ready)return;
+  const label=$('buildingStatus');
+  const view=map.getBounds();
+  const insideCenter=inShadeArea([view.getWest(),view.getSouth()])&&inShadeArea([view.getEast(),view.getNorth()]);
+  if(map.getZoom()<15||insideCenter){
+    for(const id of ['city-buildings','city-shadows'])map.getSource(id).setData(empty);
+    displayedWindow=null;
+    label.textContent=insideCenter?'Center City building shade':'Zoom in for buildings and shade';
+    return;
+  }
+  const grid=.005;
+  const west=Math.max(cityBounds[0][0],Math.floor((view.getWest()-.0043)/grid)*grid);
+  const south=Math.max(cityBounds[0][1],Math.floor((view.getSouth()-.0032)/grid)*grid);
+  const east=Math.min(cityBounds[1][0],Math.ceil((view.getEast()+.0043)/grid)*grid);
+  const north=Math.min(cityBounds[1][1],Math.ceil((view.getNorth()+.0032)/grid)*grid);
+  if(west>=east||south>=north){
+    for(const id of ['city-buildings','city-shadows'])map.getSource(id).setData(empty);
+    displayedWindow=null;
+    label.textContent='Outside Philadelphia building coverage';
+    return;
+  }
+  const window=[west,south,east,north].map(value=>Number(value.toFixed(6)));
+  const key=window.join(',');
+  const changed=key!==displayedWindow;
+  if(changed)label.textContent='Loading neighborhood buildings…';
+  try{
+    const scene=await requestLocation({scene:[window,citySun.azimuth,citySun.altitude,changed]});
+    if(version!==sceneVersion)return;
+    if(scene.buildings){
+      map.getSource('city-buildings').setData(scene.buildings);
+      displayedWindow=key;
+    }
+    map.getSource('city-shadows').setData(scene.shadows);
+    label.textContent='Philadelphia building shade';
+  }catch(error){
+    if(version!==sceneVersion)return;
+    label.textContent='Neighborhood building data unavailable';
+    console.warn(error);
+  }
+}
 function timeText(){const t=+$('time').value,h=Math.floor(t),m=Math.round((t-h)*60);$('timeLabel').textContent=`${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`;return {h,m};}
-function updateSun(){if(!ready)return;const {h,m}=timeText(),date=$('date').value;if(!date||!$('date').checkValidity()){ $('routeStatus').textContent='Choose a summer date between June 1 and August 31, 2026.';return; }$('calculate').disabled=true;const sun=SunCalc.getPosition(new Date(`${date}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00-04:00`),39.9515,-75.167);const shadows=engine.updateShade(sun.azimuth,sun.altitude);map.getSource('shadows').setData(shadows);map.setLight({anchor:'map',position:[1.5,(sun.azimuth*180/Math.PI+180+360)%360,90-sun.altitude*180/Math.PI],intensity:.35});$('solarLabel').textContent=`Sun elevation ${Math.round(sun.altitude*180/Math.PI)}° · Summer scenario, not live`;calculate();$('calculate').disabled=false;}
+function updateSun(){if(!ready)return;const {h,m}=timeText(),date=$('date').value;if(!date||!$('date').checkValidity()){ $('routeStatus').textContent='Choose a summer date between June 1 and August 31, 2026.';return; }$('calculate').disabled=true;const sun=SunCalc.getPosition(new Date(`${date}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00-04:00`),39.9515,-75.167);citySun=sun;queueCityScene();const shadows=engine.updateShade(sun.azimuth,sun.altitude);map.getSource('shadows').setData(shadows);map.setLight({anchor:'map',position:[1.5,(sun.azimuth*180/Math.PI+180+360)%360,90-sun.altitude*180/Math.PI],intensity:.35});$('solarLabel').textContent=`Sun elevation ${Math.round(sun.altitude*180/Math.PI)}° · Summer scenario, not live`;calculate();$('calculate').disabled=false;}
 if(map){map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');map.addControl(new maplibregl.ScaleControl({unit:'imperial'}),'bottom-right');map.on('error',e=>{if(e.sourceId==='base')err('Background tiles unavailable. Local building and route data are still displayed.');});map.on('load',()=>{
 map.addSource('city-limits',{type:'geojson',data:'location/city-boundary.geojson'});
 map.addLayer({id:'city-limits',type:'line',source:'city-limits',paint:{'line-color':'#647e68','line-width':1.4,'line-opacity':.65}});
 map.addSource('network',{type:'geojson',data:fc(PHILLY.edges.map(e=>({type:'Feature',properties:{},geometry:{type:'LineString',coordinates:[e.p,e.q]}})))});map.addLayer({id:'network',type:'line',source:'network',paint:{'line-color':'#fdfdf8','line-width':3,'line-opacity':.75}});
 map.addSource('shadows',{type:'geojson',data:empty});map.addLayer({id:'shadows',type:'fill',source:'shadows',paint:{'fill-color':'#a7b3a3','fill-opacity':1,'fill-antialias':false}});
 map.addSource('buildings',{type:'geojson',data:PHILLY.buildings});map.addLayer({id:'buildings',type:'fill-extrusion',source:'buildings',paint:{'fill-extrusion-color':['case',['==',['get','basis'],'assumed 39 ft'],'#d1d4bd','#e1decb'],'fill-extrusion-height':['get','height'],'fill-extrusion-opacity':.92}});
+map.addSource('city-shadows',{type:'geojson',data:empty,attribution:'Building footprints © City of Philadelphia'});
+map.addLayer({id:'city-shadows',type:'fill',source:'city-shadows',paint:{'fill-color':'#a7b3a3','fill-opacity':1,'fill-antialias':false}},'buildings');
+map.addSource('city-buildings',{type:'geojson',data:empty});
+map.addLayer({id:'city-buildings-flat',type:'fill',source:'city-buildings',layout:{visibility:'none'},paint:{'fill-color':'#e1decb','fill-outline-color':'#c9cbb9'}});
+map.addLayer({id:'city-buildings-3d',type:'fill-extrusion',source:'city-buildings',paint:{'fill-extrusion-color':['case',['==',['get','basis'],'assumed 39 ft'],'#d1d4bd','#e1decb'],'fill-extrusion-height':['get','height'],'fill-extrusion-opacity':.92}});
+map.on('moveend',queueCityScene);
 map.addSource('boundary',{type:'geojson',data:fc([{type:'Feature',properties:{},geometry:{type:'Polygon',coordinates:[[bounds[0],[bounds[1][0],bounds[0][1]],bounds[1],[bounds[0][0],bounds[1][1]],bounds[0]]]}}])});map.addLayer({id:'boundary',type:'line',source:'boundary',paint:{'line-color':'#8e9d80','line-width':1.5,'line-dasharray':[3,3]}});
 for(const [id,color,width] of [['fast','#cc855c',4],['shade-route','#2c7654',6]]){map.addSource(id,{type:'geojson',data:empty});map.addLayer({id,type:'line',source:id,layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':color,'line-width':width}});}
 ready=true;updateSun();fit();
-map.on('click',e=>{if(picking){const p=[e.lngLat.lng,e.lngLat.lat];useLocation(picking,'Map pin · '+p[1].toFixed(5)+', '+p[0].toFixed(5),p);picking=null;map.getCanvas().style.cursor='';document.querySelectorAll('.pick-row button').forEach(b=>b.classList.remove('active'));return;}const f=map.queryRenderedFeatures(e.point,{layers:['buildings']})[0];if(f){const el=document.createElement('div'),title=document.createElement('strong'),body=document.createElement('p');title.textContent=f.properties.name;body.textContent=`${Math.round(f.properties.height*3.28084)} ft · ${f.properties.basis}. Approximate geometry; no tree shade included.`;el.append(title,body);new maplibregl.Popup().setLngLat(e.lngLat).setDOMContent(el).addTo(map);}});
+map.on('click',e=>{if(picking){const p=[e.lngLat.lng,e.lngLat.lat];useLocation(picking,'Map pin · '+p[1].toFixed(5)+', '+p[0].toFixed(5),p);picking=null;map.getCanvas().style.cursor='';document.querySelectorAll('.pick-row button').forEach(b=>b.classList.remove('active'));return;}const f=map.queryRenderedFeatures(e.point,{layers:['buildings','city-buildings-flat','city-buildings-3d']})[0];if(f){const el=document.createElement('div'),title=document.createElement('strong'),body=document.createElement('p');title.textContent=f.properties.name;body.textContent=`${Math.round(f.properties.height*3.28084)} ft · ${f.properties.basis}. Approximate geometry; no tree shade included.`;el.append(title,body);new maplibregl.Popup().setLngLat(e.lngLat).setDOMContent(el).addTo(map);}});
 });}
 for(const [id,key] of [['pickStart','start'],['pickEnd','end']])$(id).onclick=()=>{if(!ready)return;picking=picking===key?null:key;document.querySelectorAll('.pick-row button').forEach(b=>b.classList.toggle('active',b.id===id&&!!picking));map.getCanvas().style.cursor=picking?'crosshair':'';$('routeStatus').textContent=picking?`Click on the Philadelphia map to choose your ${key}.`:'Map selection canceled.';};
 for(const key of ['start','end']){
@@ -163,5 +216,5 @@ $('calculate').onclick=async()=>{
   for(const key of ['start','end'])if(endpoints[key].label!==$(key).value.trim()){await searchLocation(key);return;}
   calculate(true);
 };$('detour').oninput=()=>{$('detourLabel').textContent=`Up to ${$('detour').value} min`;};$('detour').onchange=()=>calculate();$('time').oninput=()=>{timeText();clearTimeout(timer);timer=setTimeout(updateSun,180);};$('date').onchange=updateSun;
-for(const [id,three] of [['flat',false],['three',true]])$(id).onclick=()=>{if(!ready)return;is3d=three;map.easeTo({pitch:three?48:0,bearing:three?-18:0,duration:600});map.setPaintProperty('buildings','fill-extrusion-height',three?['get','height']:0);for(const k of ['flat','three']){$(k).classList.toggle('selected',k===id);$(k).setAttribute('aria-pressed',String(k===id));}};$('reset').onclick=()=>{if(ready)fit();};
+for(const [id,three] of [['flat',false],['three',true]])$(id).onclick=()=>{if(!ready)return;is3d=three;map.setLayoutProperty('city-buildings-flat','visibility',three?'none':'visible');map.setLayoutProperty('city-buildings-3d','visibility',three?'visible':'none');map.easeTo({pitch:three?48:0,bearing:three?-18:0,duration:600});map.setPaintProperty('buildings','fill-extrusion-height',three?['get','height']:0);for(const k of ['flat','three']){$(k).classList.toggle('selected',k===id);$(k).setAttribute('aria-pressed',String(k===id));}};$('reset').onclick=()=>{if(ready)fit();};
 
