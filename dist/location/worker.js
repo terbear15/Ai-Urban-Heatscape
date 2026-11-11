@@ -33,7 +33,7 @@ self.onmessage=async ({data:{id,query,address,suggest,trip,scene}})=>{
     }else if(trip){
       city ??= loadCity(python).catch(error=>{city=null;throw error;});
       const route=await city;
-      matches=JSON.parse(route(JSON.stringify(trip)));
+      matches=JSON.parse(await route(JSON.stringify(trip)));
     }else{
       const lookup=python.globals.get('lookup');
       try{matches=JSON.parse(await lookup(query,address,suggest));}

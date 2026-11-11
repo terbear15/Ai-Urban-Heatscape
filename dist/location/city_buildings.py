@@ -20,12 +20,12 @@ def in_center(x, y):
     return west <= x <= east and south <= y <= north
 
 
-async def fetch_buildings(window):
+async def fetch_buildings(window, minimum_area=0, include_center=False):
     features = []
     offset = 0
     while True:
         params = {
-            "where": "1=1", "geometry": ",".join(map(str, window)),
+            "where": f"square_ft >= {int(minimum_area)}" if minimum_area else "1=1", "geometry": ",".join(map(str, window)),
             "geometryType": "esriGeometryEnvelope", "inSR": 4326, "outSR": 4326,
             "spatialRel": "esriSpatialRelIntersects", "f": "geojson",
             "outFields": "objectid,address,building_name,approx_hgt,max_hgt",
@@ -42,7 +42,7 @@ async def fetch_buildings(window):
                 continue
             rings = geometry["coordinates"]
             outer = rings[0] if geometry["type"] == "Polygon" else rings[0][0]
-            if not outer or all(in_center(*point[:2]) for point in outer):
+            if not outer or (not include_center and all(in_center(*point[:2]) for point in outer)):
                 continue
             attrs = feature["properties"]
             feet = attrs.get("approx_hgt")
@@ -97,10 +97,10 @@ windows = {}
 
 
 async def city_scene(payload):
-    window, azimuth, altitude, include_buildings = json.loads(payload)
-    key = tuple(window)
+    window, azimuth, altitude, include_buildings, minimum_area = json.loads(payload)
+    key = (*window, minimum_area)
     if key not in windows:
-        windows[key] = await fetch_buildings(window)
+        windows[key] = await fetch_buildings(window, minimum_area)
         if len(windows) > 4:
             windows.pop(next(iter(windows)))
     features = windows[key]

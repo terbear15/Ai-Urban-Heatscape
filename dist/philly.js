@@ -18,7 +18,7 @@ const searches=new Map();
 function lookup(query,address=false,suggest=false){return requestLocation({query,address,suggest});}
 function requestLocation(payload){
   if(!locationWorker){
-    locationWorker=new Worker('location/worker.js?v=city-shade');
+    locationWorker=new Worker('location/worker.js?v=route-shade');
     locationWorker.onmessage=({data})=>{
       const pending=searches.get(data.id);
       if(!pending)return;
@@ -84,7 +84,43 @@ function marker(key,p){if(!markers[key]){const el=document.createElement('div');
 function feature(route){return fc([{type:'Feature',properties:{},geometry:{type:'LineString',coordinates:route.coords}}]);}
 function fit(){if(result){const b=new maplibregl.LngLatBounds();[...result.fast.coords,...result.shade.coords].forEach(p=>b.extend(p));map.fitBounds(b,{padding:{top:90,bottom:110,left:80,right:60},maxZoom:16,pitch:is3d?48:0,bearing:is3d?-18:0,duration:700});}else map.fitBounds(bounds,{padding:50});}
 function selectRoute(which){selected=which;document.querySelectorAll('.route-card').forEach(b=>{const active=b.dataset.route===which;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});map.setPaintProperty('fast','line-opacity',which==='fast'?1:.65);map.setPaintProperty('shade-route','line-opacity',which==='shade'?1:.6);map.moveLayer(which==='shade'?'shade-route':'fast');}
-function calculateLocal(zoom=false){if(!ready||['start','end'].some(key=>endpoints[key].label!==$(key).value.trim()))return;try{result=engine.routes(coord('start'),coord('end'),+$('detour').value);map.getSource('fast').setData(feature(result.fast));const hasShadeDetour=result.shade!==result.fast;map.getSource('shade-route').setData(hasShadeDetour?feature(result.shade):empty);marker('start',result.start.coord);marker('end',result.end.coord);const gain=(result.fast.exposure-result.shade.exposure)/80.4672;const card=(key,title,tag)=>{const r=result[key],minutes=r.length/80.4672,sun=r.exposure/80.4672;return `<button class="route-card ${key==='fast'?'direct':''}" data-route="${key}" aria-pressed="false"><div class="card-title">${title}<small>${tag}</small></div><div class="route-stats"><strong>${Math.round(minutes)} <span>min</span></strong><span>· ${(r.length/1609.344).toFixed(2)} mi</span></div><div class="sun-bar"><i style="width:${r.exposure/r.length*100}%"></i></div><div class="card-foot"><span>~${sun.toFixed(1)} min modeled sun</span><span>${Math.round((1-r.exposure/r.length)*100)}% shade</span></div></button>`;};$('results').innerHTML=(hasShadeDetour?card('shade','Lower-sun candidate','MODELED'):'')+card('fast','Shortest walk',hasShadeDetour?'BASELINE':'RECOMMENDED')+`<p class="result-note">${gain>.1?`About ${gain.toFixed(1)} fewer minutes in modeled direct sun, for ${((result.shade.length-result.fast.length)/80.4672).toFixed(1)} extra walking minutes total.`:'Take the shortest walk. The search found no lower-sun route within your per-detour time limit.'} Building shade only; street-centerline estimates.</p>`;document.querySelectorAll('.route-card').forEach(b=>b.onclick=()=>selectRoute(b.dataset.route));selectRoute(hasShadeDetour?selected:'fast');if(!hasShadeDetour)selected='shade';$('routeStatus').textContent=`3 mph estimate · Points snapped ${Math.round(result.start.meters*3.28084)} ft / ${Math.round(result.end.meters*3.28084)} ft to network; those gaps excluded.`;if(zoom)fit();}catch(e){result=null;map.getSource('fast').setData(empty);map.getSource('shade-route').setData(empty);$('results').innerHTML='';$('routeStatus').textContent=e.message;}}
+function showRoute(route, zoom){
+  const hasShadeDetour=Boolean(route.shade && route.shade!==route.fast);
+  const hasExposure=Number.isFinite(route.fast.exposure);
+  result={...route,shade:route.shade||route.fast};
+  map.getSource('fast').setData(feature(route.fast));
+  map.getSource('shade-route').setData(hasShadeDetour?feature(route.shade):empty);
+  marker('start',route.start.coord);
+  marker('end',route.end.coord);
+
+  function card(key,title,tag){
+    const r=result[key];
+    const minutes=r.length/80.4672;
+    const shadeDetails=hasExposure?`<div class="sun-bar"><i style="width:${r.exposure/r.length*100}%"></i></div>
+      <div class="card-foot"><span>~${(r.exposure/80.4672).toFixed(1)} min modeled sun</span>
+      <span>${Math.round((1-r.exposure/r.length)*100)}% shade</span></div>`:'';
+    return `<button class="route-card ${key==='fast'?'direct':''}" data-route="${key}" aria-pressed="false">
+      <div class="card-title">${title}<small>${tag}</small></div>
+      <div class="route-stats"><strong>${Math.round(minutes)} <span>min</span></strong>
+      <span>· ${(r.length/1609.344).toFixed(2)} mi</span></div>${shadeDetails}</button>`;
+  }
+
+  let note='The search found no lower-sun route within your per-detour time limit.';
+  if(!hasExposure)note='Building shade could not be loaded for this trip. Try again to compare routes.';
+  if(hasShadeDetour){
+    const saved=(route.fast.exposure-route.shade.exposure)/80.4672;
+    const added=(route.shade.length-route.fast.length)/80.4672;
+    note=`About ${saved.toFixed(1)} fewer minutes in modeled direct sun for ${added.toFixed(1)} extra walking minutes total.`;
+  }
+  $('results').innerHTML=(hasShadeDetour?card('shade','Lower-sun candidate','MODELED'):'')+
+    card('fast','Shortest walk',hasShadeDetour?'BASELINE':'RECOMMENDED')+
+    `<p class="result-note">${note}${hasExposure?' Building shade only; street-centerline estimates.':''}</p>`;
+  document.querySelectorAll('.route-card').forEach(button=>button.onclick=()=>selectRoute(button.dataset.route));
+  selectRoute(hasShadeDetour?selected:'fast');
+  if(!hasShadeDetour)selected='shade';
+  $('routeStatus').textContent=`3 mph estimate · Points snapped ${Math.round(route.start.meters*3.28084)} ft / ${Math.round(route.end.meters*3.28084)} ft to the network; those gaps excluded.`;
+  if(zoom)fit();
+}
 const cityBounds=[[-75.281,39.867],[-74.955,40.139]];
 const inShadeArea=([x,y])=>x>=bounds[0][0]&&x<=bounds[1][0]&&y>=bounds[0][1]&&y<=bounds[1][1];
 let routeVersion=0, pendingCityTrip;
@@ -92,13 +128,18 @@ async function calculate(zoom=false){
   if(!ready||['start','end'].some(key=>endpoints[key].label!==$(key).value.trim()))return;
   const trip=[coord('start'),coord('end')];
   const version=++routeVersion;
-  if(trip.every(inShadeArea)){calculateLocal(zoom);return;}
-  const key=JSON.stringify(trip);
-  if(!zoom&&result?.cityKey===key){
-    $('routeStatus').textContent=result.status;
+  if(trip.every(inShadeArea)){
+    try{showRoute(engine.routes(...trip,+$('detour').value),zoom);}
+    catch(error){clearRoute(error.message);}
     return;
   }
-  $('routeStatus').textContent='Finding a walking route across Philadelphia…';
+  if(!citySun)return;
+  trip.push(citySun.azimuth,citySun.altitude,+$('detour').value);
+  const key=JSON.stringify(trip);
+  if(!zoom&&result?.cityKey===key){
+    return;
+  }
+  $('routeStatus').textContent='Comparing building shade along the walk…';
   try{
     if(pendingCityTrip?.key!==key){
       const promise=requestLocation({trip});
@@ -108,26 +149,18 @@ async function calculate(zoom=false){
     }
     const route=await pendingCityTrip.promise;
     if(version!==routeVersion||['start','end'].some(k=>endpoints[k].label!==$(k).value.trim()))return;
-    const status=`3 mph estimate · Points snapped ${Math.round(route.start.meters*3.28084)} ft / ${Math.round(route.end.meters*3.28084)} ft to the network.`;
-    result={...route,shade:route.fast,cityKey:key,status};
-    map.getSource('fast').setData(feature(route.fast));
-    map.getSource('shade-route').setData(empty);
-    marker('start',route.start.coord);
-    marker('end',route.end.coord);
-    $('results').innerHTML=`<button class="route-card direct" data-route="fast" aria-pressed="true"><div class="card-title">Shortest walk<small>PHILADELPHIA</small></div><div class="route-stats"><strong>${Math.round(route.fast.length/80.4672)} <span>min</span></strong><span>· ${(route.fast.length/1609.344).toFixed(2)} mi</span></div></button><p class="result-note">Building shadows appear on the map. Route sun comparisons are available within the dashed Center City study area.</p>`;
-    selectRoute('fast');
-    selected='shade';
-    $('routeStatus').textContent=status;
-    fit();
+    showRoute({...route,cityKey:key},zoom || !result?.cityKey);
   }catch(error){
-    if(version!==routeVersion)return;
-    result=null;
-    map.getSource('fast').setData(empty);
-    map.getSource('shade-route').setData(empty);
-    for(const key of Object.keys(markers)){markers[key].remove();delete markers[key];}
-    $('results').replaceChildren();
-    $('routeStatus').textContent=error.message;
+    if(version===routeVersion)clearRoute(error.message);
   }
+}
+function clearRoute(message){
+  result=null;
+  map.getSource('fast').setData(empty);
+  map.getSource('shade-route').setData(empty);
+  for(const key of Object.keys(markers)){markers[key].remove();delete markers[key];}
+  $('results').replaceChildren();
+  $('routeStatus').textContent=message;
 }
 $('cityOverview').onclick=()=>{
   if(ready)map.fitBounds(cityBounds,{padding:45,pitch:map.getPitch(),bearing:map.getBearing(),duration:650});
@@ -143,10 +176,10 @@ async function renderCityScene(version){
   const label=$('buildingStatus');
   const view=map.getBounds();
   const insideCenter=inShadeArea([view.getWest(),view.getSouth()])&&inShadeArea([view.getEast(),view.getNorth()]);
-  if(map.getZoom()<15||insideCenter){
+  if(insideCenter){
     for(const id of ['city-buildings','city-shadows'])map.getSource(id).setData(empty);
     displayedWindow=null;
-    label.textContent=insideCenter?'Center City building shade':'Zoom in for buildings and shade';
+    label.textContent='Center City building shade';
     return;
   }
   const grid=.005;
@@ -161,18 +194,19 @@ async function renderCityScene(version){
     return;
   }
   const window=[west,south,east,north].map(value=>Number(value.toFixed(6)));
-  const key=window.join(',');
+  const minimumArea=map.getZoom()<12?50000:map.getZoom()<14?15000:map.getZoom()<15?3500:0;
+  const key=[...window,minimumArea].join(',');
   const changed=key!==displayedWindow;
   if(changed)label.textContent='Loading neighborhood buildings…';
   try{
-    const scene=await requestLocation({scene:[window,citySun.azimuth,citySun.altitude,changed]});
+    const scene=await requestLocation({scene:[window,citySun.azimuth,citySun.altitude,changed,minimumArea]});
     if(version!==sceneVersion)return;
     if(scene.buildings){
       map.getSource('city-buildings').setData(scene.buildings);
       displayedWindow=key;
     }
     map.getSource('city-shadows').setData(scene.shadows);
-    label.textContent='Philadelphia building shade';
+    label.textContent=minimumArea?'Large buildings and their shade · zoom in for detail':'Philadelphia building shade';
   }catch(error){
     if(version!==sceneVersion)return;
     label.textContent='Neighborhood building data unavailable';
