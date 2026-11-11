@@ -20,7 +20,52 @@ function push(item){heap.push(item);let i=heap.length-1;while(i){const p=(i-1)>>
 function pop(){const first=heap[0],last=heap.pop();if(heap.length){let i=0;while(i*2+1<heap.length){let c=i*2+1;if(c+1<heap.length&&heap[c+1][0]<heap[c][0])c++;if(heap[c][0]>=last[0])break;heap[i]=heap[c];i=c;}heap[i]=last;}return first;}
 push([0,start]);while(heap.length){const [cost,k]=pop();if(cost!==costs.get(k))continue;if(k===end)break;for(const e of nodes.get(k).links){const next=e.a===k?e.b:e.a,value=cost+e.length*(1+penalty*e.sun);if(value<(costs.get(next)??Infinity)){costs.set(next,value);previous.set(next,{k,e});push([value,next]);}}}
 if(!costs.has(end))return null;let k=end,segments=[],coords=[ll(nodes.get(end).p)];while(k!==start){const prev=previous.get(k);segments.push(prev.e);k=prev.k;coords.push(ll(nodes.get(k).p));}segments.reverse();coords.reverse();return {segments,coords,length:segments.reduce((s,e)=>s+e.length,0),exposure:segments.reduce((s,e)=>s+e.length*e.sun,0)};}
-function routes(a,b,extra){const start=snap(a),end=snap(b);if(start.id===end.id)throw Error('Choose two places farther apart.');if(start.meters>150||end.meters>150)throw Error('Choose points closer to the network inside the study boundary.');const fast=path(start.id,end.id,0);if(!fast)throw Error('No connected route in this extract.');const limit=fast.length+extra*80.4672;let shade=fast;for(const p of [.5,1,2,4,8,16,40]){const r=path(start.id,end.id,p);if(r&&r.length<=limit&&r.exposure<shade.exposure)shade=r;}return {fast,shade,start,end};}
+function routeNodes(route,start){
+  const keys=[start];
+  for(const edge of route.segments)keys.push(edge.a===keys.at(-1)?edge.b:edge.a);
+  return keys;
+}
+function metrics(segments){
+  return {
+    length:segments.reduce((sum,edge)=>sum+edge.length,0),
+    exposure:segments.reduce((sum,edge)=>sum+edge.length*edge.sun,0),
+  };
+}
+function localDetours(fast,candidate,start,maxExtra){
+  const fastKeys=routeNodes(fast,start);
+  const positions=new Map(fastKeys.map((key,index)=>[key,index]));
+  const joins=routeNodes(candidate,start).flatMap((key,index)=>
+    positions.has(key)?[[positions.get(key),index]]:[]);
+  const segments=[];
+  for(let i=1;i<joins.length;i++){
+    const [from,altFrom]=joins[i-1];
+    const [to,altTo]=joins[i];
+    if(to<=from)return fast;
+    const direct=fast.segments.slice(from,to);
+    const detour=candidate.segments.slice(altFrom,altTo);
+    const base=metrics(direct), alt=metrics(detour);
+    segments.push(...(alt.length<=base.length+maxExtra+1e-6 &&
+      alt.exposure<base.exposure-1e-6?detour:direct));
+  }
+  const summary=metrics(segments);
+  if(summary.exposure>=fast.exposure-1e-6)return fast;
+  return {...summary,segments,coords:routeNodes({segments},start).map(key=>ll(nodes.get(key).p))};
+}
+function routes(a,b,extra){
+  const start=snap(a),end=snap(b);
+  if(start.id===end.id)throw Error('Choose two places farther apart.');
+  if(start.meters>150||end.meters>150)throw Error('Choose points closer to the network inside the study boundary.');
+  const fast=path(start.id,end.id,0);
+  if(!fast)throw Error('No connected route in this extract.');
+  let shade=fast;
+  for(const penalty of [.5,1,2,4,8,16,40]){
+    const candidate=path(start.id,end.id,penalty);
+    if(!candidate)continue;
+    const mixed=localDetours(fast,candidate,start.id,extra*80.4672);
+    if(mixed.exposure<shade.exposure)shade=mixed;
+  }
+  return {fast,shade,start,end};
+}
 return {nodes,edges,updateShade,routes,snap,componentSize:largest.size};}
 root.HeatEngine={create,xy,ll,contains,distance};if(typeof module!=='undefined')module.exports=root.HeatEngine;
 })(typeof window!=='undefined'?window:globalThis);
