@@ -41,8 +41,18 @@ function useLocation(key,label,point){
   endpoints[key]={label,point};
   $(key).value=label;
   $(key+'Matches').hidden=true;
-  if(hasTrip())calculate(true);
-  else $('routeStatus').textContent=key==='start'?'Choose a destination to compare routes.':'Choose a starting point to compare routes.';
+  const version=++routeVersion;
+  if(map)marker(key,point);
+  const message=hasTrip()?'Calculating walking routes…':
+    key==='start'?'Choose a destination to compare routes.':'Choose a starting point to compare routes.';
+  if(ready)clearRoute(message);
+  else $('routeStatus').textContent=message;
+  if(hasTrip()){
+    // Let the new pin and status paint before starting route calculation.
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      if(version===routeVersion&&hasTrip())calculate(true);
+    }));
+  }
 }
 const suggestionTimers={};
 const searchVersions={start:0,end:0};
@@ -91,8 +101,6 @@ function showRoute(route, zoom){
   result={...route,shade:route.shade||route.fast};
   map.getSource('fast').setData(feature(route.fast));
   map.getSource('shade-route').setData(hasShadeDetour?feature(route.shade):empty);
-  marker('start',route.start.coord);
-  marker('end',route.end.coord);
 
   function card(key,title,tag){
     const r=result[key];
@@ -165,7 +173,11 @@ function clearRoute(message){
   result=null;
   map.getSource('fast').setData(empty);
   map.getSource('shade-route').setData(empty);
-  for(const key of Object.keys(markers)){markers[key].remove();delete markers[key];}
+  for(const key of Object.keys(markers)){
+    if(hasLocation(key))continue;
+    markers[key].remove();
+    delete markers[key];
+  }
   $('results').replaceChildren();
   $('routeStatus').textContent=message;
 }
@@ -176,9 +188,13 @@ let citySun, localSun;
 function timeText(){const t=+$('time').value,h=Math.floor(t),m=Math.round((t-h)*60);$('timeLabel').textContent=`${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`;return {h,m};}
 function updateSun(){if(!ready)return;const {h,m}=timeText(),date=$('date').value;if(!date||!$('date').checkValidity()){ $('routeStatus').textContent='Choose a summer date between June 1 and August 31, 2026.';return; }$('calculate').disabled=true;const sun=SunCalc.getPosition(new Date(`${date}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00-04:00`),39.9515,-75.167);citySun=sun;$('solarLabel').textContent=`Sun elevation ${Math.round(sun.altitude*180/Math.PI)}° · Summer scenario, not live`;calculate();$('calculate').disabled=false;}
 if(map){map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');map.addControl(new maplibregl.ScaleControl({unit:'imperial'}),'bottom-right');map.on('error',e=>{if(e.sourceId==='base')err('Background tiles unavailable. Route lines are still available.');});map.on('load',()=>{
-map.addSource('city-fade',{type:'geojson',data:'location/city-fade.geojson',tolerance:0});
-map.addLayer({id:'city-fade',type:'fill',source:'city-fade',paint:{
-  'fill-color':'#fff','fill-opacity':['get','opacity'],'fill-antialias':false,
+map.addSource('city-mask',{type:'geojson',data:'location/city-mask.geojson',tolerance:0});
+map.addLayer({id:'city-mask',type:'fill',source:'city-mask',paint:{
+  'fill-color':'#fff','fill-opacity':.36,'fill-antialias':false,
+}});
+map.addSource('city-limits',{type:'geojson',data:'location/city-boundary.geojson',tolerance:0});
+map.addLayer({id:'city-limits',type:'line',source:'city-limits',paint:{
+  'line-color':'#fff','line-width':2,'line-opacity':.95,
 }});
 for(const [id,color,width] of [['fast','#f4a96e',4],['shade-route','#8bd5a6',5]]){
   map.addSource(id,{type:'geojson',data:empty});
