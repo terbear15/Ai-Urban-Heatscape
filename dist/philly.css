@@ -58,3 +58,5 @@
 }
 .location-matches button + button { border-top:1px solid var(--line); }
 .location-matches button:hover,.location-matches button:focus-visible { background:#e8ece1; }
+
+.city-overview{bottom:72px}

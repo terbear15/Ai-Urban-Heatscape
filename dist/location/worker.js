@@ -7,14 +7,33 @@ async function initialize(){
     python.FS.writeFile(name,await response.text());
   }));
   await python.runPythonAsync(python.FS.readFile('lookup.py', {encoding:'utf8'}));
-  return python.globals.get('lookup');
+  return python;
 }
-let runtime;
-self.onmessage=async ({data:{id,query,address,suggest}})=>{
+let runtime, city;
+async function loadCity(python){
+  const response=await fetch('../explorer/app.resources.zip');
+  if(!response.ok)throw new Error('The Philadelphia walking network could not load.');
+  python.unpackArchive(await response.arrayBuffer(),'zip');
+  await python.loadPackage('numpy');
+  const bridge=await fetch('city_route.py'+self.location.search);
+  if(!bridge.ok)throw new Error('City routing could not start.');
+  await python.runPythonAsync(await bridge.text());
+  return python.globals.get('city_route');
+}
+self.onmessage=async ({data:{id,query,address,suggest,trip}})=>{
   try{
     runtime ??= initialize().catch(error=>{runtime=null;throw error;});
-    const lookup=await runtime;
-    const matches=JSON.parse(await lookup(query,address,suggest));
+    const python=await runtime;
+    let matches;
+    if(trip){
+      city ??= loadCity(python).catch(error=>{city=null;throw error;});
+      const route=await city;
+      matches=JSON.parse(route(JSON.stringify(trip)));
+    }else{
+      const lookup=python.globals.get('lookup');
+      try{matches=JSON.parse(await lookup(query,address,suggest));}
+      finally{lookup.destroy();}
+    }
     self.postMessage({id,matches});
   }catch(error){
     self.postMessage({id,error:String(error.message).trim().split('\n').at(-1)});
