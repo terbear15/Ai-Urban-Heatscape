@@ -60,3 +60,5 @@
 .location-matches button:hover,.location-matches button:focus-visible { background:#e8ece1; }
 
 .city-overview{bottom:72px}
+
+.city-swatch{background:#d5e4d2;border:1px solid #7c9980}

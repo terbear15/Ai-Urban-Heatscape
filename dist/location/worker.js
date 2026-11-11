@@ -7,7 +7,6 @@ async function initialize(){
     python.FS.writeFile(name,await response.text());
   }));
   await python.runPythonAsync(python.FS.readFile('lookup.py', {encoding:'utf8'}));
-  await python.runPythonAsync('from city_buildings import city_scene');
   return python;
 }
 let runtime, city;
@@ -21,16 +20,12 @@ async function loadCity(python){
   await python.runPythonAsync(await bridge.text());
   return python.globals.get('city_route');
 }
-self.onmessage=async ({data:{id,query,address,suggest,trip,scene}})=>{
+self.onmessage=async ({data:{id,query,address,suggest,trip}})=>{
   try{
     runtime ??= initialize().catch(error=>{runtime=null;throw error;});
     const python=await runtime;
     let matches;
-    if(scene){
-      const render=python.globals.get('city_scene');
-      try{matches=JSON.parse(await render(JSON.stringify(scene)));}
-      finally{render.destroy();}
-    }else if(trip){
+    if(trip){
       city ??= loadCity(python).catch(error=>{city=null;throw error;});
       const route=await city;
       matches=JSON.parse(await route(JSON.stringify(trip)));

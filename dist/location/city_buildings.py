@@ -1,5 +1,4 @@
 """Fetch Philadelphia building footprints for a map window and project their shadows."""
-import json
 import math
 from urllib.parse import urlencode
 
@@ -91,18 +90,3 @@ def shadows(features, azimuth, altitude):
                     shapes.append({"type": "Feature", "properties": {},
                                    "geometry": {"type": "Polygon", "coordinates": [quad]}})
     return collection(shapes)
-
-
-windows = {}
-
-
-async def city_scene(payload):
-    window, azimuth, altitude, include_buildings, minimum_area = json.loads(payload)
-    key = (*window, minimum_area)
-    if key not in windows:
-        windows[key] = await fetch_buildings(window, minimum_area)
-        if len(windows) > 4:
-            windows.pop(next(iter(windows)))
-    features = windows[key]
-    return json.dumps({"buildings": collection(features) if include_buildings else None,
-                       "shadows": shadows(features, azimuth, altitude)})
