@@ -15,9 +15,9 @@ function coord(key){
 }
 let locationWorker, searchId=0;
 const searches=new Map();
-function lookup(query,address=false){
+function lookup(query,address=false,suggest=false){
   if(!locationWorker){
-    locationWorker=new Worker('location/worker.js');
+    locationWorker=new Worker('location/worker.js?v=autocomplete');
     locationWorker.onmessage=({data})=>{
       const pending=searches.get(data.id);
       if(!pending)return;
@@ -32,7 +32,7 @@ function lookup(query,address=false){
   return new Promise((resolve,reject)=>{
     const id=++searchId;
     searches.set(id,{resolve,reject});
-    locationWorker.postMessage({id,query,address});
+    locationWorker.postMessage({id,query,address,suggest});
   });
 }
 function useLocation(key,label,point){
@@ -45,16 +45,22 @@ function useLocation(key,label,point){
   if(['start','end'].every(k=>endpoints[k].label===$(k).value.trim()))calculate(true);
   else $('routeStatus').textContent='Search for the other location to compare routes.';
 }
-async function searchLocation(key){
+const suggestionTimers={};
+const searchVersions={start:0,end:0};
+async function searchLocation(key,suggest=false){
+  clearTimeout(suggestionTimers[key]);
+  const version=++searchVersions[key];
   const query=$(key).value.trim(), button=$(key+'Search'), list=$(key+'Matches');
   if(!query){$('routeStatus').textContent='Enter a Philadelphia address or place name.';return;}
   list.hidden=true;
-  button.disabled=true;
-  $('routeStatus').textContent='Searching Philadelphia…';
+  if(!suggest){
+    button.disabled=true;
+    $('routeStatus').textContent='Searching Philadelphia…';
+  }
   try{
-    const matches=await lookup(query);
-    if($(key).value.trim()!==query)return;
-    if(matches.length===1&&matches[0].point){
+    const matches=await lookup(query,false,suggest);
+    if($(key).value.trim()!==query||searchVersions[key]!==version)return;
+    if(!suggest&&matches.length===1&&matches[0].point){
       useLocation(key,matches[0].label,matches[0].point);return;
     }
     list.replaceChildren();
@@ -71,16 +77,16 @@ async function searchLocation(key){
       };
       list.append(option);
     }
-    list.hidden=false;
-    $('routeStatus').textContent='Choose the matching location.';
-  }catch(error){if($(key).value.trim()===query)$('routeStatus').textContent=error.message;}
-  finally{button.disabled=false;}
+    list.hidden=matches.length===0;
+    if(!suggest)$('routeStatus').textContent='Choose the matching location.';
+  }catch(error){if(!suggest&&$(key).value.trim()===query)$('routeStatus').textContent=error.message;}
+  finally{if(!suggest)button.disabled=false;}
 }
 function marker(key,p){if(!markers[key]){const el=document.createElement('div');el.className='marker '+(key==='end'?'end':'');el.textContent=key==='start'?'A':'B';el.setAttribute('aria-label',key==='start'?'Route start':'Route destination');markers[key]=new maplibregl.Marker({element:el}).setLngLat(p).addTo(map);}else markers[key].setLngLat(p);}
 function feature(route){return fc([{type:'Feature',properties:{},geometry:{type:'LineString',coordinates:route.coords}}]);}
 function fit(){if(result){const b=new maplibregl.LngLatBounds();[...result.fast.coords,...result.shade.coords].forEach(p=>b.extend(p));map.fitBounds(b,{padding:{top:90,bottom:110,left:80,right:60},maxZoom:16,pitch:is3d?48:0,bearing:is3d?-18:0,duration:700});}else map.fitBounds(bounds,{padding:50});}
 function selectRoute(which){selected=which;document.querySelectorAll('.route-card').forEach(b=>{const active=b.dataset.route===which;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});map.setPaintProperty('fast','line-opacity',which==='fast'?1:.65);map.setPaintProperty('shade-route','line-opacity',which==='shade'?1:.6);map.moveLayer(which==='shade'?'shade-route':'fast');}
-function calculate(zoom=false){if(!ready)return;try{result=engine.routes(coord('start'),coord('end'),+$('detour').value);map.getSource('fast').setData(feature(result.fast));map.getSource('shade-route').setData(feature(result.shade));marker('start',result.start.coord);marker('end',result.end.coord);const gain=(result.fast.exposure-result.shade.exposure)/80.4672;const card=(key,title,tag)=>{const r=result[key],minutes=r.length/80.4672,sun=r.exposure/80.4672;return `<button class="route-card ${key==='fast'?'direct':''}" data-route="${key}" aria-pressed="false"><div class="card-title">${title}<small>${tag}</small></div><div class="route-stats"><strong>${Math.round(minutes)} <span>min</span></strong><span>· ${(r.length/1609.344).toFixed(2)} mi</span></div><div class="sun-bar"><i style="width:${r.exposure/r.length*100}%"></i></div><div class="card-foot"><span>~${sun.toFixed(1)} min modeled sun</span><span>${Math.round((1-r.exposure/r.length)*100)}% shade</span></div></button>`;};$('results').innerHTML=card('shade','Lower-sun candidate','MODELED')+card('fast','Shortest walk','BASELINE')+`<p class="result-note">${gain>.1?`About ${gain.toFixed(1)} fewer minutes in modeled direct sun, for ${((result.shade.length-result.fast.length)/80.4672).toFixed(1)} extra walking minutes.`:'No meaningful lower-exposure alternative found within this allowance.'} Building shade only; street-centerline estimates.</p>`;document.querySelectorAll('.route-card').forEach(b=>b.onclick=()=>selectRoute(b.dataset.route));selectRoute(selected);$('routeStatus').textContent=`3 mph estimate · Points snapped ${Math.round(result.start.meters*3.28084)} ft / ${Math.round(result.end.meters*3.28084)} ft to network; those gaps excluded.`;if(zoom)fit();}catch(e){result=null;map.getSource('fast').setData(empty);map.getSource('shade-route').setData(empty);$('results').innerHTML='';$('routeStatus').textContent=e.message;}}
+function calculate(zoom=false){if(!ready||['start','end'].some(key=>endpoints[key].label!==$(key).value.trim()))return;try{result=engine.routes(coord('start'),coord('end'),+$('detour').value);map.getSource('fast').setData(feature(result.fast));map.getSource('shade-route').setData(feature(result.shade));marker('start',result.start.coord);marker('end',result.end.coord);const gain=(result.fast.exposure-result.shade.exposure)/80.4672;const card=(key,title,tag)=>{const r=result[key],minutes=r.length/80.4672,sun=r.exposure/80.4672;return `<button class="route-card ${key==='fast'?'direct':''}" data-route="${key}" aria-pressed="false"><div class="card-title">${title}<small>${tag}</small></div><div class="route-stats"><strong>${Math.round(minutes)} <span>min</span></strong><span>· ${(r.length/1609.344).toFixed(2)} mi</span></div><div class="sun-bar"><i style="width:${r.exposure/r.length*100}%"></i></div><div class="card-foot"><span>~${sun.toFixed(1)} min modeled sun</span><span>${Math.round((1-r.exposure/r.length)*100)}% shade</span></div></button>`;};$('results').innerHTML=card('shade','Lower-sun candidate','MODELED')+card('fast','Shortest walk','BASELINE')+`<p class="result-note">${gain>.1?`About ${gain.toFixed(1)} fewer minutes in modeled direct sun, for ${((result.shade.length-result.fast.length)/80.4672).toFixed(1)} extra walking minutes.`:'No meaningful lower-exposure alternative found within this allowance.'} Building shade only; street-centerline estimates.</p>`;document.querySelectorAll('.route-card').forEach(b=>b.onclick=()=>selectRoute(b.dataset.route));selectRoute(selected);$('routeStatus').textContent=`3 mph estimate · Points snapped ${Math.round(result.start.meters*3.28084)} ft / ${Math.round(result.end.meters*3.28084)} ft to network; those gaps excluded.`;if(zoom)fit();}catch(e){result=null;map.getSource('fast').setData(empty);map.getSource('shade-route').setData(empty);$('results').innerHTML='';$('routeStatus').textContent=e.message;}}
 function timeText(){const t=+$('time').value,h=Math.floor(t),m=Math.round((t-h)*60);$('timeLabel').textContent=`${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`;return {h,m};}
 function updateSun(){if(!ready)return;const {h,m}=timeText(),date=$('date').value;if(!date||!$('date').checkValidity()){ $('routeStatus').textContent='Choose a summer date between June 1 and August 31, 2026.';return; }$('calculate').disabled=true;const sun=SunCalc.getPosition(new Date(`${date}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00-04:00`),39.9515,-75.167);const shadows=engine.updateShade(sun.azimuth,sun.altitude);map.getSource('shadows').setData(shadows);map.setLight({anchor:'map',position:[1.5,(sun.azimuth*180/Math.PI+180+360)%360,90-sun.altitude*180/Math.PI],intensity:.35});$('solarLabel').textContent=`Sun elevation ${Math.round(sun.altitude*180/Math.PI)}° · Summer scenario, not live`;calculate();$('calculate').disabled=false;}
 if(map){map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');map.addControl(new maplibregl.ScaleControl({unit:'imperial'}),'bottom-right');map.on('error',e=>{if(e.sourceId==='base')err('Background tiles unavailable. Local building and route data are still displayed.');});map.on('load',()=>{
@@ -95,10 +101,15 @@ map.on('click',e=>{if(picking){const p=[e.lngLat.lng,e.lngLat.lat];if(p[0]<bound
 for(const [id,key] of [['pickStart','start'],['pickEnd','end']])$(id).onclick=()=>{if(!ready)return;picking=picking===key?null:key;document.querySelectorAll('.pick-row button').forEach(b=>b.classList.toggle('active',b.id===id&&!!picking));map.getCanvas().style.cursor=picking?'crosshair':'';$('routeStatus').textContent=picking?`Click inside the dashed study boundary to choose your ${key}.`:'Map selection canceled.';};
 for(const key of ['start','end']){
   $(key+'Search').onclick=()=>searchLocation(key);
-  $(key).onkeydown=event=>{if(event.key==='Enter'){event.preventDefault();$(key+'Search').click();}};
+  $(key).onkeydown=event=>{if(event.key==='Enter'){event.preventDefault();$(key+'Search').click();}else if(event.key==='Escape'){++searchVersions[key];clearTimeout(suggestionTimers[key]);$(key+'Matches').hidden=true;}};
   $(key).oninput=()=>{
     $(key+'Matches').hidden=true;
-    if(ready&&endpoints[key].label!==$(key).value.trim())calculate();
+    ++searchVersions[key];
+    clearTimeout(suggestionTimers[key]);
+    const query=$(key).value.trim();
+    if(endpoints[key].label===query)return;
+    $('routeStatus').textContent='Choose a suggestion or press Enter to update the route.';
+    if(query.length>=3)suggestionTimers[key]=setTimeout(()=>searchLocation(key,true),250);
   };
 }
 $('calculate').onclick=async()=>{
