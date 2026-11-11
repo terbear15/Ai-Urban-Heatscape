@@ -5,3 +5,10 @@ node_modules/
 *.tar.gz
 .DS_Store
 osm-philly.xml
+osm-philly-roads.json
+raw/
+python/data/walk.graphml
+python/data/philadelphia.json
+__pycache__/
+site-build/
+.quarto/

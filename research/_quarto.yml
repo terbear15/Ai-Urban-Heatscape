@@ -1,0 +1,20 @@
+project:
+  type: website
+  output-dir: ../dist/research
+website:
+  title: HeatScape
+  navbar:
+    background: "#294d3b"
+    foreground: "#ffffff"
+    left:
+      - href: index.qmd
+        text: Python preview
+      - href: methods.qmd
+        text: Data & methods
+      - href: ../explorer/app.html
+        text: Open map ↗
+format:
+  html:
+    theme: cosmo
+    toc: true
+    css: styles.css

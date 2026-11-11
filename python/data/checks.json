@@ -1,0 +1,40 @@
+{
+  "routes": [
+    {
+      "from": "Rittenhouse Square",
+      "to": "LOVE Park",
+      "miles": 0.62,
+      "coverage": 1.0,
+      "sun_minutes_saved": 4.75
+    },
+    {
+      "from": "City Hall",
+      "to": "Kimmel Center",
+      "miles": 0.35,
+      "coverage": 1.0,
+      "sun_minutes_saved": 0.64
+    },
+    {
+      "from": "30th Street Station",
+      "to": "Reading Terminal Market",
+      "miles": 1.36,
+      "coverage": 0.668,
+      "sun_minutes_saved": null
+    },
+    {
+      "from": "Philadelphia Museum of Art",
+      "to": "Liberty Bell",
+      "miles": 2.39,
+      "coverage": 0.337,
+      "sun_minutes_saved": null
+    }
+  ],
+  "checks": [
+    "A* agrees with NetworkX Dijkstra on four trips",
+    "detour and exposure bounds",
+    "same-point and outside-city rejection",
+    "Panel document serialization",
+    "search success and failure callbacks; stale route cleared"
+  ],
+  "browser_verified": false
+}

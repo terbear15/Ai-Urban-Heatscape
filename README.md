@@ -1,5 +1,41 @@
 # HeatScape
 
+## Python / Philadelphia preview
+
+**Website:** https://terbear15.github.io/Ai-Urban-Heatscape/dist/research/
+
+**Interactive map:** https://terbear15.github.io/Ai-Urban-Heatscape/dist/explorer/app.html
+
+This preview adds typed place/address search, a citywide directed OSMnx walking graph, Python routing and callbacks, a Panel dashboard, linked Bokeh charts and CSV export. Building-shadow comparisons remain limited to Center City. The previous main page is retained while the Python migration receives visual review.
+
+The new application is authored in Python. Panel generates the browser JavaScript needed to render it; the old JavaScript prototypes remain archived. There is no trained AI model, tree canopy model, live temperature, GPS button or verified pedestrian navigation. Browser visual/click-through verification of this preview is pending; native Python checks are available below.
+
+### Reproduce
+
+The native pipeline was tested with Python 3.14.7. Install dependencies with `pip install -r python/requirements.txt`. The committed compressed dataset lets you build without downloading raw OSM again:
+
+```sh
+python python/check.py
+python python/build.py
+quarto render research
+python -m http.server 8766 --directory dist
+```
+
+Open `http://localhost:8766/explorer/app.html`. The first visit downloads the Python runtime and approximately 12 MB of compressed project data. A network connection and WebGL support are needed.
+
+To regenerate the geographic dataset:
+
+```sh
+python python/fetch_data.py
+python python/prepare_data.py
+```
+
+The preparation step uses the existing `dist/philly-data.js` building extract. Its original acquisition is described in `PHILADELPHIA.md`. Raw road inputs and the 100 MB intermediate GraphML are excluded from Git. API results can change; the committed compressed dataset is the reproducible preview snapshot. OSM-derived data remains subject to ODbL.
+
+`research/` contains the Quarto collection, analysis and visualization write-up. `python/data/checks.json` records native validation. The source pipeline uses API collection, geospatial operations, OSMnx, Panel and linked visualizations. Instructor approval, field validation and the complete final report/presentation are still outstanding.
+
+---
+
 ## Philadelphia route-and-shade prototype — November 2026
 
 The main website now opens a desktop-first Center City explorer with real OSM building geometry, 2D/3D views, summer-time building shadows, and shortest versus lower-sun candidate routes. Distances use miles and feet. This is an unvalidated building-only model; tree shade, trained AI, verified sidewalk access and cooling-site availability are not yet connected.

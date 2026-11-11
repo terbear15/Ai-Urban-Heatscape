@@ -1,0 +1,38 @@
+---
+title: "A little more shade. A better way there."
+subtitle: "HeatScape · Philadelphia · Python preview"
+---
+
+[Open the interactive map →](../explorer/app.html){.btn .btn-primary .btn-lg}
+
+Search a Philadelphia street address or place name, choose a matching result, and compare your walk. Try **1234 Market St**, **Rittenhouse Square**, or **LOVE Park**. Adjust the time of day and the extra minutes you are willing to walk. Distances are shown in miles and feet.
+
+The first visit downloads a Python runtime and about 12 MB of prepared geographic data. Please allow time for the loading screen to finish. This preview needs an internet connection and a browser with WebGL.
+
+## What changed
+
+- **Typed addresses and places:** Philadelphia's address API and a directory of 5,996 official place-name records replace the fixed list of endpoints. Some names have several matches.
+- **Citywide walking network:** 138,753 nodes and 421,248 directed connections prepared with OSMnx. Some disconnected paths and imperfect entrance locations remain.
+- **Python implementation:** GIS preprocessing, route calculation, address search and dashboard callbacks are authored in Python. Panel generates the browser rendering code.
+- **Linked map and charts:** route choice, summer hour and detour allowance update the comparison. Download the resulting route metrics as CSV.
+
+## What the results mean
+
+Building-shadow coverage is still limited to the amber **Center City** rectangle. Outside it, the app shows a regular walking route and its coverage percentage. Missing shade data is gray in the chart and is excluded from full-route shade comparisons.
+
+For an illustrative July 15, 3 PM scenario, the native Python checks produced:
+
+| Trip | Shortest walk | Shade-data coverage | Modeled direct-sun minutes saved with ≤5 extra minutes |
+|---|---:|---:|---:|
+| Rittenhouse Square → LOVE Park | 0.62 mi | 100% | 4.75 |
+| City Hall → Kimmel Center | 0.35 mi | 100% | 0.64 |
+| 30th Street Station → Reading Terminal Market | 1.36 mi | 67% | Not estimated |
+| Museum of Art → Liberty Bell | 2.39 mi | 34% | Not estimated |
+
+These are model outputs, **not field measurements or temperature reductions**. Shadows assume flat ground and opaque buildings; trees are absent. Walking speed is fixed at 3 mph. See [Data & methods](methods.qmd).
+
+## Preview status
+
+This is a Python migration preview, not the completed course submission. Native routing and dashboard checks are documented in the repository. Browser visual and click-through verification remains pending because the preview tool reached its usage limit. GPS location is not implemented; typed origins are supported.
+
+[Source code](https://github.com/terbear15/Ai-Urban-Heatscape) · [Previous version](../index.html)
