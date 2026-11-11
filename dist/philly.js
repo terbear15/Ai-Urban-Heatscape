@@ -176,9 +176,10 @@ let citySun, localSun;
 function timeText(){const t=+$('time').value,h=Math.floor(t),m=Math.round((t-h)*60);$('timeLabel').textContent=`${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`;return {h,m};}
 function updateSun(){if(!ready)return;const {h,m}=timeText(),date=$('date').value;if(!date||!$('date').checkValidity()){ $('routeStatus').textContent='Choose a summer date between June 1 and August 31, 2026.';return; }$('calculate').disabled=true;const sun=SunCalc.getPosition(new Date(`${date}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00-04:00`),39.9515,-75.167);citySun=sun;$('solarLabel').textContent=`Sun elevation ${Math.round(sun.altitude*180/Math.PI)}° · Summer scenario, not live`;calculate();$('calculate').disabled=false;}
 if(map){map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');map.addControl(new maplibregl.ScaleControl({unit:'imperial'}),'bottom-right');map.on('error',e=>{if(e.sourceId==='base')err('Background tiles unavailable. Route lines are still available.');});map.on('load',()=>{
-map.addSource('city-limits',{type:'geojson',data:'location/city-boundary.geojson'});
-map.addLayer({id:'city-tint',type:'fill',source:'city-limits',paint:{'fill-color':'#91b79a','fill-opacity':.14}});
-map.addLayer({id:'city-limits',type:'line',source:'city-limits',paint:{'line-color':'#c5e4ba','line-width':1.6,'line-opacity':.85}});
+map.addSource('city-fade',{type:'geojson',data:'location/city-fade.geojson',tolerance:0});
+map.addLayer({id:'city-fade',type:'fill',source:'city-fade',paint:{
+  'fill-color':'#fff','fill-opacity':['get','opacity'],'fill-antialias':false,
+}});
 for(const [id,color,width] of [['fast','#f4a96e',4],['shade-route','#8bd5a6',5]]){
   map.addSource(id,{type:'geojson',data:empty});
   const layout={'line-join':'round','line-cap':'round'};
