@@ -18,7 +18,7 @@ const searches=new Map();
 function lookup(query,address=false,suggest=false){return requestLocation({query,address,suggest});}
 function requestLocation(payload){
   if(!locationWorker){
-    locationWorker=new Worker('location/worker.js?v=street-map');
+    locationWorker=new Worker('location/worker.js?v=flat-buildings');
     locationWorker.onmessage=({data})=>{
       const pending=searches.get(data.id);
       if(!pending)return;
@@ -171,6 +171,35 @@ function clearRoute(message){
 $('cityOverview').onclick=()=>{
   if(ready)map.fitBounds(cityBounds,{padding:45,duration:650});
 };
+let footprintTimer, footprintVersion=0, loadedFootprints;
+function queueFootprints(){
+  clearTimeout(footprintTimer);
+  const version=++footprintVersion;
+  if(map.getZoom()<16){
+    map.setLayoutProperty('footprints','visibility','none');
+    return;
+  }
+  footprintTimer=setTimeout(async()=>{
+    const view=map.getBounds();
+    const scale=500;
+    const window=[
+      Math.floor(view.getWest()*scale)/scale,Math.floor(view.getSouth()*scale)/scale,
+      Math.ceil(view.getEast()*scale)/scale,Math.ceil(view.getNorth()*scale)/scale,
+    ];
+    const key=window.join(',');
+    try{
+      if(key!==loadedFootprints){
+        const data=await requestLocation({buildingWindow:window});
+        if(version!==footprintVersion)return;
+        map.getSource('footprints').setData(data);
+        loadedFootprints=key;
+      }
+      map.setLayoutProperty('footprints','visibility','visible');
+    }catch(error){
+      if(version===footprintVersion)console.warn('Building footprints unavailable',error);
+    }
+  },250);
+}
 let citySun, localSun;
 function timeText(){const t=+$('time').value,h=Math.floor(t),m=Math.round((t-h)*60);$('timeLabel').textContent=`${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`;return {h,m};}
 function updateSun(){if(!ready)return;const {h,m}=timeText(),date=$('date').value;if(!date||!$('date').checkValidity()){ $('routeStatus').textContent='Choose a summer date between June 1 and August 31, 2026.';return; }$('calculate').disabled=true;const sun=SunCalc.getPosition(new Date(`${date}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00-04:00`),39.9515,-75.167);citySun=sun;$('solarLabel').textContent=`Sun elevation ${Math.round(sun.altitude*180/Math.PI)}° · Summer scenario, not live`;calculate();$('calculate').disabled=false;}
@@ -178,6 +207,11 @@ if(map){map.addControl(new maplibregl.NavigationControl({showCompass:false}),'to
 map.addSource('city-limits',{type:'geojson',data:'location/city-boundary.geojson'});
 map.addLayer({id:'city-tint',type:'fill',source:'city-limits',paint:{'fill-color':'#91b79a','fill-opacity':.24}});
 map.addLayer({id:'city-limits',type:'line',source:'city-limits',paint:{'line-color':'#58755e','line-width':1.6,'line-opacity':.85}});
+map.addSource('footprints',{type:'geojson',data:empty,attribution:'Building footprints © City of Philadelphia'});
+map.addLayer({id:'footprints',type:'fill',source:'footprints',minzoom:16,paint:{
+  'fill-color':'#c4ae94','fill-outline-color':'#ab977e','fill-opacity':.68,
+}});
+map.on('moveend',queueFootprints);
 map.addSource('boundary',{type:'geojson',data:fc([{type:'Feature',properties:{},geometry:{type:'Polygon',coordinates:[[bounds[0],[bounds[1][0],bounds[0][1]],bounds[1],[bounds[0][0],bounds[1][1]],bounds[0]]]}}])});map.addLayer({id:'boundary',type:'line',source:'boundary',paint:{'line-color':'#8e9d80','line-width':1.5,'line-dasharray':[3,3]}});
 for(const [id,color,width] of [['fast','#cc855c',4],['shade-route','#2c7654',6]]){map.addSource(id,{type:'geojson',data:empty});map.addLayer({id,type:'line',source:id,layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':color,'line-width':width}});}
 ready=true;updateSun();map.fitBounds(cityBounds,{padding:42,duration:0});
