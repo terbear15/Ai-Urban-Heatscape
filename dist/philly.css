@@ -62,3 +62,72 @@
 .city-overview{bottom:72px}
 
 .map-legend .green{background:#459268}.map-legend .orange{background:#ce7940}
+
+#seasonTitle { color:var(--ink); }
+.season-switch {
+  display:flex;
+  flex-shrink:0;
+  gap:3px;
+  padding:3px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:var(--paper);
+}
+.season-switch button {
+  padding:7px 10px;
+  border:0;
+  border-radius:6px;
+  background:transparent;
+  font-size:11px;
+  color:var(--ink);
+}
+.season-switch button[aria-pressed="true"] {
+  background:#365743;
+  color:#fff;
+}
+.winter-detour { font-size:10px; }
+.winter-detour .label-row { gap:8px; }
+.winter-detour output { white-space:nowrap; }
+
+body[data-season="winter"] {
+  --ink:#263d55;
+  --muted:#546c82;
+  --paper:#edf4fb;
+  --line:#cbd9e8;
+  --orange:#a96525;
+}
+body[data-season="winter"] header,
+body[data-season="winter"] .workspace,
+body[data-season="winter"] dialog { background:#f8fbff; }
+body[data-season="winter"] .notice {
+  background:#e1ebf6;
+  border-color:#cbd9e8;
+  color:#395571;
+}
+body[data-season="winter"] .notice button { color:#395571; }
+body[data-season="winter"] .eyebrow { color:#567089; }
+body[data-season="winter"] h1 span:last-child { color:#5d748d; }
+body[data-season="winter"] .primary,
+body[data-season="winter"] .season-switch button[aria-pressed="true"] { background:#304f70; }
+body[data-season="winter"] .location-field,
+body[data-season="winter"] .location-matches,
+body[data-season="winter"] .route-card { background:#f0f5fb; }
+body[data-season="winter"] .location-field button { color:#425f7d; }
+body[data-season="winter"] .location-field button:hover,
+body[data-season="winter"] .location-matches button:hover { background:#dbe8f5; }
+body[data-season="winter"] .route-card.active {
+  background:#fff1d6;
+  border-color:#ba8540;
+}
+body[data-season="winter"] .route-card.direct.active {
+  background:#e1ebf6;
+  border-color:#7796b4;
+}
+body[data-season="winter"] .map-legend { background:#f8fbfff2; border-color:#cbd9e8; }
+body[data-season="winter"] .map-legend .green { background:#bf862e; }
+body[data-season="winter"] .map-legend .orange { background:#7e9fbe; }
+body[data-season="winter"] input[type="range"] { accent-color:#486988; }
+@media(max-width:480px) {
+  .map-heading { flex-wrap:wrap; gap:10px; }
+  .season-switch button { padding:6px 8px; }
+}

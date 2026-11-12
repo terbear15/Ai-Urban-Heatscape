@@ -7,6 +7,7 @@ function err(text){$('mapError').hidden=false;$('mapError').textContent=text;}
 let map;
 try{map=new maplibregl.Map({container:'map',center:[-75.1673,39.9518],zoom:15.4,maxPitch:0,dragRotate:false,pitchWithRotate:false,minZoom:9,maxZoom:19,style:{version:8,sources:{base:{type:'raster',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · Imagery © Esri and contributors'}},layers:[{id:'background',type:'background',paint:{'background-color':'#e9ede2'}},{id:'basemap',type:'raster',source:'base',paint:{'raster-fade-duration':0}}]},attributionControl:true});}catch(e){err('This browser could not start the map. Please open this prototype in a WebGL-enabled browser.');$('calculate').disabled=true;}
 const markers={};
+let season='summer';
 const endpoints={start:null,end:null};
 const hasLocation=key=>Boolean(endpoints[key] && endpoints[key].label===$(key).value.trim());
 const hasTrip=()=>hasLocation('start')&&hasLocation('end');
@@ -19,7 +20,7 @@ const searches=new Map();
 function lookup(query,address=false,suggest=false){return requestLocation({query,address,suggest});}
 function requestLocation(payload){
   if(!locationWorker){
-    locationWorker=new Worker('location/worker.js?v=satellite');
+    locationWorker=new Worker('location/worker.js?v=seasons');
     locationWorker.onmessage=({data})=>{
       const pending=searches.get(data.id);
       if(!pending)return;
@@ -96,7 +97,15 @@ function feature(route){return fc([{type:'Feature',properties:{},geometry:{type:
 function fit(){if(result){const b=new maplibregl.LngLatBounds();[...result.fast.coords,...result.shade.coords].forEach(p=>b.extend(p));map.fitBounds(b,{padding:{top:90,bottom:110,left:80,right:60},maxZoom:16,duration:700});}else map.fitBounds(cityBounds,{padding:42});}
 function selectRoute(which){selected=which;document.querySelectorAll('.route-card').forEach(b=>{const active=b.dataset.route===which;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});map.setPaintProperty('fast','line-opacity',which==='fast'?1:.65);map.setPaintProperty('shade-route','line-opacity',which==='shade'?1:.6);const layer=which==='shade'?'shade-route':'fast';map.moveLayer(layer+'-halo');map.moveLayer(layer);}
 function showRoute(route, zoom){
+  const winter=season==='winter';
   const hasShadeDetour=Boolean(route.shade && route.shade!==route.fast);
+  if(winter){
+    const seconds=Math.floor(route.winterBudget*60+1e-8);
+    const minutes=Math.floor(seconds/60);
+    const remaining=seconds%60;
+    const duration=[minutes?`${minutes} min`:'',remaining||!minutes?`${remaining} sec`:''].filter(Boolean).join(' ');
+    $('winterBudget').textContent=Number.isFinite(seconds)?`Up to ${duration}`:'Auto';
+  }
   const hasExposure=Number.isFinite(route.fast.exposure);
   result={...route,shade:route.shade||route.fast};
   map.getSource('fast').setData(feature(route.fast));
@@ -107,21 +116,23 @@ function showRoute(route, zoom){
     const minutes=r.length/80.4672;
     const shadeDetails=hasExposure?`<div class="sun-bar"><i style="width:${r.exposure/r.length*100}%"></i></div>
       <div class="card-foot"><span>~${(r.exposure/80.4672).toFixed(1)} min modeled sun</span>
-      <span>${Math.round((1-r.exposure/r.length)*100)}% shade</span></div>`:'';
+      <span>${Math.round((winter?r.exposure/r.length:1-r.exposure/r.length)*100)}% ${winter?'sun':'shade'}</span></div>`:'';
     return `<button class="route-card ${key==='fast'?'direct':''}" data-route="${key}" aria-pressed="false">
       <div class="card-title">${title}<small>${tag}</small></div>
       <div class="route-stats"><strong>${Math.round(minutes)} <span>min</span></strong>
       <span>· ${(r.length/1609.344).toFixed(2)} mi</span></div>${shadeDetails}</button>`;
   }
 
-  let note='The search found no lower-sun route within your per-detour time limit.';
+  let note=winter?'The search found no sunnier route within the extra time allowed.':
+    'The search found no lower-sun route within your per-detour time limit.';
   if(!hasExposure)note='Building shade could not be loaded for this trip. Try again to compare routes.';
+  if(route.afterSunset)note='The sun is below the horizon at this time.';
   if(hasShadeDetour){
-    const saved=(route.fast.exposure-route.shade.exposure)/80.4672;
+    const difference=Math.abs(route.fast.exposure-route.shade.exposure)/80.4672;
     const added=(route.shade.length-route.fast.length)/80.4672;
-    note=`About ${saved.toFixed(1)} fewer minutes in modeled direct sun for ${added.toFixed(1)} extra walking minutes total.`;
+    note=`About ${difference.toFixed(1)} ${winter?'more':'fewer'} minutes in modeled direct sun for ${added.toFixed(1)} extra walking minutes total.`;
   }
-  $('results').innerHTML=(hasShadeDetour?card('shade','Lower-sun candidate','MODELED'):'')+
+  $('results').innerHTML=(hasShadeDetour?card('shade',winter?'Sunnier walk':'Lower-sun candidate','MODELED'):'')+
     card('fast','Shortest walk',hasShadeDetour?'BASELINE':'RECOMMENDED')+
     `<p class="result-note">${note}${hasExposure?' Building shade only; street-centerline estimates.':''}</p>`;
   document.querySelectorAll('.route-card').forEach(button=>button.onclick=()=>selectRoute(button.dataset.route));
@@ -137,7 +148,7 @@ async function calculate(zoom=false){
   if(!ready||!hasTrip())return;
   const trip=[coord('start'),coord('end')];
   const version=++routeVersion;
-  if(trip.every(inShadeArea)){
+  if(season==='summer'&&trip.every(inShadeArea)){
     try{
       if(citySun && localSun!==citySun){
         engine.updateShade(citySun.azimuth,citySun.altitude,false);
@@ -149,12 +160,12 @@ async function calculate(zoom=false){
     return;
   }
   if(!citySun)return;
-  trip.push(citySun.azimuth,citySun.altitude,+$('detour').value);
+  trip.push(citySun.azimuth,citySun.altitude,+$('detour').value,season);
   const key=JSON.stringify(trip);
   if(!zoom&&result?.cityKey===key){
     return;
   }
-  $('routeStatus').textContent='Comparing building shade along the walk…';
+  $('routeStatus').textContent=season==='winter'?'Finding sunnier streets within your time limit…':'Comparing building shade along the walk…';
   try{
     if(pendingCityTrip?.key!==key){
       const promise=requestLocation({trip});
@@ -171,6 +182,7 @@ async function calculate(zoom=false){
 }
 function clearRoute(message){
   result=null;
+  $('winterBudget').textContent='Auto';
   map.getSource('fast').setData(empty);
   map.getSource('shade-route').setData(empty);
   for(const key of Object.keys(markers)){
@@ -186,7 +198,62 @@ $('cityOverview').onclick=()=>{
 };
 let citySun, localSun;
 function timeText(){const t=+$('time').value,h=Math.floor(t),m=Math.round((t-h)*60);$('timeLabel').textContent=`${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`;return {h,m};}
-function updateSun(){if(!ready)return;const {h,m}=timeText(),date=$('date').value;if(!date||!$('date').checkValidity()){ $('routeStatus').textContent='Choose a summer date between June 1 and August 31, 2026.';return; }$('calculate').disabled=true;const sun=SunCalc.getPosition(new Date(`${date}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00-04:00`),39.9515,-75.167);citySun=sun;$('solarLabel').textContent=`Sun elevation ${Math.round(sun.altitude*180/Math.PI)}° · Summer scenario, not live`;calculate();$('calculate').disabled=false;}
+const seasons={
+  summer:{min:'2026-06-01',max:'2026-08-31',date:'2026-07-15',hour:'15',last:'19',offset:'-04:00',zone:'EDT'},
+  winter:{min:'2026-12-01',max:'2027-02-28',date:'2027-01-15',hour:'12',last:'17',offset:'-05:00',zone:'EST'},
+};
+const routeColors={
+  summer:{fast:'#f4a96e',candidate:'#8bd5a6'},
+  winter:{fast:'#b6d0ec',candidate:'#ffd078'},
+};
+function setSeason(next){
+  clearTimeout(timer);
+  ++routeVersion;
+  season=next;
+  const winter=next==='winter';
+  const setting=seasons[next];
+  document.body.dataset.season=next;
+  $('summerMode').setAttribute('aria-pressed',String(!winter));
+  $('winterMode').setAttribute('aria-pressed',String(winter));
+  $('seasonTitle').textContent=winter?'A little more sun.':'A little more shade.';
+  $('walkMode').textContent=winter?'WINTER · SEEK SUN':'SUMMER · SEEK SHADE';
+  $('candidateLegend').textContent=winter?'Sunnier route':'Lower-sun route';
+  $('summerDetour').hidden=winter;
+  $('winterDetour').hidden=!winter;
+  $('dateLabel').textContent=winter?'WINTER SCENARIO':'SUMMER SCENARIO';
+  $('timezone').textContent=setting.zone;
+  $('lastHour').textContent=winter?'5 PM':'7 PM';
+  Object.assign($('date'),{min:setting.min,max:setting.max,value:setting.date});
+  Object.assign($('time'),{max:setting.last,value:setting.hour});
+  timeText();
+  if(!ready)return;
+  applyRouteColors();
+  clearRoute(hasTrip()?'Recalculating your walk…':'Choose a starting point and destination to compare routes.');
+  updateSun();
+}
+function applyRouteColors(){
+  const colors=routeColors[season];
+  map.setPaintProperty('fast','line-color',colors.fast);
+  map.setPaintProperty('shade-route','line-color',colors.candidate);
+}
+function updateSun(){
+  if(!ready)return;
+  const {h,m}=timeText();
+  const date=$('date').value;
+  const setting=seasons[season];
+  if(!date||!$('date').checkValidity()){
+    $('routeStatus').textContent=`Choose a date between ${setting.min} and ${setting.max}.`;
+    return;
+  }
+  const clock=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00`;
+  citySun=SunCalc.getPosition(new Date(`${date}T${clock}${setting.offset}`),39.9515,-75.167);
+  $('solarLabel').textContent=citySun.altitude<=0?'Sun below the horizon':
+    `Sun elevation ${Math.round(citySun.altitude*180/Math.PI)}° · ${season==='winter'?'Winter':'Summer'} scenario`;
+  calculate();
+}
+$('summerMode').onclick=()=>{if(season!=='summer')setSeason('summer');};
+$('winterMode').onclick=()=>{if(season!=='winter')setSeason('winter');};
+if(new URLSearchParams(location.search).get('season')==='winter')setSeason('winter');
 if(map){map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');map.addControl(new maplibregl.ScaleControl({unit:'imperial'}),'bottom-right');map.on('error',e=>{if(e.sourceId==='base')err('Background tiles unavailable. Route lines are still available.');});map.on('load',()=>{
 map.addSource('city-mask',{type:'geojson',data:'location/city-mask.geojson',tolerance:0});
 map.addLayer({id:'city-mask',type:'fill',source:'city-mask',paint:{
@@ -202,7 +269,7 @@ for(const [id,color,width] of [['fast','#f4a96e',4],['shade-route','#8bd5a6',5]]
   map.addLayer({id:id+'-halo',type:'line',source:id,layout,paint:{'line-color':'#172c23','line-width':width+3}});
   map.addLayer({id,type:'line',source:id,layout,paint:{'line-color':color,'line-width':width}});
 }
-ready=true;updateSun();map.fitBounds(cityBounds,{padding:42,duration:0});
+ready=true;applyRouteColors();updateSun();map.fitBounds(cityBounds,{padding:42,duration:0});
 map.on('click',event=>{
   if(!picking)return;
   const point=[event.lngLat.lng,event.lngLat.lat];

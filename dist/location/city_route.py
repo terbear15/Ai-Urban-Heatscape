@@ -98,8 +98,35 @@ def weighted_path(start, end, permitted, exposure, penalty):
     return []
 
 
+def winter_budget(minutes):
+    """Extra minutes for the whole walk, interpolated between the time targets."""
+    if minutes <= 10:
+        return minutes / 10
+    return min(3, 1 + (minutes - 10) / 5)
+
+
+def combine_sunny_sections(sections, budget, distance, exposure):
+    """Choose compatible sunny detours under a conservative whole-second budget."""
+    seconds = math.floor(budget * 60 + 1e-8)
+    states = {0: (0, ())}
+    for index, (base, detour) in enumerate(sections):
+        gain = sum(map(exposure, detour)) - sum(map(exposure, base))
+        if gain <= 1e-6:
+            continue
+        extra = max(0, distance(detour) - distance(base))
+        cost = math.ceil(extra / METERS_PER_MINUTE * 60 - 1e-8)
+        for spent, (sun, chosen) in list(states.items()):
+            total = spent + cost
+            if total <= seconds and sun + gain > states.get(total, (0, ()))[0]:
+                states[total] = sun + gain, (*chosen, index)
+    _, (_, chosen) = max(states.items(), key=lambda item: (item[1][0], -item[0]))
+    return [edge for index, (base, detour) in enumerate(sections)
+            for edge in (detour if index in chosen else base)]
+
+
 async def city_route(trip_json):
-    origin, destination, azimuth, altitude, extra = json.loads(trip_json)
+    origin, destination, azimuth, altitude, extra, *mode = json.loads(trip_json)
+    winter = bool(mode and mode[0] == "winter")
     start, start_gap = network.snap(origin)
     end, end_gap = network.snap(destination)
     if start == end:
@@ -114,7 +141,10 @@ async def city_route(trip_json):
         "start": {"coord": network.nodes[start], "meters": start_gap},
         "end": {"coord": network.nodes[end], "meters": end_gap},
     }
+    if winter:
+        result["winterBudget"] = winter_budget(fast["length"] / METERS_PER_MINUTE)
     if altitude <= 0:
+        result["afterSunset"] = True
         fast["exposure"] = 0
         return json.dumps(result)
     points = [point for point, _ in samples(fast["coords"], 25)]
@@ -150,21 +180,29 @@ async def city_route(trip_json):
     positions = {start: 0}
     positions.update({network.edges[i]["v"]: j for j, i in enumerate(direct, 1)})
     fast["exposure"] = sum(map(exposure, direct))
+    def shade_cost(index):
+        return max(0, network.edges[index]["length"] - exposure(index))
+
     best = fast["exposure"]
     for penalty in (.5, 1, 2, 4, 8, 16):
-        candidate = weighted_path(start, end, permitted, exposure, penalty)
+        candidate = weighted_path(start, end, permitted, shade_cost if winter else exposure, penalty)
         joins = [(0, 0)] + [(positions[network.edges[i]["v"]], j)
                             for j, i in enumerate(candidate, 1) if network.edges[i]["v"] in positions]
         if not candidate or any(b[0] <= a[0] for a, b in zip(joins, joins[1:])):
             continue
-        mixed = []
-        for (left, a), (right, b) in zip(joins, joins[1:]):
-            base, detour = direct[left:right], candidate[a:b]
-            qualifies = (distance(detour) <= distance(base) + extra*METERS_PER_MINUTE + 1e-6
-                         and sum(map(exposure, detour)) < sum(map(exposure, base)) - 1e-6)
-            mixed.extend(detour if qualifies else base)
+        sections = [(direct[left:right], candidate[a:b])
+                    for (left, a), (right, b) in zip(joins, joins[1:])]
+        if winter:
+            mixed = combine_sunny_sections(sections, result["winterBudget"], distance, exposure)
+        else:
+            mixed = []
+            for base, detour in sections:
+                qualifies = (distance(detour) <= distance(base) + extra*METERS_PER_MINUTE + 1e-6
+                             and sum(map(exposure, detour)) < sum(map(exposure, base)) - 1e-6)
+                mixed.extend(detour if qualifies else base)
         score = sum(map(exposure, mixed))
-        if score < best - 1e-6:
+        improves = score > best + 1e-6 if winter else score < best - 1e-6
+        if improves:
             best = score
             route = network.summarize(mixed, 15)
             result["shade"] = {"coords": route["path"], "length": route["distance"], "exposure": score}
