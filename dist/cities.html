@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HeatScape · City walking maps</title>
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<link rel="stylesheet" href="philly.css">
+<link rel="stylesheet" href="cities.css">
+</head>
+<body>
+<header>
+<a class="brand" href="./"><span class="brand-icon">◉</span> HeatScape</a>
+<label class="city-chooser" for="city">CITY<select id="city"></select></label>
+</header>
+<main>
+<div class="intro"><div><div class="eyebrow">CITY WALKING MAPS</div><h1 id="city-name">Explore a city</h1><p id="coverage"></p></div></div>
+<section class="workspace" aria-label="Walking route explorer">
+<aside>
+<h2>Where are you headed?</h2>
+<form id="walk">
+<label for="start">STARTING POINT</label>
+<div class="location-field"><input id="start" type="search" placeholder="Street address or place" autocomplete="off"><button type="button" id="start-search" aria-label="Search starting point" title="Search starting point">↵</button></div>
+<div id="start-matches" class="location-matches" hidden></div>
+<div class="route-connector">⋮</div>
+<label for="end">DESTINATION</label>
+<div class="location-field"><input id="end" type="search" placeholder="Street address or place" autocomplete="off"><button type="button" id="end-search" aria-label="Search destination" title="Search destination">↵</button></div>
+<div id="end-matches" class="location-matches" hidden></div>
+<div class="pick-row"><button type="button" id="pick-start">⌖ Pick start on map</button><button type="button" id="pick-end">⚑ Pick destination</button></div>
+<button class="primary" id="calculate" type="submit">Find walking route <span>↗</span></button>
+</form>
+<p class="small" id="status" role="status">Loading the city map…</p>
+<div id="results" aria-live="polite"></div>
+</aside>
+<div class="map-panel">
+<div class="map-heading"><h2 id="map-title">City overview</h2></div>
+<div class="map-stage">
+<div id="map" aria-label="Interactive satellite map"></div>
+<button id="overview" class="reset city-overview">City overview</button>
+</div>
+</div>
+</section>
+<footer><span><a href="https://www.census.gov/geographies/mapping-files/2024/geo/carto-boundary-file.html">Census 2024 display boundaries</a> · <a href="https://routing.openstreetmap.de/about.html">FOSSGIS pedestrian routing</a> · Photon search</span><a href="https://www.openstreetmap.org/fixthemap">Fix the map</a></footer>
+</main>
+<script src="vendor/maplibre-gl.js"></script>
+<script src="cities.js?v=city-walks"></script>
+</body>
+</html>
