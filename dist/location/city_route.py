@@ -7,6 +7,7 @@ import math
 from functools import lru_cache
 
 from city_buildings import fetch_buildings, shadows
+from tree_shade import tree_shadows
 from routing import METERS_PER_MINUTE, RoutingEngine, in_ring, projected
 
 with gzip.open("data/philadelphia.json.gz", "rt", encoding="utf-8") as source:
@@ -57,15 +58,22 @@ async def corridor_buildings(points):
     return list(features.values())
 
 
-def shadow_index(features, azimuth, altitude):
+def shadow_index(features):
     bins = {}
-    for feature in shadows(features, azimuth, altitude)["features"]:
-        ring = feature["geometry"]["coordinates"][0]
-        keys = [cell(point) for point in ring]
-        for x in range(min(k[0] for k in keys), max(k[0] for k in keys)+1):
-            for y in range(min(k[1] for k in keys), max(k[1] for k in keys)+1):
-                bins.setdefault((x, y), []).append(ring)
+    for feature in features:
+        geometry = feature["geometry"]
+        polygons = [geometry["coordinates"]] if geometry["type"] == "Polygon" else geometry["coordinates"]
+        for polygon in polygons:
+            keys = [cell(point) for point in polygon[0]]
+            for x in range(min(k[0] for k in keys), max(k[0] for k in keys)+1):
+                for y in range(min(k[1] for k in keys), max(k[1] for k in keys)+1):
+                    bins.setdefault((x, y), []).append(polygon)
     return bins
+
+
+def in_shadow(point, polygons):
+    return any(in_ring(point, polygon[0]) and not any(in_ring(point, ring) for ring in polygon[1:])
+               for polygon in polygons)
 
 
 def weighted_path(start, end, permitted, exposure, penalty):
@@ -127,6 +135,7 @@ def combine_sunny_sections(sections, budget, distance, exposure):
 async def city_route(trip_json):
     origin, destination, azimuth, altitude, extra, *mode = json.loads(trip_json)
     winter = bool(mode and mode[0] == "winter")
+    use_trees = not winter and len(mode) > 1 and mode[1] is True
     start, start_gap = network.snap(origin)
     end, end_gap = network.snap(destination)
     if start == end:
@@ -158,21 +167,33 @@ async def city_route(trip_json):
     if not features:
         result["shadeUnavailable"] = True
         return json.dumps(result)
-    bins = shadow_index(features, azimuth, altitude)
+    bins = shadow_index(shadows(features, azimuth, altitude)["features"])
+    trees = shadow_index(tree_shadows(azimuth, altitude)) if use_trees else {}
 
     @lru_cache(maxsize=None)
     def permitted(node):
         return cell(network.nodes[node]) in corridor
 
     @lru_cache(maxsize=None)
-    def exposure(index):
+    def exposure_stats(index):
         edge = network.edges[index]
-        sun = total = 0
+        sun = total = tree_only = 0
         for point, weight in samples(edge["path"], 10):
             total += weight
-            if not any(in_ring(point, ring) for ring in bins.get(cell(point), ())):
+            key = cell(point)
+            if in_shadow(point, bins.get(key, ())):
+                continue
+            if in_shadow(point, trees.get(key, ())):
+                tree_only += weight
+            else:
                 sun += weight
-        return edge["length"] * sun / total if total else edge["length"]
+        return (edge["length"] * sun / total, edge["length"] * tree_only / total) if total else (edge["length"], 0)
+
+    def exposure(index):
+        return exposure_stats(index)[0]
+
+    def tree_exposure(indices):
+        return sum(exposure_stats(index)[1] for index in indices)
 
     def distance(indices):
         return sum(network.edges[i]["length"] for i in indices)
@@ -183,6 +204,8 @@ async def city_route(trip_json):
     def shade_cost(index):
         return max(0, network.edges[index]["length"] - exposure(index))
 
+    if use_trees:
+        fast["treeShade"] = tree_exposure(direct)
     best = fast["exposure"]
     for penalty in (.5, 1, 2, 4, 8, 16):
         candidate = weighted_path(start, end, permitted, shade_cost if winter else exposure, penalty)
@@ -206,4 +229,6 @@ async def city_route(trip_json):
             best = score
             route = network.summarize(mixed, 15)
             result["shade"] = {"coords": route["path"], "length": route["distance"], "exposure": score}
+            if use_trees:
+                result["shade"]["treeShade"] = tree_exposure(mixed)
     return json.dumps(result)

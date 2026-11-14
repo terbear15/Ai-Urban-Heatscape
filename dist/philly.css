@@ -131,3 +131,8 @@ body[data-season="winter"] input[type="range"] { accent-color:#486988; }
   .map-heading { flex-wrap:wrap; gap:10px; }
   .season-switch button { padding:6px 8px; }
 }
+.tree-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:8px 22px 14px;color:var(--ink)}
+.tree-controls label{display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:0}
+.tree-controls input{accent-color:#268578}
+.tree-controls button{border:1px solid var(--line);background:var(--paper);border-radius:6px;padding:5px 8px;font-size:10px}
+.tree-controls span{font-size:10px;color:var(--muted)}

@@ -12,3 +12,4 @@ python/data/philadelphia.json
 __pycache__/
 site-build/
 .quarto/
+.lidar-deps/

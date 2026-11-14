@@ -20,7 +20,7 @@ const searches=new Map();
 function lookup(query,address=false,suggest=false){return requestLocation({query,address,suggest});}
 function requestLocation(payload){
   if(!locationWorker){
-    locationWorker=new Worker('location/worker.js?v=seasons');
+    locationWorker=new Worker('location/worker.js?v=lidar');
     locationWorker.onmessage=({data})=>{
       const pending=searches.get(data.id);
       if(!pending)return;
@@ -107,6 +107,7 @@ function showRoute(route, zoom){
     $('winterBudget').textContent=Number.isFinite(seconds)?`Up to ${duration}`:'Auto';
   }
   const hasExposure=Number.isFinite(route.fast.exposure);
+  const treePilot=season==='summer'&&$('treeShade').checked;
   result={...route,shade:route.shade||route.fast};
   map.getSource('fast').setData(feature(route.fast));
   map.getSource('shade-route').setData(hasShadeDetour?feature(route.shade):empty);
@@ -120,7 +121,7 @@ function showRoute(route, zoom){
     return `<button class="route-card ${key==='fast'?'direct':''}" data-route="${key}" aria-pressed="false">
       <div class="card-title">${title}<small>${tag}</small></div>
       <div class="route-stats"><strong>${Math.round(minutes)} <span>min</span></strong>
-      <span>· ${(r.length/1609.344).toFixed(2)} mi</span></div>${shadeDetails}</button>`;
+      <span>· ${(r.length/1609.344).toFixed(2)} mi</span></div>${shadeDetails}${Number.isFinite(r.treeShade)?`<div class="card-foot">${(r.treeShade/80.4672).toFixed(1)} min shaded by pilot trees alone</div>`:''}</button>`;
   }
 
   let note=winter?'The search found no sunnier route within the extra time allowed.':
@@ -134,7 +135,7 @@ function showRoute(route, zoom){
   }
   $('results').innerHTML=(hasShadeDetour?card('shade',winter?'Sunnier walk':'Lower-sun candidate','MODELED'):'')+
     card('fast','Shortest walk',hasShadeDetour?'BASELINE':'RECOMMENDED')+
-    `<p class="result-note">${note}${hasExposure?' Building shade only; street-centerline estimates.':''}</p>`;
+    `<p class="result-note">${note}${hasExposure?(treePilot?' Building shade plus available pilot tree shade; street-centerline estimates.':' Building shade only; street-centerline estimates.'):''}</p>`;
   document.querySelectorAll('.route-card').forEach(button=>button.onclick=()=>selectRoute(button.dataset.route));
   selectRoute(hasShadeDetour?selected:'fast');
   if(!hasShadeDetour)selected='shade';
@@ -148,7 +149,7 @@ async function calculate(zoom=false){
   if(!ready||!hasTrip())return;
   const trip=[coord('start'),coord('end')];
   const version=++routeVersion;
-  if(season==='summer'&&trip.every(inShadeArea)){
+  if(season==='summer'&&!$('treeShade').checked&&trip.every(inShadeArea)){
     try{
       if(citySun && localSun!==citySun){
         engine.updateShade(citySun.azimuth,citySun.altitude,false);
@@ -160,7 +161,7 @@ async function calculate(zoom=false){
     return;
   }
   if(!citySun)return;
-  trip.push(citySun.azimuth,citySun.altitude,+$('detour').value,season);
+  trip.push(citySun.azimuth,citySun.altitude,+$('detour').value,season,$('treeShade').checked);
   const key=JSON.stringify(trip);
   if(!zoom&&result?.cityKey===key){
     return;
@@ -220,6 +221,8 @@ function setSeason(next){
   $('candidateLegend').textContent=winter?'Sunnier route':'Lower-sun route';
   $('summerDetour').hidden=winter;
   $('winterDetour').hidden=!winter;
+  $('treeShade').disabled=winter;
+  $('treeStatus').textContent=winter?'Tree shade modeled for summer only':'Summer pilot · April 2022 LiDAR';
   $('dateLabel').textContent=winter?'WINTER SCENARIO':'SUMMER SCENARIO';
   $('timezone').textContent=setting.zone;
   $('lastHour').textContent=winter?'5 PM':'7 PM';
@@ -236,6 +239,41 @@ function applyRouteColors(){
   map.setPaintProperty('fast','line-color',colors.fast);
   map.setPaintProperty('shade-route','line-color',colors.candidate);
 }
+let treeVersion=0;
+async function refreshTreeShade(){
+  const version=++treeVersion;
+  if(!ready)return;
+  const source=map.getSource('tree-shadows');
+  const display=season==='summer'&&$('treeShade').checked;
+  if(!display||!citySun||citySun.altitude<=0){
+    source.setData(empty);
+    $('treeStatus').textContent=season==='winter'?'Tree shade modeled for summer only':
+      display?'Sun below the horizon':'Summer pilot · April 2022 LiDAR';
+    return;
+  }
+  $('treeStatus').textContent='Updating pilot tree shadows…';
+  try{
+    const data=await requestLocation({treeSun:[citySun.azimuth,citySun.altitude]});
+    if(version!==treeVersion)return;
+    source.setData(data);
+    $('treeStatus').textContent=`${data.features.length} modeled crowns · Rittenhouse pilot`;
+  }catch(error){
+    if(version!==treeVersion)return;
+    source.setData(empty);
+    $('treeStatus').textContent='Pilot tree shade unavailable. Try again.';
+  }
+}
+$('treeShade').onchange=()=>{
+  refreshTreeShade();
+  calculate();
+};
+$('treePilot').onclick=()=>{
+  if(!ready)return;
+  if(season!=='summer')setSeason('summer');
+  $('treeShade').checked=true;
+  $('treeShade').onchange();
+  map.fitBounds([[-75.1745,39.9477],[-75.1699,39.9511]],{padding:50,maxZoom:16.5,duration:550});
+};
 function updateSun(){
   if(!ready)return;
   const {h,m}=timeText();
@@ -249,6 +287,7 @@ function updateSun(){
   citySun=SunCalc.getPosition(new Date(`${date}T${clock}${setting.offset}`),39.9515,-75.167);
   $('solarLabel').textContent=citySun.altitude<=0?'Sun below the horizon':
     `Sun elevation ${Math.round(citySun.altitude*180/Math.PI)}° · ${season==='winter'?'Winter':'Summer'} scenario`;
+  refreshTreeShade();
   calculate();
 }
 $('summerMode').onclick=()=>{if(season!=='summer')setSeason('summer');};
@@ -262,6 +301,10 @@ map.addLayer({id:'city-mask',type:'fill',source:'city-mask',paint:{
 map.addSource('city-limits',{type:'geojson',data:'location/city-boundary.geojson',tolerance:0});
 map.addLayer({id:'city-limits',type:'line',source:'city-limits',paint:{
   'line-color':'#fff','line-width':2,'line-opacity':.95,
+}});
+map.addSource('tree-shadows',{type:'geojson',data:empty});
+map.addLayer({id:'tree-shadows',type:'fill',source:'tree-shadows',paint:{
+  'fill-color':'#38c6ad','fill-opacity':.52,'fill-outline-color':'#a7f6dd',
 }});
 for(const [id,color,width] of [['fast','#f4a96e',4],['shade-route','#8bd5a6',5]]){
   map.addSource(id,{type:'geojson',data:empty});

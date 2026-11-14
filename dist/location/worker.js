@@ -1,12 +1,13 @@
 importScripts('https://cdn.jsdelivr.net/pyodide/v0.29.3/full/pyodide.js');
 async function initialize(){
   const python=await loadPyodide();
-  await Promise.all(['search.py','lookup.py','places.json','city_buildings.py'].map(async name=>{
+  await Promise.all(['search.py','lookup.py','places.json','city_buildings.py','tree_shade.py','lidar-canopy.geojson'].map(async name=>{
     const response=await fetch(name+self.location.search);
     if(!response.ok)throw new Error('Location data could not load.');
     python.FS.writeFile(name,await response.text());
   }));
   await python.runPythonAsync(python.FS.readFile('lookup.py', {encoding:'utf8'}));
+  await python.runPythonAsync('from tree_shade import tree_layer');
   return python;
 }
 let runtime, city;
@@ -20,12 +21,16 @@ async function loadCity(python){
   await python.runPythonAsync(await bridge.text());
   return python.globals.get('city_route');
 }
-self.onmessage=async ({data:{id,query,address,suggest,trip}})=>{
+self.onmessage=async ({data:{id,query,address,suggest,trip,treeSun}})=>{
   try{
     runtime ??= initialize().catch(error=>{runtime=null;throw error;});
     const python=await runtime;
     let matches;
-    if(trip){
+    if(treeSun){
+      const layer=python.globals.get('tree_layer');
+      try{matches=JSON.parse(layer(JSON.stringify(treeSun)));}
+      finally{layer.destroy();}
+    }else if(trip){
       city ??= loadCity(python).catch(error=>{city=null;throw error;});
       const route=await city;
       matches=JSON.parse(await route(JSON.stringify(trip)));
