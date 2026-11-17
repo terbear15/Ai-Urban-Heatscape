@@ -1,9 +1,9 @@
 ---
 title: "A little more shade. A better way there."
-subtitle: "HeatScape · Philadelphia · Python preview"
+subtitle: "HeatScape · Walking maps for American cities"
 ---
 
-[Open the interactive map →](../explorer/app.html){.btn .btn-primary .btn-lg}
+[Open the walking map →](../cities.html){.btn .btn-primary .btn-lg}
 
 Search a Philadelphia street address or place name, choose a matching result, and compare your walk. Try **1234 Market St**, **Rittenhouse Square**, or **LOVE Park**. Adjust the time of day and the extra minutes you are willing to walk. Distances are shown in miles and feet.
 

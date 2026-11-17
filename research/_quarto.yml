@@ -8,11 +8,11 @@ website:
     foreground: "#ffffff"
     left:
       - href: index.qmd
-        text: Python preview
+        text: Overview
       - href: methods.qmd
         text: Data & methods
-      - href: ../explorer/app.html
-        text: Open map ↗
+      - href: ../cities.html
+        text: Main site ↗
 format:
   html:
     theme: cosmo
