@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HeatScape · Choose a city</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--ink:#254b3e;--muted:#788378;--paper:#f5f4ed;--line:#dce1d5;--orange:#b96c44}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--paper);font:14px 'DM Sans',Arial,sans-serif}
+header{height:84px;padding:0 4%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:#fcfcf7}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:800 25px Manrope,Arial}
+.brand-icon{color:var(--orange);font-size:33px}
+.back{color:var(--ink);font-size:12px;text-decoration:none;border:1px solid var(--line);border-radius:25px;padding:10px 16px}
+main{max-width:1200px;margin:auto;padding:0 4% 60px}
+.intro{padding:40px 0 28px}
+.eyebrow{font-size:9px;letter-spacing:1.8px;font-weight:700;color:#7b8877}
+h1{font:500 clamp(32px,3.2vw,46px)/1.15 Manrope,Arial;letter-spacing:-1.6px;margin:13px 0 0}
+.intro p{color:var(--muted);font-size:13px;margin:12px 0 0;max-width:620px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:28px 24px}
+.city{text-decoration:none;color:var(--ink);display:block}
+.frame{aspect-ratio:1/1;border:1px solid var(--line);border-radius:12px;background:#e7eadf center/cover no-repeat;box-shadow:0 2px 10px #29472c12;overflow:hidden;transition:transform .15s ease,box-shadow .15s ease}
+.city:hover .frame,.city:focus-visible .frame{transform:translateY(-3px);box-shadow:0 10px 24px #29472c22}
+.city:focus-visible{outline:2px solid var(--orange);outline-offset:6px;border-radius:12px}
+.name{font:600 17px Manrope,Arial;letter-spacing:-.4px;margin:14px 2px 0}
+.tag{font-size:10px;color:var(--muted);margin:4px 2px 0;letter-spacing:.3px}
+.tag.first{color:var(--orange);font-weight:700}
+footer{border-top:1px solid var(--line);padding:20px 4%;display:flex;justify-content:space-between;font-size:10px;color:#8c9485}
+footer a{color:#8c9485}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="./"><span class="brand-icon">◉</span> HeatScape</a>
+  <a class="back" href="./">← Back</a>
+</header>
+<main>
+  <div class="intro">
+    <div class="eyebrow">CITY WALKING MAPS</div>
+    <h1>Choose a city</h1>
+    <p>Each square shows the city's satellite view. Walking routes are available in every city; shade comparisons are in progress for Center City, Philadelphia.</p>
+  </div>
+  <div class="grid" id="grid" aria-live="polite"></div>
+</main>
+<footer><span>Imagery © Esri and contributors · <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></span><span>Walking routes: FOSSGIS</span></footer>
+<script>
+const ARCGIS_EXPORT = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export';
+
+// Square satellite crop centred on a city's bounds, so every frame has the same shape.
+function squareThumb([[w, s], [e, n]]) {
+  const cx = (w + e) / 2, cy = (s + n) / 2;
+  const half = Math.max(e - w, n - s) / 2 * 1.08;
+  const bbox = [cx - half, cy - half, cx + half, cy + half].join(',');
+  const url = new URL(ARCGIS_EXPORT);
+  url.search = new URLSearchParams({bbox, bboxSR: '4326', imageSR: '4326', size: '480,480', format: 'jpg', f: 'image'});
+  return url.href;
+}
+
+async function build() {
+  const views = await (await fetch('cities/views.json')).json();
+  // Philadelphia first: it is the project's home city.
+  const slugs = Object.keys(views).sort((a, b) => (b === 'philadelphia') - (a === 'philadelphia'));
+  const grid = document.getElementById('grid');
+  for (const slug of slugs) {
+    const city = views[slug];
+    const link = document.createElement('a');
+    link.className = 'city';
+    link.href = 'cities.html?city=' + slug;
+    link.setAttribute('aria-label', 'Open ' + city.name + ' walking map');
+
+    const frame = document.createElement('div');
+    frame.className = 'frame';
+    frame.style.backgroundImage = 'url("' + squareThumb(city.bounds) + '")';
+    frame.setAttribute('role', 'img');
+    frame.setAttribute('aria-label', city.name + ' satellite view');
+
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = city.name;
+
+    const tag = document.createElement('div');
+    tag.className = 'tag' + (slug === 'philadelphia' ? ' first' : '');
+    tag.textContent = slug === 'philadelphia' ? 'Shade comparisons in progress' : 'Walking routes';
+
+    link.append(frame, name, tag);
+    grid.append(link);
+  }
+}
+build().catch(() => {
+  document.getElementById('grid').textContent = 'The city list could not be loaded. Please refresh the page.';
+});
+</script>
+</body>
+</html>

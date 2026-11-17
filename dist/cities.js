@@ -142,19 +142,20 @@ async function init() {
   const views = await json('cities/views.json');
   const select = el('city');
   const requested = new URLSearchParams(location.search).get('city');
-  const key = Object.hasOwn(views, requested) ? requested : 'new-york';
+  const key = Object.hasOwn(views, requested) ? requested : 'philadelphia';
   view = views[key];
-  select.append(new Option('Philadelphia', 'philadelphia'));
   for (const [slug, city] of Object.entries(views)) select.append(new Option(city.name, slug));
   select.value = key;
   select.onchange = () => {
-    location.href = select.value === 'philadelphia' ? './' : '?city=' + select.value;
+    location.href = '?city=' + select.value;
   };
   document.title = 'HeatScape · ' + view.name;
   el('city-name').textContent = view.custom ? 'Los Angeles area' : view.name;
   el('coverage').textContent = (view.custom ?
     'Study area includes Santa Monica, Pasadena and Inglewood. ' : '') +
-    'Walking routes are available. Shade and seasonal comparisons are available in Philadelphia.';
+    (key === 'philadelphia' ?
+      'Walking routes are available. Shade comparisons for Center City are in progress.' :
+      'Walking routes are available.');
   const geometry = await json('cities/' + key + '.geojson');
   land = geometry.features.find(f => f.properties.layer === 'land').geometry;
   map = new maplibregl.Map({
