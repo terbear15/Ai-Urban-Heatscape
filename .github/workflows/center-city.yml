@@ -19,7 +19,6 @@ jobs:
           python-version: "3.12"
       - run: pip install shapely requests
       - run: python python/prepare_center_city.py
-        continue-on-error: true
       - name: Commit generated files
         run: |
           git config user.name "github-actions[bot]"

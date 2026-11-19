@@ -13,7 +13,11 @@ from shapely.ops import unary_union
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "dist" / "location"
-URL = "https://raw.githubusercontent.com/azavea/geo-data/master/Neighborhoods_Philadelphia/Neighborhoods_Philadelphia.geojson"
+URLS = [
+    "https://raw.githubusercontent.com/opendataphilly/open-geo-data/master/philadelphia-neighborhoods/philadelphia-neighborhoods.geojson",
+    "https://raw.githubusercontent.com/opendataphilly/open-geo-data/main/philadelphia-neighborhoods/philadelphia-neighborhoods.geojson",
+    "https://raw.githubusercontent.com/azavea/geo-data/master/Neighborhoods_Philadelphia/Neighborhoods_Philadelphia.geojson",
+]
 # Neighborhoods between Vine Street and South Street, river to river.
 CENTER_CITY = {"rittenhouse", "logan square", "fitler square", "center city east", "center city west",
                "center city", "washington square", "washington square west", "society hill", "old city",
@@ -25,7 +29,14 @@ def label(props):
 
 
 def main():
-    data = requests.get(URL, timeout=60).json()
+    data = None
+    for url in URLS:
+        response = requests.get(url, timeout=60)
+        print(url, response.status_code)
+        if response.ok:
+            data = response.json()
+            break
+    assert data, "no neighborhood source could be downloaded"
     names = sorted({label(f["properties"]) for f in data["features"]})
     (OUT / "center-city-names.json").write_text(json.dumps(names, indent=1), encoding="utf-8")
     chosen = [f for f in data["features"] if label(f["properties"]).lower().replace("_", " ") in CENTER_CITY]
