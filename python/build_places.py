@@ -8,15 +8,14 @@ window.PLACES = [[name, kind, lon, lat], ...].
 import json
 from pathlib import Path
 
-import requests
 from shapely.geometry import Point, shape
+
+from osm_api import fetch
 
 ROOT = Path(__file__).resolve().parents[1]
 AREA = shape(json.loads((ROOT / "dist" / "location" / "center-city.geojson").read_text(encoding="utf-8"))["features"][0]["geometry"])
 REACH = AREA.buffer(.0015)
 OUT = ROOT / "dist" / "location" / "center-city-places.js"
-ENDPOINTS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter",
-             "https://overpass.private.coffee/api/interpreter"]
 KEYS = ["tourism", "historic", "leisure", "amenity", "shop", "railway", "public_transport", "office", "building", "place"]
 SKIP = {"amenity": {"bench", "waste_basket", "bicycle_parking", "parking_entrance", "vending_machine", "atm",
                     "post_box", "telephone", "drinking_water", "charging_station", "parking_space", "recycling"}}
@@ -32,29 +31,22 @@ def kind(tags):
 
 def main():
     west, south, east, north = REACH.bounds
-    bbox = f"{south},{west},{north},{east}"
-    parts = "".join(f'nwr["name"]["{k}"]({bbox});' for k in KEYS)
-    query = f"[out:json][timeout:180];({parts});out center tags;"
-    data = None
-    for url in ENDPOINTS:
-        try:
-            response = requests.post(url, data={"data": query}, timeout=240,
-                                     headers={"User-Agent": "HeatScape course project"})
-            response.raise_for_status()
-            data = response.json()
-            print(url, len(data["elements"]), "elements", flush=True)
-            break
-        except Exception as error:
-            print(url, "failed:", error, flush=True)
-    assert data, "all Overpass endpoints failed"
+    nodes, ways = fetch(west, south, east, north)
+    elements = [{"lon": lon, "lat": lat, "tags": tags} for lon, lat, tags in nodes.values() if tags.get("name")]
+    for refs, tags in ways.values():
+        if tags.get("name") and any(k in tags for k in KEYS):
+            points = [nodes[r] for r in refs if r in nodes]
+            if points:
+                elements.append({"lon": sum(p[0] for p in points) / len(points),
+                                 "lat": sum(p[1] for p in points) / len(points), "tags": tags})
+    data = {"elements": [e for e in elements if any(k in e["tags"] for k in KEYS)]}
     places, seen = [], set()
     for element in data["elements"]:
         tags = element.get("tags", {})
         name = tags.get("name", "").strip()
         if not name or any(tags.get(k) in v for k, v in SKIP.items()):
             continue
-        lon = element.get("lon", element.get("center", {}).get("lon"))
-        lat = element.get("lat", element.get("center", {}).get("lat"))
+        lon, lat = element["lon"], element["lat"]
         if lon is None or not REACH.contains(Point(lon, lat)):
             continue
         k = kind(tags)

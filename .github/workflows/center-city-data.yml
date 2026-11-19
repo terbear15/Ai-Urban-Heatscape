@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [philly-shade-page]
-    paths: [python/build_center_city_data.py, python/prepare_lidar_canopy.py, .github/workflows/center-city-data.yml]
+    paths: [python/osm_api.py, python/build_center_city_data.py, python/prepare_lidar_canopy.py, .github/workflows/center-city-data.yml]
 
 permissions:
   contents: write

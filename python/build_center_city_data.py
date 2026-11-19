@@ -4,7 +4,7 @@ Inputs (downloaded here):
   * dist/location/center-city.geojson: Center City as the union of its official
     neighborhood polygons (python/prepare_center_city.py).
   * OpenStreetMap buildings and walkable ways inside that area plus a 150 m margin,
-    from the Overpass API.
+    from the official OSM API (python/osm_api.py).
 Output: dist/philly-data.js (window.PHILLY = {buildings, edges, area, meta}).
 Tree crowns are added afterwards by python/prepare_lidar_canopy.py.
 """
@@ -13,18 +13,14 @@ import math
 from datetime import date
 from pathlib import Path
 
-import requests
-from shapely.geometry import LineString, Point, Polygon, shape
+from shapely.geometry import LineString, Polygon, shape
+
+from osm_api import fetch
 
 ROOT = Path(__file__).resolve().parents[1]
 AREA_FILE = ROOT / "dist" / "location" / "center-city.geojson"
 OUT = ROOT / "dist" / "philly-data.js"
 MARGIN_M = 150
-ENDPOINTS = [
-    "https://overpass-api.de/api/interpreter",
-    "https://overpass.kumi.systems/api/interpreter",
-    "https://overpass.private.coffee/api/interpreter",
-]
 WALKABLE = {"footway", "pedestrian", "path", "living_street", "residential", "tertiary", "secondary",
             "primary", "unclassified", "service", "steps", "tertiary_link", "secondary_link",
             "primary_link", "corridor", "cycleway", "track"}
@@ -35,25 +31,6 @@ ASSUMED_HEIGHT_M = 12.0
 def area():
     feature = json.loads(AREA_FILE.read_text(encoding="utf-8"))["features"][0]
     return shape(feature["geometry"])
-
-
-def overpass(south, west, north, east):
-    bbox = f"{south},{west},{north},{east}"
-    query = (f"[out:json][timeout:240];(way[building]({bbox});way[\"building:part\"]({bbox});"
-             f"way[highway]({bbox}););out body geom;")
-    last = None
-    for url in ENDPOINTS:
-        try:
-            response = requests.post(url, data={"data": query}, timeout=300,
-                                     headers={"User-Agent": "HeatScape course project (github.com/terbear15/Ai-Urban-Heatscape)"})
-            response.raise_for_status()
-            elements = response.json()["elements"]
-            print(url, len(elements), "elements", flush=True)
-            return elements, url
-        except Exception as error:  # try the next public endpoint
-            print(url, "failed:", error, flush=True)
-            last = error
-    raise RuntimeError(f"all Overpass endpoints failed: {last}")
 
 
 def parse_height(tags):
@@ -86,16 +63,15 @@ def main():
     west, south, east, north = west - pad_lon, south - pad_lat, east + pad_lon, north + pad_lat
     # Margin around the official area, measured roughly in degrees (fine at this scale).
     reach = zone.buffer(max(pad_lat, pad_lon))
-    elements, source = overpass(south, west, north, east)
+    nodes, ways = fetch(west, south, east, north)
+    source = "https://api.openstreetmap.org/api/0.6/map"
 
     buildings, edges, seen = [], [], set()
-    for element in elements:
-        tags = element.get("tags", {})
-        geometry = element.get("geometry") or []
-        ids = element.get("nodes") or []
-        coords = [[round(p["lon"], 7), round(p["lat"], 7)] for p in geometry]
-        if len(coords) != len(ids) or len(coords) < 2:
+    for way_id, (ids, tags) in ways.items():
+        if any(i not in nodes for i in ids) or len(ids) < 2:
             continue
+        coords = [[round(nodes[i][0], 7), round(nodes[i][1], 7)] for i in ids]
+        element = {"id": way_id}
         is_building = (tags.get("building", "no") != "no") or ("building:part" in tags)
         if is_building and len(coords) >= 4 and ids[0] == ids[-1]:
             polygon = Polygon(coords)

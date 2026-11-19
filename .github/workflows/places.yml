@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [philly-shade-page]
-    paths: [python/build_places.py, .github/workflows/places.yml]
+    paths: [python/osm_api.py, python/build_places.py, .github/workflows/places.yml]
 
 permissions:
   contents: write
