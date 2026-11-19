@@ -13,15 +13,28 @@ OUT.mkdir(exist_ok=True)
 CACHE = ROOT / "raw" / "places"
 CACHE.mkdir(parents=True, exist_ok=True)
 BASE = "https://www2.census.gov/geo/tiger/GENZ2024/shp/"
+# Twenty cities, stored in order of population (largest first). Fort Worth is replaced by Miami.
 CITIES = {
     "new-york": ("36", "New York"),
-    "san-francisco": ("06", "San Francisco"),
     "los-angeles": ("06", "Los Angeles"),
-    "seattle": ("53", "Seattle"),
+    "chicago": ("17", "Chicago"),
     "houston": ("48", "Houston"),
     "phoenix": ("04", "Phoenix"),
+    "philadelphia": ("42", "Philadelphia"),
+    "san-antonio": ("48", "San Antonio"),
+    "san-diego": ("06", "San Diego"),
+    "dallas": ("48", "Dallas"),
+    "jacksonville": ("12", "Jacksonville"),
+    "san-jose": ("06", "San Jose"),
+    "austin": ("48", "Austin"),
+    "charlotte": ("37", "Charlotte"),
+    "columbus": ("39", "Columbus"),
+    "indianapolis": ("18", "Indianapolis"),
+    "san-francisco": ("06", "San Francisco"),
+    "seattle": ("53", "Seattle"),
+    "denver": ("08", "Denver"),
+    "oklahoma-city": ("40", "Oklahoma City"),
     "miami": ("12", "Miami"),
-    "chicago": ("17", "Chicago"),
 }
 LA_PLACES = ("Los Angeles", "Santa Monica", "Pasadena", "Inglewood",
              "West Hollywood", "Beverly Hills", "Culver City", "Glendale", "South Pasadena")
@@ -48,7 +61,12 @@ def main():
         table = tables[state]
         members = LA_PLACES if key == "los-angeles" else (name,)
         selection = table[table.NAME.isin(members)]
-        assert set(selection.NAME) == set(members)
+        if selection.empty:
+            # Consolidated cities (e.g. Indianapolis) are listed as "<name> city (balance)".
+            selection = table[table.NAME.str.startswith(name) & table.NAME.str.contains("balance")]
+            assert len(selection) == 1, (name, list(selection.NAME))
+        else:
+            assert set(selection.NAME) == set(members)
         land = unary_union(selection.geometry)
         if key == "los-angeles":
             # Omit the harbor corridor and southern harbor neighborhoods from this study extent.

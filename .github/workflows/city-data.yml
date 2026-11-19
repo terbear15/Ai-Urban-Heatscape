@@ -1,0 +1,29 @@
+name: Build city boundaries
+
+# Downloads Census place boundaries and regenerates dist/cities/*.geojson and views.json.
+on:
+  workflow_dispatch:
+  push:
+    branches: [data-cities]
+    paths: [python/prepare_city_views.py, .github/workflows/city-data.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install geopandas shapely pyproj requests
+      - run: python python/prepare_city_views.py
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add dist/cities
+          git diff --cached --quiet || git commit -m "Regenerate city boundaries (20 cities, population order)"
+          git push
