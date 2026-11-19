@@ -34,14 +34,41 @@ h1{font:600 clamp(36px,4.6vw,66px)/1.08 Manrope,Arial;letter-spacing:-2px;margin
 .explore span{font-size:18px}
 footer{position:relative;z-index:2;text-align:center;padding:18px;font-size:11px;color:#fff;text-shadow:0 1px 6px #0008}
 footer a{color:#fff}
+
+/* Season themes: the whole page and the satellite image take one tone. */
+body[data-season="summer"] #map{filter:sepia(.55) saturate(1.5) hue-rotate(-12deg) brightness(.95)}
+body[data-season="summer"] .shade-veil{background:linear-gradient(180deg,rgba(185,108,68,.38),rgba(185,108,68,.16) 60%,rgba(120,60,30,.4))}
+body[data-season="summer"] .eyebrow{color:#f6d2b8}
+body[data-season="summer"] .glass-panel .eyebrow{color:#b96c44}
+body[data-season="summer"] .explore{background:#b0603a;box-shadow:0 6px 18px #b0603a40}
+body[data-season="summer"] .explore:hover{background:#97502f}
+body[data-season="winter"] #map{filter:grayscale(.55) sepia(.25) hue-rotate(175deg) saturate(1.4) brightness(.95)}
+body[data-season="winter"] .shade-veil{background:linear-gradient(180deg,rgba(48,79,112,.4),rgba(48,79,112,.16) 60%,rgba(25,45,70,.45))}
+body[data-season="winter"] .eyebrow{color:#cfe0f2}
+body[data-season="winter"] .glass-panel{background:rgba(246,250,255,.5)}
+body[data-season="winter"] .glass-panel .eyebrow{color:#567089}
+body[data-season="winter"] .glass-panel h2{color:#253f5a}
+body[data-season="winter"] .explore{background:#304f70;box-shadow:0 6px 18px #304f7040}
+body[data-season="winter"] .explore:hover{background:#243d58}
+.top{display:flex;justify-content:space-between;align-items:center}
+.season-switch{display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.season-switch button{border:0;border-radius:999px;padding:8px 14px;background:transparent;color:#fff;font:600 12px Manrope,Arial;cursor:pointer}
+.season-switch button[aria-pressed="true"]{background:#fff;color:#254b3e}
+.season-switch button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 </style>
 </head>
-<body>
+<body data-season="summer">
 <div id="map" aria-hidden="true"></div>
 <div class="shade-veil" aria-hidden="true"></div>
 <main>
   <section class="hero" aria-label="Introduction">
-    <a class="brand" href="./"><span class="brand-icon">◉</span> HeatScape</a>
+    <div class="top">
+      <a class="brand" href="./"><span class="brand-icon">◉</span> HeatScape</a>
+      <div class="season-switch" role="group" aria-label="Season">
+        <button type="button" data-season="summer" aria-pressed="true">Summer</button>
+        <button type="button" data-season="winter" aria-pressed="false">Winter</button>
+      </div>
+    </div>
     <div class="intro">
       <div class="eyebrow">URBAN WALKING · SUN AND SHADE</div>
       <h1>A little more shade. A better way there.</h1>
@@ -81,6 +108,17 @@ const map = new maplibregl.Map({
   interactive: false,
   attributionControl: false,
 });
+// Season theme: default from the current month (May-September = summer), then the visitor's choice.
+function setSeason(season) {
+  document.body.dataset.season = season;
+  for (const b of document.querySelectorAll('.season-switch button')) b.setAttribute('aria-pressed', String(b.dataset.season === season));
+  try { localStorage.setItem('heatscape-season', season); } catch (e) {}
+}
+let saved = null;
+try { saved = localStorage.getItem('heatscape-season'); } catch (e) {}
+const month = new Date().getMonth() + 1;
+setSeason(saved === 'summer' || saved === 'winter' ? saved : (month >= 5 && month <= 9 ? 'summer' : 'winter'));
+for (const b of document.querySelectorAll('.season-switch button')) b.onclick = () => setSeason(b.dataset.season);
 </script>
 </body>
 </html>
