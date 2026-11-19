@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [philly-shade-page]
-    paths: [python/osm_api.py, python/build_center_city_data.py, python/prepare_lidar_canopy.py, .github/workflows/center-city-data.yml]
+    paths: [python/compact_philly_data.py, python/osm_api.py, python/build_center_city_data.py, python/prepare_lidar_canopy.py, .github/workflows/center-city-data.yml]
 
 permissions:
   contents: write
@@ -24,6 +24,8 @@ jobs:
         run: python python/build_center_city_data.py
       - name: LiDAR tree canopy heights
         run: python python/prepare_lidar_canopy.py
+      - name: Compact for the browser
+        run: python python/compact_philly_data.py
       - name: Commit generated files
         run: |
           git config user.name "github-actions[bot]"

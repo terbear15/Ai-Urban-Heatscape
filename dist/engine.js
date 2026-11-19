@@ -25,6 +25,18 @@ function contains(p, ring) {
   return inside;
 }
 
+// Convex hull (monotone chain), closed ring.
+function hull(points) {
+  const pts = points.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const lower = [], upper = [];
+  for (const p of pts) { while (lower.length >= 2 && cross(lower.at(-2), lower.at(-1), p) <= 0) lower.pop(); lower.push(p); }
+  for (const p of pts.reverse()) { while (upper.length >= 2 && cross(upper.at(-2), upper.at(-1), p) <= 0) upper.pop(); upper.push(p); }
+  const ring = lower.slice(0, -1).concat(upper.slice(0, -1));
+  ring.push(ring[0]);
+  return ring;
+}
+
 function outerRings(geometry) {
   if (geometry.type === 'Polygon') return [geometry.coordinates[0]];
   if (geometry.type === 'MultiPolygon') return geometry.coordinates.map(polygon => polygon[0]);
@@ -34,7 +46,9 @@ function outerRings(geometry) {
 function create(data) {
   // ---- walking network ----
   const nodes = new Map();
-  const edges = data.edges.map((e, id) => {
+  // Compact segments are [a, b, lon1, lat1, lon2, lat2].
+  const rawEdges = data.edges.map(e => Array.isArray(e) ? {a: String(e[0]), b: String(e[1]), p: [e[2], e[3]], q: [e[4], e[5]]} : e);
+  const edges = rawEdges.map((e, id) => {
     for (const [k, p] of [[e.a, e.p], [e.b, e.q]]) if (!nodes.has(k)) nodes.set(k, {p: xy(p), links: []});
     const edge = {...e, id, length: distance(xy(e.p), xy(e.q)), sun: 1};
     nodes.get(e.a).links.push(edge);
@@ -81,7 +95,6 @@ function create(data) {
           if (!bins.has(key)) bins.set(key, []);
           bins.get(key).push(index);
         }
-      if (sink) sink.push({type: 'Feature', properties: {}, geometry: {type: 'Polygon', coordinates: [ring.map(ll)]}});
     }
     const night = altitude <= 0;
     if (!night) {
@@ -93,13 +106,16 @@ function create(data) {
       const sweep = (source, sink, footprintToo) => {
         for (const {ring, height} of source) {
           const len = reach(height), ox = dx * len, oy = dy * len;
+          const moved = ring.map(([x, y]) => [x + ox, y + oy]);
           if (footprintToo) add(ring, null);
-          // Shadow of the object: the footprint swept along the shadow direction.
-          add(ring.map(([x, y]) => [x + ox, y + oy]), sink);
+          // Exact shadow for scoring: the shifted footprint plus one quad per wall.
+          add(moved, null);
           for (let i = 0; i < ring.length - 1; i++) {
             const p = ring[i], q = ring[i + 1];
-            add([p, q, [q[0] + ox, q[1] + oy], [p[0] + ox, p[1] + oy], p], sink);
+            add([p, q, moved[i + 1], moved[i], p], null);
           }
+          // One polygon per object for drawing: the hull of footprint and shifted footprint.
+          if (sink) sink.push({type: 'Feature', properties: {}, geometry: {type: 'Polygon', coordinates: [hull(ring.concat(moved)).map(ll)]}});
         }
       };
       sweep(buildings, geometry ? buildingShadows : null, true);
