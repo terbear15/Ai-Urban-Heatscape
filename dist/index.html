@@ -107,7 +107,15 @@ const map = new maplibregl.Map({
   },
   interactive: false,
   attributionControl: false,
+  renderWorldCopies: true,
 });
+// Refit the contiguous US whenever the window size changes (including a first layout of 0 px).
+const US = [[-125.5, 23.5], [-65.5, 50.5]];
+const fitUS = () => {
+  if (map.getContainer().clientWidth > 0) map.fitBounds(US, {padding: 40, duration: 0});
+};
+map.on('resize', fitUS);
+map.on('load', () => { map.resize(); fitUS(); });
 // Season theme: default from the current month (May-September = summer), then the visitor's choice.
 function setSeason(season) {
   document.body.dataset.season = season;
