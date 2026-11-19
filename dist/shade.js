@@ -353,7 +353,7 @@ for(const [id,color,width] of [['fast','#f4a96e',4],['shade-route','#8bd5a6',5]]
   map.addLayer({id:id+'-halo',type:'line',source:id,layout,paint:{'line-color':'#172c23','line-width':width+3}});
   map.addLayer({id,type:'line',source:id,layout,paint:{'line-color':color,'line-width':width}});
 }
-ready=true;applyRouteColors();updateSun();map.fitBounds(cityBounds,{padding:42,duration:0});
+ready=true;if(!hasTrip())$('routeStatus').textContent='Enter a starting point and destination, or pick them on the map.';applyRouteColors();updateSun();map.fitBounds(cityBounds,{padding:42,duration:0});
 map.on('click',event=>{
   if(!picking)return;
   const point=[event.lngLat.lng,event.lngLat.lat];

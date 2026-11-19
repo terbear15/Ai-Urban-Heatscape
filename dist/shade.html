@@ -27,7 +27,7 @@
 <p class="method-links"><a href="https://www.openstreetmap.org/copyright">OSM · ODbL ↗</a><a href="https://github.com/mourner/suncalc">SunCalc ↗</a><a data-t-href="lidarUrl" href="#">LiDAR source ↗</a></p>
 </dialog><script src="vendor/maplibre-gl.js"></script><script src="vendor/suncalc.js"></script><script>
 (async () => {
-  const V = 'v1';
+  const V = 'v2';
   const slug = new URLSearchParams(location.search).get('city') || 'philadelphia';
   const views = await (await fetch('cities/views.json?' + V)).json();
   const city = views[slug];
