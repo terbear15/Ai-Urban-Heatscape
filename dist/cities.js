@@ -37,7 +37,7 @@ function clearRoute() {
 
 function choose(key, label, point) {
   if (!onLand(point)) {
-    el('status').textContent = 'Choose a point on land inside the highlighted area.';
+    el('status').textContent = 'Choose a point on land inside the dashed boundary.';
     return;
   }
   clearRoute();
@@ -165,20 +165,20 @@ async function init() {
     style: {
       version: 8,
       sources: {
-        satellite: {
+        basemap: {
           type: 'raster', tileSize: 256, maxzoom: 19,
-          tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
-          attribution: 'Imagery © Esri and contributors · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          tiles: ['a', 'b', 'c', 'd'].map(h => 'https://' + h + '.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png'),
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · © <a href="https://carto.com/attributions">CARTO</a>',
         },
         area: {type: 'geojson', data: geometry, tolerance: 0},
         'walk-route': {type: 'geojson', data: empty},
       },
       layers: [
-        {id: 'satellite', source: 'satellite', type: 'raster'},
+        {id: 'basemap', source: 'basemap', type: 'raster'},
         {id: 'outside', source: 'area', type: 'fill', filter: ['==', ['get', 'layer'], 'mask'],
-          paint: {'fill-color': '#fff', 'fill-opacity': .36, 'fill-antialias': false}},
+          paint: {'fill-color': '#f5f4ed', 'fill-opacity': .55, 'fill-antialias': false}},
         {id: 'outline', source: 'area', type: 'line', filter: ['==', ['get', 'layer'], 'land'],
-          paint: {'line-color': '#fff', 'line-width': 1.8}},
+          paint: {'line-color': '#4a4f4c', 'line-width': 1.6, 'line-dasharray': [3, 2]}},
         {id: 'walk-halo', source: 'walk-route', type: 'line', paint: {'line-color': '#172c23', 'line-width': 8}},
         {id: 'walk', source: 'walk-route', type: 'line', paint: {'line-color': '#8bd5a6', 'line-width': 5}},
       ],
@@ -192,7 +192,7 @@ async function init() {
       if (!picking) return;
       const point = [event.lngLat.lng, event.lngLat.lat];
       if (!onLand(point)) {
-        el('status').textContent = 'Choose a point on land inside the highlighted area.';
+        el('status').textContent = 'Choose a point on land inside the dashed boundary.';
         return;
       }
       choose(picking, 'Map pin · ' + point[1].toFixed(5) + ', ' + point[0].toFixed(5), point);
