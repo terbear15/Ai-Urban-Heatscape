@@ -1,4 +1,4 @@
-/* HeatScape shade engine for Center City, Philadelphia.
+/* HeatScape shade engine (one city at a time).
  *
  * Works in a local planar frame (meters). For a sun position it:
  *   1. casts building shadows (footprint + wall quads swept by height / tan(elevation)),
@@ -8,8 +8,10 @@
  *      only takes local detours within the allowed extra time.
  */
 (function (root) {
-const origin = [-75.163, 39.9525];
-const sx = 111320 * Math.cos(origin[1] * Math.PI / 180), sy = 111320;
+// Local planar frame, centered on the city data when create() runs.
+let origin = [-75.163, 39.9525];
+let sx = 111320 * Math.cos(origin[1] * Math.PI / 180);
+const sy = 111320;
 const xy = p => [(p[0] - origin[0]) * sx, (p[1] - origin[1]) * sy];
 const ll = p => [p[0] / sx + origin[0], p[1] / sy + origin[1]];
 const distance = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
@@ -44,6 +46,11 @@ function outerRings(geometry) {
 }
 
 function create(data) {
+  if (data.meta && data.meta.bounds) {
+    const [w, s, ea, n] = data.meta.bounds;
+    origin = [(w + ea) / 2, (s + n) / 2];
+    sx = 111320 * Math.cos(origin[1] * Math.PI / 180);
+  }
   // ---- walking network ----
   const nodes = new Map();
   // Compact segments are [a, b, lon1, lat1, lon2, lat2].

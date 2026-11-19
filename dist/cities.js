@@ -143,7 +143,7 @@ async function init() {
   const select = el('city');
   const requested = new URLSearchParams(location.search).get('city');
   const key = Object.hasOwn(views, requested) ? requested : 'philadelphia';
-  if (key === 'philadelphia') { location.replace('philadelphia.html'); return; }
+  if (views[key].shade) { location.replace('shade.html?city=' + key); return; }
   view = views[key];
   for (const [slug, city] of Object.entries(views)) select.append(new Option(city.name, slug));
   select.value = key;

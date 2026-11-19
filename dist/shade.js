@@ -1,11 +1,11 @@
-/* UI for the Philadelphia walking and shade map. No secrets or external routing API. */
+/* HeatScape city shade map. CITY (from cities/views.json) and CITYDATA (dist/data/<slug>.js) are set by shade.html. */
 const $=id=>document.getElementById(id),fc=features=>({type:'FeatureCollection',features});
-const engine=HeatEngine.create(PHILLY);let ready=false,picking=null,result=null,selected='shade',timer;
-const empty=fc([]),bounds=[[PHILLY.meta.bounds[0],PHILLY.meta.bounds[1]],[PHILLY.meta.bounds[2],PHILLY.meta.bounds[3]]];
+const engine=HeatEngine.create(CITYDATA);let ready=false,picking=null,result=null,selected='shade',timer;
+const empty=fc([]),bounds=[[CITYDATA.meta.bounds[0],CITYDATA.meta.bounds[1]],[CITYDATA.meta.bounds[2],CITYDATA.meta.bounds[3]]];
 const methods=$('methods');for(const id of ['about','limits'])$(id).onclick=()=>methods.showModal();methods.querySelector('.close').onclick=()=>methods.close();$('exploreTab').onclick=()=>document.querySelector('.workspace').scrollIntoView({behavior:'smooth'});
 function err(text){$('mapError').hidden=false;$('mapError').textContent=text;}
 let map;
-try{map=new maplibregl.Map({container:'map',center:[-75.1673,39.9518],zoom:15.4,maxPitch:0,dragRotate:false,pitchWithRotate:false,minZoom:9,maxZoom:19,style:{version:8,sources:{base:{type:'raster',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:16,attribution:'Basemap © Esri · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · Trees: NOAA LiDAR, PPR canopy'},labels:{type:'raster',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:16}},layers:[{id:'background',type:'background',paint:{'background-color':'#eeeee9'}},{id:'basemap',type:'raster',source:'base',paint:{'raster-fade-duration':0}}]},attributionControl:true});}catch(e){err('This browser could not start the map. Please open this prototype in a WebGL-enabled browser.');$('calculate').disabled=true;}
+try{map=new maplibregl.Map({container:'map',center:[(CITYDATA.meta.bounds[0]+CITYDATA.meta.bounds[2])/2,(CITYDATA.meta.bounds[1]+CITYDATA.meta.bounds[3])/2],zoom:14,maxPitch:0,dragRotate:false,pitchWithRotate:false,minZoom:9,maxZoom:19,style:{version:8,sources:{base:{type:'raster',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:16,attribution:'Basemap © Esri · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · Trees: NOAA LiDAR, PPR canopy'},labels:{type:'raster',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:16}},layers:[{id:'background',type:'background',paint:{'background-color':'#eeeee9'}},{id:'basemap',type:'raster',source:'base',paint:{'raster-fade-duration':0}}]},attributionControl:true});}catch(e){err('This browser could not start the map. Please open this prototype in a WebGL-enabled browser.');$('calculate').disabled=true;}
 const markers={};
 let season='summer';
 const endpoints={start:null,end:null};
@@ -17,7 +17,7 @@ function coord(key){
 }
 let locationWorker, searchId=0;
 const searches=new Map();
-// Search: named places in Center City (instant, local), then street addresses via Photon inside Center City.
+// Search: named places in the study area (instant, local), then street addresses via Photon inside it.
 const normalizeText=text=>text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[’'`.]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 const placeIndex=(window.PLACES||[]).map(([name,kind,lon,lat])=>({name,kind,point:[lon,lat],key:normalizeText(name),words:normalizeText(name).split(' ')}));
 function findPlaces(query){
@@ -46,8 +46,8 @@ function findPlaces(query){
   return out;
 }
 async function findAddresses(query){
-  const [w,s,e,n]=PHILLY.meta.bounds;
-  const url=`https://photon.komoot.io/api/?q=${encodeURIComponent(query+' Philadelphia')}&bbox=${w},${s},${e},${n}&limit=8&lang=en`;
+  const [w,s,e,n]=CITYDATA.meta.bounds;
+  const url=`https://photon.komoot.io/api/?q=${encodeURIComponent(query+' '+CITY.name)}&bbox=${w},${s},${e},${n}&limit=8&lang=en`;
   const response=await fetch(url);
   if(!response.ok)throw new Error('Address search is unavailable right now. Pick the point on the map instead.');
   const data=await response.json();
@@ -69,7 +69,7 @@ async function lookup(query,address=false,suggest=false){
   if(local.length)return local;
   if(suggest&&query.trim().length<4)return [];
   const found=await findAddresses(query);
-  if(!found.length&&!suggest)throw new Error('No match inside Center City. Try a landmark name or a street address.');
+  if(!found.length&&!suggest)throw new Error(`No match inside ${CITY.areaName}. Try a landmark name or a street address.`);
   return found;
 }
 function requestLocation(payload){
@@ -115,11 +115,11 @@ async function searchLocation(key,suggest=false){
   clearTimeout(suggestionTimers[key]);
   const version=++searchVersions[key];
   const query=$(key).value.trim(), button=$(key+'Search'), list=$(key+'Matches');
-  if(!query){$('routeStatus').textContent='Enter a Center City place or address.';return;}
+  if(!query){$('routeStatus').textContent=`Enter a place or address in ${CITY.areaName}.`;return;}
   list.hidden=true;
   if(!suggest){
     button.disabled=true;
-    $('routeStatus').textContent='Searching Center City…';
+    $('routeStatus').textContent=`Searching ${CITY.areaName}…`;
   }
   try{
     const matches=await lookup(query,false,suggest);
@@ -196,14 +196,24 @@ function showRoute(route, zoom){
   $('routeStatus').textContent=`3 mph estimate · Points snapped ${Math.round(route.start.meters*3.28084)} ft / ${Math.round(route.end.meters*3.28084)} ft to the network; those gaps excluded.`;
   if(zoom)fit();
 }
-const cityBounds=[[-75.18780108559261, 39.94097452169755], [-75.1403780783511, 39.9644582541323]]; // Center City
-const inShadeArea=([x,y])=>x>=bounds[0][0]&&x<=bounds[1][0]&&y>=bounds[0][1]&&y<=bounds[1][1];
+const cityBounds=CITY.bounds;
+let areaRings=null;
+fetch('cities/'+CITY.slug+'.geojson').then(r=>r.json()).then(fc=>{
+  const g=fc.features.find(f=>f.properties.layer==='land').geometry;
+  areaRings=(g.type==='Polygon'?[g.coordinates]:g.coordinates).map(poly=>poly[0]);
+}).catch(()=>{});
+const inShadeArea=p=>{
+  const [x,y]=p;
+  if(!(x>=bounds[0][0]&&x<=bounds[1][0]&&y>=bounds[0][1]&&y<=bounds[1][1]))return false;
+  // A small tolerance: points within the data margin just outside the line are allowed.
+  return !areaRings||areaRings.some(r=>HeatEngine.contains(p,r))||areaRings.some(r=>r.some(q=>Math.hypot((q[0]-x)*85000,(q[1]-y)*111000)<120));
+};
 let routeVersion=0, pendingCityTrip;
 async function calculate(zoom=false){
   if(!ready||!hasTrip())return;
   const trip=[coord('start'),coord('end')];
   ++routeVersion;
-  if(!trip.every(inShadeArea)){clearRoute('Choose both points inside the dashed Center City boundary.');return;}
+  if(!trip.every(inShadeArea)){clearRoute('Choose both points inside the dashed boundary.');return;}
   if(!citySun)return;
   try{
     refreshShade();
@@ -231,8 +241,8 @@ $('cityOverview').onclick=()=>{
 let citySun, localSun;
 function timeText(){const t=+$('time').value,h=Math.floor(t),m=Math.round((t-h)*60);$('timeLabel').textContent=`${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`;return {h,m};}
 const seasons={
-  summer:{min:'2026-06-01',max:'2026-08-31',date:'2026-07-15',hour:'15',last:'19',offset:'-04:00',zone:'EDT'},
-  winter:{min:'2026-12-01',max:'2027-02-28',date:'2027-01-15',hour:'12',last:'17',offset:'-05:00',zone:'EST'},
+  summer:{min:'2026-06-01',max:'2026-08-31',date:'2026-07-15',hour:'15',last:'19',offset:CITY.tz.summer,zone:CITY.tz.summerName},
+  winter:{min:'2026-12-01',max:'2027-02-28',date:'2027-01-15',hour:'12',last:'17',offset:CITY.tz.winter,zone:CITY.tz.winterName},
 };
 const routeColors={
   summer:{fast:'#f4a96e',candidate:'#8bd5a6'},
@@ -309,7 +319,7 @@ function updateSun(){
     return;
   }
   const clock=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00`;
-  citySun=SunCalc.getPosition(new Date(`${date}T${clock}${setting.offset}`),39.9515,-75.167);
+  citySun=SunCalc.getPosition(new Date(`${date}T${clock}${setting.offset}`),(cityBounds[0][1]+cityBounds[1][1])/2,(cityBounds[0][0]+cityBounds[1][0])/2);
   $('solarLabel').textContent=citySun.altitude<=0?'Sun below the horizon':
     `Sun elevation ${Math.round(citySun.altitude*180/Math.PI)}° · ${season==='winter'?'Winter':'Summer'} scenario`;
   refreshTreeShade();
@@ -319,12 +329,11 @@ $('summerMode').onclick=()=>{if(season!=='summer')setSeason('summer');};
 $('winterMode').onclick=()=>{if(season!=='winter')setSeason('winter');};
 {let saved=null;try{saved=localStorage.getItem('heatscape-season');}catch(e){}if((new URLSearchParams(location.search).get('season')||saved)==='winter')setSeason('winter');}
 if(map){map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');map.addControl(new maplibregl.ScaleControl({unit:'imperial'}),'bottom-right');map.on('error',e=>{if(e.sourceId==='base')err('Background tiles unavailable. Route lines are still available.');});map.on('load',()=>{
-map.addSource('city-mask',{type:'geojson',data:'location/center-city-mask.geojson',tolerance:0});
-map.addLayer({id:'city-mask',type:'fill',source:'city-mask',paint:{
+map.addSource('area',{type:'geojson',data:'cities/'+CITY.slug+'.geojson',tolerance:0});
+map.addLayer({id:'city-mask',type:'fill',source:'area',filter:['==',['get','layer'],'mask'],paint:{
   'fill-color':'#f5f4ed','fill-opacity':.6,'fill-antialias':false,
 }});
-map.addSource('city-limits',{type:'geojson',data:'location/center-city.geojson',tolerance:0});
-map.addLayer({id:'city-limits',type:'line',source:'city-limits',paint:{
+map.addLayer({id:'city-limits',type:'line',source:'area',filter:['==',['get','layer'],'land'],paint:{
   'line-color':'#4a4f4c','line-width':1.6,'line-opacity':.95,'line-dasharray':[3,2],
 }});
 map.addLayer({id:'labels',type:'raster',source:'labels',paint:{'raster-fade-duration':0,'raster-opacity':.8}});
@@ -333,9 +342,9 @@ map.addSource('building-shadows',{type:'geojson',data:empty,tolerance:.3});
 map.addLayer({id:'building-shadows',type:'fill',source:'building-shadows',paint:{'fill-color':'#b4bac6','fill-opacity':1,'fill-antialias':false}});
 map.addSource('tree-shadows',{type:'geojson',data:empty,tolerance:.3});
 map.addLayer({id:'tree-shadows',type:'fill',source:'tree-shadows',paint:{'fill-color':'#9cc4a3','fill-opacity':1,'fill-antialias':false}});
-map.addSource('trees',{type:'geojson',data:PHILLY.trees||empty});
+map.addSource('trees',{type:'geojson',data:CITYDATA.trees||empty});
 map.addLayer({id:'trees',type:'fill',source:'trees',paint:{'fill-color':'#4f8f5c','fill-opacity':.85}});
-map.addSource('buildings',{type:'geojson',data:PHILLY.buildings});
+map.addSource('buildings',{type:'geojson',data:CITYDATA.buildings});
 map.addLayer({id:'buildings',type:'fill',source:'buildings',paint:{'fill-color':'#7d848e','fill-opacity':1,'fill-outline-color':'#666c75'}});
 map.moveLayer('city-mask');map.moveLayer('city-limits');
 for(const [id,color,width] of [['fast','#f4a96e',4],['shade-route','#8bd5a6',5]]){
@@ -354,7 +363,7 @@ map.on('click',event=>{
   document.querySelectorAll('.pick-row button').forEach(button=>button.classList.remove('active'));
 });
 });}
-for(const [id,key] of [['pickStart','start'],['pickEnd','end']])$(id).onclick=()=>{if(!ready)return;picking=picking===key?null:key;document.querySelectorAll('.pick-row button').forEach(b=>b.classList.toggle('active',b.id===id&&!!picking));map.getCanvas().style.cursor=picking?'crosshair':'';$('routeStatus').textContent=picking?`Click on the Philadelphia map to choose your ${key}.`:'Map selection canceled.';};
+for(const [id,key] of [['pickStart','start'],['pickEnd','end']])$(id).onclick=()=>{if(!ready)return;picking=picking===key?null:key;document.querySelectorAll('.pick-row button').forEach(b=>b.classList.toggle('active',b.id===id&&!!picking));map.getCanvas().style.cursor=picking?'crosshair':'';$('routeStatus').textContent=picking?`Click on the ${CITY.name} map to choose your ${key}.`:'Map selection canceled.';};
 for(const key of ['start','end']){
   $(key+'Search').onclick=()=>searchLocation(key);
   $(key).onkeydown=event=>{if(event.key==='Enter'){event.preventDefault();$(key+'Search').click();}else if(event.key==='Escape'){++searchVersions[key];clearTimeout(suggestionTimers[key]);$(key+'Matches').hidden=true;}};

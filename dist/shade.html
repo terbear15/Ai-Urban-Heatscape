@@ -1,0 +1,68 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#254b3e"><title>HeatScape</title><style>.city-select{display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:1.6px;color:#788378}.city-select select{font:600 12px Manrope,"DM Sans",Arial;color:#254b3e;background:#fcfcf7;border:1px solid #dce1d5;border-radius:7px;padding:8px 10px}.map-legend .swatch{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:2px}.method-links{display:flex;flex-wrap:wrap;gap:8px 14px}</style><link rel="stylesheet" href="vendor/maplibre-gl.css"><link rel="stylesheet" href="philly.css?v=shade1"></head><body>
+<header><a class="brand" href="./"><span class="brand-icon">◉</span> HeatScape<span class="brand-sub">THE SHADE BETWEEN PLACES</span></a><nav aria-label="Main"><button class="selected" id="exploreTab">Explore</button><button id="about">Behind the map ↗</button></nav><label class="city-select" for="citySelect">CITY<select id="citySelect"></select></label></header>
+<main><div class="intro"><div><div class="eyebrow"><span data-t="cityUpper"></span> / <span data-t="areaUpper"></span></div><h1><span id="seasonTitle">A little more shade.</span><br><span>A better way there.</span></h1><p>Explore how the city's buildings and trees shape your walk through the sun.</p></div><div class="intro-note"><span data-t="rank"></span><p>Same city.<br>A different way to walk.</p></div></div>
+<div class="notice"><b>EARLY PROTOTYPE</b><span>Real mapped streets & buildings. Approximate building shadows. Tree shade uses LiDAR-measured crown heights across the study area. Sidewalk access and field accuracy still need verification.</span><button id="limits">See limitations ↗</button></div>
+<section class="workspace" aria-label="Route explorer"><aside><div class="eyebrow" id="walkMode">SUMMER · SEEK SHADE</div><h2>Where are you headed?</h2>
+<label for="start">STARTING POINT</label><div class="location-field"><input type="search" id="start" placeholder="Street address or place" autocomplete="off" aria-describedby="routeStatus"><button type="button" id="startSearch" aria-label="Search start location" title="Search"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 4.5 4.5"/></svg></button></div><div id="startMatches" class="location-matches" hidden></div><div class="route-connector">⋮</div><label for="end">DESTINATION</label><div class="location-field"><input type="search" id="end" placeholder="Street address or place" autocomplete="off" aria-describedby="routeStatus"><button type="button" id="endSearch" aria-label="Search end location" title="Search"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 4.5 4.5"/></svg></button></div><div id="endMatches" class="location-matches" hidden></div><div class="pick-row"><button id="pickStart">⌖ Pick start on map</button><button id="pickEnd">⚑ Pick destination</button></div>
+<div class="divider"></div><div id="summerDetour"><div class="label-row"><label for="detour">EXTRA TIME PER DETOUR</label><output id="detourLabel">Up to 3 min</output></div><input id="detour" type="range" min="0" max="15" value="3" step="1"><div class="range-ends"><span>Keep it direct</span><span>Take the scenic way</span></div></div><div id="winterDetour" class="winter-detour" hidden><div class="label-row"><span>EXTRA TIME FOR THE WHOLE WALK</span><output id="winterBudget">Auto</output></div><p class="small">10 min walk → up to 1 min extra · 20 min walk → up to 3 min extra</p></div><button id="calculate" class="primary">Compare my walk <span>↗</span></button><p id="routeStatus" class="small" role="status">Loading buildings, streets and LiDAR trees… this takes a few seconds.</p><div id="results" aria-live="polite"></div></aside>
+<div class="map-panel"><div class="map-heading"><div><div class="eyebrow" data-t="cityUpper"></div><h2>Your city, in a different light.</h2></div><div class="season-switch" role="group" aria-label="Season"><button id="summerMode" type="button" aria-pressed="true">Summer</button><button id="winterMode" type="button" aria-pressed="false">Winter</button></div></div><div class="map-stage"><div id="map" aria-label="Interactive city map"></div><div id="mapError" role="status" hidden></div><div class="map-legend"><span><i class="line green"></i> <span id="candidateLegend">Lower-sun route</span></span><span><i class="line orange"></i> Shortest route</span><span><i class="swatch" style="background:#7d848e"></i> Building</span><span><i class="swatch" style="background:#b4bac6"></i> Building shadow</span><span><i class="swatch" style="background:#4f8f5c"></i> Tree crown (LiDAR)</span><span><i class="swatch" style="background:#9cc4a3"></i> Tree shadow</span></div><button id="cityOverview" class="reset city-overview">City overview</button><button id="reset" class="reset">⌖ Recenter</button></div>
+<div class="sun-controls"><div class="sun-title"><span class="sun-icon">☀</span><div><div class="eyebrow">MOVE THROUGH THE DAY</div><strong id="timeLabel">3:00 PM</strong><span class="timezone" id="timezone">EDT</span></div></div><div class="timeline"><label class="sr-only" for="time">Time of day, local time</label><input id="time" type="range" min="8" max="19" step="0.25" value="15"><div class="range-ends"><span>8 AM</span><span>NOON</span><span id="lastHour">7 PM</span></div></div><div class="date-field"><label for="date" id="dateLabel">SUMMER SCENARIO</label><input type="date" id="date" min="2026-06-01" max="2026-08-31" value="2026-07-15"></div></div><div class="tree-controls"><label><input id="treeShade" type="checkbox" checked> LiDAR tree shade</label><button id="treePilot" type="button">Fit study area ↗</button><span id="treeStatus" role="status">LiDAR tree crowns</span></div><div class="map-foot"><span>Drag to explore · Zoom in for street detail</span><span id="solarLabel">Loading map data…</span></div></div></section>
+<section class="bottom-notes"><article><span>01</span><div><h3>Follow the streets.</h3><p>Routes follow a connected OSM network. Sidewalks and crossings still need field verification.</p></div></article><article><span>02</span><div><h3>Compare times of day.</h3><p>Change the time to compare estimated sun exposure along your route.</p></div></article><article><span>03</span><div><h3>Make the tradeoff visible.</h3><p>Compare walking time with modeled exposure. No temperature prediction or safety score.</p></div></article></section><footer><span>HeatScape / <span data-t="areaName"></span>, <span data-t="cityName"></span></span><span>Built for the everyday walk.</span></footer></main>
+<dialog id="methods"><button class="close" aria-label="Close methods">×</button>
+<div class="eyebrow">HOW THIS MAP WORKS</div>
+<h2><span data-t="areaName"></span>, <span data-t="cityName"></span></h2>
+<p>A working geometry and routing model, not a validated heat-navigation service.</p>
+<h3>Study area</h3>
+<p data-t="areaNote"></p>
+<h3>Buildings and streets</h3>
+<p>Building footprints and walkable ways come from OpenStreetMap (official OSM API). Heights use the OSM height tag, then floor count × 3.3 m, then an assumed 12 m (about 39 ft) where neither exists. Streets and buildings are included up to 150 m beyond the dashed boundary so walks near the edge still route correctly.</p>
+<h3>Tree canopy (LiDAR)</h3>
+<p data-t="treeNote"></p>
+<h3>Sun and shade</h3>
+<p>SunCalc gives the sun position for the chosen date and time. Every building and crown is swept away from the sun by its height divided by the tangent of solar elevation (capped at 400 m). Each street segment is sampled every 10 m to find the share in shade. Trees count in summer only; winter assumes leaf-off. The time is held constant for the whole walk.</p>
+<h3>How routes are compared</h3>
+<p>Dijkstra's algorithm finds the shortest walk. Seven penalty weights on sun (summer) or shade (winter) produce alternatives. An alternative section replaces the matching part of the shortest walk only if it improves exposure and adds no more than the extra time you allow. This is a heuristic, not a guaranteed optimum.</p>
+<h3>Known gaps</h3>
+<p>Street centerlines stand in for sidewalks. Terrain, awnings, building relations in OSM, canopy change since the surveys, live closures, indoor routes and accessibility are not modeled.</p>
+<p class="method-links"><a href="https://www.openstreetmap.org/copyright">OSM · ODbL ↗</a><a href="https://github.com/mourner/suncalc">SunCalc ↗</a><a data-t-href="lidarUrl" href="#">LiDAR source ↗</a></p>
+</dialog><script src="vendor/maplibre-gl.js"></script><script src="vendor/suncalc.js"></script><script>
+(async () => {
+  const V = 'v1';
+  const slug = new URLSearchParams(location.search).get('city') || 'philadelphia';
+  const views = await (await fetch('cities/views.json?' + V)).json();
+  const city = views[slug];
+  if (!city) { location.replace('explore.html'); return; }
+  if (!city.shade) { location.replace('cities.html?city=' + slug); return; }
+  window.CITY = {slug, ...city};
+  const ranks = Object.keys(views);
+  const text = {
+    cityName: city.name, cityUpper: city.name.toUpperCase(), areaName: city.areaName,
+    areaUpper: city.areaName.toUpperCase(),
+    rank: String(ranks.indexOf(slug) + 1).padStart(2, '0') + ' / ' + city.name.toUpperCase(),
+  };
+  for (const node of document.querySelectorAll('[data-t]')) if (text[node.dataset.t]) node.textContent = text[node.dataset.t];
+  document.title = 'HeatScape · ' + city.name;
+  const select = document.getElementById('citySelect');
+  for (const [key, c] of Object.entries(views)) select.append(new Option(c.name, key));
+  select.value = slug;
+  select.onchange = () => { location.href = (views[select.value].shade ? 'shade.html' : 'cities.html') + '?city=' + select.value; };
+  const load = src => new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src; script.onload = resolve; script.onerror = () => reject(new Error(src));
+    document.body.append(script);
+  });
+  try {
+    await load('data/' + slug + '.js?' + V);
+    await load('data/' + slug + '-places.js?' + V).catch(() => { window.PLACES = []; });
+    const meta = window.CITYDATA.meta;
+    const fill = {areaNote: meta.area || '', treeNote: meta.tree_method || meta.tree_source || ''};
+    for (const node of document.querySelectorAll('[data-t]')) if (fill[node.dataset.t]) node.textContent = fill[node.dataset.t];
+    for (const node of document.querySelectorAll('[data-t-href]')) if (meta.lidar_url) node.href = meta.lidar_url;
+    await load('engine.js?' + V);
+    await load('shade.js?' + V);
+  } catch (error) {
+    document.getElementById('routeStatus').textContent = 'The city data could not load. Please refresh the page.';
+  }
+})();
+</script>
+</body></html>
