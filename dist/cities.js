@@ -166,15 +166,20 @@ async function init() {
       version: 8,
       sources: {
         basemap: {
-          type: 'raster', tileSize: 256, maxzoom: 19,
-          tiles: ['a', 'b', 'c', 'd'].map(h => 'https://' + h + '.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png'),
-          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · © <a href="https://carto.com/attributions">CARTO</a>',
+          type: 'raster', tileSize: 256, maxzoom: 16,
+          tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'],
+          attribution: 'Basemap © Esri · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        },
+        labels: {
+          type: 'raster', tileSize: 256, maxzoom: 16,
+          tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}'],
         },
         area: {type: 'geojson', data: geometry, tolerance: 0},
         'walk-route': {type: 'geojson', data: empty},
       },
       layers: [
         {id: 'basemap', source: 'basemap', type: 'raster'},
+        {id: 'labels', source: 'labels', type: 'raster'},
         {id: 'outside', source: 'area', type: 'fill', filter: ['==', ['get', 'layer'], 'mask'],
           paint: {'fill-color': '#f5f4ed', 'fill-opacity': .55, 'fill-antialias': false}},
         {id: 'outline', source: 'area', type: 'line', filter: ['==', ['get', 'layer'], 'land'],
