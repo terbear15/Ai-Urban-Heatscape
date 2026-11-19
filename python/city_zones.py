@@ -41,10 +41,6 @@ ZONES = {
         # Center City: Vine Street to South Street, Schuylkill to Delaware River.
         ("Center City", (-75.1830, 39.9415, -75.1395, 39.9585)),
     ],
-    "san-antonio": [
-        ("Downtown, River Walk and the Alamo", -98.490, 29.425, 1.4),
-        ("The Pearl", -98.480, 29.443, 0.7),
-    ],
     "san-diego": [
         ("Downtown and Gaslamp Quarter", -117.160, 32.712, 1.3),
         ("Balboa Park", -117.150, 32.731, 1.2),
@@ -56,30 +52,12 @@ ZONES = {
         ("Uptown and Arts District", -96.800, 32.795, 1.0),
         ("Deep Ellum", -96.783, 32.784, 0.7),
     ],
-    "jacksonville": [
-        ("Downtown", -81.658, 30.327, 1.4),
-        ("Riverside", -81.685, 30.311, 0.9),
-    ],
     "san-jose": [
         ("Downtown", -121.889, 37.335, 1.3),
-    ],
-    "austin": [
-        ("Downtown", -97.743, 30.268, 1.3),
-        ("Capitol and UT", -97.738, 30.284, 1.0),
-        ("South Congress", -97.748, 30.250, 0.9),
     ],
     "charlotte": [
         ("Uptown", -80.843, 35.227, 1.3),
         ("South End", -80.856, 35.212, 0.9),
-    ],
-    "columbus": [
-        ("Downtown", -82.999, 39.961, 1.3),
-        ("Short North", -83.003, 39.978, 0.9),
-        ("German Village", -82.995, 39.950, 0.7),
-    ],
-    "indianapolis": [
-        ("Downtown", -86.158, 39.768, 1.4),
-        ("Mass Ave", -86.150, 39.775, 0.6),
     ],
     "san-francisco": [
         ("Union Square and Financial District", -122.405, 37.790, 1.4),
@@ -99,8 +77,36 @@ ZONES = {
         ("Civic Center", -104.985, 39.737, 0.9),
         ("RiNo", -104.982, 39.768, 0.8),
     ],
-    "oklahoma-city": [
-        ("Downtown and Bricktown", -97.513, 35.467, 1.4),
+    "washington": [
+        ("National Mall", -77.030, 38.889, 1.6),
+        ("Downtown and Penn Quarter", -77.023, 38.899, 1.0),
+        ("Dupont Circle", -77.043, 38.910, 0.8),
+        ("Georgetown", -77.064, 38.906, 0.9),
+    ],
+    "boston": [
+        ("Downtown and Freedom Trail", -71.059, 42.358, 1.0),
+        ("North End", -71.054, 42.365, 0.6),
+        ("Back Bay", -71.080, 42.350, 1.0),
+        ("Seaport", -71.044, 42.350, 0.8),
+    ],
+    "atlanta": [
+        ("Downtown", -84.390, 33.757, 1.2),
+        ("Midtown", -84.385, 33.781, 1.1),
+        ("Old Fourth Ward and BeltLine", -84.365, 33.767, 0.8),
+    ],
+    "minneapolis": [
+        ("Downtown", -93.270, 44.977, 1.2),
+        ("Mill District and Riverfront", -93.256, 44.979, 0.7),
+    ],
+    "detroit": [
+        ("Downtown", -83.047, 42.333, 1.2),
+        ("Midtown", -83.065, 42.352, 0.9),
+        ("Riverwalk", -83.035, 42.330, 0.7),
+    ],
+    "baltimore": [
+        ("Inner Harbor", -76.611, 39.285, 1.0),
+        ("Fells Point", -76.594, 39.283, 0.7),
+        ("Mount Vernon", -76.616, 39.298, 0.7),
     ],
     "miami": [
         ("Downtown and Bayfront", -80.190, 25.775, 1.2),

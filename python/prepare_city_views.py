@@ -17,28 +17,29 @@ OUT.mkdir(exist_ok=True)
 CACHE = ROOT / "raw" / "places"
 CACHE.mkdir(parents=True, exist_ok=True)
 BASE = "https://www2.census.gov/geo/tiger/GENZ2024/shp/"
-# Twenty cities, stored in order of population (largest first). Fort Worth is replaced by Miami.
+# Twenty cities: the 20 largest U.S. metro economies (nominal GDP, 2024, from BEA
+# county GDP summed to metro areas), stored in that order. The core city of each metro is mapped.
 CITIES = {
     "new-york": ("36", "New York"),
     "los-angeles": ("06", "Los Angeles"),
     "chicago": ("17", "Chicago"),
-    "houston": ("48", "Houston"),
-    "phoenix": ("04", "Phoenix"),
-    "philadelphia": ("42", "Philadelphia"),
-    "san-antonio": ("48", "San Antonio"),
-    "san-diego": ("06", "San Diego"),
-    "dallas": ("48", "Dallas"),
-    "jacksonville": ("12", "Jacksonville"),
-    "san-jose": ("06", "San Jose"),
-    "austin": ("48", "Austin"),
-    "charlotte": ("37", "Charlotte"),
-    "columbus": ("39", "Columbus"),
-    "indianapolis": ("18", "Indianapolis"),
     "san-francisco": ("06", "San Francisco"),
+    "dallas": ("48", "Dallas"),
+    "houston": ("48", "Houston"),
+    "washington": ("11", "Washington"),
+    "boston": ("25", "Boston"),
+    "atlanta": ("13", "Atlanta"),
     "seattle": ("53", "Seattle"),
-    "denver": ("08", "Denver"),
-    "oklahoma-city": ("40", "Oklahoma City"),
+    "philadelphia": ("42", "Philadelphia"),
     "miami": ("12", "Miami"),
+    "san-jose": ("06", "San Jose"),
+    "phoenix": ("04", "Phoenix"),
+    "minneapolis": ("27", "Minneapolis"),
+    "detroit": ("26", "Detroit"),
+    "san-diego": ("06", "San Diego"),
+    "denver": ("08", "Denver"),
+    "charlotte": ("37", "Charlotte"),
+    "baltimore": ("24", "Baltimore"),
 }
 LA_PLACES = ("Los Angeles", "Santa Monica", "Pasadena", "Inglewood",
              "West Hollywood", "Beverly Hills", "Culver City", "Glendale", "South Pasadena")

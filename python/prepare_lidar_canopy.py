@@ -1,4 +1,11 @@
-"""Derive canopy heights near Rittenhouse Square from classified NOAA EPT LiDAR."""
+"""Derive tree canopy heights for Center City, Philadelphia from classified NOAA EPT LiDAR.
+
+Crown outlines come from the city's 2015 tree canopy layer (PPR, via CARTO). For each
+crown, the 90th-percentile height of first-return non-ground LiDAR points above the
+local bare-earth surface (both rasterized to a 2 m grid with rasterio) gives its height.
+Results are written to dist/location/lidar-canopy.geojson and added to dist/philly-data.js
+as PHILLY.trees for the in-browser shade engine.
+"""
 import json
 import math
 from concurrent.futures import ThreadPoolExecutor
@@ -19,7 +26,9 @@ CACHE = ROOT / "raw" / "lidar" / "ept"
 CACHE.mkdir(parents=True, exist_ok=True)
 EPT = "https://noaa-nos-coastal-lidar-pds.s3.amazonaws.com/entwine/geoid18/9848/"
 CARTO = "https://phl.carto.com/api/v2/sql"
-AREA = (-75.1745, 39.9477, -75.1699, 39.9511)
+CENTER_CITY = shape(json.loads((ROOT / "dist" / "location" / "center-city.geojson").read_text(encoding="utf-8"))["features"][0]["geometry"])
+REACH = CENTER_CITY.buffer(.002)  # about 150-200 m around the official area, matching the street data
+AREA = tuple(round(v, 5) for v in REACH.bounds)
 DEPTH = 10
 RESOLUTION = 2
 
@@ -67,9 +76,9 @@ def main():
                 keys.add(key)
 
     walk("0-0-0-0")
-    print(f"Selected {len(keys)} EPT nodes", flush=True)
+    print(f"Selected {len(keys)} EPT nodes for {AREA}", flush=True)
     assert keys
-    area = box(*AREA)
+    area = REACH
     envelope = ",".join(map(str, AREA))
     query = ("SELECT cartodb_id, the_geom FROM ppr_tree_canopy_outlines_2015 "
              f"WHERE the_geom && ST_MakeEnvelope({envelope},4326)")
@@ -93,7 +102,7 @@ def main():
         path = fetch(EPT + f"ept-data/{key}.laz", CACHE / f"{key}.laz")
         return laspy.read(path)
 
-    with ThreadPoolExecutor(max_workers=6) as pool:
+    with ThreadPoolExecutor(max_workers=16) as pool:
         for lidar in pool.map(read, sorted(keys)):
             x, y, z = np.asarray(lidar.x), np.asarray(lidar.y), np.asarray(lidar.z)
             assert lidar.header.scales[2] > 0
@@ -141,6 +150,19 @@ def main():
                                   max(f["properties"]["height_m"] for f in features)],
                "lidar_source": EPT, "canopy_query": query, "crs": crs.to_string()}
     (target / "lidar-summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    # Hand the crowns to the browser engine (rounded to ~1 cm).
+    def rounded(value):
+        return [rounded(v) for v in value] if isinstance(value, list) else round(value, 7)
+    trees = [{"type": "Feature", "properties": {"h": f["properties"]["height_m"]},
+              "geometry": {"type": f["geometry"]["type"], "coordinates": rounded(json.loads(json.dumps(f["geometry"]["coordinates"])))}}
+             for f in features]
+    engine_path = ROOT / "dist" / "philly-data.js"
+    engine = json.loads(engine_path.read_text(encoding="utf-8")[len("window.PHILLY="):].rstrip().rstrip(";"))
+    engine["trees"] = {"type": "FeatureCollection", "features": trees}
+    engine["meta"]["trees"] = len(trees)
+    engine["meta"]["tree_source"] = "NOAA NOS coastal LiDAR (EPT 9848, 2022) heights; PPR 2015 canopy outlines"
+    engine_path.write_text("window.PHILLY=" + json.dumps(engine, separators=(",", ":")) + ";", encoding="utf-8")
+    print(f"Added {len(trees)} tree crowns to philly-data.js", flush=True)
     print({k: v for k, v in summary.items() if k not in {"ept_nodes", "crs"}}, flush=True)
 
 

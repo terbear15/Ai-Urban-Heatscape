@@ -60,14 +60,14 @@ function squareThumb([[w, s], [e, n]]) {
 
 async function build() {
   const views = await (await fetch('cities/views.json')).json();
-  // views.json is stored in order of city population.
+  // views.json is stored in order of metro GDP.
   const slugs = Object.keys(views);
   const grid = document.getElementById('grid');
   for (const slug of slugs) {
     const city = views[slug];
     const link = document.createElement('a');
     link.className = 'city';
-    link.href = 'cities.html?city=' + slug;
+    link.href = slug === 'philadelphia' ? 'philadelphia.html' : 'cities.html?city=' + slug;
     link.setAttribute('aria-label', 'Open ' + city.name + ' walking map');
 
     const frame = document.createElement('div');
@@ -82,7 +82,7 @@ async function build() {
 
     const tag = document.createElement('div');
     tag.className = 'tag' + (slug === 'philadelphia' ? ' first' : '');
-    tag.textContent = slug === 'philadelphia' ? 'Shade comparisons in progress' : 'Walking routes';
+    tag.textContent = slug === 'philadelphia' ? 'Building and tree shade' : 'Walking routes';
 
     link.append(frame, name, tag);
     grid.append(link);

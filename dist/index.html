@@ -12,7 +12,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#1f382f;color:var(--ink);font:14px 'DM Sans',Arial,sans-serif}
 #map{position:fixed;inset:0;z-index:0;filter:grayscale(1) contrast(1.08) brightness(.92)}
-.tint{position:fixed;inset:0;z-index:1;pointer-events:none;mix-blend-mode:color;background:#c46a36}
+.tint{position:fixed;inset:0;z-index:1;pointer-events:none;mix-blend-mode:color;background:#a0735a}
 .shade-veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(31,56,47,.18),rgba(31,56,47,.05) 60%,rgba(31,56,47,.2))}
 main{position:relative;z-index:2}
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:28px 6% 40px}
@@ -37,12 +37,12 @@ footer{position:relative;z-index:2;text-align:center;padding:18px;font-size:11px
 footer a{color:#fff}
 
 /* Season themes: the whole page and the satellite image take one tone. */
-body[data-season="summer"] .tint{background:#c46a36}
-body[data-season="summer"] .shade-veil{background:linear-gradient(180deg,rgba(185,108,68,.38),rgba(185,108,68,.16) 60%,rgba(120,60,30,.4))}
+body[data-season="summer"] .tint{background:#a0735a}
+body[data-season="summer"] .shade-veil{background:linear-gradient(180deg,rgba(160,115,89,.38),rgba(160,115,89,.16) 60%,rgba(100,72,56,.4))}
 body[data-season="summer"] .eyebrow{color:#f6d2b8}
 body[data-season="summer"] .glass-panel .eyebrow{color:#b96c44}
-body[data-season="summer"] .explore{background:#b0603a;box-shadow:0 6px 18px #b0603a40}
-body[data-season="summer"] .explore:hover{background:#97502f}
+body[data-season="summer"] .explore{background:#96694f;box-shadow:0 6px 18px #96694f40}
+body[data-season="summer"] .explore:hover{background:#7e5841}
 body[data-season="winter"] .tint{background:#3f6f9e}
 body[data-season="winter"] .shade-veil{background:linear-gradient(180deg,rgba(48,79,112,.4),rgba(48,79,112,.16) 60%,rgba(25,45,70,.45))}
 body[data-season="winter"] .eyebrow{color:#cfe0f2}
@@ -73,8 +73,8 @@ body[data-season="winter"] .explore:hover{background:#243d58}
     </div>
     <div class="intro">
       <div class="eyebrow">URBAN WALKING · SUN AND SHADE</div>
-      <h1>A little more shade. A better way there.</h1>
-      <p>HeatScape maps walking routes across American cities. Shade comparisons are being built first for Center City, Philadelphia.</p>
+      <h1 id="heroTitle">A little more shade. A better way there.</h1>
+      <p id="heroText">HeatScape maps walking routes across American cities. Shade comparisons are being built first for Center City, Philadelphia.</p>
     </div>
     <div class="scroll-cue" aria-hidden="true">SCROLL<span>↓</span></div>
   </section>
@@ -82,7 +82,7 @@ body[data-season="winter"] .explore:hover{background:#243d58}
   <section class="glass" aria-label="Explore cities">
     <div class="glass-panel">
       <div class="eyebrow">CHOOSE A CITY</div>
-      <h2>Walk the city with the sun in mind.</h2>
+      <h2 id="glassTitle">Walk the city with the sun in mind.</h2>
       <p>Pick a city to see its walking map. Walking routes are available in every city; shade comparisons are in progress for Center City.</p>
       <a class="explore" href="explore.html">Explore <span>→</span></a>
     </div>
@@ -119,8 +119,23 @@ const fitUS = () => {
 map.on('resize', fitUS);
 map.on('load', () => { map.resize(); fitUS(); });
 // Season theme: default from the current month (May-September = summer), then the visitor's choice.
+const COPY = {
+  summer: {
+    hero: 'A little more shade. A cooler way there.',
+    text: 'HeatScape compares walking routes by how much direct sun they get. In summer, find the street that keeps you in the shade of buildings and trees.',
+    glass: 'Walk the city in the shade.',
+  },
+  winter: {
+    hero: 'A little more sun. A warmer way there.',
+    text: 'HeatScape compares walking routes by how much direct sun they get. In winter, find the street that keeps you in the sunshine.',
+    glass: 'Walk the city in the sun.',
+  },
+};
 function setSeason(season) {
   document.body.dataset.season = season;
+  document.getElementById('heroTitle').textContent = COPY[season].hero;
+  document.getElementById('heroText').textContent = COPY[season].text;
+  document.getElementById('glassTitle').textContent = COPY[season].glass;
   for (const b of document.querySelectorAll('.season-switch button')) b.setAttribute('aria-pressed', String(b.dataset.season === season));
   try { localStorage.setItem('heatscape-season', season); } catch (e) {}
 }

@@ -1,11 +1,11 @@
 /* UI for the Philadelphia walking and shade map. No secrets or external routing API. */
 const $=id=>document.getElementById(id),fc=features=>({type:'FeatureCollection',features});
 const engine=HeatEngine.create(PHILLY);let ready=false,picking=null,result=null,selected='shade',timer;
-const empty=fc([]),bounds=[[-75.176,39.946],[-75.158,39.957]];
+const empty=fc([]),bounds=[[PHILLY.meta.bounds[0],PHILLY.meta.bounds[1]],[PHILLY.meta.bounds[2],PHILLY.meta.bounds[3]]];
 const methods=$('methods');for(const id of ['about','limits'])$(id).onclick=()=>methods.showModal();methods.querySelector('.close').onclick=()=>methods.close();$('exploreTab').onclick=()=>document.querySelector('.workspace').scrollIntoView({behavior:'smooth'});
 function err(text){$('mapError').hidden=false;$('mapError').textContent=text;}
 let map;
-try{map=new maplibregl.Map({container:'map',center:[-75.1673,39.9518],zoom:15.4,maxPitch:0,dragRotate:false,pitchWithRotate:false,minZoom:9,maxZoom:19,style:{version:8,sources:{base:{type:'raster',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · Imagery © Esri and contributors'}},layers:[{id:'background',type:'background',paint:{'background-color':'#e9ede2'}},{id:'basemap',type:'raster',source:'base',paint:{'raster-fade-duration':0}}]},attributionControl:true});}catch(e){err('This browser could not start the map. Please open this prototype in a WebGL-enabled browser.');$('calculate').disabled=true;}
+try{map=new maplibregl.Map({container:'map',center:[-75.1673,39.9518],zoom:15.4,maxPitch:0,dragRotate:false,pitchWithRotate:false,minZoom:9,maxZoom:19,style:{version:8,sources:{base:{type:'raster',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:16,attribution:'Basemap © Esri · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · Trees: NOAA LiDAR, PPR canopy'},labels:{type:'raster',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:16}},layers:[{id:'background',type:'background',paint:{'background-color':'#eeeee9'}},{id:'basemap',type:'raster',source:'base',paint:{'raster-fade-duration':0}}]},attributionControl:true});}catch(e){err('This browser could not start the map. Please open this prototype in a WebGL-enabled browser.');$('calculate').disabled=true;}
 const markers={};
 let season='summer';
 const endpoints={start:null,end:null};
@@ -17,7 +17,61 @@ function coord(key){
 }
 let locationWorker, searchId=0;
 const searches=new Map();
-function lookup(query,address=false,suggest=false){return requestLocation({query,address,suggest});}
+// Search: named places in Center City (instant, local), then street addresses via Photon inside Center City.
+const normalizeText=text=>text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[’'`.]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+const placeIndex=(window.PLACES||[]).map(([name,kind,lon,lat])=>({name,kind,point:[lon,lat],key:normalizeText(name),words:normalizeText(name).split(' ')}));
+function findPlaces(query){
+  const q=normalizeText(query);
+  if(!q)return [];
+  const tokens=q.split(' ');
+  const scored=[];
+  for(const place of placeIndex){
+    if(!inShadeArea(place.point))continue;
+    let score;
+    if(place.key===q)score=0;
+    else if(place.key.startsWith(q))score=1;
+    else if(tokens.every(t=>place.words.some(w=>w.startsWith(t))))score=2;
+    else if(place.key.includes(q))score=3;
+    else continue;
+    scored.push([score,place.key.length,place]);
+  }
+  scored.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);
+  const seen=new Set(),out=[];
+  for(const [,,place] of scored){
+    if(seen.has(place.key))continue;
+    seen.add(place.key);
+    out.push({label:`${place.name} · ${place.kind}`,point:place.point});
+    if(out.length===8)break;
+  }
+  return out;
+}
+async function findAddresses(query){
+  const [w,s,e,n]=PHILLY.meta.bounds;
+  const url=`https://photon.komoot.io/api/?q=${encodeURIComponent(query+' Philadelphia')}&bbox=${w},${s},${e},${n}&limit=8&lang=en`;
+  const response=await fetch(url);
+  if(!response.ok)throw new Error('Address search is unavailable right now. Pick the point on the map instead.');
+  const data=await response.json();
+  const out=[],seen=new Set();
+  for(const f of data.features||[]){
+    const point=f.geometry.coordinates;
+    if(!inShadeArea(point))continue;
+    const p=f.properties;
+    const street=[p.housenumber,p.street].filter(Boolean).join(' ');
+    const label=[p.name,street].filter(Boolean).join(', ')||p.city||'Location';
+    if(seen.has(label))continue;
+    seen.add(label);
+    out.push({label,point});
+  }
+  return out;
+}
+async function lookup(query,address=false,suggest=false){
+  const local=/^\d/.test(query.trim())?[]:findPlaces(query);
+  if(local.length)return local;
+  if(suggest&&query.trim().length<4)return [];
+  const found=await findAddresses(query);
+  if(!found.length&&!suggest)throw new Error('No match inside Center City. Try a landmark name or a street address.');
+  return found;
+}
 function requestLocation(payload){
   if(!locationWorker){
     locationWorker=new Worker('location/worker.js?v=lidar');
@@ -61,11 +115,11 @@ async function searchLocation(key,suggest=false){
   clearTimeout(suggestionTimers[key]);
   const version=++searchVersions[key];
   const query=$(key).value.trim(), button=$(key+'Search'), list=$(key+'Matches');
-  if(!query){$('routeStatus').textContent='Enter a Philadelphia address or place name.';return;}
+  if(!query){$('routeStatus').textContent='Enter a Center City place or address.';return;}
   list.hidden=true;
   if(!suggest){
     button.disabled=true;
-    $('routeStatus').textContent='Searching Philadelphia…';
+    $('routeStatus').textContent='Searching Center City…';
   }
   try{
     const matches=await lookup(query,false,suggest);
@@ -121,7 +175,7 @@ function showRoute(route, zoom){
     return `<button class="route-card ${key==='fast'?'direct':''}" data-route="${key}" aria-pressed="false">
       <div class="card-title">${title}<small>${tag}</small></div>
       <div class="route-stats"><strong>${Math.round(minutes)} <span>min</span></strong>
-      <span>· ${(r.length/1609.344).toFixed(2)} mi</span></div>${shadeDetails}${Number.isFinite(r.treeShade)?`<div class="card-foot">${(r.treeShade/80.4672).toFixed(1)} min shaded by pilot trees alone</div>`:''}</button>`;
+      <span>· ${(r.length/1609.344).toFixed(2)} mi</span></div>${shadeDetails}</button>`;
   }
 
   let note=winter?'The search found no sunnier route within the extra time allowed.':
@@ -135,51 +189,28 @@ function showRoute(route, zoom){
   }
   $('results').innerHTML=(hasShadeDetour?card('shade',winter?'Sunnier walk':'Lower-sun candidate','MODELED'):'')+
     card('fast','Shortest walk',hasShadeDetour?'BASELINE':'RECOMMENDED')+
-    `<p class="result-note">${note}${hasExposure?(treePilot?' Building shade plus available pilot tree shade; street-centerline estimates.':' Building shade only; street-centerline estimates.'):''}</p>`;
+    `<p class="result-note">${note}${hasExposure?(treePilot?' Building and LiDAR tree shade; street-centerline estimates.':' Building shade only; street-centerline estimates.'):''}</p>`;
   document.querySelectorAll('.route-card').forEach(button=>button.onclick=()=>selectRoute(button.dataset.route));
   selectRoute(hasShadeDetour?selected:'fast');
   if(!hasShadeDetour)selected='shade';
   $('routeStatus').textContent=`3 mph estimate · Points snapped ${Math.round(route.start.meters*3.28084)} ft / ${Math.round(route.end.meters*3.28084)} ft to the network; those gaps excluded.`;
   if(zoom)fit();
 }
-const cityBounds=[[-75.28026599998037,39.867464000224096],[-74.95576300016803,40.13799199984529]];
+const cityBounds=[[-75.18780108559261, 39.94097452169755], [-75.1403780783511, 39.9644582541323]]; // Center City
 const inShadeArea=([x,y])=>x>=bounds[0][0]&&x<=bounds[1][0]&&y>=bounds[0][1]&&y<=bounds[1][1];
 let routeVersion=0, pendingCityTrip;
 async function calculate(zoom=false){
   if(!ready||!hasTrip())return;
   const trip=[coord('start'),coord('end')];
-  const version=++routeVersion;
-  if(season==='summer'&&!$('treeShade').checked&&trip.every(inShadeArea)){
-    try{
-      if(citySun && localSun!==citySun){
-        engine.updateShade(citySun.azimuth,citySun.altitude,false);
-        localSun=citySun;
-      }
-      showRoute(engine.routes(...trip,+$('detour').value),zoom);
-    }
-    catch(error){clearRoute(error.message);}
-    return;
-  }
+  ++routeVersion;
+  if(!trip.every(inShadeArea)){clearRoute('Choose both points inside the dashed Center City boundary.');return;}
   if(!citySun)return;
-  trip.push(citySun.azimuth,citySun.altitude,+$('detour').value,season,$('treeShade').checked);
-  const key=JSON.stringify(trip);
-  if(!zoom&&result?.cityKey===key){
-    return;
-  }
-  $('routeStatus').textContent=season==='winter'?'Finding sunnier streets within your time limit…':'Comparing building shade along the walk…';
   try{
-    if(pendingCityTrip?.key!==key){
-      const promise=requestLocation({trip});
-      pendingCityTrip={key,promise};
-      const clear=()=>{if(pendingCityTrip?.promise===promise)pendingCityTrip=null;};
-      promise.then(clear,clear);
-    }
-    const route=await pendingCityTrip.promise;
-    if(version!==routeVersion||!hasTrip())return;
-    showRoute({...route,cityKey:key},zoom || !result?.cityKey);
-  }catch(error){
-    if(version===routeVersion)clearRoute(error.message);
-  }
+    refreshShade();
+    const route=engine.routes(...trip,+$('detour').value,season==='winter');
+    route.afterSunset=citySun.altitude<=0;
+    showRoute(route,zoom);
+  }catch(error){clearRoute(error.message);}
 }
 function clearRoute(message){
   result=null;
@@ -214,15 +245,16 @@ function setSeason(next){
   const winter=next==='winter';
   const setting=seasons[next];
   document.body.dataset.season=next;
+  try{localStorage.setItem('heatscape-season',next);}catch(e){}
   $('summerMode').setAttribute('aria-pressed',String(!winter));
   $('winterMode').setAttribute('aria-pressed',String(winter));
   $('seasonTitle').textContent=winter?'A little more sun.':'A little more shade.';
   $('walkMode').textContent=winter?'WINTER · SEEK SUN':'SUMMER · SEEK SHADE';
   $('candidateLegend').textContent=winter?'Sunnier route':'Lower-sun route';
-  $('summerDetour').hidden=winter;
-  $('winterDetour').hidden=!winter;
+  $('summerDetour').hidden=false;
+  $('winterDetour').hidden=true;
   $('treeShade').disabled=winter;
-  $('treeStatus').textContent=winter?'Tree shade modeled for summer only':'Summer pilot · April 2022 LiDAR';
+  $('treeStatus').textContent=winter?'Leaf-off: trees not counted in winter':'LiDAR tree crowns';
   $('dateLabel').textContent=winter?'WINTER SCENARIO':'SUMMER SCENARIO';
   $('timezone').textContent=setting.zone;
   $('lastHour').textContent=winter?'5 PM':'7 PM';
@@ -231,6 +263,7 @@ function setSeason(next){
   timeText();
   if(!ready)return;
   applyRouteColors();
+  shadeKey='';
   clearRoute(hasTrip()?'Recalculating your walk…':'Choose a starting point and destination to compare routes.');
   updateSun();
 }
@@ -239,32 +272,24 @@ function applyRouteColors(){
   map.setPaintProperty('fast','line-color',colors.fast);
   map.setPaintProperty('shade-route','line-color',colors.candidate);
 }
-let treeVersion=0;
-async function refreshTreeShade(){
-  const version=++treeVersion;
-  if(!ready)return;
-  const source=map.getSource('tree-shadows');
-  const display=season==='summer'&&$('treeShade').checked;
-  if(!display||!citySun||citySun.altitude<=0){
-    source.setData(empty);
-    $('treeStatus').textContent=season==='winter'?'Tree shade modeled for summer only':
-      display?'Sun below the horizon':'Summer pilot · April 2022 LiDAR';
-    return;
-  }
-  $('treeStatus').textContent='Updating pilot tree shadows…';
-  try{
-    const data=await requestLocation({treeSun:[citySun.azimuth,citySun.altitude]});
-    if(version!==treeVersion)return;
-    source.setData(data);
-    $('treeStatus').textContent=`${data.features.length} modeled crowns · Rittenhouse pilot`;
-  }catch(error){
-    if(version!==treeVersion)return;
-    source.setData(empty);
-    $('treeStatus').textContent='Pilot tree shade unavailable. Try again.';
-  }
+let shadeKey='';
+// Recompute building (and, in summer, tree) shadows for the current sun, and draw them.
+function refreshShade(){
+  if(!ready||!citySun)return;
+  const withTrees=season==='summer'&&$('treeShade').checked;
+  const key=[citySun.azimuth.toFixed(4),citySun.altitude.toFixed(4),withTrees].join();
+  if(key===shadeKey)return;
+  shadeKey=key;
+  const shade=engine.updateShade(citySun.azimuth,citySun.altitude,{geometry:true,withTrees});
+  map.getSource('building-shadows').setData(shade.buildings);
+  map.getSource('tree-shadows').setData(shade.trees);
+  $('treeStatus').textContent=season==='winter'?'Leaf-off: trees not counted in winter':
+    shade.night?'Sun below the horizon':
+    withTrees?`${engine.treeCount.toLocaleString()} LiDAR-measured tree crowns`:'Tree shade off · buildings only';
 }
+const refreshTreeShade=refreshShade;
 $('treeShade').onchange=()=>{
-  refreshTreeShade();
+  refreshShade();
   calculate();
 };
 $('treePilot').onclick=()=>{
@@ -272,7 +297,7 @@ $('treePilot').onclick=()=>{
   if(season!=='summer')setSeason('summer');
   $('treeShade').checked=true;
   $('treeShade').onchange();
-  map.fitBounds([[-75.1745,39.9477],[-75.1699,39.9511]],{padding:50,maxZoom:16.5,duration:550});
+  map.fitBounds(cityBounds,{padding:45,duration:550});
 };
 function updateSun(){
   if(!ready)return;
@@ -292,20 +317,27 @@ function updateSun(){
 }
 $('summerMode').onclick=()=>{if(season!=='summer')setSeason('summer');};
 $('winterMode').onclick=()=>{if(season!=='winter')setSeason('winter');};
-if(new URLSearchParams(location.search).get('season')==='winter')setSeason('winter');
+{let saved=null;try{saved=localStorage.getItem('heatscape-season');}catch(e){}if((new URLSearchParams(location.search).get('season')||saved)==='winter')setSeason('winter');}
 if(map){map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');map.addControl(new maplibregl.ScaleControl({unit:'imperial'}),'bottom-right');map.on('error',e=>{if(e.sourceId==='base')err('Background tiles unavailable. Route lines are still available.');});map.on('load',()=>{
-map.addSource('city-mask',{type:'geojson',data:'location/city-mask.geojson',tolerance:0});
+map.addSource('city-mask',{type:'geojson',data:'location/center-city-mask.geojson',tolerance:0});
 map.addLayer({id:'city-mask',type:'fill',source:'city-mask',paint:{
-  'fill-color':'#fff','fill-opacity':.36,'fill-antialias':false,
+  'fill-color':'#f5f4ed','fill-opacity':.6,'fill-antialias':false,
 }});
-map.addSource('city-limits',{type:'geojson',data:'location/city-boundary.geojson',tolerance:0});
+map.addSource('city-limits',{type:'geojson',data:'location/center-city.geojson',tolerance:0});
 map.addLayer({id:'city-limits',type:'line',source:'city-limits',paint:{
-  'line-color':'#fff','line-width':2,'line-opacity':.95,
+  'line-color':'#4a4f4c','line-width':1.6,'line-opacity':.95,'line-dasharray':[3,2],
 }});
-map.addSource('tree-shadows',{type:'geojson',data:empty});
-map.addLayer({id:'tree-shadows',type:'fill',source:'tree-shadows',paint:{
-  'fill-color':'#38c6ad','fill-opacity':.52,'fill-outline-color':'#a7f6dd',
-}});
+map.addLayer({id:'labels',type:'raster',source:'labels',paint:{'raster-fade-duration':0,'raster-opacity':.8}});
+// Shadows are drawn opaque in a light tint so overlapping shadow pieces do not stack darker.
+map.addSource('building-shadows',{type:'geojson',data:empty,tolerance:.3});
+map.addLayer({id:'building-shadows',type:'fill',source:'building-shadows',paint:{'fill-color':'#c9cdd6','fill-opacity':.85,'fill-antialias':false}});
+map.addSource('tree-shadows',{type:'geojson',data:empty,tolerance:.3});
+map.addLayer({id:'tree-shadows',type:'fill',source:'tree-shadows',paint:{'fill-color':'#a9cfae','fill-opacity':.85,'fill-antialias':false}});
+map.addSource('trees',{type:'geojson',data:PHILLY.trees||empty});
+map.addLayer({id:'trees',type:'fill',source:'trees',paint:{'fill-color':'#5f9a6a','fill-opacity':.75}});
+map.addSource('buildings',{type:'geojson',data:PHILLY.buildings});
+map.addLayer({id:'buildings',type:'fill',source:'buildings',paint:{'fill-color':'#8d939c','fill-opacity':.9,'fill-outline-color':'#6f757e'}});
+map.moveLayer('city-mask');map.moveLayer('city-limits');
 for(const [id,color,width] of [['fast','#f4a96e',4],['shade-route','#8bd5a6',5]]){
   map.addSource(id,{type:'geojson',data:empty});
   const layout={'line-join':'round','line-cap':'round'};
@@ -341,7 +373,7 @@ for(const key of ['start','end']){
     }
     if(hasLocation(key))return;
     $('routeStatus').textContent='Choose a suggestion or press Enter to update the route.';
-    if(query.length>=3)suggestionTimers[key]=setTimeout(()=>searchLocation(key,true),250);
+    if(query.length>=2)suggestionTimers[key]=setTimeout(()=>searchLocation(key,true),150);
   };
 }
 $('calculate').onclick=async()=>{
