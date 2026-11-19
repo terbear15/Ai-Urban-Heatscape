@@ -37,7 +37,7 @@ function clearRoute() {
 
 function choose(key, label, point) {
   if (!onLand(point)) {
-    el('status').textContent = 'Choose a point on land inside the dashed boundary.';
+    el('status').textContent = 'Choose a point inside the dashed boundary.';
     return;
   }
   clearRoute();
@@ -150,11 +150,10 @@ async function init() {
     location.href = '?city=' + select.value;
   };
   document.title = 'HeatScape · ' + view.name;
-  el('city-name').textContent = view.custom ? 'Los Angeles area' : view.name;
-  el('coverage').textContent = (view.custom ?
-    'Study area includes Santa Monica, Pasadena and Inglewood. ' : '') +
+  el('city-name').textContent = view.name;
+  el('coverage').textContent = 'Covers ' + (view.zones || []).join(' · ') + '. ' +
     (key === 'philadelphia' ?
-      'Walking routes are available. Shade comparisons for Center City are in progress.' :
+      'Walking routes are available. Shade comparisons are in progress.' :
       'Walking routes are available.');
   const geometry = await json('cities/' + key + '.geojson');
   land = geometry.features.find(f => f.properties.layer === 'land').geometry;
@@ -197,7 +196,7 @@ async function init() {
       if (!picking) return;
       const point = [event.lngLat.lng, event.lngLat.lat];
       if (!onLand(point)) {
-        el('status').textContent = 'Choose a point on land inside the dashed boundary.';
+        el('status').textContent = 'Choose a point inside the dashed boundary.';
         return;
       }
       choose(picking, 'Map pin · ' + point[1].toFixed(5) + ', ' + point[0].toFixed(5), point);
