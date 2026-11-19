@@ -11,7 +11,8 @@
 :root{--ink:#254b3e;--muted:#5d6b5f;--paper:#f5f4ed;--line:#dce1d5;--orange:#b96c44;--glass:rgba(252,252,247,.5)}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#1f382f;color:var(--ink);font:14px 'DM Sans',Arial,sans-serif}
-#map{position:fixed;inset:0;z-index:0}
+#map{position:fixed;inset:0;z-index:0;filter:grayscale(1) contrast(1.08) brightness(.92)}
+.tint{position:fixed;inset:0;z-index:1;pointer-events:none;mix-blend-mode:color;background:#c46a36}
 .shade-veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(31,56,47,.18),rgba(31,56,47,.05) 60%,rgba(31,56,47,.2))}
 main{position:relative;z-index:2}
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:28px 6% 40px}
@@ -36,13 +37,13 @@ footer{position:relative;z-index:2;text-align:center;padding:18px;font-size:11px
 footer a{color:#fff}
 
 /* Season themes: the whole page and the satellite image take one tone. */
-body[data-season="summer"] #map{filter:sepia(.55) saturate(1.5) hue-rotate(-12deg) brightness(.95)}
+body[data-season="summer"] .tint{background:#c46a36}
 body[data-season="summer"] .shade-veil{background:linear-gradient(180deg,rgba(185,108,68,.38),rgba(185,108,68,.16) 60%,rgba(120,60,30,.4))}
 body[data-season="summer"] .eyebrow{color:#f6d2b8}
 body[data-season="summer"] .glass-panel .eyebrow{color:#b96c44}
 body[data-season="summer"] .explore{background:#b0603a;box-shadow:0 6px 18px #b0603a40}
 body[data-season="summer"] .explore:hover{background:#97502f}
-body[data-season="winter"] #map{filter:grayscale(.55) sepia(.25) hue-rotate(175deg) saturate(1.4) brightness(.95)}
+body[data-season="winter"] .tint{background:#3f6f9e}
 body[data-season="winter"] .shade-veil{background:linear-gradient(180deg,rgba(48,79,112,.4),rgba(48,79,112,.16) 60%,rgba(25,45,70,.45))}
 body[data-season="winter"] .eyebrow{color:#cfe0f2}
 body[data-season="winter"] .glass-panel{background:rgba(246,250,255,.5)}
@@ -59,6 +60,7 @@ body[data-season="winter"] .explore:hover{background:#243d58}
 </head>
 <body data-season="summer">
 <div id="map" aria-hidden="true"></div>
+<div class="tint" aria-hidden="true"></div>
 <div class="shade-veil" aria-hidden="true"></div>
 <main>
   <section class="hero" aria-label="Introduction">
