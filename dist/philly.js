@@ -330,13 +330,13 @@ map.addLayer({id:'city-limits',type:'line',source:'city-limits',paint:{
 map.addLayer({id:'labels',type:'raster',source:'labels',paint:{'raster-fade-duration':0,'raster-opacity':.8}});
 // Shadows are drawn opaque in a light tint so overlapping shadow pieces do not stack darker.
 map.addSource('building-shadows',{type:'geojson',data:empty,tolerance:.3});
-map.addLayer({id:'building-shadows',type:'fill',source:'building-shadows',paint:{'fill-color':'#c9cdd6','fill-opacity':.85,'fill-antialias':false}});
+map.addLayer({id:'building-shadows',type:'fill',source:'building-shadows',paint:{'fill-color':'#b4bac6','fill-opacity':1,'fill-antialias':false}});
 map.addSource('tree-shadows',{type:'geojson',data:empty,tolerance:.3});
-map.addLayer({id:'tree-shadows',type:'fill',source:'tree-shadows',paint:{'fill-color':'#a9cfae','fill-opacity':.85,'fill-antialias':false}});
+map.addLayer({id:'tree-shadows',type:'fill',source:'tree-shadows',paint:{'fill-color':'#9cc4a3','fill-opacity':1,'fill-antialias':false}});
 map.addSource('trees',{type:'geojson',data:PHILLY.trees||empty});
-map.addLayer({id:'trees',type:'fill',source:'trees',paint:{'fill-color':'#5f9a6a','fill-opacity':.75}});
+map.addLayer({id:'trees',type:'fill',source:'trees',paint:{'fill-color':'#4f8f5c','fill-opacity':.85}});
 map.addSource('buildings',{type:'geojson',data:PHILLY.buildings});
-map.addLayer({id:'buildings',type:'fill',source:'buildings',paint:{'fill-color':'#8d939c','fill-opacity':.9,'fill-outline-color':'#6f757e'}});
+map.addLayer({id:'buildings',type:'fill',source:'buildings',paint:{'fill-color':'#7d848e','fill-opacity':1,'fill-outline-color':'#666c75'}});
 map.moveLayer('city-mask');map.moveLayer('city-limits');
 for(const [id,color,width] of [['fast','#f4a96e',4],['shade-route','#8bd5a6',5]]){
   map.addSource(id,{type:'geojson',data:empty});
