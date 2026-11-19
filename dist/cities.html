@@ -11,6 +11,7 @@
 <body>
 <header>
 <a class="brand" href="./"><span class="brand-icon">◉</span> HeatScape</a>
+<div class="season-switch" role="group" aria-label="Season"><button type="button" id="summerMode" aria-pressed="true">Summer</button><button type="button" id="winterMode" aria-pressed="false">Winter</button></div>
 <label class="city-chooser" for="city">CITY<select id="city"></select></label>
 </header>
 <main>
@@ -43,6 +44,23 @@
 <footer><span><a href="https://www.census.gov/geographies/mapping-files/2024/geo/carto-boundary-file.html">Census 2024 display boundaries</a> · <a href="https://routing.openstreetmap.de/about.html">FOSSGIS pedestrian routing</a> · Photon search</span><a href="https://www.openstreetmap.org/fixthemap">Fix the map</a></footer>
 </main>
 <script src="vendor/maplibre-gl.js"></script>
-<script src="cities.js?v=11"></script>
+<script>
+// Season is shared across pages through localStorage.
+(function () {
+  const apply = season => {
+    document.body.dataset.season = season;
+    document.getElementById('summerMode').setAttribute('aria-pressed', String(season === 'summer'));
+    document.getElementById('winterMode').setAttribute('aria-pressed', String(season === 'winter'));
+    try { localStorage.setItem('heatscape-season', season); } catch (e) {}
+  };
+  let saved = null;
+  try { saved = localStorage.getItem('heatscape-season'); } catch (e) {}
+  const month = new Date().getMonth() + 1;
+  apply(saved === 'summer' || saved === 'winter' ? saved : (month >= 5 && month <= 9 ? 'summer' : 'winter'));
+  document.getElementById('summerMode').onclick = () => apply('summer');
+  document.getElementById('winterMode').onclick = () => apply('winter');
+})();
+</script>
+<script src="cities.js?v=12"></script>
 </body>
 </html>

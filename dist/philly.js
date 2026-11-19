@@ -142,7 +142,7 @@ function showRoute(route, zoom){
   $('routeStatus').textContent=`3 mph estimate · Points snapped ${Math.round(route.start.meters*3.28084)} ft / ${Math.round(route.end.meters*3.28084)} ft to the network; those gaps excluded.`;
   if(zoom)fit();
 }
-const cityBounds=[[-75.28026599998037,39.867464000224096],[-74.95576300016803,40.13799199984529]];
+const cityBounds=[[-75.18780108559261, 39.94097452169755], [-75.1403780783511, 39.9644582541323]]; // Center City
 const inShadeArea=([x,y])=>x>=bounds[0][0]&&x<=bounds[1][0]&&y>=bounds[0][1]&&y<=bounds[1][1];
 let routeVersion=0, pendingCityTrip;
 async function calculate(zoom=false){
@@ -214,6 +214,7 @@ function setSeason(next){
   const winter=next==='winter';
   const setting=seasons[next];
   document.body.dataset.season=next;
+  try{localStorage.setItem('heatscape-season',next);}catch(e){}
   $('summerMode').setAttribute('aria-pressed',String(!winter));
   $('winterMode').setAttribute('aria-pressed',String(winter));
   $('seasonTitle').textContent=winter?'A little more sun.':'A little more shade.';
@@ -292,15 +293,15 @@ function updateSun(){
 }
 $('summerMode').onclick=()=>{if(season!=='summer')setSeason('summer');};
 $('winterMode').onclick=()=>{if(season!=='winter')setSeason('winter');};
-if(new URLSearchParams(location.search).get('season')==='winter')setSeason('winter');
+{let saved=null;try{saved=localStorage.getItem('heatscape-season');}catch(e){}if((new URLSearchParams(location.search).get('season')||saved)==='winter')setSeason('winter');}
 if(map){map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');map.addControl(new maplibregl.ScaleControl({unit:'imperial'}),'bottom-right');map.on('error',e=>{if(e.sourceId==='base')err('Background tiles unavailable. Route lines are still available.');});map.on('load',()=>{
-map.addSource('city-mask',{type:'geojson',data:'location/city-mask.geojson',tolerance:0});
+map.addSource('city-mask',{type:'geojson',data:'location/center-city-mask.geojson',tolerance:0});
 map.addLayer({id:'city-mask',type:'fill',source:'city-mask',paint:{
-  'fill-color':'#fff','fill-opacity':.36,'fill-antialias':false,
+  'fill-color':'#f5f4ed','fill-opacity':.5,'fill-antialias':false,
 }});
-map.addSource('city-limits',{type:'geojson',data:'location/city-boundary.geojson',tolerance:0});
+map.addSource('city-limits',{type:'geojson',data:'location/center-city.geojson',tolerance:0});
 map.addLayer({id:'city-limits',type:'line',source:'city-limits',paint:{
-  'line-color':'#fff','line-width':2,'line-opacity':.95,
+  'line-color':'#4a4f4c','line-width':1.6,'line-opacity':.95,'line-dasharray':[3,2],
 }});
 map.addSource('tree-shadows',{type:'geojson',data:empty});
 map.addLayer({id:'tree-shadows',type:'fill',source:'tree-shadows',paint:{

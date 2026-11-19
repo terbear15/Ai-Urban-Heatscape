@@ -60,7 +60,7 @@ function squareThumb([[w, s], [e, n]]) {
 
 async function build() {
   const views = await (await fetch('cities/views.json')).json();
-  // views.json is stored in order of city population.
+  // views.json is stored in order of metro GDP.
   const slugs = Object.keys(views);
   const grid = document.getElementById('grid');
   for (const slug of slugs) {

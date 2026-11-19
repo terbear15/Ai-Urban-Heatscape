@@ -4,7 +4,7 @@ name: Build city boundaries
 on:
   workflow_dispatch:
   push:
-    branches: [data-cities, data-zones]
+    branches: [data-cities, data-zones, philly-shade-page]
     paths: [python/prepare_city_views.py, python/city_zones.py, .github/workflows/city-data.yml]
 
 permissions:

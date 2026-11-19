@@ -73,8 +73,8 @@ body[data-season="winter"] .explore:hover{background:#243d58}
     </div>
     <div class="intro">
       <div class="eyebrow">URBAN WALKING · SUN AND SHADE</div>
-      <h1>A little more shade. A better way there.</h1>
-      <p>HeatScape maps walking routes across American cities. Shade comparisons are being built first for Center City, Philadelphia.</p>
+      <h1 id="heroTitle">A little more shade. A better way there.</h1>
+      <p id="heroText">HeatScape maps walking routes across American cities. Shade comparisons are being built first for Center City, Philadelphia.</p>
     </div>
     <div class="scroll-cue" aria-hidden="true">SCROLL<span>↓</span></div>
   </section>
@@ -82,7 +82,7 @@ body[data-season="winter"] .explore:hover{background:#243d58}
   <section class="glass" aria-label="Explore cities">
     <div class="glass-panel">
       <div class="eyebrow">CHOOSE A CITY</div>
-      <h2>Walk the city with the sun in mind.</h2>
+      <h2 id="glassTitle">Walk the city with the sun in mind.</h2>
       <p>Pick a city to see its walking map. Walking routes are available in every city; shade comparisons are in progress for Center City.</p>
       <a class="explore" href="explore.html">Explore <span>→</span></a>
     </div>
@@ -119,8 +119,23 @@ const fitUS = () => {
 map.on('resize', fitUS);
 map.on('load', () => { map.resize(); fitUS(); });
 // Season theme: default from the current month (May-September = summer), then the visitor's choice.
+const COPY = {
+  summer: {
+    hero: 'A little more shade. A cooler way there.',
+    text: 'HeatScape compares walking routes by how much direct sun they get. In summer, find the street that keeps you in the shade of buildings and trees.',
+    glass: 'Walk the city in the shade.',
+  },
+  winter: {
+    hero: 'A little more sun. A warmer way there.',
+    text: 'HeatScape compares walking routes by how much direct sun they get. In winter, find the street that keeps you in the sunshine.',
+    glass: 'Walk the city in the sun.',
+  },
+};
 function setSeason(season) {
   document.body.dataset.season = season;
+  document.getElementById('heroTitle').textContent = COPY[season].hero;
+  document.getElementById('heroText').textContent = COPY[season].text;
+  document.getElementById('glassTitle').textContent = COPY[season].glass;
   for (const b of document.querySelectorAll('.season-switch button')) b.setAttribute('aria-pressed', String(b.dataset.season === season));
   try { localStorage.setItem('heatscape-season', season); } catch (e) {}
 }
