@@ -1,0 +1,73 @@
+{
+ "city": "Baltimore",
+ "slug": "baltimore",
+ "zones": [
+  "Inner Harbor",
+  "Fells Point",
+  "Mount Vernon"
+ ],
+ "area_km2": 6.0,
+ "network": {
+  "nodes": 28137,
+  "edges": 35025,
+  "street_length_km": 586.2,
+  "intersections": 26138,
+  "streets_per_node_avg": 2.49,
+  "footpath_share": 0.499,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 10103,
+ "height_sources": {
+  "lidar": 9695,
+  "model": 70,
+  "osm-levels": 29,
+  "osm": 309
+ },
+ "height_model": {
+  "known": 10033,
+  "predicted": 70,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 3.13,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 12858,
+ "places": 2255,
+ "pause_places": 131,
+ "pause_by_kind": {
+  "station": 19,
+  "community": 6,
+  "water": 3,
+  "library": 6,
+  "mall": 4,
+  "park": 93
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_MD_PA_SandySupp_2014_LAS_2016/",
+   "survey_year": 2016,
+   "points": 54434682,
+   "density_pts_m2": 2.6,
+   "classes": {
+    "2": 8175140,
+    "7": 24429,
+    "9": 174479,
+    "18": 8640208,
+    "1": 16351680,
+    "17": 21048826,
+    "10": 19920
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 10.89,
+ "minutes": 2.7
+}

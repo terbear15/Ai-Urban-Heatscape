@@ -4,21 +4,10 @@
   OSM tile 30: 113,854 nodes, 23,055 ways, 545 relations
   OSM tile 40: 155,938 nodes, 30,908 ways, 765 relations
   OSM tile 42: 161,356 nodes, 31,905 ways, 790 relations
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "/home/runner/work/Ai-Urban-Heatscape/Ai-Urban-Heatscape/python/pipeline/build_city.py", line 102, in <module>
-    main(sys.argv[1])
-  File "/home/runner/work/Ai-Urban-Heatscape/Ai-Urban-Heatscape/python/pipeline/build_city.py", line 36, in main
-    edges, names, network_summary = network.build(slug, nodes, ways, reach_ll)
-                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/Ai-Urban-Heatscape/Ai-Urban-Heatscape/python/pipeline/network.py", line 71, in build
-    stats = ox.stats.basic_stats(graph)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/osmnx/stats.py", line 386, in basic_stats
-    stats["streets_per_node_counts"] = streets_per_node_counts(G)
-                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/osmnx/stats.py", line 94, in streets_per_node_counts
-    return {i: spn_vals.count(i) for i in range(int(max(spn_vals)) + 1)}
-                                                    ^^^^^^^^^^^^^
-ValueError: max() iterable argument is empty
+  OSMnx walk graph: 28,137 nodes, 35,040 edges
+  10,103 building footprints
+  LiDAR source: USGS_LPC_MD_PA_SandySupp_2014_LAS_2016 (2016)
+  part 0: 2141 EPT nodes, ~2.6 pts/m², grid (2231, 2322)
+  part 0: 54,434,682 points, 9,908 building heights, 12,858 crowns so far
+  height model: trained on 10,033, predicted 70, CV MAE 3.1 m
+== Baltimore done in 2.7 min: 10.89 MB, 35,025 segments, 10,103 buildings {'lidar': 9695, 'model': 70, 'osm-levels': 29, 'osm': 309}, 12,858 crowns, 2,255 places, 131 pause places
