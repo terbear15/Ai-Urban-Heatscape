@@ -124,7 +124,9 @@ def main():
             # Philadelphia uses the official Center City neighborhoods (python/prepare_center_city.py).
             land = shape(json.loads(CENTER_CITY.read_text(encoding="utf-8"))["features"][0]["geometry"])
         else:
-            land = land.intersection(unary_union(shapes)).buffer(0)
+            # Close hairline gaps between neighboring official areas (about 20 m).
+            zone_area = transform(reverse, transform(forward, unary_union(shapes)).buffer(20).buffer(-20))
+            land = land.intersection(zone_area).buffer(0)
         assert land.is_valid and not land.is_empty, key
         west, south, east, north = land.bounds
         # Camera envelope with about 15 miles of context around the areas.
