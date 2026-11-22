@@ -25,14 +25,14 @@ BAD = re.compile(r"lights|dusk|evening|\bcars?\b|nissan|gt-r|illustration|render
 
 QUERIES = {
     "new-york": "Lower Manhattan skyline", "los-angeles": "Downtown Los Angeles skyline",
-    "chicago": "Chicago Loop skyline", "san-francisco": "San Francisco skyline from Treasure Island",
+    "chicago": "Chicago Loop skyline", "san-francisco": ["San Francisco Financial District from Coit Tower", "San Francisco skyline from Twin Peaks", "San Francisco skyline from Treasure Island"],
     "dallas": "Dallas skyline Trinity River", "houston": "Downtown Houston skyline",
     "washington": "National Mall from Washington Monument", "boston": "Boston skyline Charles River", "atlanta": "Downtown Atlanta skyline",
     "seattle": "Seattle skyline Kerry Park", "philadelphia": "Philadelphia Center City skyline",
-    "miami": "Downtown Miami skyline", "san-jose": "Downtown San Jose",
-    "phoenix": "Phoenix Arizona downtown skyline daytime", "minneapolis": "Downtown Minneapolis skyline",
+    "miami": "Downtown Miami skyline", "san-jose": ["San Jose skyline", "San Jose California skyline daytime", "Downtown San Jose"],
+    "phoenix": ["Downtown Phoenix skyline", "Phoenix skyline", "Downtown Phoenix Arizona"], "minneapolis": "Downtown Minneapolis skyline",
     "detroit": "Detroit skyline Detroit River", "san-diego": "San Diego skyline Coronado",
-    "denver": "Downtown Denver skyline", "charlotte": "Uptown Charlotte skyline",
+    "denver": "Downtown Denver skyline", "charlotte": ["Charlotte skyline", "Charlotte North Carolina skyline", "Uptown Charlotte skyline"],
     "baltimore": "Baltimore Inner Harbor skyline",
 }
 PINNED = {}
@@ -99,8 +99,11 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     credits = {}
     for slug, query in QUERIES.items():
-        pages = pinned(PINNED[slug]) if slug in PINNED else candidates(query)
-        pick = choose(pages)
+        pick = None
+        for q in ([query] if isinstance(query, str) else query):
+            pick = choose(pinned(PINNED[slug]) if slug in PINNED else candidates(q))
+            if pick:
+                break
         if not pick:
             print(slug, "no free skyline photo found")
             continue
