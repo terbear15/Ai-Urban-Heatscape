@@ -34,6 +34,9 @@
   --map-tree: #93b598;
   --map-tree-shadow: #c2d6c5;
   --map-mask: #f6f3ec;
+  /* Route coloring by sun: shaded stretches -> sunny stretches. */
+  --ramp-shade: #2f7a57;
+  --ramp-sun: #e0913f;
   --map-boundary: #4c544f;
   --shadow: 0 1px 2px rgba(31, 59, 49, .05), 0 6px 20px rgba(31, 59, 49, .06);
   --radius: 12px;
@@ -69,6 +72,8 @@ body[data-season="winter"] {
   --map-tree: #b3c1b7;
   --map-tree-shadow: #cfd9d2;
   --map-mask: #eef2f6;
+  --ramp-shade: #6584a3;
+  --ramp-sun: #e0a83a;
   --map-boundary: #43505e;
   --shadow: 0 1px 2px rgba(29, 51, 73, .05), 0 6px 20px rgba(29, 51, 73, .07);
 }
@@ -217,6 +222,12 @@ details.panel[open] summary::after { content: '–'; }
 [data-legend="tree-shadow"] { background: var(--map-tree-shadow); }
 .sun-bar { height: 6px; background: var(--bar-bg); border-radius: 3px; overflow: hidden; }
 .sun-bar i { display: block; height: 100%; background: var(--sun); }
+.legend-ramp { width: 26px; background: linear-gradient(90deg, var(--ramp-shade), var(--ramp-sun)); }
+.tree-check { display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 12px; font-weight: 500; letter-spacing: 0; color: var(--ink); }
+.tree-check input { accent-color: var(--primary); }
+.field-head .swap { padding: 2px 9px; }
+.swap .icon { width: 13px; height: 13px; }
+#share { margin-top: 10px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .15); }
 .map-buttons { position: absolute; right: 10px; bottom: 30px; display: grid; gap: 6px; }
 .map-buttons button { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 11.5px; padding: 7px 10px; box-shadow: var(--shadow); }
