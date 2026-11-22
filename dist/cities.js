@@ -140,16 +140,10 @@ async function walk(event) {
 
 async function init() {
   const views = await json('cities/views.json');
-  const select = el('city');
   const requested = new URLSearchParams(location.search).get('city');
   const key = Object.hasOwn(views, requested) ? requested : 'philadelphia';
   if (views[key].shade) { location.replace('shade.html?city=' + key); return; }
   view = views[key];
-  for (const [slug, city] of Object.entries(views)) select.append(new Option(city.name, slug));
-  select.value = key;
-  select.onchange = () => {
-    location.href = '?city=' + select.value;
-  };
   document.title = 'HeatScape · ' + view.name;
   el('city-name').textContent = view.name;
   el('coverage').textContent = 'Covers ' + (view.zones || []).join(' · ') + '. ' +
