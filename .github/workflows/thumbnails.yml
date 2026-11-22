@@ -15,7 +15,8 @@ jobs:
         with: {python-version: '3.12'}
       - run: pip install requests pillow
       - run: python python/make_satellite.py
-      - run: |
+      - if: always()
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
           git add dist/thumbs

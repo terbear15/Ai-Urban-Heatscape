@@ -130,7 +130,7 @@ if (map) {
       'fill-color': css('--map-building'), 'fill-outline-color': css('--map-building-edge'),
       // Zoomed out, buildings fade so the shade pattern reads (D7).
       'fill-opacity': ['interpolate', ['linear'], ['zoom'], 13, .15, 15, .5, 16.5, .95]}});
-    map.addLayer({id: 'city-mask', type: 'fill', source: 'area', filter: ['==', ['get', 'layer'], 'mask'], paint: {'fill-color': css('--map-mask'), 'fill-opacity': .62, 'fill-antialias': false}});
+    map.addLayer({id: 'city-mask', type: 'fill', source: 'area', filter: ['==', ['get', 'layer'], 'mask'], paint: {'fill-color': css('--map-mask'), 'fill-opacity': .92, 'fill-antialias': false}});
     map.addLayer({id: 'city-limits', type: 'line', source: 'area', filter: ['==', ['get', 'layer'], 'land'], paint: {'line-color': css('--map-boundary'), 'line-width': 1.6, 'line-opacity': .9, 'line-dasharray': [3, 2]}});
     for (const key of ['fast', 'mid', 'best']) {
       map.addSource('route-' + key, {type: 'geojson', data: empty});
@@ -227,11 +227,31 @@ function styleRoutes() {
 }
 
 // ---------- places to pause (F9) ----------
+// One point per place: unnamed parks (plazas, medians, lawns) are dropped, and points of
+// the same kind and name close together are merged (one park, one library, ...).
+let pauseCache = null;
+function pausePlaces() {
+  if (pauseCache) return pauseCache;
+  const generic = {park: /^(park|garden|playground|green ?space)$/i};
+  const near = (a, b, m) => {
+    const dx = (a[2] - b[2]) * 111320 * Math.cos(a[3] * Math.PI / 180), dy = (a[3] - b[3]) * 110540;
+    return dx * dx + dy * dy < m * m;
+  };
+  const kept = [];
+  for (const p of stats.pois || []) {
+    if (generic[p[1]] && generic[p[1]].test(String(p[0]).trim())) continue;
+    const radius = p[1] === 'water' ? 150 : 300;
+    if (kept.some(q => q[1] === p[1] && (p[1] === 'water' || q[0] === p[0]) && near(p, q, radius))) continue;
+    kept.push(p);
+  }
+  return (pauseCache = kept);
+}
+
 function updatePause() {
   if (!ready) return;
   const kinds = PAUSE_SEASON[season];
   $('pauseLabel').textContent = season === 'winter' ? 'Places to warm up' : 'Places to cool off';
-  const features = $('pauseToggle').checked ? (stats.pois || []).filter(p => kinds.includes(p[1])).map(([name, kind, lon, lat]) =>
+  const features = $('pauseToggle').checked ? pausePlaces().filter(p => kinds.includes(p[1])).map(([name, kind, lon, lat]) =>
     ({type: 'Feature', properties: {name, kind}, geometry: {type: 'Point', coordinates: [lon, lat]}})) : [];
   map.getSource('pause').setData(fc(features));
 }

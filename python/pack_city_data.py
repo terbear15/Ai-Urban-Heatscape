@@ -56,6 +56,55 @@ def encode_ring(ring, origin):
     return pts, out
 
 
+def area_rings(slug):
+    """Land polygon rings of the city's area, for keeping map layers inside the boundary."""
+    path = DATA.parent / "cities" / f"{slug}.geojson"
+    g = json.loads(path.read_text(encoding="utf-8"))
+    land = next(f["geometry"] for f in g["features"] if f["properties"].get("layer") == "land")
+    polys = [land["coordinates"]] if land["type"] == "Polygon" else land["coordinates"]
+    return [(poly[0], poly[1:]) for poly in polys]
+
+
+def inside(pt, rings):
+    def in_ring(ring):
+        x, y, hit = pt[0], pt[1], False
+        for (x1, y1), (x2, y2) in zip(ring, ring[1:] + ring[:1]):
+            if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
+                hit = not hit
+        return hit
+    return any(in_ring(outer) and not any(in_ring(h) for h in holes) for outer, holes in rings)
+
+
+def centroid(ring):
+    return (sum(p[0] for p in ring) / len(ring), sum(p[1] for p in ring) / len(ring))
+
+
+def write_layers(slug, layers):
+    """Map layers keep only objects whose centre lies inside the area (the data itself
+    reaches 150 m further so edge streets get the right shade)."""
+    area = area_rings(slug)
+    for layer, features in layers.items():
+        kept = [f for f in features if inside(centroid(f["geometry"]["coordinates"][0][:-1]), area)]
+        (DATA / f"{slug}-{layer}.geojson").write_text(
+            json.dumps({"type": "FeatureCollection", "features": kept}, separators=(",", ":")), encoding="utf-8")
+
+
+def decode(flat, origin, key):
+    ox, oy = origin
+    out, i = [], 0
+    while i < len(flat):
+        h, n = flat[i] / 10, flat[i + 1]
+        x = y = 0
+        ring = []
+        for k in range(n):
+            x += flat[i + 2 + 2 * k]
+            y += flat[i + 3 + 2 * k]
+            ring.append((ox + x / Q, oy + y / Q))
+        out.append(feature(key, round(h, 1), ring))
+        i += 2 + 2 * n
+    return out
+
+
 def feature(height_key, height, ring):
     closed = ring + [ring[0]]
     return {"type": "Feature", "properties": {height_key: height},
@@ -67,7 +116,9 @@ def pack(slug):
     text = path.read_text(encoding="utf-8")
     data = json.loads(text[text.index("=") + 1:].rstrip().rstrip(";"))
     if data.get("v") == 3:
-        print(slug, "already packed")
+        write_layers(slug, {"buildings": decode(data["buildings"], data["origin"], "height"),
+                            "trees": decode(data["trees"], data["origin"], "h")})
+        print(slug, "already packed; map layers rewritten")
         return
     west, south = data["meta"]["bounds"][0], data["meta"]["bounds"][1]
     origin = (round(west, 4), round(south, 4))
@@ -115,9 +166,7 @@ def pack(slug):
 
     packed = {"v": 3, "origin": [ox, oy], "q": Q, "nodes": nodes, "edges": edges, "buildings": blds,
               "trees": trees, "names": data.get("names", []), "pois": data.get("pois", []), "meta": data["meta"]}
-    for layer, features in (("buildings", bld_layer), ("trees", tree_layer)):
-        (DATA / f"{slug}-{layer}.geojson").write_text(
-            json.dumps({"type": "FeatureCollection", "features": features}, separators=(",", ":")), encoding="utf-8")
+    write_layers(slug, {"buildings": bld_layer, "trees": tree_layer})
     before = len(text)
     out = "window.CITYDATA=" + json.dumps(packed, separators=(",", ":")) + ";\n"
     path.write_text(out, encoding="utf-8")
