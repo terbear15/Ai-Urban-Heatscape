@@ -1,0 +1,72 @@
+{
+ "city": "Detroit",
+ "slug": "detroit",
+ "zones": [
+  "Downtown",
+  "Midtown",
+  "Riverwalk"
+ ],
+ "area_km2": 6.7,
+ "network": {
+  "nodes": 40071,
+  "edges": 49875,
+  "street_length_km": 980.43,
+  "intersections": 38286,
+  "streets_per_node_avg": 2.49,
+  "footpath_share": 0.537,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 2047,
+ "height_sources": {
+  "lidar": 1776,
+  "osm-levels": 60,
+  "model": 69,
+  "osm": 142
+ },
+ "height_model": {
+  "known": 1978,
+  "predicted": 69,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 10.33,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 16903,
+ "places": 1949,
+ "pause_places": 172,
+ "pause_by_kind": {
+  "water": 5,
+  "station": 15,
+  "library": 3,
+  "community": 9,
+  "park": 140
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_MI_WayneCo_2017_LAS_2018/",
+   "survey_year": 2018,
+   "points": 132675096,
+   "density_pts_m2": 2.9,
+   "classes": {
+    "1": 72875825,
+    "2": 55040357,
+    "7": 70246,
+    "9": 4242828,
+    "18": 1603,
+    "10": 11211,
+    "17": 433026
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 11.48,
+ "minutes": 4.8
+}

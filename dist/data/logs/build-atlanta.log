@@ -1,0 +1,17 @@
+== Atlanta: 3 zone(s)
+  OSM tile 10: 27,747 nodes, 4,457 ways, 61 relations
+  OSM tile 20: 52,419 nodes, 8,964 ways, 116 relations
+  OSM tile 30: 78,532 nodes, 13,280 ways, 169 relations
+  OSM tile 40: 105,327 nodes, 17,840 ways, 234 relations
+  OSM tile 50: 133,513 nodes, 22,942 ways, 349 relations
+  OSM tile 60: 159,194 nodes, 28,671 ways, 479 relations
+  OSM tile 70: 190,624 nodes, 34,819 ways, 588 relations
+  OSM tile 80: 216,726 nodes, 39,242 ways, 663 relations
+  OSM tile 88: 237,156 nodes, 43,358 ways, 711 relations
+  OSMnx walk graph: 59,567 nodes, 70,873 edges
+  6,887 building footprints
+  LiDAR source: GA_Statewide_B2_2018 (2018)
+  part 0: 2765 EPT nodes, ~2.7 pts/m², grid (4031, 2646)
+  part 0: 114,439,209 points, 6,333 building heights, 37,462 crowns so far
+  height model: trained on 6,727, predicted 160, CV MAE 11.5 m
+== Atlanta done in 5.9 min: 24.58 MB, 70,867 segments, 6,887 buildings {'lidar': 6069, 'osm': 346, 'model': 160, 'osm-levels': 312}, 37,462 crowns, 2,569 places, 192 pause places

@@ -1,0 +1,18 @@
+== Seattle: 4 zone(s)
+  OSM tile 10: 11,516 nodes, 1,680 ways, 117 relations
+  OSM tile 20: 52,736 nodes, 8,424 ways, 229 relations
+  OSM tile 30: 91,684 nodes, 15,110 ways, 410 relations
+  OSM tile 40: 121,361 nodes, 21,146 ways, 605 relations
+  OSM tile 50: 146,868 nodes, 27,253 ways, 930 relations
+  OSM tile 60: 179,237 nodes, 33,990 ways, 1,168 relations
+  OSM tile 70: 204,054 nodes, 38,278 ways, 1,227 relations
+  OSM tile 80: 226,022 nodes, 42,142 ways, 1,290 relations
+  OSM tile 90: 244,215 nodes, 45,027 ways, 1,303 relations
+  OSM tile 99: 258,221 nodes, 47,194 ways, 1,309 relations
+  OSMnx walk graph: 60,945 nodes, 75,701 edges
+  7,531 building footprints
+  LiDAR source: WA_KingCo_1_2021 (2021)
+  part 0: 5657 EPT nodes, ~4.5 pts/m², grid (4131, 3397)
+  part 0: 255,024,451 points, 7,047 building heights, 38,466 crowns so far
+  height model: trained on 7,411, predicted 120, CV MAE 7.2 m
+== Seattle done in 6.6 min: 25.85 MB, 75,672 segments, 7,531 buildings {'lidar': 6705, 'model': 120, 'osm': 603, 'osm-levels': 103}, 38,466 crowns, 5,397 places, 140 pause places

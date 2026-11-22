@@ -5,31 +5,30 @@
   "Union Square and Financial District",
   "Fisherman's Wharf and North Beach",
   "Embarcadero",
-  "Mission District",
-  "Golden Gate Park"
+  "Mission District"
  ],
- "area_km2": 16.04,
+ "area_km2": 14.98,
  "network": {
-  "nodes": 28169,
-  "edges": 35996,
-  "street_length_km": 648.68,
-  "intersections": 26618,
-  "streets_per_node_avg": 2.56,
-  "footpath_share": 0.647,
+  "nodes": 56983,
+  "edges": 72196,
+  "street_length_km": 1313.7,
+  "intersections": 54347,
+  "streets_per_node_avg": 2.53,
+  "footpath_share": 0.626,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 27080,
+ "buildings": 22198,
  "height_sources": {
-  "osm": 21566,
-  "lidar": 4929,
-  "model": 403,
-  "osm-levels": 182
+  "osm": 16411,
+  "model": 149,
+  "lidar": 5535,
+  "osm-levels": 103
  },
  "height_model": {
-  "known": 26677,
-  "predicted": 403,
+  "known": 22049,
+  "predicted": 149,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 3.97,
+  "cv_mae_m": 5.02,
   "features": [
    "log area",
    "log perimeter",
@@ -40,67 +39,34 @@
    "max known height within 60 m"
   ]
  },
- "trees": 38567,
- "places": 9129,
- "pause_places": 443,
+ "trees": 34051,
+ "places": 9264,
+ "pause_places": 394,
  "pause_by_kind": {
-  "station": 19,
-  "library": 20,
-  "park": 280,
-  "water": 85,
-  "community": 36,
-  "mall": 3
+  "water": 58,
+  "station": 20,
+  "library": 12,
+  "community": 47,
+  "park": 253,
+  "mall": 4
  },
  "lidar": [
   {
    "part": 0,
-   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_CA_NoCAL_Wildfires_B5b_2018/",
-   "survey_year": 2018,
-   "points": 35624991,
-   "density_pts_m2": 1.7,
-   "classes": {
-    "1": 22625703,
-    "2": 10246683,
-    "7": 84786,
-    "9": 1921673,
-    "18": 587508,
-    "20": 15786,
-    "17": 142852
-   },
-   "vegetation_classes": false
-  },
-  {
-   "part": 1,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/ARRA-CA_GoldenGate_2010/",
    "survey_year": 2010,
-   "points": 16622046,
-   "density_pts_m2": 2.0,
+   "points": 134541545,
+   "density_pts_m2": 3.1,
    "classes": {
-    "4": 10612339,
-    "7": 11629,
-    "1": 798694,
-    "2": 5199384
+    "1": 8242550,
+    "4": 84927280,
+    "7": 208817,
+    "9": 3560700,
+    "2": 37602198
    },
    "vegetation_classes": true
-  },
-  {
-   "part": 2,
-   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_CA_NoCAL_Wildfires_B5b_2018/",
-   "survey_year": 2018,
-   "points": 38703860,
-   "density_pts_m2": 2.9,
-   "classes": {
-    "2": 14055146,
-    "7": 46978,
-    "1": 24340580,
-    "9": 5925,
-    "18": 249235,
-    "20": 2320,
-    "17": 3676
-   },
-   "vegetation_classes": false
   }
  ],
- "data_mb": 30.29,
- "minutes": 5.2
+ "data_mb": 28.34,
+ "minutes": 5.7
 }

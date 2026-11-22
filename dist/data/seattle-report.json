@@ -1,0 +1,74 @@
+{
+ "city": "Seattle",
+ "slug": "seattle",
+ "zones": [
+  "Downtown and Pike Place",
+  "Pioneer Square",
+  "Seattle Center",
+  "Capitol Hill"
+ ],
+ "area_km2": 8.04,
+ "network": {
+  "nodes": 60945,
+  "edges": 75672,
+  "street_length_km": 1083.01,
+  "intersections": 58809,
+  "streets_per_node_avg": 2.48,
+  "footpath_share": 0.612,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 7531,
+ "height_sources": {
+  "lidar": 6705,
+  "model": 120,
+  "osm": 603,
+  "osm-levels": 103
+ },
+ "height_model": {
+  "known": 7411,
+  "predicted": 120,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 7.15,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 38466,
+ "places": 5397,
+ "pause_places": 140,
+ "pause_by_kind": {
+  "water": 29,
+  "community": 11,
+  "station": 18,
+  "library": 5,
+  "park": 75,
+  "mall": 2
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/WA_KingCo_1_2021/",
+   "survey_year": 2021,
+   "points": 255024451,
+   "density_pts_m2": 4.5,
+   "classes": {
+    "1": 189596207,
+    "2": 42653990,
+    "7": 275089,
+    "9": 11103215,
+    "18": 8882921,
+    "17": 2489389,
+    "20": 23640
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 25.85,
+ "minutes": 6.6
+}

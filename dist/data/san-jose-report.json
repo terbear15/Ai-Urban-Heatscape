@@ -1,0 +1,72 @@
+{
+ "city": "San Jose",
+ "slug": "san-jose",
+ "zones": [
+  "Downtown"
+ ],
+ "area_km2": 5.31,
+ "network": {
+  "nodes": 16920,
+  "edges": 21024,
+  "street_length_km": 428.79,
+  "intersections": 16023,
+  "streets_per_node_avg": 2.49,
+  "footpath_share": 0.605,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 6701,
+ "height_sources": {
+  "osm": 5885,
+  "model": 68,
+  "lidar": 691,
+  "osm-levels": 57
+ },
+ "height_model": {
+  "known": 6633,
+  "predicted": 68,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 3.21,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 15683,
+ "places": 1609,
+ "pause_places": 70,
+ "pause_by_kind": {
+  "community": 19,
+  "library": 5,
+  "station": 8,
+  "water": 11,
+  "park": 27
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CA_SantaClaraCounty_2020/",
+   "survey_year": 2020,
+   "points": 256532494,
+   "density_pts_m2": 19.2,
+   "classes": {
+    "1": 46175144,
+    "5": 22479958,
+    "6": 61048772,
+    "2": 91732354,
+    "3": 4458253,
+    "4": 26333637,
+    "17": 4228143,
+    "7": 59943,
+    "18": 16290
+   },
+   "vegetation_classes": true
+  }
+ ],
+ "data_mb": 10.92,
+ "minutes": 4.3
+}

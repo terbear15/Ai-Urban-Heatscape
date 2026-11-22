@@ -1,0 +1,79 @@
+{
+ "city": "Boston",
+ "slug": "boston",
+ "zones": [
+  "Downtown and Freedom Trail",
+  "North End",
+  "Back Bay",
+  "Seaport"
+ ],
+ "area_km2": 9.2,
+ "network": {
+  "nodes": 51884,
+  "edges": 61855,
+  "street_length_km": 862.37,
+  "intersections": 50223,
+  "streets_per_node_avg": 2.39,
+  "footpath_share": 0.641,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 8623,
+ "height_sources": {
+  "lidar": 6881,
+  "osm": 1321,
+  "model": 129,
+  "osm-levels": 292
+ },
+ "height_model": {
+  "known": 8494,
+  "predicted": 129,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 7.67,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 20430,
+ "places": 3932,
+ "pause_places": 418,
+ "pause_by_kind": {
+  "station": 36,
+  "water": 43,
+  "library": 43,
+  "park": 289,
+  "community": 5,
+  "mall": 2
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MA_CentralEastern_1_2021/",
+   "survey_year": 2021,
+   "points": 345646667,
+   "density_pts_m2": 8.2,
+   "classes": {
+    "1": 41319051,
+    "2": 117648309,
+    "3": 16276394,
+    "7": 1687514,
+    "9": 24775345,
+    "18": 6432511,
+    "4": 9027022,
+    "5": 24483016,
+    "6": 96795446,
+    "17": 6865006,
+    "20": 272139,
+    "22": 64914
+   },
+   "vegetation_classes": true
+  }
+ ],
+ "data_mb": 15.52,
+ "minutes": 8.4
+}

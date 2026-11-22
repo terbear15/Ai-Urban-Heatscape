@@ -1,13 +1,13 @@
 == Baltimore: 3 zone(s)
-  OSM tile 10: 47,285 nodes, 9,686 ways, 298 relations
-  OSM tile 20: 78,948 nodes, 16,241 ways, 381 relations
-  OSM tile 30: 113,854 nodes, 23,055 ways, 545 relations
-  OSM tile 40: 155,938 nodes, 30,908 ways, 765 relations
-  OSM tile 42: 161,356 nodes, 31,905 ways, 790 relations
-  OSMnx walk graph: 28,137 nodes, 35,040 edges
-  10,103 building footprints
+  OSM tile 10: 41,328 nodes, 8,375 ways, 289 relations
+  OSM tile 20: 68,609 nodes, 13,694 ways, 373 relations
+  OSM tile 30: 106,980 nodes, 21,085 ways, 519 relations
+  OSM tile 40: 147,394 nodes, 28,809 ways, 730 relations
+  OSM tile 42: 151,687 nodes, 29,526 ways, 751 relations
+  OSMnx walk graph: 25,066 nodes, 31,262 edges
+  6,570 building footprints
   LiDAR source: USGS_LPC_MD_PA_SandySupp_2014_LAS_2016 (2016)
-  part 0: 2141 EPT nodes, ~2.6 pts/m², grid (2231, 2322)
-  part 0: 54,434,682 points, 9,908 building heights, 12,858 crowns so far
-  height model: trained on 10,033, predicted 70, CV MAE 3.1 m
-== Baltimore done in 2.7 min: 10.89 MB, 35,025 segments, 10,103 buildings {'lidar': 9695, 'model': 70, 'osm-levels': 29, 'osm': 309}, 12,858 crowns, 2,255 places, 131 pause places
+  part 0: 1986 EPT nodes, ~2.6 pts/m², grid (2184, 2264)
+  part 0: 51,789,052 points, 6,366 building heights, 10,059 crowns so far
+  height model: trained on 6,487, predicted 83, CV MAE 4.0 m
+== Baltimore done in 2.4 min: 8.54 MB, 31,248 segments, 6,570 buildings {'lidar': 6172, 'model': 83, 'osm-levels': 27, 'osm': 288}, 10,059 crowns, 1,828 places, 95 pause places

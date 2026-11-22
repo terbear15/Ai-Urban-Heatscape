@@ -6,28 +6,28 @@
   "Fells Point",
   "Mount Vernon"
  ],
- "area_km2": 6.0,
+ "area_km2": 3.84,
  "network": {
-  "nodes": 28137,
-  "edges": 35025,
-  "street_length_km": 586.2,
-  "intersections": 26138,
+  "nodes": 25066,
+  "edges": 31248,
+  "street_length_km": 529.49,
+  "intersections": 23231,
   "streets_per_node_avg": 2.49,
-  "footpath_share": 0.499,
+  "footpath_share": 0.497,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 10103,
+ "buildings": 6570,
  "height_sources": {
-  "lidar": 9695,
-  "model": 70,
-  "osm-levels": 29,
-  "osm": 309
+  "lidar": 6172,
+  "model": 83,
+  "osm-levels": 27,
+  "osm": 288
  },
  "height_model": {
-  "known": 10033,
-  "predicted": 70,
+  "known": 6487,
+  "predicted": 83,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 3.13,
+  "cv_mae_m": 4.01,
   "features": [
    "log area",
    "log perimeter",
@@ -38,36 +38,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 12858,
- "places": 2255,
- "pause_places": 131,
+ "trees": 10059,
+ "places": 1828,
+ "pause_places": 95,
  "pause_by_kind": {
-  "station": 19,
   "community": 6,
+  "station": 13,
   "water": 3,
-  "library": 6,
+  "library": 4,
   "mall": 4,
-  "park": 93
+  "park": 65
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_MD_PA_SandySupp_2014_LAS_2016/",
    "survey_year": 2016,
-   "points": 54434682,
+   "points": 51789052,
    "density_pts_m2": 2.6,
    "classes": {
-    "2": 8175140,
-    "7": 24429,
-    "9": 174479,
-    "18": 8640208,
-    "1": 16351680,
-    "17": 21048826,
-    "10": 19920
+    "1": 15441390,
+    "2": 7654496,
+    "7": 22985,
+    "18": 8241947,
+    "9": 177516,
+    "17": 20228508,
+    "10": 22210
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 10.89,
- "minutes": 2.7
+ "data_mb": 8.54,
+ "minutes": 2.4
 }
