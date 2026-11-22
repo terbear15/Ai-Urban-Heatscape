@@ -12,15 +12,12 @@ ZONES = {
         ("SoHo and Greenwich Village", -74.000, 40.727, 1.2),
         ("Midtown and Times Square", -73.985, 40.756, 1.6),
         ("Central Park", -73.968, 40.782, 1.4),
-        ("DUMBO and Brooklyn Bridge", -73.990, 40.703, 0.8),
+        ("Upper West Side and Upper East Side", -73.966, 40.785, 1.8),
     ],
     "los-angeles": [
         ("Downtown LA", -118.250, 34.048, 1.6),
+        ("Westlake and Koreatown", -118.290, 34.062, 1.6),
         ("Hollywood", -118.330, 34.101, 1.4),
-        ("Sunset Strip", -118.380, 34.093, 1.2),
-        ("Beverly Hills", -118.400, 34.070, 1.0),
-        ("Santa Monica", -118.492, 34.012, 1.5),
-        ("Venice", -118.470, 33.988, 1.0),
     ],
     "chicago": [
         ("The Loop", -87.630, 41.881, 1.4),
@@ -167,15 +164,12 @@ OFFICIAL = {
         "SoHo and Greenwich Village": ["nta:SoHo-Little Italy-Hudson Square", "nta:Greenwich Village", "nta:West Village"],
         "Midtown and Times Square": ["nta:Midtown-Times Square", "nta:East Midtown-Turtle Bay", "nta:Midtown South-Flatiron-Union Square", "nta:Chelsea-Hudson Yards", "nta:Gramercy"],
         "Central Park": ["nta:Central Park"],
-        "DUMBO and Brooklyn Bridge": ["nta:Downtown Brooklyn-DUMBO-Boerum Hill", "nta:Brooklyn Heights"],
+        "Upper West Side and Upper East Side": ["nta:Upper West Side-Lincoln Square", "nta:Upper West Side (Central)", "nta:Upper West Side-Manhattan Valley", "nta:Upper East Side-Lenox Hill-Roosevelt Island", "nta:Upper East Side-Carnegie Hill", "nta:Upper East Side-Yorkville"],
     },
-    "los-angeles": {  # LA County Countywide Statistical Areas (LA City neighborhoods); separate cities by their limits
+    "los-angeles": {  # LA County Countywide Statistical Areas (LA City neighborhoods)
         "Downtown LA": ["lacounty:Los Angeles - Downtown"],
-        "Hollywood": ["lacounty:Los Angeles - Hollywood"],
-        "Sunset Strip": ["lacity:West Hollywood"],
-        "Beverly Hills": ["lacity:Beverly Hills"],
-        "Santa Monica": ["lacity:Santa Monica"],
-        "Venice": ["lacounty:Los Angeles - Venice"],
+        "Westlake and Koreatown": ["lacounty:Los Angeles - Westlake", "lacounty:Los Angeles - Koreatown", "lacounty:Los Angeles - Wilshire Center"],
+        "Hollywood": ["lacounty:Los Angeles - Hollywood", "lacounty:Los Angeles - East Hollywood"],
     },
     "chicago": {
         "The Loop": ["Loop, Chicago"],

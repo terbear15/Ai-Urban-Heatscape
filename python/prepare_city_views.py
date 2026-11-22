@@ -86,6 +86,9 @@ CITY_ZONE = {
 }
 CENTER_CITY = ROOT / "dist" / "location" / "center-city.geojson"
 ZONE_DIR = ROOT / "python" / "zones"
+# Cities whose connected center runs further than 8 km (Manhattan up to the Upper
+# West and East Sides, Downtown LA to Hollywood).
+REACH = {"new-york": 14000, "los-angeles": 14000}
 
 
 def main():
@@ -151,7 +154,7 @@ def main():
                 grown = False
                 for i, g in enumerate(flat):
                     if i not in kept and unary_union([flat[k] for k in kept]).distance(g) <= 1000 \
-                            and g.centroid.distance(flat[core].centroid) <= 8000:
+                            and g.centroid.distance(flat[core].centroid) <= REACH.get(key, 8000):
                         kept.append(i)
                         grown = True
             kept.sort()
