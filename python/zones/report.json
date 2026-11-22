@@ -19,28 +19,29 @@
   "missing": []
  },
  "phoenix": {
-  "places": 0,
+  "places": 2,
   "missing": [
    "Downtown Phoenix",
-   "ZONE Downtown (circle kept)",
+   "Downtown, Phoenix",
    "Roosevelt Row, Phoenix",
-   "Roosevelt Historic District, Phoenix",
-   "ZONE Roosevelt Row (circle kept)"
+   "Evans Churchill, Phoenix",
+   "Roosevelt Historic District, Phoenix"
   ]
  },
  "san-diego": {
-  "places": 3,
+  "places": 4,
   "missing": [
    "Old Town, San Diego",
-   "ZONE Old Town (circle kept)",
+   "Old Town San Diego",
    "La Jolla Village, San Diego"
   ]
  },
  "dallas": {
-  "places": 3,
+  "places": 4,
   "missing": [
    "Downtown Dallas",
-   "ZONE Downtown (circle kept)"
+   "City Center District, Dallas",
+   "Main Street District, Dallas"
   ]
  },
  "charlotte": {
@@ -89,6 +90,8 @@
   "places": 0,
   "missing": [
    "Downtown San Jose",
+   "Downtown, San Jose",
+   "Downtown Core, San Jose",
    "ZONE Downtown (circle kept)"
   ]
  },
@@ -97,18 +100,22 @@
   "missing": []
  },
  "baltimore": {
-  "places": 3,
+  "places": 4,
   "missing": [
    "Fells Point, Baltimore",
-   "ZONE Fells Point (circle kept)"
+   "Fells Point Historic District"
   ]
  },
  "miami": {
-  "places": 2,
+  "places": 3,
   "missing": [
    "Downtown, Miami",
-   "ZONE Downtown and Bayfront (circle kept)",
+   "Downtown Miami",
+   "Central Business District, Miami",
+   "Park West, Miami",
    "Little Havana, Miami",
+   "East Little Havana, Miami",
+   "Little Havana",
    "ZONE Little Havana (circle kept)"
   ]
  }
