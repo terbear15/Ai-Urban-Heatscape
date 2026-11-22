@@ -144,6 +144,9 @@ def pack(slug):
             pts = hull(pts)
             if len(pts) < 3:
                 continue
+            if len(pts) > 10:  # at most 10 hull points per crown; the shadow barely changes
+                step = len(pts) / 10
+                pts = [pts[int(i * step)] for i in range(10)]
             enc, px, py = [], 0, 0
             for x, y in pts:
                 enc += [x - px, y - py]
