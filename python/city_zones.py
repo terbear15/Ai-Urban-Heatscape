@@ -150,17 +150,17 @@ OFFICIAL = {
         "Museum District": ["Museum District, Houston"],
     },
     "phoenix": {
-        "Downtown": ["Downtown Phoenix"],
-        "Roosevelt Row": ["Roosevelt Row, Phoenix", "Roosevelt Historic District, Phoenix"],
+        "Downtown": ["Downtown Phoenix", "Downtown, Phoenix", "Central City, Phoenix"],
+        "Roosevelt Row": ["Roosevelt Row, Phoenix", "Evans Churchill, Phoenix", "Roosevelt, Phoenix", "Roosevelt Historic District, Phoenix"],
     },
     "san-diego": {
         "Downtown and Gaslamp Quarter": ["Downtown, San Diego"],
         "Balboa Park": ["Balboa Park, San Diego"],
-        "Old Town": ["Old Town, San Diego"],
+        "Old Town": ["Old Town, San Diego", "Old Town San Diego", "Old Town San Diego State Historic Park"],
         "La Jolla": ["La Jolla Village, San Diego", "La Jolla, San Diego"],
     },
     "dallas": {
-        "Downtown": ["Downtown Dallas"],
+        "Downtown": ["Downtown Dallas", "Downtown, Dallas", "City Center District, Dallas", "Main Street District, Dallas"],
         "Uptown and Arts District": ["Uptown, Dallas", "Arts District, Dallas"],
         "Deep Ellum": ["Deep Ellum, Dallas"],
     },
@@ -208,7 +208,7 @@ OFFICIAL = {
         "Mill District and Riverfront": ["Downtown East, Minneapolis", "Marcy-Holmes, Minneapolis"],
     },
     "san-jose": {
-        "Downtown": ["Downtown San Jose"],
+        "Downtown": ["Downtown San Jose", "Downtown, San Jose", "Downtown Core, San Jose"],
     },
     "detroit": {
         "Downtown": ["layer:detroit:NHood_Name=Downtown", "Downtown Detroit"],
@@ -217,13 +217,13 @@ OFFICIAL = {
     },
     "baltimore": {
         "Inner Harbor": ["Inner Harbor, Baltimore", "Downtown, Baltimore"],
-        "Fells Point": ["Fells Point, Baltimore"],
+        "Fells Point": ["Fells Point, Baltimore", "Fell's Point, Baltimore", "Fells Point Historic District"],
         "Mount Vernon": ["Mount Vernon, Baltimore"],
     },
     "miami": {
-        "Downtown and Bayfront": ["Downtown, Miami"],
+        "Downtown and Bayfront": ["Downtown, Miami", "Downtown Miami", "Central Business District, Miami", "Park West, Miami", "Bayfront Park, Miami"],
         "Brickell": ["Brickell, Miami"],
         "Wynwood": ["Wynwood, Miami"],
-        "Little Havana": ["Little Havana, Miami"],
+        "Little Havana": ["Little Havana, Miami", "East Little Havana, Miami", "Little Havana"],
     },
 }
