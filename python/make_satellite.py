@@ -53,7 +53,11 @@ def fetch(bbox, layer, date):
     params = {"SERVICE": "WMS", "REQUEST": "GetMap", "VERSION": "1.3.0", "LAYERS": layer, "STYLES": "",
               "CRS": "EPSG:3857", "BBOX": ",".join(f"{v:.1f}" for v in bbox), "WIDTH": FETCH, "HEIGHT": FETCH,
               "FORMAT": "image/jpeg", "TIME": date}
-    r = requests.get(WMS, params=params, headers=HEADERS, timeout=60)
+    try:
+        r = requests.get(WMS, params=params, headers=HEADERS, timeout=60)
+    except requests.RequestException:
+        time.sleep(3)
+        return None
     if r.status_code != 200 or not r.headers.get("content-type", "").startswith("image"):
         return None
     return Image.open(io.BytesIO(r.content)).convert("RGB")
