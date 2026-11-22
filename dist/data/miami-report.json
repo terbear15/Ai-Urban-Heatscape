@@ -6,28 +6,28 @@
   "Brickell",
   "Little Havana"
  ],
- "area_km2": 6.28,
+ "area_km2": 13.97,
  "network": {
-  "nodes": 25416,
-  "edges": 29335,
-  "street_length_km": 406.92,
-  "intersections": 24594,
-  "streets_per_node_avg": 2.31,
-  "footpath_share": 0.579,
+  "nodes": 84040,
+  "edges": 98109,
+  "street_length_km": 1602.35,
+  "intersections": 81304,
+  "streets_per_node_avg": 2.33,
+  "footpath_share": 0.527,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 1669,
+ "buildings": 10846,
  "height_sources": {
-  "lidar": 350,
-  "osm": 1168,
-  "osm-levels": 52,
-  "model": 99
+  "lidar": 370,
+  "osm": 9556,
+  "model": 798,
+  "osm-levels": 122
  },
  "height_model": {
-  "known": 1570,
-  "predicted": 99,
+  "known": 10048,
+  "predicted": 798,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 19.39,
+  "cv_mae_m": 4.95,
   "features": [
    "log area",
    "log perimeter",
@@ -38,14 +38,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 7328,
- "places": 1249,
- "pause_places": 69,
+ "trees": 8415,
+ "places": 2319,
+ "pause_places": 106,
  "pause_by_kind": {
-  "station": 22,
-  "water": 4,
-  "library": 3,
-  "park": 37,
+  "station": 24,
+  "water": 6,
+  "library": 8,
+  "park": 61,
+  "community": 4,
   "mall": 3
  },
  "lidar": [
@@ -53,23 +54,23 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/FL_TopobathyFLKeysNOAA_Hydroflattened_2019/",
    "survey_year": 2019,
-   "points": 269396044,
-   "density_pts_m2": 16.2,
+   "points": 466971294,
+   "density_pts_m2": 8.8,
    "classes": {
-    "1": 108302329,
-    "7": 1546754,
-    "18": 926253,
-    "2": 19597985,
-    "8": 16584399,
-    "13": 116875386,
-    "17": 2462656,
-    "20": 57983,
-    "9": 2982115,
-    "11": 60184
+    "1": 182411996,
+    "7": 1790698,
+    "18": 1012968,
+    "2": 23993553,
+    "8": 23364045,
+    "13": 228657833,
+    "17": 2592533,
+    "20": 77336,
+    "9": 2979583,
+    "11": 90749
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 6.17,
- "minutes": 3.7
+ "data_mb": 14.53,
+ "minutes": 9.2
 }

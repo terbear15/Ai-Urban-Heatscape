@@ -1,12 +1,10 @@
 == Phoenix: 2 zone(s)
-  OSM tile 10: 20,128 nodes, 3,563 ways, 129 relations
-  OSM tile 20: 48,148 nodes, 7,989 ways, 219 relations
-  OSM tile 30: 79,133 nodes, 13,807 ways, 310 relations
-  OSM tile 36: 94,213 nodes, 16,684 ways, 325 relations
-  OSMnx walk graph: 24,255 nodes, 29,139 edges
-  3,433 building footprints
+  OSM tile 10: 25,516 nodes, 3,830 ways, 144 relations
+  OSM tile 20: 57,650 nodes, 9,603 ways, 283 relations
+  OSMnx walk graph: 15,480 nodes, 18,362 edges
+  1,754 building footprints
   LiDAR source: AZ_MaricopaPinal_1_2020 (2020)
-  part 0: 3698 EPT nodes, ~11.5 pts/m², grid (2110, 1857)
-  part 0: 179,495,998 points, 3,334 building heights, 18,252 crowns so far
-  height model: trained on 3,370, predicted 63, CV MAE 3.8 m
-== Phoenix done in 4.2 min: 10.5 MB, 29,139 segments, 3,433 buildings {'model': 63, 'lidar': 3274, 'osm': 86, 'osm-levels': 10}, 18,252 crowns, 1,036 places, 106 pause places
+  part 0: 2026 EPT nodes, ~12.3 pts/m², grid (1715, 1149)
+  part 0: 96,663,150 points, 1,679 building heights, 9,687 crowns so far
+  height model: trained on 1,714, predicted 40, CV MAE 6.0 m
+== Phoenix done in 2.1 min: 5.8 MB, 18,362 segments, 1,754 buildings {'lidar': 1618, 'model': 40, 'osm': 86, 'osm-levels': 10}, 9,687 crowns, 840 places, 82 pause places

@@ -5,28 +5,28 @@
   "Downtown",
   "Roosevelt Row"
  ],
- "area_km2": 6.53,
+ "area_km2": 3.47,
  "network": {
-  "nodes": 24255,
-  "edges": 29139,
-  "street_length_km": 523.0,
-  "intersections": 23061,
-  "streets_per_node_avg": 2.4,
-  "footpath_share": 0.551,
+  "nodes": 15480,
+  "edges": 18362,
+  "street_length_km": 310.41,
+  "intersections": 14638,
+  "streets_per_node_avg": 2.37,
+  "footpath_share": 0.545,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 3433,
+ "buildings": 1754,
  "height_sources": {
-  "model": 63,
-  "lidar": 3274,
+  "lidar": 1618,
+  "model": 40,
   "osm": 86,
   "osm-levels": 10
  },
  "height_model": {
-  "known": 3370,
-  "predicted": 63,
+  "known": 1714,
+  "predicted": 40,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 3.76,
+  "cv_mae_m": 6.01,
   "features": [
    "log area",
    "log perimeter",
@@ -37,34 +37,34 @@
    "max known height within 60 m"
   ]
  },
- "trees": 18252,
- "places": 1036,
- "pause_places": 106,
+ "trees": 9687,
+ "places": 840,
+ "pause_places": 82,
  "pause_by_kind": {
-  "station": 18,
-  "park": 59,
-  "water": 19,
-  "community": 7,
-  "library": 3
+  "station": 16,
+  "park": 46,
+  "water": 16,
+  "library": 1,
+  "community": 3
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/AZ_MaricopaPinal_1_2020/",
    "survey_year": 2020,
-   "points": 179495998,
-   "density_pts_m2": 11.5,
+   "points": 96663150,
+   "density_pts_m2": 12.3,
    "classes": {
-    "1": 96700889,
-    "7": 1586743,
-    "2": 80701825,
-    "17": 446239,
+    "7": 827387,
+    "1": 55356211,
+    "2": 39989379,
+    "17": 441191,
     "20": 493,
-    "18": 59809
+    "18": 48489
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 10.5,
- "minutes": 4.2
+ "data_mb": 5.8,
+ "minutes": 2.1
 }

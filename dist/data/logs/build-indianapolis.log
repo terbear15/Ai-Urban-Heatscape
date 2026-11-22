@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/runner/work/Ai-Urban-Heatscape/Ai-Urban-Heatscape/python/pipeline/build_city.py", line 102, in <module>
+    main(sys.argv[1])
+  File "/home/runner/work/Ai-Urban-Heatscape/Ai-Urban-Heatscape/python/pipeline/build_city.py", line 31, in main
+    city = views()[slug]
+           ~~~~~~~^^^^^^
+KeyError: 'indianapolis'

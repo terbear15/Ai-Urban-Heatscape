@@ -1,13 +1,20 @@
 == Miami: 3 zone(s)
-  OSM tile 10: 9,724 nodes, 1,175 ways, 97 relations
-  OSM tile 20: 28,930 nodes, 4,701 ways, 251 relations
-  OSM tile 30: 55,681 nodes, 9,011 ways, 453 relations
-  OSM tile 35: 75,863 nodes, 12,255 ways, 525 relations
-  OSMnx walk graph: 25,416 nodes, 29,335 edges
-  1,669 building footprints
+  OSM tile 10: 3,345 nodes, 353 ways, 45 relations
+  OSM tile 20: 25,678 nodes, 4,344 ways, 250 relations
+  OSM tile 30: 41,320 nodes, 6,890 ways, 316 relations
+  OSM tile 40: 66,093 nodes, 11,478 ways, 496 relations
+  OSM tile 50: 95,908 nodes, 16,156 ways, 632 relations
+  OSM tile 60: 130,039 nodes, 21,360 ways, 747 relations
+  OSM tile 70: 162,158 nodes, 26,523 ways, 850 relations
+  OSM tile 80: 195,422 nodes, 31,604 ways, 930 relations
+  OSM tile 90: 231,011 nodes, 36,815 ways, 998 relations
+  OSM tile 100: 273,484 nodes, 43,143 ways, 1,094 relations
+  OSM tile 110: 314,872 nodes, 49,261 ways, 1,177 relations
+  OSM tile 120: 356,607 nodes, 55,355 ways, 1,272 relations
+  OSMnx walk graph: 84,040 nodes, 98,109 edges
+  10,846 building footprints
   LiDAR source: FL_TopobathyFLKeysNOAA_Hydroflattened_2019 (2019)
-  part 0: 4950 EPT nodes, ~16.2 pts/m², grid (2505, 1664)
-  retry https://s3-us-west-2.amazonaws.com/usgs-lidar-public/FL_TopobathyFLKeysNOAA_Hydroflattened_2019/ept-data/12-3986-3449-2047.laz ("Connection broken: BrokenPipeError(32, 'Broken pipe')", BrokenPipeError(32, 'Broken pipe'))
-  part 0: 269,396,044 points, 940 building heights, 7,328 crowns so far
-  height model: trained on 1,570, predicted 99, CV MAE 19.4 m
-== Miami done in 3.7 min: 6.17 MB, 29,335 segments, 1,669 buildings {'lidar': 350, 'osm': 1168, 'osm-levels': 52, 'model': 99}, 7,328 crowns, 1,249 places, 69 pause places
+  part 0: 9775 EPT nodes, ~8.8 pts/m², grid (4081, 3241)
+  part 0: 466,971,294 points, 1,016 building heights, 8,415 crowns so far
+  height model: trained on 10,048, predicted 798, CV MAE 4.9 m
+== Miami done in 9.2 min: 14.53 MB, 98,109 segments, 10,846 buildings {'lidar': 370, 'osm': 9556, 'model': 798, 'osm-levels': 122}, 8,415 crowns, 2,319 places, 106 pause places
