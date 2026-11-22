@@ -1,0 +1,72 @@
+{
+ "city": "Denver",
+ "slug": "denver",
+ "zones": [
+  "Downtown and LoDo",
+  "Civic Center",
+  "RiNo"
+ ],
+ "area_km2": 6.39,
+ "network": {
+  "nodes": 39813,
+  "edges": 51542,
+  "street_length_km": 963.64,
+  "intersections": 37453,
+  "streets_per_node_avg": 2.59,
+  "footpath_share": 0.583,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 11147,
+ "height_sources": {
+  "lidar": 4914,
+  "model": 143,
+  "osm-levels": 131,
+  "osm": 5959
+ },
+ "height_model": {
+  "known": 11004,
+  "predicted": 143,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 7.34,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 20592,
+ "places": 2491,
+ "pause_places": 56,
+ "pause_by_kind": {
+  "station": 11,
+  "library": 5,
+  "community": 3,
+  "water": 1,
+  "park": 36
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CO_DRCOG_2_2020/",
+   "survey_year": 2020,
+   "points": 81776535,
+   "density_pts_m2": 2.9,
+   "classes": {
+    "1": 52802317,
+    "2": 28187364,
+    "7": 199735,
+    "9": 13865,
+    "18": 23895,
+    "17": 543041,
+    "20": 6318
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 16.32,
+ "minutes": 4.3
+}

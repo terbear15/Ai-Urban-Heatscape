@@ -1,0 +1,77 @@
+{
+ "city": "Houston",
+ "slug": "houston",
+ "zones": [
+  "Downtown",
+  "Midtown",
+  "Museum District"
+ ],
+ "area_km2": 9.98,
+ "network": {
+  "nodes": 50004,
+  "edges": 61001,
+  "street_length_km": 1172.8,
+  "intersections": 46885,
+  "streets_per_node_avg": 2.44,
+  "footpath_share": 0.401,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 4556,
+ "height_sources": {
+  "lidar": 4224,
+  "osm": 222,
+  "model": 91,
+  "osm-levels": 19
+ },
+ "height_model": {
+  "known": 4465,
+  "predicted": 91,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 7.13,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 27294,
+ "places": 1254,
+ "pause_places": 118,
+ "pause_by_kind": {
+  "station": 23,
+  "water": 10,
+  "library": 6,
+  "park": 72,
+  "mall": 1,
+  "community": 6
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/TX_Coastal_B1_2018/",
+   "survey_year": 2018,
+   "points": 428213270,
+   "density_pts_m2": 10.1,
+   "classes": {
+    "1": 95390320,
+    "6": 81386471,
+    "7": 1360530,
+    "2": 186804076,
+    "3": 7013075,
+    "5": 42969481,
+    "4": 6205907,
+    "9": 470339,
+    "10": 13109,
+    "17": 6573708,
+    "14": 26254
+   },
+   "vegetation_classes": true
+  }
+ ],
+ "data_mb": 17.4,
+ "minutes": 8.0
+}

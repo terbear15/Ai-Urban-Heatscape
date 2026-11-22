@@ -1,0 +1,75 @@
+{
+ "city": "Washington",
+ "slug": "washington",
+ "zones": [
+  "National Mall",
+  "Downtown and Penn Quarter",
+  "Dupont Circle",
+  "Georgetown"
+ ],
+ "area_km2": 7.23,
+ "network": {
+  "nodes": 66954,
+  "edges": 80670,
+  "street_length_km": 1141.35,
+  "intersections": 64326,
+  "streets_per_node_avg": 2.41,
+  "footpath_share": 0.617,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 8963,
+ "height_sources": {
+  "lidar": 8609,
+  "osm": 211,
+  "model": 120,
+  "osm-levels": 23
+ },
+ "height_model": {
+  "known": 8843,
+  "predicted": 120,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 3.09,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 27593,
+ "places": 3004,
+ "pause_places": 636,
+ "pause_by_kind": {
+  "water": 23,
+  "park": 588,
+  "station": 10,
+  "library": 10,
+  "community": 5
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_MD_VA_Sandy_NCR_2014_LAS_2015/",
+   "survey_year": 2015,
+   "points": 174870308,
+   "density_pts_m2": 4.6,
+   "classes": {
+    "1": 38360317,
+    "2": 27493207,
+    "7": 1920,
+    "9": 2827188,
+    "11": 1157,
+    "17": 69039382,
+    "18": 36516906,
+    "25": 619472,
+    "10": 10759
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 21.4,
+ "minutes": 5.3
+}

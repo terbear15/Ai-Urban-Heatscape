@@ -1,0 +1,16 @@
+== Boston: 4 zone(s)
+  OSM tile 10: 11,337 nodes, 1,096 ways, 90 relations
+  OSM tile 20: 26,934 nodes, 3,790 ways, 267 relations
+  OSM tile 30: 41,129 nodes, 6,386 ways, 341 relations
+  OSM tile 40: 74,205 nodes, 12,979 ways, 625 relations
+  OSM tile 50: 109,104 nodes, 19,397 ways, 850 relations
+  OSM tile 60: 155,941 nodes, 28,529 ways, 1,111 relations
+  OSM tile 70: 189,179 nodes, 35,716 ways, 1,402 relations
+  OSM tile 78: 224,412 nodes, 41,818 ways, 1,974 relations
+  OSMnx walk graph: 51,884 nodes, 61,875 edges
+  8,623 building footprints
+  LiDAR source: MA_CentralEastern_1_2021 (2021)
+  part 0: 9227 EPT nodes, ~8.2 pts/m², grid (2579, 4090)
+  part 0: 345,646,667 points, 7,646 building heights, 20,430 crowns so far
+  height model: trained on 8,494, predicted 129, CV MAE 7.7 m
+== Boston done in 8.4 min: 15.52 MB, 61,855 segments, 8,623 buildings {'lidar': 6881, 'osm': 1321, 'model': 129, 'osm-levels': 292}, 20,430 crowns, 3,932 places, 418 pause places

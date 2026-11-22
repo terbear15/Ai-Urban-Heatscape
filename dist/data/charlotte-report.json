@@ -1,0 +1,73 @@
+{
+ "city": "Charlotte",
+ "slug": "charlotte",
+ "zones": [
+  "Uptown",
+  "South End"
+ ],
+ "area_km2": 4.05,
+ "network": {
+  "nodes": 40203,
+  "edges": 44940,
+  "street_length_km": 445.1,
+  "intersections": 37894,
+  "streets_per_node_avg": 2.24,
+  "footpath_share": 0.586,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 1529,
+ "height_sources": {
+  "lidar": 719,
+  "osm": 733,
+  "osm-levels": 7,
+  "model": 70
+ },
+ "height_model": {
+  "known": 1459,
+  "predicted": 70,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 16.61,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 14944,
+ "places": 533,
+ "pause_places": 111,
+ "pause_by_kind": {
+  "water": 9,
+  "library": 2,
+  "community": 2,
+  "station": 7,
+  "park": 91
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_NC_Phase4_Mecklenburg_2016_LAS_2019/",
+   "survey_year": 2019,
+   "points": 187086335,
+   "density_pts_m2": 12.9,
+   "classes": {
+    "1": 2481872,
+    "2": 51958848,
+    "5": 78838647,
+    "6": 23668326,
+    "13": 12182390,
+    "3": 6375864,
+    "4": 10660314,
+    "7": 892,
+    "14": 919182
+   },
+   "vegetation_classes": true
+  }
+ ],
+ "data_mb": 10.73,
+ "minutes": 2.9
+}

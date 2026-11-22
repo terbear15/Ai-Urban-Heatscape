@@ -1,0 +1,69 @@
+{
+ "city": "Los Angeles",
+ "slug": "los-angeles",
+ "zones": [
+  "Downtown LA"
+ ],
+ "area_km2": 5.76,
+ "network": {
+  "nodes": 30801,
+  "edges": 37963,
+  "street_length_km": 760.31,
+  "intersections": 29676,
+  "streets_per_node_avg": 2.47,
+  "footpath_share": 0.594,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 2357,
+ "height_sources": {
+  "osm-levels": 34,
+  "osm": 1989,
+  "lidar": 319,
+  "model": 15
+ },
+ "height_model": {
+  "known": 2342,
+  "predicted": 15,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 14.99,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 13666,
+ "places": 2018,
+ "pause_places": 74,
+ "pause_by_kind": {
+  "community": 2,
+  "water": 7,
+  "station": 8,
+  "mall": 4,
+  "park": 51,
+  "library": 2
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_CA_LosAngeles_2016_LAS_2018/",
+   "survey_year": 2018,
+   "points": 92343087,
+   "density_pts_m2": 4.0,
+   "classes": {
+    "1": 71552545,
+    "2": 19799532,
+    "7": 10983,
+    "18": 86118,
+    "17": 893909
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 9.76,
+ "minutes": 3.2
+}

@@ -1,0 +1,16 @@
+== Washington: 4 zone(s)
+  OSM tile 10: 53,310 nodes, 9,032 ways, 390 relations
+  OSM tile 20: 106,716 nodes, 18,679 ways, 807 relations
+  OSM tile 30: 159,075 nodes, 27,055 ways, 1,182 relations
+  OSM tile 40: 214,530 nodes, 35,140 ways, 1,530 relations
+  OSM tile 50: 253,555 nodes, 40,406 ways, 1,716 relations
+  OSM tile 60: 284,542 nodes, 44,947 ways, 1,875 relations
+  OSM tile 70: 327,883 nodes, 52,117 ways, 2,013 relations
+  OSM tile 72: 342,145 nodes, 54,473 ways, 2,028 relations
+  OSMnx walk graph: 66,954 nodes, 80,672 edges
+  8,963 building footprints
+  LiDAR source: USGS_LPC_MD_VA_Sandy_NCR_2014_LAS_2015 (2015)
+  part 0: 4966 EPT nodes, ~4.6 pts/m², grid (2443, 3914)
+  part 0: 174,870,308 points, 8,775 building heights, 27,593 crowns so far
+  height model: trained on 8,843, predicted 120, CV MAE 3.1 m
+== Washington done in 5.3 min: 21.4 MB, 80,670 segments, 8,963 buildings {'lidar': 8609, 'osm': 211, 'model': 120, 'osm-levels': 23}, 27,593 crowns, 3,004 places, 636 pause places

@@ -1,0 +1,13 @@
+== Miami: 3 zone(s)
+  OSM tile 10: 9,724 nodes, 1,175 ways, 97 relations
+  OSM tile 20: 28,930 nodes, 4,701 ways, 251 relations
+  OSM tile 30: 55,681 nodes, 9,011 ways, 453 relations
+  OSM tile 35: 75,863 nodes, 12,255 ways, 525 relations
+  OSMnx walk graph: 25,416 nodes, 29,335 edges
+  1,669 building footprints
+  LiDAR source: FL_TopobathyFLKeysNOAA_Hydroflattened_2019 (2019)
+  part 0: 4950 EPT nodes, ~16.2 pts/m², grid (2505, 1664)
+  retry https://s3-us-west-2.amazonaws.com/usgs-lidar-public/FL_TopobathyFLKeysNOAA_Hydroflattened_2019/ept-data/12-3986-3449-2047.laz ("Connection broken: BrokenPipeError(32, 'Broken pipe')", BrokenPipeError(32, 'Broken pipe'))
+  part 0: 269,396,044 points, 940 building heights, 7,328 crowns so far
+  height model: trained on 1,570, predicted 99, CV MAE 19.4 m
+== Miami done in 3.7 min: 6.17 MB, 29,335 segments, 1,669 buildings {'lidar': 350, 'osm': 1168, 'osm-levels': 52, 'model': 99}, 7,328 crowns, 1,249 places, 69 pause places

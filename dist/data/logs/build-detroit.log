@@ -1,0 +1,18 @@
+== Detroit: 3 zone(s)
+  OSM tile 10: 12,000 nodes, 1,673 ways, 92 relations
+  OSM tile 20: 21,297 nodes, 3,400 ways, 140 relations
+  OSM tile 30: 33,592 nodes, 5,290 ways, 181 relations
+  OSM tile 40: 52,656 nodes, 8,121 ways, 267 relations
+  OSM tile 50: 66,119 nodes, 10,733 ways, 339 relations
+  OSM tile 60: 87,244 nodes, 14,733 ways, 445 relations
+  OSM tile 70: 113,684 nodes, 19,738 ways, 634 relations
+  OSM tile 80: 136,354 nodes, 23,814 ways, 743 relations
+  OSM tile 90: 156,072 nodes, 28,102 ways, 840 relations
+  OSM tile 91: 157,186 nodes, 28,375 ways, 842 relations
+  OSMnx walk graph: 40,071 nodes, 49,876 edges
+  2,047 building footprints
+  LiDAR source: USGS_LPC_MI_WayneCo_2017_LAS_2018 (2018)
+  part 0: 3530 EPT nodes, ~2.9 pts/m², grid (2721, 4275)
+  part 0: 132,675,096 points, 1,858 building heights, 16,903 crowns so far
+  height model: trained on 1,978, predicted 69, CV MAE 10.3 m
+== Detroit done in 4.8 min: 11.48 MB, 49,875 segments, 2,047 buildings {'lidar': 1776, 'osm-levels': 60, 'model': 69, 'osm': 142}, 16,903 crowns, 1,949 places, 172 pause places

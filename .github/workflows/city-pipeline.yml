@@ -1,0 +1,81 @@
+name: City shade data
+
+# Builds HeatScape data for the cities listed in python/pipeline/run.txt (one per line):
+# OSM download, OSMnx walking network, buildings, LiDAR heights and trees, random-forest
+# heights, places. Each city runs in its own job; one final job commits the results.
+on:
+  workflow_dispatch:
+  push:
+    paths: [python/pipeline/run.txt]
+
+permissions:
+  contents: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      cities: ${{ steps.list.outputs.cities }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: echo "cities=$(grep -v '^\s*$' python/pipeline/run.txt | python3 -c 'import json,sys;print(json.dumps([l.strip() for l in sys.stdin]))')" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        city: ${{ fromJson(needs.plan.outputs.cities) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install osmnx "laspy[lazrs]" rasterio scipy scikit-learn requests
+      - name: Build ${{ matrix.city }}
+        working-directory: python
+        run: |
+          set -o pipefail
+          python -m pipeline.build_city ${{ matrix.city }} 2>&1 | tee ../build-${{ matrix.city }}.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: city-${{ matrix.city }}
+          path: |
+            dist/data/${{ matrix.city }}.js
+            dist/data/${{ matrix.city }}-places.js
+            dist/data/${{ matrix.city }}-report.json
+            build-${{ matrix.city }}.log
+          if-no-files-found: warn
+
+  commit:
+    needs: build
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Collect
+        run: |
+          mkdir -p dist/data dist/data/logs
+          for dir in artifacts/city-*; do
+            [ -d "$dir" ] || continue
+            cp -v "$dir"/dist/data/*.js "$dir"/dist/data/*.json dist/data/ 2>/dev/null || true
+            cp -v "$dir"/build-*.log dist/data/logs/ 2>/dev/null || true
+          done
+          python python/set_shade_flags.py
+          python python/pack_city_data.py
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add dist/data dist/cities/views.json
+          git diff --cached --quiet || git commit -m "City shade data: $(grep -v '^\s*$' python/pipeline/run.txt | tr '\n' ' ')"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done

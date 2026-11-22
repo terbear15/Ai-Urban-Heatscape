@@ -1,0 +1,11 @@
+== San Jose: 1 zone(s)
+  OSM tile 10: 41,322 nodes, 5,714 ways, 238 relations
+  OSM tile 20: 95,126 nodes, 13,808 ways, 515 relations
+  OSM tile 30: 135,160 nodes, 20,867 ways, 732 relations
+  OSMnx walk graph: 16,920 nodes, 21,024 edges
+  6,701 building footprints
+  LiDAR source: CA_SantaClaraCounty_2020 (2020)
+  part 0: 5349 EPT nodes, ~19.2 pts/m², grid (1830, 1822)
+  part 0: 256,532,494 points, 6,317 building heights, 15,683 crowns so far
+  height model: trained on 6,633, predicted 68, CV MAE 3.2 m
+== San Jose done in 4.3 min: 10.92 MB, 21,024 segments, 6,701 buildings {'osm': 5885, 'model': 68, 'lidar': 691, 'osm-levels': 57}, 15,683 crowns, 1,609 places, 70 pause places
