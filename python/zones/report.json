@@ -19,10 +19,11 @@
   "missing": []
  },
  "phoenix": {
-  "places": 2,
+  "places": 1,
   "missing": [
    "Downtown Phoenix",
    "Downtown, Phoenix",
+   "ZONE Downtown (circle kept)",
    "Roosevelt Row, Phoenix",
    "Evans Churchill, Phoenix",
    "Roosevelt Historic District, Phoenix"
@@ -107,12 +108,13 @@
   ]
  },
  "miami": {
-  "places": 3,
+  "places": 2,
   "missing": [
    "Downtown, Miami",
    "Downtown Miami",
    "Central Business District, Miami",
    "Park West, Miami",
+   "ZONE Downtown and Bayfront (circle kept)",
    "Little Havana, Miami",
    "East Little Havana, Miami",
    "Little Havana",
