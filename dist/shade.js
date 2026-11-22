@@ -222,6 +222,8 @@ const seasons={
   summer:{min:'2026-06-01',max:'2026-08-31',date:'2026-07-15',hour:'15',last:'19',offset:CITY.tz.summer,zone:CITY.tz.summerName},
   winter:{min:'2026-12-01',max:'2027-02-28',date:'2027-01-15',hour:'12',last:'17',offset:CITY.tz.winter,zone:CITY.tz.winterName},
 };
+// Read a design token from the stylesheet (season aware).
+const css=name=>getComputedStyle(document.body).getPropertyValue(name).trim()||'#888';
 const routeColors={
   summer:{fast:'#f4a96e',candidate:'#8bd5a6'},
   winter:{fast:'#b6d0ec',candidate:'#ffd078'},
@@ -256,9 +258,11 @@ function setSeason(next){
   updateSun();
 }
 function applyRouteColors(){
-  const colors=routeColors[season];
-  map.setPaintProperty('fast','line-color',colors.fast);
-  map.setPaintProperty('shade-route','line-color',colors.candidate);
+  map.setPaintProperty('fast','line-color',css('--route-short'));
+  map.setPaintProperty('shade-route','line-color',css('--route-better'));
+  for(const [layer,token] of [['building-shadows','--map-building-shadow'],['tree-shadows','--map-tree-shadow'],['trees','--map-tree'],['buildings','--map-building'],['city-mask','--map-mask'],['city-limits','--map-boundary']])
+    map.setPaintProperty(layer,layer==='city-limits'?'line-color':'fill-color',css(token));
+  map.setPaintProperty('buildings','fill-outline-color',css('--map-building-edge'));
 }
 let shadeKey='';
 // Recompute building (and, in summer, tree) shadows for the current sun, and draw them.
@@ -303,32 +307,34 @@ function updateSun(){
   refreshTreeShade();
   calculate();
 }
-$('summerMode').onclick=()=>{if(season!=='summer')setSeason('summer');};
-$('winterMode').onclick=()=>{if(season!=='winter')setSeason('winter');};
-{let saved=null;try{saved=localStorage.getItem('heatscape-season');}catch(e){}if((new URLSearchParams(location.search).get('season')||saved)==='winter')setSeason('winter');}
+// The season is shared across pages (site.js).
+if(window.HeatSeason&&HeatSeason.get()!==season)setSeason(HeatSeason.get());
+document.addEventListener('seasonchange',e=>{if(e.detail!==season)setSeason(e.detail);});
 if(map){map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');map.addControl(new maplibregl.ScaleControl({unit:'imperial'}),'bottom-right');map.on('error',e=>{if(e.sourceId==='base')err('Background tiles unavailable. Route lines are still available.');});map.on('load',()=>{
 map.addSource('area',{type:'geojson',data:'cities/'+CITY.slug+'.geojson',tolerance:0});
 map.addLayer({id:'city-mask',type:'fill',source:'area',filter:['==',['get','layer'],'mask'],paint:{
-  'fill-color':'#f5f4ed','fill-opacity':.6,'fill-antialias':false,
+  'fill-color':css('--map-mask'),'fill-opacity':.62,'fill-antialias':false,
 }});
 map.addLayer({id:'city-limits',type:'line',source:'area',filter:['==',['get','layer'],'land'],paint:{
-  'line-color':'#4a4f4c','line-width':1.6,'line-opacity':.95,'line-dasharray':[3,2],
+  'line-color':css('--map-boundary'),'line-width':1.6,'line-opacity':.9,'line-dasharray':[3,2],
 }});
 map.addLayer({id:'labels',type:'raster',source:'labels',paint:{'raster-fade-duration':0,'raster-opacity':.8}});
 // Shadows are drawn opaque in a light tint so overlapping shadow pieces do not stack darker.
 map.addSource('building-shadows',{type:'geojson',data:empty,tolerance:.3});
-map.addLayer({id:'building-shadows',type:'fill',source:'building-shadows',paint:{'fill-color':'#b4bac6','fill-opacity':1,'fill-antialias':false}});
+map.addLayer({id:'building-shadows',type:'fill',source:'building-shadows',paint:{'fill-color':css('--map-building-shadow'),'fill-opacity':.9,'fill-antialias':false}});
 map.addSource('tree-shadows',{type:'geojson',data:empty,tolerance:.3});
-map.addLayer({id:'tree-shadows',type:'fill',source:'tree-shadows',paint:{'fill-color':'#9cc4a3','fill-opacity':1,'fill-antialias':false}});
+map.addLayer({id:'tree-shadows',type:'fill',source:'tree-shadows',paint:{'fill-color':css('--map-tree-shadow'),'fill-opacity':.9,'fill-antialias':false}});
 map.addSource('trees',{type:'geojson',data:CITYDATA.trees||empty});
-map.addLayer({id:'trees',type:'fill',source:'trees',paint:{'fill-color':'#4f8f5c','fill-opacity':.85}});
+map.addLayer({id:'trees',type:'fill',source:'trees',paint:{'fill-color':css('--map-tree'),'fill-opacity':['interpolate',['linear'],['zoom'],13,.55,16,.9]}});
 map.addSource('buildings',{type:'geojson',data:CITYDATA.buildings});
-map.addLayer({id:'buildings',type:'fill',source:'buildings',paint:{'fill-color':'#7d848e','fill-opacity':1,'fill-outline-color':'#666c75'}});
+map.addLayer({id:'buildings',type:'fill',source:'buildings',paint:{'fill-color':css('--map-building'),'fill-outline-color':css('--map-building-edge'),
+  // Zoomed out, buildings fade so the shade pattern reads; zoomed in they are solid.
+  'fill-opacity':['interpolate',['linear'],['zoom'],13,.18,15,.55,16.5,.95]}});
 map.moveLayer('city-mask');map.moveLayer('city-limits');
 for(const [id,color,width] of [['fast','#f4a96e',4],['shade-route','#8bd5a6',5]]){
   map.addSource(id,{type:'geojson',data:empty});
   const layout={'line-join':'round','line-cap':'round'};
-  map.addLayer({id:id+'-halo',type:'line',source:id,layout,paint:{'line-color':'#172c23','line-width':width+3}});
+  map.addLayer({id:id+'-halo',type:'line',source:id,layout,paint:{'line-color':'#ffffff','line-width':width+4,'line-opacity':.9}});
   map.addLayer({id,type:'line',source:id,layout,paint:{'line-color':color,'line-width':width}});
 }
 ready=true;if(!hasTrip())$('routeStatus').textContent='Enter a starting point and destination, or pick them on the map.';applyRouteColors();updateSun();map.fitBounds(cityBounds,{padding:42,duration:0});
