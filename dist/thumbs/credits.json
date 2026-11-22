@@ -18,10 +18,10 @@
   "url": "https://commons.wikimedia.org/wiki/File:Chicago_Loop_Skyline_from_Grant_Park,_Chicago,_Illinois_(9179527395).jpg"
  },
  "san-francisco": {
-  "title": "San Francisco Skyline from Treasure Island (6959145324).jpg",
-  "artist": "Tony Webster from Portland, Oregon, United States",
-  "license": "CC BY 2.0",
-  "url": "https://commons.wikimedia.org/wiki/File:San_Francisco_Skyline_from_Treasure_Island_(6959145324).jpg"
+  "title": "San Francisco (CA, USA), Pioneer Park, Blick auf den Business District -- 2022 -- 0885.jpg",
+  "artist": "Dietmar Rabich",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:San_Francisco_(CA,_USA),_Pioneer_Park,_Blick_auf_den_Business_District_--_2022_--_0885.jpg"
  },
  "dallas": {
   "title": "Dallas Texas Skyline - Trinity River - Margaret Hunt Hill Bridge.jpg",
@@ -72,10 +72,16 @@
   "url": "https://commons.wikimedia.org/wiki/File:Downtown_Miami_Skyline_photo_Don_Ramey_Logan.jpg"
  },
  "san-jose": {
-  "title": "Downtown San Jose Public Art Landscape Architecture Prostak IMG 1241.jpg",
-  "artist": "Daniel J. Prostak; Crocodiletiger~commonswiki used courtesy of Daniel Prostak",
+  "title": "San jose skyline 8407.jpg",
+  "artist": "Cristiano Tom\u00e1s",
   "license": "CC BY-SA 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Downtown_San_Jose_Public_Art_Landscape_Architecture_Prostak_IMG_1241.jpg"
+  "url": "https://commons.wikimedia.org/wiki/File:San_jose_skyline_8407.jpg"
+ },
+ "phoenix": {
+  "title": "Downtown Phoenix Skyline (6974043971).jpg",
+  "artist": "Alan Stark from Goodyear, AZ, United States",
+  "license": "CC BY-SA 2.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Downtown_Phoenix_Skyline_(6974043971).jpg"
  },
  "minneapolis": {
   "title": "Downtown Minneapolis skyline across the Mississippi River.jpg",
@@ -102,10 +108,10 @@
   "url": "https://commons.wikimedia.org/wiki/File:Downtown_Denver_skyline.jpg"
  },
  "charlotte": {
-  "title": "The Braille Music Box in Midtown Park with Uptown Charlotte in the background.jpg",
-  "artist": "Algorhythms",
+  "title": "Charlotte Skyline during the morning.jpg",
+  "artist": "Bruce Emmerling",
   "license": "CC BY-SA 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:The_Braille_Music_Box_in_Midtown_Park_with_Uptown_Charlotte_in_the_background.jpg"
+  "url": "https://commons.wikimedia.org/wiki/File:Charlotte_Skyline_during_the_morning.jpg"
  },
  "baltimore": {
   "title": "Inner Harbor Skyline View.JPG",
