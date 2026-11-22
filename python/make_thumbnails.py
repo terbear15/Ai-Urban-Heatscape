@@ -67,8 +67,10 @@ def thumb(slug, city):
     image = Image.open(io.BytesIO(response.content)).convert("RGB").resize((SIZE, SIZE))
     # Desaturate to ~25% colour and lift the shadows slightly so text and marks read on top.
     image = ImageEnhance.Color(image).enhance(0.25)
-    image = ImageEnhance.Contrast(image).enhance(0.92)
     image = ImageOps.autocontrast(image, cutoff=1)
+    image = ImageEnhance.Contrast(image).enhance(0.8)
+    # Wash toward the page colour so the grid stays light; black no-data tiles become paper.
+    image = Image.blend(image, Image.new("RGB", image.size, (246, 243, 236)), 0.28)
     draw = ImageDraw.Draw(image)
     area = CITIES / f"{slug}.geojson"
     if area.exists():
@@ -78,8 +80,8 @@ def thumb(slug, city):
                 mx, my = merc(lon, lat)
                 pts.append(((mx - bbox[0]) / (bbox[2] - bbox[0]) * SIZE, (bbox[3] - my) / (bbox[3] - bbox[1]) * SIZE))
             if len(pts) > 2:
-                dashed(draw, pts, (255, 255, 255), width=3)
-                dashed(draw, pts, (58, 58, 58), width=1)
+                dashed(draw, pts, (255, 255, 255), width=5)
+                dashed(draw, pts, (45, 45, 45), width=2)
     OUT.mkdir(parents=True, exist_ok=True)
     image.save(OUT / f"{slug}.jpg", quality=78, optimize=True, progressive=True)
     print(slug, (OUT / f"{slug}.jpg").stat().st_size // 1024, "kB")
