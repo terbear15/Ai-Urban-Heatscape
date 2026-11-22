@@ -1,82 +1,54 @@
 # HeatScape
 
-## Python / Philadelphia preview
+**Find the shadier way.** HeatScape compares walking routes by how much direct sun they get. In summer it looks for the route that stays in the shade of buildings and trees; in winter, the one that stays in the sunshine. It covers the downtown and main visitor areas of twenty large US cities.
 
-**Website:** https://terbear15.github.io/Ai-Urban-Heatscape/dist/research/
+**Website:** https://terbear15.github.io/Ai-Urban-Heatscape/
 
-**Interactive map:** https://terbear15.github.io/Ai-Urban-Heatscape/dist/explorer/app.html
+Geospatial Python course project (MUSA 5500, University of Pennsylvania).
 
-This preview adds typed place/address search, a citywide directed OSMnx walking graph, Python routing and callbacks, a Panel dashboard, linked Bokeh charts and CSV export. Building-shadow comparisons remain limited to Center City. The previous main page is retained while the Python migration receives visual review.
+## Using the site
 
-The new application is authored in Python. Panel generates the browser JavaScript needed to render it; the old JavaScript prototypes remain archived. There is no trained AI model, tree canopy model, live temperature, GPS button or verified pedestrian navigation. Browser visual/click-through verification of this preview is pending; native Python checks are available below.
+1. **Landing page** — pick Summer or Winter (the choice carries across every page) and press *Explore*.
+2. **Choose a city** — twenty cities, searchable by city or area name (for example "Hollywood" or "Back Bay").
+3. **City map** — enter where you start and where you are going (a place, landmark or address, or click the map), choose how many extra minutes a better route is worth, and press *Compare routes*. You get three routes: the fastest, a balanced one (about a minute extra) and the shadiest (or sunniest in winter) within your budget, with minutes in direct sun, a street-by-street list, and the best time to leave. Drag the time and date sliders to watch the shadows move. Links can be shared; they reopen the same route.
 
-### Reproduce
+HeatScape is a model, not a forecast. It shows where buildings and trees cast shadows for a given sun position. It does not measure temperature, clouds, awnings or safety.
 
-The native pipeline was tested with Python 3.14.7. Install dependencies with `pip install -r python/requirements.txt`. The committed compressed dataset lets you build without downloading raw OSM again:
+## How it works
+
+| Step | Where | What |
+|---|---|---|
+| Study areas | `python/city_zones.py`, `python/official_zones.py`, `python/prepare_city_views.py` | Each city's downtown and visitor zones use official boundaries: NYC Neighborhood Tabulation Areas, LA County statistical areas, city neighborhood layers (San Francisco, Seattle, Atlanta, Detroit), Philadelphia's Center City neighborhoods, and OpenStreetMap neighborhood and district boundaries elsewhere. The areas are clipped to land using Census place boundaries. |
+| Street network | `python/pipeline/osm.py`, `network.py` | OpenStreetMap is downloaded in tiles. **OSMnx** builds the walking graph (`graph_from_xml`), with street counts and basic statistics. Each segment gets a sidewalk offset from its road type, width and lanes, so shade is sampled on the two sidewalks, not on the centerline. |
+| Buildings | `python/pipeline/buildings.py` | OSM footprints, including multipolygons. |
+| LiDAR | `python/pipeline/lidar.py` | **USGS 3DEP** point clouds (Entwine format on AWS; NOAA for Philadelphia) are gridded at 2 m: ground, highest return, and a **canopy height model**. Building height is the 90th percentile of the CHM inside each footprint. Tree crowns are CHM cells 2.5–45 m tall outside buildings, labeled into connected pieces (`scipy.ndimage`) and polygonized with `rasterio`. |
+| Missing heights | `python/pipeline/heights_ml.py` | A **scikit-learn random forest** predicts heights for buildings LiDAR does not cover, from footprint shape, OSM tags and neighboring heights (5-fold cross-validated error reported per city). |
+| Places | `python/pipeline/places.py` | Searchable landmarks and streets, plus places to cool off in summer or warm up in winter. |
+| Shade and routing | `dist/engine.js` in a Web Worker | For each 15-minute slot after departure the sun position (SunCalc) sweeps every building and crown into a 2 m shade grid. A time-dependent Dijkstra search updates the sun as the walk goes on and takes the better sidewalk on each segment. |
+| Site | `dist/` | Plain HTML, CSS and JavaScript with MapLibre; no framework or build step. |
+
+Data processing runs on GitHub Actions: `city-pipeline.yml` builds city data, `city-data.yml` rebuilds the study areas, `thumbnails.yml` makes the city thumbnails, `tests.yml` checks the routing engine, and `stamp-versions.yml` refreshes cache-busting versions after each deploy.
+
+## Run locally
 
 ```sh
-python python/check.py
-python python/build.py
-quarto render research
-python -m http.server 8766 --directory dist
+python -m http.server 8000
+# open http://localhost:8000/dist/
 ```
 
-Open `http://localhost:8766/explorer/app.html`. The first visit downloads the Python runtime and approximately 12 MB of compressed project data. A network connection and WebGL support are needed.
+Engine checks: `node tests/engine.test.cjs`.
 
-To regenerate the geographic dataset:
+To rebuild a city's data, put city slugs (one per line) in `python/pipeline/run.txt` and push, or run the *City shade data* workflow by hand. To run it locally (needs network access and about 4 GB of memory for larger cities):
 
 ```sh
-python python/fetch_data.py
-python python/prepare_data.py
+pip install -r python/requirements.txt
+cd python && python -m pipeline.build_city philadelphia
 ```
 
-The preparation step uses the existing `dist/philly-data.js` building extract. Its original acquisition is described in `PHILADELPHIA.md`. Raw road inputs and the 100 MB intermediate GraphML are excluded from Git. API results can change; the committed compressed dataset is the reproducible preview snapshot. OSM-derived data remains subject to ODbL.
+## Data sources
 
-`research/` contains the Quarto collection, analysis and visualization write-up. `python/data/checks.json` records native validation. The source pipeline uses API collection, geospatial operations, OSMnx, Panel and linked visualizations. Instructor approval, field validation and the complete final report/presentation are still outstanding.
+OpenStreetMap contributors (ODbL) · USGS 3D Elevation Program · NOAA Office for Coastal Management · US Census Bureau cartographic boundaries · NYC Department of City Planning · Los Angeles County eGIS · City and County of San Francisco · City of Seattle · City of Atlanta · City of Detroit · City of Philadelphia · Esri basemaps and imagery · Photon geocoder (komoot).
 
----
+## Limits
 
-## Philadelphia route-and-shade prototype — November 2026
-
-The main website now opens a desktop-first Center City explorer with real OSM building geometry, 2D/3D views, summer-time building shadows, and shortest versus lower-sun candidate routes. Distances use miles and feet. This is an unvalidated building-only model; tree shade, trained AI, verified sidewalk access and cooling-site availability are not yet connected.
-
-See [PHILADELPHIA.md](PHILADELPHIA.md) for the current implementation, data provenance, limitations and checks. Run `node check-engine.cjs` to check the routing and shadow engine. The previous heat-grid website remains at [dist/legacy.html](dist/legacy.html).
-
----
-
-## Previous heat-grid prototype (archived)
-
-An interactive urban surface heat research prototype for New York City, Philadelphia, and an expanded Los Angeles study region.
-
-## Current status
-
-All temperature and land-cover values are synthetic demonstration data. Grid geometry is real: 500 m UTM cells clipped to mapped land. No machine-learning model has been trained. Model evaluation is pending. The map basemap is real geographic context; Census ACS 2024 boundaries and TIGERweb Areal Hydrography define the land mask. NYC and Philadelphia use city limits; LA uses a custom expanded region of 42 municipalities plus enclosed land gaps. See dist/map-provenance.json for the full definition.
-
-## Features
-
-- City selection and interactive Leaflet map
-- Illustrative predicted temperature, observed temperature, residual, and canopy layers
-- Clean Esri light-gray and Esri satellite basemap toggle
-- Land-only cells, hover tooltips, clickable details, and overlay opacity
-- In-map legend and explicit non-live observation status
-- City comparison summaries
-- CSV export labeled SYNTHETIC_DEMO
-- Planned model workflow, evaluation, and data-source documentation
-
-## Run
-
-Serve `dist/` using any static HTTP server, or open `dist/index.html` in a browser. Leaflet is bundled locally. Esri map tiles and Google Fonts require internet access.
-
-## Planned research
-
-Prepare Landsat temperature and reflectance plus national land-cover data. Compare random forest regression with a linear regression baseline using spatially separated testing and held-out cities. Replace demo values with documented observations and evaluated predictions.
-
-Satellite land surface temperature is not air temperature or personal heat exposure. Predictive relationships are not causal intervention estimates.
-
-## Structure
-
-- `dist/index.html`: interface and methods
-- `dist/style.css`: responsive visual design
-- `dist/app.js`: demo data, maps, interactions, and exports
-
-
+Shade comes from mapped buildings and trees only, for a clear sky. Tree crowns come from the LiDAR survey year (2014–2022 depending on the city), so new or removed trees are not reflected. Sidewalks are modeled from street centerlines. Seattle and San Francisco hills are not modeled.
