@@ -123,20 +123,20 @@ ZONES = {
 # zone whose names all fail to resolve. Philadelphia uses the city's own Center City
 # neighborhoods (python/prepare_center_city.py).
 OFFICIAL = {
-    "new-york": {
-        "Lower Manhattan": ["Financial District, Manhattan", "Tribeca, Manhattan", "Battery Park City, Manhattan", "Civic Center, Manhattan"],
-        "SoHo and Greenwich Village": ["SoHo, Manhattan", "Greenwich Village, Manhattan", "West Village, Manhattan"],
-        "Midtown and Times Square": ["Midtown Manhattan", "Theater District, Manhattan", "Midtown East, Manhattan"],
-        "Central Park": ["Central Park, Manhattan"],
-        "DUMBO and Brooklyn Bridge": ["DUMBO, Brooklyn", "Brooklyn Heights, Brooklyn", "Brooklyn Bridge Park"],
+    "new-york": {  # NYC Department of City Planning Neighborhood Tabulation Areas (2020)
+        "Lower Manhattan": ["nta:Financial District-Battery Park City", "nta:Tribeca-Civic Center"],
+        "SoHo and Greenwich Village": ["nta:SoHo-Little Italy-Hudson Square", "nta:Greenwich Village", "nta:West Village"],
+        "Midtown and Times Square": ["nta:Midtown-Times Square", "nta:East Midtown-Turtle Bay"],
+        "Central Park": ["nta:Central Park"],
+        "DUMBO and Brooklyn Bridge": ["nta:Downtown Brooklyn-DUMBO-Boerum Hill", "nta:Brooklyn Heights"],
     },
-    "los-angeles": {
-        "Downtown LA": ["Downtown, Los Angeles"],
-        "Hollywood": ["Hollywood, Los Angeles"],
-        "Sunset Strip": ["West Hollywood, California"],
-        "Beverly Hills": ["Beverly Hills, California"],
-        "Santa Monica": ["Santa Monica, California"],
-        "Venice": ["Venice, Los Angeles"],
+    "los-angeles": {  # Los Angeles Times Mapping L.A. neighborhoods; separate cities by their limits
+        "Downtown LA": ["latimes:Downtown"],
+        "Hollywood": ["latimes:Hollywood"],
+        "Sunset Strip": ["latimes:West Hollywood"],
+        "Beverly Hills": ["latimes:Beverly Hills"],
+        "Santa Monica": ["latimes:Santa Monica"],
+        "Venice": ["latimes:Venice"],
     },
     "chicago": {
         "The Loop": ["Loop, Chicago"],
@@ -165,8 +165,7 @@ OFFICIAL = {
         "Deep Ellum": ["Deep Ellum, Dallas"],
     },
     "charlotte": {
-        "Downtown": ["Uptown Charlotte", "First Ward, Charlotte", "Second Ward, Charlotte", "Third Ward, Charlotte", "Fourth Ward, Charlotte"],
-        "Uptown": ["Uptown Charlotte"],
+        "Uptown": ["First Ward, Charlotte", "Second Ward, Charlotte", "Third Ward, Charlotte", "Fourth Ward, Charlotte"],
         "South End": ["South End, Charlotte", "Dilworth, Charlotte"],
     },
     "san-francisco": {
