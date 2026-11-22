@@ -29,7 +29,7 @@ QUERIES = {
     "dallas": "Dallas skyline Trinity River", "houston": "Downtown Houston skyline",
     "washington": "National Mall from Washington Monument", "boston": "Boston skyline Charles River", "atlanta": "Downtown Atlanta skyline",
     "seattle": "Seattle skyline Kerry Park", "philadelphia": "Philadelphia Center City skyline",
-    "miami": "Downtown Miami skyline", "san-jose": ["San Jose skyline", "San Jose California skyline daytime", "Downtown San Jose"],
+    "miami": "Downtown Miami skyline", "san-jose": ["Downtown San Jose skyline from Guadalupe River Park", "San Jose California skyline", "Downtown San Jose skyline"],
     "phoenix": ["Downtown Phoenix skyline", "Phoenix skyline", "Downtown Phoenix Arizona"], "minneapolis": "Downtown Minneapolis skyline",
     "detroit": "Detroit skyline Detroit River", "san-diego": "San Diego skyline Coronado",
     "denver": "Downtown Denver skyline", "charlotte": ["Charlotte skyline", "Charlotte North Carolina skyline", "Uptown Charlotte skyline"],
