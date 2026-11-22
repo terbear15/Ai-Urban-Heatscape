@@ -134,7 +134,7 @@ def main():
                 grown = False
                 for i, g in enumerate(flat):
                     if i not in kept and unary_union([flat[k] for k in kept]).distance(g) <= 1000 \
-                            and g.centroid.distance(flat[core].centroid) <= 5000:
+                            and g.centroid.distance(flat[core].centroid) <= 8000:
                         kept.append(i)
                         grown = True
             kept.sort()
