@@ -207,7 +207,7 @@ details.panel[open] summary::after { content: '–'; }
 .map-heading h2 { font-size: 16px; margin: 4px 0 0; }
 .map-stage { position: relative; height: clamp(420px, calc(100vh - 330px), 760px); background: #ecebe6; }
 #map { position: absolute; inset: 0; }
-.map-legend { position: absolute; left: 12px; bottom: 30px; max-width: calc(100% - 24px); background: color-mix(in srgb, var(--surface) 94%, transparent); border: 1px solid var(--line); border-radius: var(--radius-sm); box-shadow: var(--shadow); font-size: 11.5px; }
+.map-legend { position: absolute; left: 12px; top: 12px; z-index: 2; max-width: calc(100% - 24px); background: color-mix(in srgb, var(--surface) 94%, transparent); border: 1px solid var(--line); border-radius: var(--radius-sm); box-shadow: var(--shadow); font-size: 11.5px; }
 .map-legend summary { cursor: pointer; list-style: none; padding: 8px 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
 .map-legend summary::-webkit-details-marker { display: none; }
 .map-legend summary::after { content: '▾'; color: var(--muted); font-size: 10px; }
@@ -229,7 +229,7 @@ details.panel[open] summary::after { content: '–'; }
 .swap .icon { width: 13px; height: 13px; }
 #share { margin-top: 10px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .15); }
-.map-buttons { position: absolute; right: 10px; bottom: 30px; display: grid; gap: 6px; }
+.map-buttons { position: absolute; right: 10px; top: 84px; z-index: 2; display: grid; gap: 6px; }
 .map-buttons button { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 11.5px; padding: 7px 10px; box-shadow: var(--shadow); }
 .map-buttons button:hover { background: var(--soft); }
 .map-loading { position: absolute; inset: 0; display: grid; place-items: center; background: color-mix(in srgb, var(--paper) 70%, transparent); z-index: 3; transition: opacity .3s; }

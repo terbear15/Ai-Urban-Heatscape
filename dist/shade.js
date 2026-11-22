@@ -96,7 +96,7 @@ let map;
 try {
   map = new maplibregl.Map({
     container: 'map', center, zoom: 14, minZoom: 10, maxZoom: 19, maxPitch: 0, dragRotate: false, pitchWithRotate: false,
-    attributionControl: true,
+    attributionControl: {compact: true},
     style: {version: 8, sources: {
       base: {type: 'raster', tileSize: 256, maxzoom: 16, tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'],
              attribution: 'Basemap © Esri · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · LiDAR: USGS 3DEP / NOAA'},
@@ -110,7 +110,7 @@ try {
 const scale = map && new maplibregl.ScaleControl({unit: units});
 if (map) {
   map.addControl(new maplibregl.NavigationControl({showCompass: false}), 'top-right');
-  map.addControl(scale, 'bottom-right');
+  map.addControl(scale, 'bottom-left');
   map.on('error', event => {
     if (event.sourceId === 'base' || event.sourceId === 'labels') problem('Background map tiles are not loading. Routes and shade still work.');
   });
