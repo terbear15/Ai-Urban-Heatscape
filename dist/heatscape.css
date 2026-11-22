@@ -304,7 +304,9 @@ dialog h3 { font-size: 14.5px; margin: 22px 0 4px; }
   .timeline { order: 3; flex-basis: 100%; }
   .date-field { border: 0; padding: 0; margin-left: auto; }
   .map-foot { flex-wrap: wrap; }
-  .intro { padding: 14px 0 10px; }
+  .intro { padding: 14px 0 10px; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .intro h1 { font-size: 30px; }
+  .intro .eyebrow { white-space: nowrap; }
   h1 { font-size: 25px; letter-spacing: -.8px; }
   .intro p { font-size: 12.5px; }
   .notice { flex-wrap: wrap; font-size: 11px; }
