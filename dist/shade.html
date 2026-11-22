@@ -94,7 +94,6 @@
   const views = await (await fetch('cities/views.json?' + V)).json();
   const city = views[slug];
   if (!city) { location.replace('explore.html'); return; }
-  if (!city.shade) { location.replace('cities.html?city=' + slug); return; }
   window.CITY = {slug, ...city, version: V};
   document.body.dataset.city = slug;
   const text = {cityName: city.name, areaName: city.areaName};

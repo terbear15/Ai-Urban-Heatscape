@@ -48,7 +48,7 @@
         select.addEventListener('change', () => {
           const slug = select.value;
           if (!slug) return;
-          location.href = (views[slug].shade ? 'shade.html' : 'cities.html') + '?city=' + slug;
+          location.href = 'shade.html?city=' + slug;
         });
       }).catch(() => {});
     }
