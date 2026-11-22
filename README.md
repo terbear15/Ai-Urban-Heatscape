@@ -1,6 +1,6 @@
 # HeatScape
 
-**Find the shadier way.** HeatScape compares walking routes by how much direct sun they get. In summer it looks for the route that stays in the shade of buildings and trees; in winter, the one that stays in the sunshine. It covers the downtown and main visitor areas of twenty large US cities.
+**Find the shadier way.** HeatScape compares walking routes by how much direct sun they get. In summer it looks for the route that stays in the shade of buildings and trees; in winter, the one that stays in the sunshine. It covers one connected downtown in each of thirty large US cities.
 
 **Website:** https://terbear15.github.io/Ai-Urban-Heatscape/
 
@@ -9,7 +9,7 @@ Geospatial Python course project (MUSA 5500, University of Pennsylvania).
 ## Using the site
 
 1. **Landing page** — pick Summer or Winter (the choice carries across every page) and press *Explore*.
-2. **Choose a city** — twenty cities, searchable by city or area name (for example "Hollywood" or "Back Bay").
+2. **Choose a city** — thirty cities, searchable by city or area name (for example "Back Bay" or "Pearl District").
 3. **City map** — enter where you start and where you are going (a place, landmark or address, or click the map), choose how many extra minutes a better route is worth, and press *Compare routes*. You get three routes: the fastest, a balanced one (about a minute extra) and the shadiest (or sunniest in winter) within your budget, with minutes in direct sun, a street-by-street list, and the best time to leave. Drag the time and date sliders to watch the shadows move. Links can be shared; they reopen the same route.
 
 HeatScape is a model, not a forecast. It shows where buildings and trees cast shadows for a given sun position. It does not measure temperature, clouds, awnings or safety.
