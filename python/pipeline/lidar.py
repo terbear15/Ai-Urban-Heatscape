@@ -38,6 +38,7 @@ USGS_BUCKET = "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/"
 # Sources chosen by hand where a better survey than 3DEP exists.
 OVERRIDES = {
     "philadelphia": ["https://noaa-nos-coastal-lidar-pds.s3.amazonaws.com/entwine/geoid18/9848/"],
+    "new-york": ["https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity/"],
 }
 SESSION = requests.Session()
 SESSION.headers["User-Agent"] = "HeatScape course project"
@@ -84,15 +85,28 @@ def choose_source(slug, part):
     """The EPT base URL that best covers this part (lon/lat polygon)."""
     if slug in OVERRIDES:
         return OVERRIDES[slug][0]
-    covering = [(survey_year(name), count, url, name) for url, name, count, footprint in usgs_resources()
-                if footprint.buffer(0).contains(part.buffer(0).envelope)]
+    # Surveys that cover (almost all of) the area, densest first, newer breaking ties.
+    # Density is points per square degree of footprint, corrected for latitude; a big
+    # statewide survey no longer wins over a dense city survey just by covering more.
+    area = part.buffer(0)
+    covering = []
+    for url, name, count, footprint in usgs_resources():
+        fp = footprint.buffer(0)
+        if not fp.intersects(area):
+            continue
+        share = fp.intersection(area).area / area.area
+        if share < 0.97:
+            continue
+        lat = fp.centroid.y
+        density = count / max(fp.area * math.cos(math.radians(lat)), 1e-9)
+        covering.append((density, survey_year(name), url, name))
     if not covering:
-        covering = [(survey_year(name), count, url, name) for url, name, count, footprint in usgs_resources()
-                    if footprint.buffer(0).intersects(part)]
+        covering = [(0, survey_year(name), url, name) for url, name, count, footprint in usgs_resources()
+                    if footprint.buffer(0).intersects(area)]
     if not covering:
         return None
     covering.sort(reverse=True)
-    log(f"  LiDAR source: {covering[0][3]} ({covering[0][0] or 'year unknown'})")
+    log(f"  LiDAR source: {covering[0][3]} ({covering[0][1] or 'year unknown'})")
     return covering[0][2]
 
 
