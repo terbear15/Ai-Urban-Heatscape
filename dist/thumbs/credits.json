@@ -1,105 +1,95 @@
 {
- "source": "NASA HLS via GIBS",
+ "source": "USDA NAIP via USGS The National Map",
  "scenes": {
   "new-york": {
-   "date": "2026-08-19",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.254
+   "date": "202611222102"
   },
   "los-angeles": {
-   "date": "2026-10-19",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.688
+   "date": "202611222102"
   },
   "chicago": {
-   "date": "2026-08-07",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.251
+   "date": "202611222102"
   },
   "san-francisco": {
-   "date": "2025-08-01",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.326
+   "date": "202611222102"
   },
   "dallas": {
-   "date": "2026-10-22",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.619
+   "date": "202611222102"
   },
   "houston": {
-   "date": "2026-06-21",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.662
+   "date": "202611222102"
   },
   "washington": {
-   "date": "2026-10-01",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.526
+   "date": "202611222102"
   },
   "boston": {
-   "date": "2026-10-10",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.565
+   "date": "202611222102"
   },
   "atlanta": {
-   "date": "2026-10-25",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.507
+   "date": "202611222102"
   },
   "seattle": {
-   "date": "2026-08-04",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.413
+   "date": "202611222102"
   },
   "philadelphia": {
-   "date": "2025-08-22",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.619
+   "date": "202611222102"
   },
   "miami": {
-   "date": "2025-08-28",
-   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.836
+   "date": "202611222102"
   },
   "san-jose": {
-   "date": "2026-10-10",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.727
+   "date": "202611222102"
   },
   "phoenix": {
-   "date": "2025-08-22",
-   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.859
+   "date": "202611222102"
   },
   "minneapolis": {
-   "date": "2025-09-25",
-   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.574
+   "date": "202611222102"
   },
   "detroit": {
-   "date": "2026-07-12",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.406
+   "date": "202611222102"
   },
   "san-diego": {
-   "date": "2026-10-01",
-   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.436
+   "date": "202611222102"
   },
   "denver": {
-   "date": "2026-10-19",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.663
+   "date": "202611222102"
   },
   "charlotte": {
-   "date": "2026-10-07",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.621
+   "date": "202611222102"
   },
   "baltimore": {
-   "date": "2025-09-13",
-   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.571
+   "date": "202611222102"
+  },
+  "st-louis": {
+   "date": "202611222102"
+  },
+  "portland": {
+   "date": "202611222102"
+  },
+  "nashville": {
+   "date": "202611222102"
+  },
+  "indianapolis": {
+   "date": "202611222102"
+  },
+  "cincinnati": {
+   "date": "202611222102"
+  },
+  "kansas-city": {
+   "date": "202611222102"
+  },
+  "pittsburgh": {
+   "date": "202611222102"
+  },
+  "cleveland": {
+   "date": "202611222102"
+  },
+  "salt-lake-city": {
+   "date": "202611222102"
+  },
+  "milwaukee": {
+   "date": "202611222102"
   }
  }
 }
