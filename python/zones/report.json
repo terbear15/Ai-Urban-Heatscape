@@ -8,11 +8,10 @@
   "missing": []
  },
  "chicago": {
-  "places": 3,
+  "places": 4,
   "missing": [
    "Museum Campus, Chicago",
-   "Streeterville, Chicago",
-   "ZONE Navy Pier (circle kept)"
+   "Streeterville, Chicago"
   ]
  },
  "houston": {
@@ -47,36 +46,18 @@
  "charlotte": {
   "places": 4,
   "missing": [
-   "Fourth Ward, Charlotte",
+   "First Ward, Charlotte",
    "Dilworth, Charlotte"
   ]
  },
  "san-francisco": {
-  "places": 2,
-  "missing": [
-   "Union Square, San Francisco",
-   "Financial District, San Francisco",
-   "Fisherman's Wharf, San Francisco",
-   "North Beach, San Francisco",
-   "ZONE Fisherman's Wharf and North Beach (circle kept)",
-   "South Beach, San Francisco",
-   "Rincon Hill, San Francisco",
-   "ZONE Embarcadero (circle kept)",
-   "Mission District, San Francisco",
-   "ZONE Mission District (circle kept)"
-  ]
+  "places": 9,
+  "missing": []
  },
  "seattle": {
-  "places": 1,
+  "places": 7,
   "missing": [
-   "Downtown Seattle",
-   "Belltown, Seattle",
-   "ZONE Downtown and Pike Place (circle kept)",
-   "Pioneer Square, Seattle",
-   "ZONE Pioneer Square (circle kept)",
-   "Lower Queen Anne, Seattle",
-   "Capitol Hill, Seattle",
-   "ZONE Capitol Hill (circle kept)"
+   "layer:seattle:S_HOOD=Pike Market"
   ]
  },
  "denver": {
@@ -97,15 +78,8 @@
   ]
  },
  "atlanta": {
-  "places": 0,
-  "missing": [
-   "Downtown Atlanta",
-   "ZONE Downtown (circle kept)",
-   "Midtown Atlanta",
-   "ZONE Midtown (circle kept)",
-   "Old Fourth Ward, Atlanta",
-   "ZONE Old Fourth Ward and BeltLine (circle kept)"
-  ]
+  "places": 3,
+  "missing": []
  },
  "minneapolis": {
   "places": 4,
@@ -119,15 +93,8 @@
   ]
  },
  "detroit": {
-  "places": 0,
-  "missing": [
-   "Downtown Detroit",
-   "ZONE Downtown (circle kept)",
-   "Midtown, Detroit",
-   "ZONE Midtown (circle kept)",
-   "Rivertown, Detroit",
-   "ZONE Riverwalk (circle kept)"
-  ]
+  "places": 3,
+  "missing": []
  },
  "baltimore": {
   "places": 3,
