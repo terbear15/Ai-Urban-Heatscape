@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [python/make_satellite.py]
+    paths: [python/make_satellite.py, dist/cities/views.json]
 permissions:
   contents: write
 jobs:

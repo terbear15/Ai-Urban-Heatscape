@@ -13,7 +13,7 @@ import time
 from pathlib import Path
 
 import requests
-from PIL import Image, ImageEnhance, ImageFilter, ImageStat
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps, ImageStat
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "dist" / "thumbs"
@@ -39,12 +39,14 @@ def dates():
 
 
 def score(image):
-    """Lower is better: share of missing (black) and cloud (bright, grey) pixels."""
+    """Lower is better. Scenes with missing data or cloud are pushed far back; among clear
+    scenes the one with the most contrast wins (haze and smoke flatten the image)."""
     small = image.resize((100, 100))
     px = list(small.getdata())
     missing = sum(1 for r, g, b in px if r + g + b < 25) / len(px)
-    cloud = sum(1 for r, g, b in px if min(r, g, b) > 200 and max(r, g, b) - min(r, g, b) < 25) / len(px)
-    return missing * 3 + cloud
+    cloud = sum(1 for r, g, b in px if min(r, g, b) > 185 and max(r, g, b) - min(r, g, b) < 30) / len(px)
+    contrast = ImageStat.Stat(small.convert("L")).stddev[0]
+    return missing * 20 + cloud * 10 + max(0.0, 60 - contrast) / 60
 
 
 def fetch(bbox, layer, date):
@@ -81,16 +83,14 @@ def main():
                 q = score(image)
                 if best is None or q < best[0]:
                     best = (q, image, date, layer)
-            if best and best[0] < 0.01:
-                break
-            if tried > 120:
+            if tried > 160:
                 break
         if not best:
             print(slug, "no NASA scene found")
             continue
         q, image, date, layer = best
         image = image.resize((SIZE, SIZE), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=1.6, percent=70, threshold=2))
-        image = ImageEnhance.Contrast(image).enhance(1.08)
+        image = ImageOps.autocontrast(image, cutoff=(1.5, 0.8), preserve_tone=True)
         image = ImageEnhance.Color(image).enhance(0.9)
         image.save(OUT / f"{slug}.jpg", quality=84, optimize=True, progressive=True)
         report[slug] = {"date": date, "layer": layer, "score": round(q, 3)}
