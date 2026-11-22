@@ -4,8 +4,8 @@ name: Build city boundaries
 on:
   workflow_dispatch:
   push:
-    branches: [data-cities, data-zones, philly-shade-page]
-    paths: [python/prepare_city_views.py, python/city_zones.py, .github/workflows/city-data.yml]
+    branches: [official-zones]
+    paths: [python/prepare_city_views.py, python/city_zones.py, python/official_zones.py, .github/workflows/city-data.yml]
 
 permissions:
   contents: write
@@ -15,15 +15,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install geopandas shapely pyproj requests
+      - name: Official boundaries (only when the zone lists change)
+        run: |
+          if [ ! -f python/zones/report.json ] || git diff --name-only HEAD~1 HEAD | grep -qE "city_zones.py|official_zones.py"; then
+            python -u python/official_zones.py
+          fi
       - run: python python/prepare_city_views.py
       - name: Commit generated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
-          git add dist/cities
-          git diff --cached --quiet || git commit -m "Regenerate city areas (downtown and visitor zones)"
-          git push
+          git add dist/cities python/zones
+          git diff --cached --quiet || git commit -m "City areas from official neighborhood and district boundaries"
+          for i in 1 2 3; do git pull --rebase -X theirs && git push && break; sleep 5; done

@@ -1,0 +1,124 @@
+{
+ "new-york": {
+  "places": 13,
+  "missing": []
+ },
+ "los-angeles": {
+  "places": 6,
+  "missing": []
+ },
+ "chicago": {
+  "places": 4,
+  "missing": [
+   "Museum Campus, Chicago",
+   "Streeterville, Chicago"
+  ]
+ },
+ "houston": {
+  "places": 3,
+  "missing": []
+ },
+ "phoenix": {
+  "places": 1,
+  "missing": [
+   "Downtown Phoenix",
+   "Downtown, Phoenix",
+   "ZONE Downtown (circle kept)",
+   "Roosevelt Row, Phoenix",
+   "Evans Churchill, Phoenix",
+   "Roosevelt Historic District, Phoenix"
+  ]
+ },
+ "san-diego": {
+  "places": 4,
+  "missing": [
+   "Old Town, San Diego",
+   "Old Town San Diego",
+   "La Jolla Village, San Diego"
+  ]
+ },
+ "dallas": {
+  "places": 4,
+  "missing": [
+   "Downtown Dallas",
+   "City Center District, Dallas",
+   "Main Street District, Dallas"
+  ]
+ },
+ "charlotte": {
+  "places": 4,
+  "missing": [
+   "First Ward, Charlotte",
+   "Dilworth, Charlotte"
+  ]
+ },
+ "san-francisco": {
+  "places": 9,
+  "missing": []
+ },
+ "seattle": {
+  "places": 7,
+  "missing": [
+   "layer:seattle:S_HOOD=Pike Market"
+  ]
+ },
+ "denver": {
+  "places": 3,
+  "missing": [
+   "Union Station, Denver",
+   "Auraria, Denver"
+  ]
+ },
+ "washington": {
+  "places": 6,
+  "missing": []
+ },
+ "boston": {
+  "places": 6,
+  "missing": [
+   "Seaport District, Boston"
+  ]
+ },
+ "atlanta": {
+  "places": 3,
+  "missing": []
+ },
+ "minneapolis": {
+  "places": 4,
+  "missing": []
+ },
+ "san-jose": {
+  "places": 0,
+  "missing": [
+   "Downtown San Jose",
+   "Downtown, San Jose",
+   "Downtown Core, San Jose",
+   "ZONE Downtown (circle kept)"
+  ]
+ },
+ "detroit": {
+  "places": 3,
+  "missing": []
+ },
+ "baltimore": {
+  "places": 4,
+  "missing": [
+   "Fells Point, Baltimore",
+   "Fells Point Historic District"
+  ]
+ },
+ "miami": {
+  "places": 2,
+  "missing": [
+   "Downtown, Miami",
+   "Downtown Miami",
+   "Central Business District, Miami",
+   "Park West, Miami",
+   "ZONE Downtown and Bayfront (circle kept)",
+   "Little Havana, Miami",
+   "East Little Havana, Miami",
+   "Little Havana",
+   "ZONE Little Havana (circle kept)"
+  ]
+ }
+}
