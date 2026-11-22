@@ -93,8 +93,8 @@ a { color: inherit; }
 .hs-header { position: sticky; top: 0; z-index: 20; height: var(--header-h); padding: 0 clamp(16px, 4vw, 56px); display: flex; align-items: center; gap: 14px; background: color-mix(in srgb, var(--surface) 92%, transparent); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .hs-brand { display: flex; align-items: center; gap: 10px; margin-right: auto; text-decoration: none; font: 800 21px Manrope, Arial, sans-serif; letter-spacing: -.4px; }
 .hs-mark { width: 26px; height: 26px; flex: none; }
-.hs-mark .sun { fill: var(--accent); }
-.hs-mark .shade { fill: var(--ink); }
+.hs-mark .ring { fill: none; stroke: #b96c44; stroke-width: 2.6; }
+.hs-mark .dot { fill: #b96c44; }
 .hs-season { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); }
 .hs-season button { display: flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 6px 12px; background: transparent; font: 600 12px Manrope, Arial, sans-serif; color: var(--muted); }
 .hs-season button[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); }
@@ -105,7 +105,7 @@ a { color: inherit; }
 .hs-link:hover { background: var(--soft); color: var(--ink); }
 /* Transparent header over the landing map. */
 .hs-header.on-image { position: fixed; inset: 0 0 auto 0; background: transparent; border-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; color: #fff; }
-.hs-header.on-image .hs-mark .shade { fill: #fff; }
+
 .hs-header.on-image .hs-season { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .4); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .hs-header.on-image .hs-season button { color: rgba(255, 255, 255, .85); }
 .hs-header.on-image .hs-season button[aria-pressed="true"] { background: #fff; color: var(--ink); }
