@@ -1,0 +1,13 @@
+== Kansas City: 3 zone(s)
+  OSM tile 10: 10,447 nodes, 1,367 ways, 81 relations
+  OSM tile 20: 46,070 nodes, 6,785 ways, 232 relations
+  OSM tile 30: 83,811 nodes, 13,325 ways, 373 relations
+  OSM tile 40: 115,805 nodes, 18,534 ways, 442 relations
+  OSM tile 42: 123,462 nodes, 19,914 ways, 448 relations
+  OSMnx walk graph: 23,707 nodes, 28,373 edges
+  2,351 building footprints
+  LiDAR source: MO_FEMANRCS_1_2020 (2020)
+  part 0: 1038 EPT nodes, ~2.3 pts/m², grid (2630, 1678)
+  part 0: 40,950,076 points, 2,281 building heights, 11,818 crowns so far
+  height model: trained on 2,315, predicted 36, CV MAE 7.1 m
+== Kansas City done in 2.2 min: 7.58 MB, 28,371 segments, 2,351 buildings {'lidar': 1974, 'model': 36, 'osm': 331, 'osm-levels': 10}, 11,818 crowns, 1,637 places, 80 pause places

@@ -1,0 +1,12 @@
+== Cincinnati: 2 zone(s)
+  OSM tile 10: 23,134 nodes, 3,658 ways, 212 relations
+  OSM tile 20: 50,564 nodes, 8,987 ways, 471 relations
+  OSM tile 30: 85,769 nodes, 16,621 ways, 768 relations
+  OSM tile 36: 100,397 nodes, 19,433 ways, 810 relations
+  OSMnx walk graph: 21,174 nodes, 25,185 edges
+  4,213 building footprints
+  LiDAR source: KY_FullState (year unknown)
+  part 0: 205 EPT nodes, ~0.3 pts/m², grid (2315, 1869)
+  part 0: 4,561,135 points, 62 building heights, 1,222 crowns so far
+  height model: trained on 3,142, predicted 1,071, CV MAE 6.9 m
+== Cincinnati done in 1.7 min: 3.76 MB, 25,177 segments, 4,213 buildings {'lidar': 58, 'osm': 1095, 'osm-levels': 1989, 'model': 1071}, 1,222 crowns, 1,227 places, 168 pause places

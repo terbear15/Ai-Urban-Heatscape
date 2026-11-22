@@ -1,0 +1,10 @@
+== Salt Lake City: 1 zone(s)
+  OSM tile 10: 33,788 nodes, 5,017 ways, 182 relations
+  OSM tile 15: 42,135 nodes, 6,343 ways, 228 relations
+  OSMnx walk graph: 9,412 nodes, 11,378 edges
+  1,148 building footprints
+  LiDAR source: USGS_LPC_UT_Wasatch_L4_2013_LAS_2016 (2016)
+  part 0: 838 EPT nodes, ~4.5 pts/m², grid (1160, 1655)
+  part 0: 34,675,949 points, 951 building heights, 6,730 crowns so far
+  height model: trained on 1,067, predicted 81, CV MAE 11.7 m
+== Salt Lake City done in 0.9 min: 3.89 MB, 11,378 segments, 1,148 buildings {'lidar': 836, 'osm': 176, 'osm-levels': 55, 'model': 81}, 6,730 crowns, 980 places, 141 pause places

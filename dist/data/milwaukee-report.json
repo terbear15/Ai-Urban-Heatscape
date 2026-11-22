@@ -1,0 +1,71 @@
+{
+ "city": "Milwaukee",
+ "slug": "milwaukee",
+ "zones": [
+  "Downtown",
+  "Third Ward"
+ ],
+ "area_km2": 4.23,
+ "network": {
+  "nodes": 27562,
+  "edges": 32364,
+  "street_length_km": 409.97,
+  "intersections": 25941,
+  "streets_per_node_avg": 2.35,
+  "footpath_share": 0.606,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 2882,
+ "height_sources": {
+  "osm-levels": 507,
+  "lidar": 1635,
+  "osm": 688,
+  "model": 52
+ },
+ "height_model": {
+  "known": 2830,
+  "predicted": 52,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 12.43,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 9803,
+ "places": 1941,
+ "pause_places": 333,
+ "pause_by_kind": {
+  "library": 7,
+  "water": 5,
+  "community": 14,
+  "station": 1,
+  "park": 305,
+  "mall": 1
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_WI_SEWRPC_2017_LAS_2019/",
+   "survey_year": 2019,
+   "points": 39407584,
+   "density_pts_m2": 2.3,
+   "classes": {
+    "7": 22415,
+    "1": 15157383,
+    "2": 22055464,
+    "9": 1320174,
+    "17": 830809,
+    "10": 21339
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 7.67,
+ "minutes": 1.8
+}

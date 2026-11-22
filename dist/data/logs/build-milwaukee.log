@@ -1,0 +1,12 @@
+== Milwaukee: 2 zone(s)
+  OSM tile 10: 25,304 nodes, 2,965 ways, 79 relations
+  OSM tile 20: 97,764 nodes, 17,092 ways, 278 relations
+  OSM tile 30: 147,629 nodes, 25,454 ways, 440 relations
+  OSM tile 35: 169,419 nodes, 28,634 ways, 491 relations
+  OSMnx walk graph: 27,562 nodes, 32,364 edges
+  2,882 building footprints
+  LiDAR source: USGS_LPC_WI_SEWRPC_2017_LAS_2019 (2019)
+  part 0: 1012 EPT nodes, ~2.3 pts/m², grid (2045, 2107)
+  part 0: 39,407,584 points, 2,066 building heights, 9,803 crowns so far
+  height model: trained on 2,830, predicted 52, CV MAE 12.4 m
+== Milwaukee done in 1.8 min: 7.67 MB, 32,364 segments, 2,882 buildings {'osm-levels': 507, 'lidar': 1635, 'osm': 688, 'model': 52}, 9,803 crowns, 1,941 places, 333 pause places

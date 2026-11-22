@@ -1,0 +1,68 @@
+{
+ "city": "Indianapolis",
+ "slug": "indianapolis",
+ "zones": [
+  "Downtown"
+ ],
+ "area_km2": 4.79,
+ "network": {
+  "nodes": 13295,
+  "edges": 16074,
+  "street_length_km": 294.49,
+  "intersections": 12728,
+  "streets_per_node_avg": 2.42,
+  "footpath_share": 0.571,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 2082,
+ "height_sources": {
+  "lidar": 1952,
+  "model": 29,
+  "osm": 93,
+  "osm-levels": 8
+ },
+ "height_model": {
+  "known": 2053,
+  "predicted": 29,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 6.12,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 8404,
+ "places": 802,
+ "pause_places": 59,
+ "pause_by_kind": {
+  "park": 47,
+  "library": 4,
+  "water": 4,
+  "station": 3,
+  "community": 1
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_IN_Central_MarionCo_2016_LAS_2018/",
+   "survey_year": 2018,
+   "points": 27185903,
+   "density_pts_m2": 2.6,
+   "classes": {
+    "1": 19339858,
+    "2": 7724464,
+    "18": 96737,
+    "7": 6130,
+    "17": 18714
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 5.06,
+ "minutes": 1.2
+}

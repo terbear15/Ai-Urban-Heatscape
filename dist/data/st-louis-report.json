@@ -1,0 +1,71 @@
+{
+ "city": "St. Louis",
+ "slug": "st-louis",
+ "zones": [
+  "Downtown",
+  "Downtown West"
+ ],
+ "area_km2": 6.26,
+ "network": {
+  "nodes": 33006,
+  "edges": 38460,
+  "street_length_km": 511.59,
+  "intersections": 31126,
+  "streets_per_node_avg": 2.33,
+  "footpath_share": 0.597,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 1163,
+ "height_sources": {
+  "lidar": 969,
+  "osm": 115,
+  "model": 54,
+  "osm-levels": 25
+ },
+ "height_model": {
+  "known": 1109,
+  "predicted": 54,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 11.32,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 10174,
+ "places": 1127,
+ "pause_places": 2278,
+ "pause_by_kind": {
+  "water": 24,
+  "station": 9,
+  "park": 2242,
+  "community": 1,
+  "library": 1,
+  "mall": 1
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_MO_StLouis_2017_LAS_2018/",
+   "survey_year": 2018,
+   "points": 44589872,
+   "density_pts_m2": 2.2,
+   "classes": {
+    "1": 27829114,
+    "2": 15177037,
+    "7": 25019,
+    "9": 459987,
+    "17": 1088493,
+    "10": 10222
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 7.45,
+ "minutes": 2.5
+}

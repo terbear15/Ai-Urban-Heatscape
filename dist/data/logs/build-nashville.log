@@ -1,0 +1,12 @@
+== Nashville: 2 zone(s)
+  OSM tile 10: 13,994 nodes, 2,502 ways, 109 relations
+  OSM tile 20: 29,254 nodes, 6,217 ways, 233 relations
+  OSM tile 30: 57,505 nodes, 10,871 ways, 313 relations
+  OSM tile 35: 68,556 nodes, 13,037 ways, 327 relations
+  OSMnx walk graph: 21,820 nodes, 27,395 edges
+  1,437 building footprints
+  LiDAR source: TN_DavidsonCo_1_2022 (2022)
+  part 0: 7099 EPT nodes, ~16.4 pts/m², grid (2022, 2304)
+  part 0: 304,827,924 points, 1,291 building heights, 10,946 crowns so far
+  height model: trained on 1,407, predicted 30, CV MAE 8.8 m
+== Nashville done in 3.9 min: 6.89 MB, 27,382 segments, 1,437 buildings {'lidar': 1188, 'osm': 212, 'osm-levels': 7, 'model': 30}, 10,946 crowns, 817 places, 40 pause places
