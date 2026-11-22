@@ -8,6 +8,7 @@ so the browser can test shade on each side of the street (F8).
 """
 import re
 
+import networkx as nx
 import osmnx as ox
 
 from .common import RAW, log
@@ -67,8 +68,10 @@ def build(slug, nodes, ways, reach_polygon):
     write_osm(path, nodes, walk_ways)
     ox.settings.useful_tags_way = list(set(ox.settings.useful_tags_way) | {"sidewalk", "footway", "width", "lanes", "name", "highway"})
     graph = ox.graph_from_xml(path, simplify=False, retain_all=False)  # largest weakly connected component
-    graph = ox.convert.to_undirected(graph)
+    # Unsimplified graphs lack street counts; OSMnx's statistics need them.
+    nx.set_node_attributes(graph, ox.stats.count_streets_per_node(graph), "street_count")
     stats = ox.stats.basic_stats(graph)
+    graph = ox.convert.to_undirected(graph)
     log(f"  OSMnx walk graph: {graph.number_of_nodes():,} nodes, {graph.number_of_edges():,} edges")
     names, name_index, edges = [], {}, []
     seen = set()

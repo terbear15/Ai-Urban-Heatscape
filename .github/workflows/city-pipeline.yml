@@ -39,7 +39,9 @@ jobs:
       - run: pip install osmnx "laspy[lazrs]" rasterio scipy scikit-learn requests
       - name: Build ${{ matrix.city }}
         working-directory: python
-        run: python -m pipeline.build_city ${{ matrix.city }} 2>&1 | tee ../build-${{ matrix.city }}.log
+        run: |
+          set -o pipefail
+          python -m pipeline.build_city ${{ matrix.city }} 2>&1 | tee ../build-${{ matrix.city }}.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
