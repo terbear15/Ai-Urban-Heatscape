@@ -15,8 +15,6 @@ function coord(key){
   if(!hasLocation(key)) throw new Error('Search for the edited location, then choose a result.');
   return endpoints[key].point;
 }
-let locationWorker, searchId=0;
-const searches=new Map();
 // Search: named places in the study area (instant, local), then street addresses via Photon inside it.
 const normalizeText=text=>text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[’'`.]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 const placeIndex=(window.PLACES||[]).map(([name,kind,lon,lat])=>({name,kind,point:[lon,lat],key:normalizeText(name),words:normalizeText(name).split(' ')}));
@@ -71,26 +69,6 @@ async function lookup(query,address=false,suggest=false){
   const found=await findAddresses(query);
   if(!found.length&&!suggest)throw new Error(`No match inside ${CITY.areaName}. Try a landmark name or a street address.`);
   return found;
-}
-function requestLocation(payload){
-  if(!locationWorker){
-    locationWorker=new Worker('location/worker.js?v=lidar');
-    locationWorker.onmessage=({data})=>{
-      const pending=searches.get(data.id);
-      if(!pending)return;
-      searches.delete(data.id);
-      data.error?pending.reject(new Error(data.error)):pending.resolve(data.matches);
-    };
-    locationWorker.onerror=()=>{
-      for(const pending of searches.values())pending.reject(new Error('Location search could not load. Try again.'));
-      searches.clear();locationWorker.terminate();locationWorker=null;
-    };
-  }
-  return new Promise((resolve,reject)=>{
-    const id=++searchId;
-    searches.set(id,{resolve,reject});
-    locationWorker.postMessage({id,...payload});
-  });
 }
 function useLocation(key,label,point){
   endpoints[key]={label,point};
