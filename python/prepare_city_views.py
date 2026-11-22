@@ -167,7 +167,10 @@ def main():
             for piece in pieces[1:]:
                 if piece.area > 20000 and unary_union(keep).distance(piece) < 150:
                     keep.append(piece)
-            land = transform(reverse, unary_union(keep)).buffer(0)
+            final = unary_union(keep)
+            # List only zones that really ended up inside the area (a zone across a wide river is lost).
+            zones = [z for z, i in zip(zones, kept) if flat[i].intersection(final).area >= 0.25 * flat[i].area]
+            land = transform(reverse, final).buffer(0)
         assert land.is_valid and not land.is_empty, key
         west, south, east, north = land.bounds
         # Camera envelope with about 15 miles of context around the areas.
