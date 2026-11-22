@@ -72,6 +72,7 @@ CITY_ZONE = {
     **dict.fromkeys(["los-angeles", "san-francisco", "san-jose", "seattle", "san-diego"], "pacific"),
 }
 CENTER_CITY = ROOT / "dist" / "location" / "center-city.geojson"
+ZONE_DIR = ROOT / "python" / "zones"
 
 
 def main():
@@ -103,7 +104,16 @@ def main():
         forward = Transformer.from_crs(4326, local, always_xy=True).transform
         reverse = Transformer.from_crs(local, 4326, always_xy=True).transform
         shapes = []
+        official = ZONE_DIR / f"{key}.geojson"
+        polygons = {}
+        if official.exists():
+            for f in json.loads(official.read_text(encoding="utf-8"))["features"]:
+                polygons.setdefault(f["properties"]["zone"], []).append(shape(f["geometry"]).buffer(0))
         for zone in zones:
+            if zone[0] in polygons:
+                # Official boundary (OpenStreetMap neighborhood, district, park or city).
+                shapes.append(unary_union(polygons[zone[0]]))
+                continue
             if len(zone) == 4:
                 _, lon, lat, km = zone
                 shapes.append(transform(reverse, transform(forward, Point(lon, lat)).buffer(km * 1000, quad_segs=32)))

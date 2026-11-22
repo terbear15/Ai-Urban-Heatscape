@@ -115,3 +115,116 @@ ZONES = {
         ("Little Havana", -80.218, 25.766, 0.8),
     ],
 }
+
+
+# Official areas. Each zone above maps to one or more named places whose boundary
+# polygon is looked up in OpenStreetMap (neighborhood, district, park or city
+# boundaries) by python/official_zones.py. The circles above are used only for a
+# zone whose names all fail to resolve. Philadelphia uses the city's own Center City
+# neighborhoods (python/prepare_center_city.py).
+OFFICIAL = {
+    "new-york": {
+        "Lower Manhattan": ["Financial District, Manhattan", "Tribeca, Manhattan", "Battery Park City, Manhattan", "Civic Center, Manhattan"],
+        "SoHo and Greenwich Village": ["SoHo, Manhattan", "Greenwich Village, Manhattan", "West Village, Manhattan"],
+        "Midtown and Times Square": ["Midtown Manhattan", "Theater District, Manhattan", "Midtown East, Manhattan"],
+        "Central Park": ["Central Park, Manhattan"],
+        "DUMBO and Brooklyn Bridge": ["DUMBO, Brooklyn", "Brooklyn Heights, Brooklyn", "Brooklyn Bridge Park"],
+    },
+    "los-angeles": {
+        "Downtown LA": ["Downtown, Los Angeles"],
+        "Hollywood": ["Hollywood, Los Angeles"],
+        "Sunset Strip": ["West Hollywood, California"],
+        "Beverly Hills": ["Beverly Hills, California"],
+        "Santa Monica": ["Santa Monica, California"],
+        "Venice": ["Venice, Los Angeles"],
+    },
+    "chicago": {
+        "The Loop": ["Loop, Chicago"],
+        "River North and Magnificent Mile": ["Near North Side, Chicago"],
+        "Museum Campus": ["Museum Campus, Chicago", "Grant Park, Chicago"],
+        "Navy Pier": ["Streeterville, Chicago"],
+    },
+    "houston": {
+        "Downtown": ["Downtown, Houston"],
+        "Midtown": ["Midtown, Houston"],
+        "Museum District": ["Museum District, Houston"],
+    },
+    "phoenix": {
+        "Downtown": ["Downtown Phoenix"],
+        "Roosevelt Row": ["Roosevelt Row, Phoenix", "Roosevelt Historic District, Phoenix"],
+    },
+    "san-diego": {
+        "Downtown and Gaslamp Quarter": ["Downtown, San Diego"],
+        "Balboa Park": ["Balboa Park, San Diego"],
+        "Old Town": ["Old Town, San Diego"],
+        "La Jolla": ["La Jolla Village, San Diego", "La Jolla, San Diego"],
+    },
+    "dallas": {
+        "Downtown": ["Downtown Dallas"],
+        "Uptown and Arts District": ["Uptown, Dallas", "Arts District, Dallas"],
+        "Deep Ellum": ["Deep Ellum, Dallas"],
+    },
+    "charlotte": {
+        "Downtown": ["Uptown Charlotte", "First Ward, Charlotte", "Second Ward, Charlotte", "Third Ward, Charlotte", "Fourth Ward, Charlotte"],
+        "Uptown": ["Uptown Charlotte"],
+        "South End": ["South End, Charlotte", "Dilworth, Charlotte"],
+    },
+    "san-francisco": {
+        "Union Square and Financial District": ["Union Square, San Francisco", "Financial District, San Francisco", "Chinatown, San Francisco"],
+        "Fisherman's Wharf and North Beach": ["Fisherman's Wharf, San Francisco", "North Beach, San Francisco"],
+        "Embarcadero": ["South Beach, San Francisco", "Rincon Hill, San Francisco"],
+        "Mission District": ["Mission District, San Francisco"],
+        "Golden Gate Park": ["Golden Gate Park, San Francisco"],
+    },
+    "seattle": {
+        "Downtown and Pike Place": ["Downtown Seattle", "Belltown, Seattle"],
+        "Pioneer Square": ["Pioneer Square, Seattle"],
+        "Seattle Center": ["Lower Queen Anne, Seattle", "Seattle Center"],
+        "Capitol Hill": ["Capitol Hill, Seattle"],
+    },
+    "denver": {
+        "Downtown and LoDo": ["Central Business District, Denver", "Union Station, Denver", "Auraria, Denver"],
+        "Civic Center": ["Civic Center, Denver"],
+        "RiNo": ["Five Points, Denver"],
+    },
+    "washington": {
+        "National Mall": ["National Mall, Washington"],
+        "Downtown and Penn Quarter": ["Downtown, Washington", "Penn Quarter, Washington", "Chinatown, Washington"],
+        "Dupont Circle": ["Dupont Circle, Washington"],
+        "Georgetown": ["Georgetown, Washington"],
+    },
+    "boston": {
+        "Downtown and Freedom Trail": ["Downtown, Boston", "Beacon Hill, Boston", "West End, Boston"],
+        "North End": ["North End, Boston"],
+        "Back Bay": ["Back Bay, Boston"],
+        "Seaport": ["Seaport District, Boston", "South Boston Waterfront, Boston"],
+    },
+    "atlanta": {
+        "Downtown": ["Downtown Atlanta"],
+        "Midtown": ["Midtown Atlanta"],
+        "Old Fourth Ward and BeltLine": ["Old Fourth Ward, Atlanta"],
+    },
+    "minneapolis": {
+        "Downtown": ["Downtown West, Minneapolis", "Downtown East, Minneapolis"],
+        "Mill District and Riverfront": ["Downtown East, Minneapolis", "Marcy-Holmes, Minneapolis"],
+    },
+    "san-jose": {
+        "Downtown": ["Downtown San Jose"],
+    },
+    "detroit": {
+        "Downtown": ["Downtown Detroit"],
+        "Midtown": ["Midtown, Detroit"],
+        "Riverwalk": ["Rivertown, Detroit"],
+    },
+    "baltimore": {
+        "Inner Harbor": ["Inner Harbor, Baltimore", "Downtown, Baltimore"],
+        "Fells Point": ["Fells Point, Baltimore"],
+        "Mount Vernon": ["Mount Vernon, Baltimore"],
+    },
+    "miami": {
+        "Downtown and Bayfront": ["Downtown, Miami"],
+        "Brickell": ["Brickell, Miami"],
+        "Wynwood": ["Wynwood, Miami"],
+        "Little Havana": ["Little Havana, Miami"],
+    },
+}

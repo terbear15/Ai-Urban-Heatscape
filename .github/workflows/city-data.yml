@@ -4,8 +4,8 @@ name: Build city boundaries
 on:
   workflow_dispatch:
   push:
-    branches: [data-cities, data-zones, philly-shade-page]
-    paths: [python/prepare_city_views.py, python/city_zones.py, .github/workflows/city-data.yml]
+    branches: [official-zones]
+    paths: [python/prepare_city_views.py, python/city_zones.py, python/official_zones.py, .github/workflows/city-data.yml]
 
 permissions:
   contents: write
@@ -19,11 +19,12 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install geopandas shapely pyproj requests
+      - run: python python/official_zones.py
       - run: python python/prepare_city_views.py
       - name: Commit generated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
-          git add dist/cities
-          git diff --cached --quiet || git commit -m "Regenerate city areas (downtown and visitor zones)"
+          git add dist/cities python/zones
+          git diff --cached --quiet || git commit -m "City areas from official neighborhood and district boundaries"
           git push
