@@ -89,6 +89,9 @@ ZONE_DIR = ROOT / "python" / "zones"
 # Cities whose connected center runs further than 8 km (Manhattan up to the Upper
 # West and East Sides, Downtown LA to Hollywood).
 REACH = {"new-york": 14000, "los-angeles": 14000}
+# Each area is grown to about twice its connected center (NYC is all of Manhattan already).
+GROW = 2.0
+NO_GROW = {"new-york"}
 
 
 def main():
@@ -113,6 +116,7 @@ def main():
             # Keep the urban peninsula and nearby islands, excluding offshore Farallon Islands.
             land = land.intersection(box(-122.56, 37.68, -122.30, 37.89))
         assert land.is_valid and not land.is_empty
+        city_land = land
         zones = ZONES[key]
         lon0 = sum(z[1] if len(z) == 4 else (z[1][0] + z[1][2]) / 2 for z in zones) / len(zones)
         lat0 = sum(z[2] if len(z) == 4 else (z[1][1] + z[1][3]) / 2 for z in zones) / len(zones)
@@ -171,6 +175,25 @@ def main():
                 if piece.area > 20000 and unary_union(keep).distance(piece) < 150:
                     keep.append(piece)
             final = unary_union(keep)
+            if key not in NO_GROW:
+                # Grow outward from the connected center until the area doubles, staying on the
+                # city's land: the blocks around a downtown are its densest neighborhoods.
+                city = transform(forward, city_land).buffer(0)
+                target = GROW * final.area
+
+                def grown(d):
+                    g = final.buffer(d, quad_segs=16).intersection(city).buffer(0)
+                    parts = sorted(getattr(g, "geoms", [g]), key=lambda p: -p.intersection(final).area)
+                    return parts[0]
+                lo, hi = 0.0, 8000.0
+                for _ in range(22):
+                    mid = (lo + hi) / 2
+                    if grown(mid).area < target:
+                        lo = mid
+                    else:
+                        hi = mid
+                final = unary_union([grown(hi), final]).buffer(30).buffer(-30)
+                print(name, f"grown by {hi:.0f} m to {final.area / 1e6:.1f} km2")
             # List only zones that really ended up inside the area (a zone across a wide river is lost).
             zones = [z for z, i in zip(zones, kept) if flat[i].intersection(final).area >= 0.25 * flat[i].area]
             land = transform(reverse, final).buffer(0)
