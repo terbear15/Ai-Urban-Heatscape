@@ -1,0 +1,24 @@
+== Baltimore: 3 zone(s)
+  OSM tile 10: 47,285 nodes, 9,686 ways, 298 relations
+  OSM tile 20: 78,948 nodes, 16,241 ways, 381 relations
+  OSM tile 30: 113,854 nodes, 23,055 ways, 545 relations
+  OSM tile 40: 155,938 nodes, 30,908 ways, 765 relations
+  OSM tile 42: 161,356 nodes, 31,905 ways, 790 relations
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/runner/work/Ai-Urban-Heatscape/Ai-Urban-Heatscape/python/pipeline/build_city.py", line 102, in <module>
+    main(sys.argv[1])
+  File "/home/runner/work/Ai-Urban-Heatscape/Ai-Urban-Heatscape/python/pipeline/build_city.py", line 36, in main
+    edges, names, network_summary = network.build(slug, nodes, ways, reach_ll)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Ai-Urban-Heatscape/Ai-Urban-Heatscape/python/pipeline/network.py", line 71, in build
+    stats = ox.stats.basic_stats(graph)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/osmnx/stats.py", line 386, in basic_stats
+    stats["streets_per_node_counts"] = streets_per_node_counts(G)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/osmnx/stats.py", line 94, in streets_per_node_counts
+    return {i: spn_vals.count(i) for i in range(int(max(spn_vals)) + 1)}
+                                                    ^^^^^^^^^^^^^
+ValueError: max() iterable argument is empty
