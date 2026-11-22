@@ -4,52 +4,52 @@
   "new-york": {
    "date": "2026-08-19",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.318
+   "score": 0.254
   },
   "los-angeles": {
-   "date": "2026-10-16",
-   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.407
+   "date": "2026-10-19",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.688
   },
   "chicago": {
-   "date": "2025-08-13",
-   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.186
+   "date": "2026-08-07",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.251
   },
   "san-francisco": {
-   "date": "2025-09-07",
+   "date": "2025-08-01",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.413
+   "score": 0.326
   },
   "dallas": {
    "date": "2026-10-22",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.659
+   "score": 0.619
   },
   "houston": {
-   "date": "2026-10-22",
+   "date": "2026-06-21",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.631
+   "score": 0.662
   },
   "washington": {
    "date": "2026-10-01",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.485
+   "score": 0.526
   },
   "boston": {
    "date": "2026-10-10",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.56
+   "score": 0.565
   },
   "atlanta": {
    "date": "2026-10-25",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.565
+   "score": 0.507
   },
   "seattle": {
    "date": "2026-08-04",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.407
+   "score": 0.413
   },
   "philadelphia": {
    "date": "2025-08-22",
@@ -57,9 +57,9 @@
    "score": 0.619
   },
   "miami": {
-   "date": "2025-08-04",
+   "date": "2025-08-28",
    "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.951
+   "score": 0.836
   },
   "san-jose": {
    "date": "2026-10-10",
@@ -69,37 +69,37 @@
   "phoenix": {
    "date": "2025-08-22",
    "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.854
+   "score": 0.859
   },
   "minneapolis": {
    "date": "2025-09-25",
    "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.607
+   "score": 0.574
   },
   "detroit": {
    "date": "2026-07-12",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.526
+   "score": 0.406
   },
   "san-diego": {
-   "date": "2026-05-22",
-   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.599
+   "date": "2026-10-01",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.436
   },
   "denver": {
-   "date": "2026-10-04",
+   "date": "2026-10-19",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.66
+   "score": 0.663
   },
   "charlotte": {
    "date": "2026-10-07",
    "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.58
+   "score": 0.621
   },
   "baltimore": {
    "date": "2025-09-13",
    "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
-   "score": 0.58
+   "score": 0.571
   }
  }
 }
