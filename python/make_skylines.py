@@ -9,6 +9,7 @@ PINNED when the automatic pick is poor. Run on GitHub Actions; needs requests an
 import io
 import json
 import re
+import time
 from pathlib import Path
 
 import requests
@@ -20,7 +21,7 @@ API = "https://commons.wikimedia.org/w/api.php"
 HEADERS = {"User-Agent": "HeatScape course project (github.com/terbear15/Ai-Urban-Heatscape)"}
 SIZE = 600
 FREE = re.compile(r"^(cc[- ]by(-sa)?[- ]?\d|cc0|public domain|pd)", re.I)
-BAD = re.compile(r"night|sunset|panorama|aerial|map|logo|drawing|1[89]\d\d|20[01]\d|fog|snow|fireworks", re.I)
+BAD = re.compile(r"illustration|render|collage|montage|night|sunset|panorama|aerial|map|logo|drawing|1[89]\d\d|20[01]\d|fog|snow|fireworks", re.I)
 
 QUERIES = {
     "new-york": "Lower Manhattan skyline", "los-angeles": "Downtown Los Angeles skyline",
@@ -37,18 +38,30 @@ QUERIES = {
 PINNED = {}
 
 
+def api(params):
+    for attempt in range(6):
+        r = requests.get(API, params=params, headers=HEADERS, timeout=60)
+        time.sleep(1.5)
+        try:
+            return r.json()
+        except ValueError:
+            print("  throttled, waiting", r.status_code)
+            time.sleep(10 * (attempt + 1))
+    raise RuntimeError("Wikimedia Commons did not answer")
+
+
 def candidates(query):
     params = {"action": "query", "format": "json", "generator": "search", "gsrsearch": f"{query} filetype:bitmap",
               "gsrnamespace": 6, "gsrlimit": 30, "prop": "imageinfo", "iiprop": "url|size|extmetadata",
               "iiurlwidth": 1200}
-    pages = requests.get(API, params=params, headers=HEADERS, timeout=60).json().get("query", {}).get("pages", {})
+    pages = api(params).get("query", {}).get("pages", {})
     return sorted(pages.values(), key=lambda p: p.get("index", 99))
 
 
 def pinned(title):
     params = {"action": "query", "format": "json", "titles": title, "prop": "imageinfo",
               "iiprop": "url|size|extmetadata", "iiurlwidth": 1200}
-    return list(requests.get(API, params=params, headers=HEADERS, timeout=60).json()["query"]["pages"].values())
+    return list(api(params)["query"]["pages"].values())
 
 
 def clean(html):
@@ -78,6 +91,7 @@ def main():
             continue
         page, info, licence, artist = pick
         raw = requests.get(info["thumburl"], headers=HEADERS, timeout=60).content
+        time.sleep(1.5)
         image = ImageOps.exif_transpose(Image.open(io.BytesIO(raw))).convert("RGB")
         w, h = image.size
         side = min(w, h)
