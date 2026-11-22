@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#24493b"><title>HeatScape</title><link rel="stylesheet" href="vendor/maplibre-gl.css?v=6b340c0"><link rel="stylesheet" href="heatscape.css?v=6b340c0"></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#24493b"><title>HeatScape</title><link rel="stylesheet" href="vendor/maplibre-gl.css?v=f2636a1"><link rel="stylesheet" href="heatscape.css?v=f2636a1"></head><body>
 <header class="hs-header"><a class="hs-brand" href="./" aria-label="HeatScape home"><svg class="hs-mark" viewBox="0 0 32 32" aria-hidden="true"><circle class="ring" cx="16" cy="16" r="12.5"/><circle class="dot" cx="16" cy="16" r="7"/></svg>HeatScape</a><button class="hs-link" id="about" type="button">How it works</button><div class="hs-season" role="group" aria-label="Season"><button type="button" id="summerMode" aria-pressed="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg><span class="label">Summer</span></button><button type="button" id="winterMode" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v19M3.8 7.25l16.4 9.5M3.8 16.75l16.4-9.5M9.5 4l2.5 2 2.5-2M9.5 20l2.5-2 2.5 2"/></svg><span class="label">Winter</span></button></div><label class="hs-city" for="citySelect"><span>CITY</span><select id="citySelect" aria-label="City"><option value="">Choose a city</option></select></label></header>
 <main>
 <div class="intro">
@@ -84,12 +84,12 @@
 <p>Street centerlines stand in for sidewalks. Terrain, awnings, building relations in OSM, canopy change since the surveys, live closures, indoor routes and accessibility are not modeled.</p>
 <p class="method-links"><a href="https://www.openstreetmap.org/copyright">OSM · ODbL ↗</a><a href="https://github.com/mourner/suncalc">SunCalc ↗</a><a data-t-href="lidarUrl" href="#">LiDAR source ↗</a></p>
 </dialog>
-<script src="site.js?v=6b340c0"></script>
-<script src="vendor/maplibre-gl.js?v=6b340c0"></script>
-<script src="vendor/suncalc.js?v=6b340c0"></script>
+<script src="site.js?v=f2636a1"></script>
+<script src="vendor/maplibre-gl.js?v=f2636a1"></script>
+<script src="vendor/suncalc.js?v=f2636a1"></script>
 <script>
 (async () => {
-  const V = 'v=6b340c0';
+  const V = 'v=f2636a1';
   const slug = new URLSearchParams(location.search).get('city') || 'philadelphia';
   const views = await (await fetch('cities/views.json?' + V)).json();
   const city = views[slug];
