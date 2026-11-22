@@ -1,0 +1,148 @@
+{
+ "new-york": {
+  "places": 10,
+  "missing": []
+ },
+ "los-angeles": {
+  "places": 6,
+  "missing": []
+ },
+ "chicago": {
+  "places": 3,
+  "missing": [
+   "Museum Campus, Chicago",
+   "Streeterville, Chicago",
+   "ZONE Navy Pier (circle kept)"
+  ]
+ },
+ "houston": {
+  "places": 3,
+  "missing": []
+ },
+ "phoenix": {
+  "places": 0,
+  "missing": [
+   "Downtown Phoenix",
+   "ZONE Downtown (circle kept)",
+   "Roosevelt Row, Phoenix",
+   "Roosevelt Historic District, Phoenix",
+   "ZONE Roosevelt Row (circle kept)"
+  ]
+ },
+ "san-diego": {
+  "places": 3,
+  "missing": [
+   "Old Town, San Diego",
+   "ZONE Old Town (circle kept)",
+   "La Jolla Village, San Diego"
+  ]
+ },
+ "dallas": {
+  "places": 3,
+  "missing": [
+   "Downtown Dallas",
+   "ZONE Downtown (circle kept)"
+  ]
+ },
+ "charlotte": {
+  "places": 4,
+  "missing": [
+   "Fourth Ward, Charlotte",
+   "Dilworth, Charlotte"
+  ]
+ },
+ "san-francisco": {
+  "places": 2,
+  "missing": [
+   "Union Square, San Francisco",
+   "Financial District, San Francisco",
+   "Fisherman's Wharf, San Francisco",
+   "North Beach, San Francisco",
+   "ZONE Fisherman's Wharf and North Beach (circle kept)",
+   "South Beach, San Francisco",
+   "Rincon Hill, San Francisco",
+   "ZONE Embarcadero (circle kept)",
+   "Mission District, San Francisco",
+   "ZONE Mission District (circle kept)"
+  ]
+ },
+ "seattle": {
+  "places": 1,
+  "missing": [
+   "Downtown Seattle",
+   "Belltown, Seattle",
+   "ZONE Downtown and Pike Place (circle kept)",
+   "Pioneer Square, Seattle",
+   "ZONE Pioneer Square (circle kept)",
+   "Lower Queen Anne, Seattle",
+   "Capitol Hill, Seattle",
+   "ZONE Capitol Hill (circle kept)"
+  ]
+ },
+ "denver": {
+  "places": 3,
+  "missing": [
+   "Union Station, Denver",
+   "Auraria, Denver"
+  ]
+ },
+ "washington": {
+  "places": 6,
+  "missing": []
+ },
+ "boston": {
+  "places": 6,
+  "missing": [
+   "Seaport District, Boston"
+  ]
+ },
+ "atlanta": {
+  "places": 0,
+  "missing": [
+   "Downtown Atlanta",
+   "ZONE Downtown (circle kept)",
+   "Midtown Atlanta",
+   "ZONE Midtown (circle kept)",
+   "Old Fourth Ward, Atlanta",
+   "ZONE Old Fourth Ward and BeltLine (circle kept)"
+  ]
+ },
+ "minneapolis": {
+  "places": 4,
+  "missing": []
+ },
+ "san-jose": {
+  "places": 0,
+  "missing": [
+   "Downtown San Jose",
+   "ZONE Downtown (circle kept)"
+  ]
+ },
+ "detroit": {
+  "places": 0,
+  "missing": [
+   "Downtown Detroit",
+   "ZONE Downtown (circle kept)",
+   "Midtown, Detroit",
+   "ZONE Midtown (circle kept)",
+   "Rivertown, Detroit",
+   "ZONE Riverwalk (circle kept)"
+  ]
+ },
+ "baltimore": {
+  "places": 3,
+  "missing": [
+   "Fells Point, Baltimore",
+   "ZONE Fells Point (circle kept)"
+  ]
+ },
+ "miami": {
+  "places": 2,
+  "missing": [
+   "Downtown, Miami",
+   "ZONE Downtown and Bayfront (circle kept)",
+   "Little Havana, Miami",
+   "ZONE Little Havana (circle kept)"
+  ]
+ }
+}
