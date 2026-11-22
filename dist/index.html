@@ -28,10 +28,13 @@ main{position:relative;z-index:2}
 .hero{min-height:100vh;display:flex;flex-direction:column;padding:calc(var(--header-h) + 40px) clamp(20px,7vw,120px) 32px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font:800 25px Manrope,Arial;text-shadow:0 1px 10px #0005}
 .brand-icon{color:#f2b38c;font-size:33px}
+.hero{position:relative}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(30,22,16,.55) 0%,rgba(30,22,16,.32) 38%,rgba(30,22,16,0) 70%)}
+body[data-season="winter"] .hero::before{background:linear-gradient(90deg,rgba(14,26,40,.55) 0%,rgba(14,26,40,.3) 38%,rgba(14,26,40,0) 70%)}
 .hero-copy{max-width:760px;color:#fff;text-shadow:0 1px 14px #0005;margin-top:auto;margin-bottom:9vh}
 .hero-copy .eyebrow{font-size:12px;letter-spacing:2.6px;display:flex;align-items:center;gap:12px}
 .hero-copy .eyebrow::before{content:"";width:28px;height:1.5px;background:currentColor;opacity:.8}
-.hero-copy h1{font:600 clamp(44px,6.2vw,92px)/1.02 Manrope,Arial;letter-spacing:-.035em;margin:22px 0 26px;max-width:11ch}
+.hero-copy h1{font:600 clamp(44px,6.2vw,92px)/1.02 Manrope,Arial;letter-spacing:-.035em;margin:22px 0 26px;max-width:14ch}
 .hero-copy h1 .second{display:block;color:rgba(255,255,255,.72)}
 .hero-copy p{font-size:clamp(16px,1.35vw,19px);line-height:1.6;margin:0;max-width:46ch;color:#f3f1ec}
 .hero-actions{display:flex;align-items:center;gap:22px;margin-top:34px;flex-wrap:wrap}
