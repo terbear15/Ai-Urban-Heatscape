@@ -20,7 +20,7 @@ from shapely.ops import linemerge, polygonize, unary_union
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from city_zones import OFFICIAL, ZONES  # noqa: E402
 
-OUT = Path(__file__).resolve().parent / "zones"
+OUT = Path(__file__).resolve().parent / "zones"  # one GeoJSON per city
 URL = "https://nominatim.openstreetmap.org/search"
 NTA = "https://data.cityofnewyork.us/resource/9nt8-h7nd.geojson"
 LACOUNTY = "https://services1.arcgis.com/AXaYBvnJsB5Q7sDF/ArcGIS/rest/services/eGIS_CountyWSA/FeatureServer/0/query"
