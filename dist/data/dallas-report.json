@@ -1,0 +1,73 @@
+{
+ "city": "Dallas",
+ "slug": "dallas",
+ "zones": [
+  "Downtown",
+  "Uptown and Arts District",
+  "Deep Ellum"
+ ],
+ "area_km2": 9.05,
+ "network": {
+  "nodes": 39458,
+  "edges": 48375,
+  "street_length_km": 803.57,
+  "intersections": 37747,
+  "streets_per_node_avg": 2.45,
+  "footpath_share": 0.508,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 2466,
+ "height_sources": {
+  "osm": 362,
+  "lidar": 2067,
+  "model": 29,
+  "osm-levels": 8
+ },
+ "height_model": {
+  "known": 2437,
+  "predicted": 29,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 9.94,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 21296,
+ "places": 1460,
+ "pause_places": 101,
+ "pause_by_kind": {
+  "water": 30,
+  "station": 14,
+  "community": 4,
+  "park": 50,
+  "mall": 2,
+  "library": 1
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/TX_Pecos_Dallas_B3_2018/",
+   "survey_year": 2018,
+   "points": 80925815,
+   "density_pts_m2": 3.4,
+   "classes": {
+    "2": 30178121,
+    "7": 206919,
+    "18": 1581608,
+    "1": 46313792,
+    "17": 2645234,
+    "9": 124,
+    "20": 17
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 14.09,
+ "minutes": 2.7
+}

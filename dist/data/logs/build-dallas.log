@@ -1,0 +1,13 @@
+== Dallas: 3 zone(s)
+  OSM tile 10: 21,665 nodes, 4,145 ways, 135 relations
+  OSM tile 20: 45,886 nodes, 8,830 ways, 212 relations
+  OSM tile 30: 67,698 nodes, 13,651 ways, 389 relations
+  OSM tile 40: 92,260 nodes, 19,713 ways, 513 relations
+  OSM tile 49: 108,473 nodes, 22,967 ways, 597 relations
+  OSMnx walk graph: 39,458 nodes, 48,375 edges
+  2,466 building footprints
+  LiDAR source: TX_Pecos_Dallas_B3_2018 (2018)
+  part 0: 1964 EPT nodes, ~3.4 pts/m², grid (2546, 2313)
+  part 0: 80,925,815 points, 2,357 building heights, 21,296 crowns so far
+  height model: trained on 2,437, predicted 29, CV MAE 9.9 m
+== Dallas done in 2.7 min: 14.09 MB, 48,375 segments, 2,466 buildings {'osm': 362, 'lidar': 2067, 'model': 29, 'osm-levels': 8}, 21,296 crowns, 1,460 places, 101 pause places

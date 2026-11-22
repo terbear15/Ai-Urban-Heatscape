@@ -1,0 +1,24 @@
+== San Francisco: 5 zone(s)
+  OSM tile 10: 53,854 nodes, 5,469 ways, 240 relations
+  OSM tile 20: 119,417 nodes, 12,666 ways, 431 relations
+  OSM tile 30: 190,382 nodes, 19,806 ways, 712 relations
+  OSM tile 40: 228,511 nodes, 25,597 ways, 923 relations
+  OSM tile 50: 305,401 nodes, 35,574 ways, 1,343 relations
+  OSM tile 60: 322,248 nodes, 37,943 ways, 1,622 relations
+  OSM tile 70: 356,671 nodes, 44,918 ways, 2,105 relations
+  OSM tile 80: 416,457 nodes, 55,389 ways, 2,539 relations
+  OSM tile 90: 480,058 nodes, 64,433 ways, 2,841 relations
+  OSM tile 92: 490,074 nodes, 66,196 ways, 2,908 relations
+  OSMnx walk graph: 28,169 nodes, 35,998 edges
+  27,080 building footprints
+  LiDAR source: USGS_LPC_CA_NoCAL_Wildfires_B5b_2018 (2018)
+  part 0: 911 EPT nodes, ~1.7 pts/m², grid (2411, 2176)
+  part 0: 35,624,991 points, 8,971 building heights, 12,740 crowns so far
+  LiDAR source: ARRA-CA_GoldenGate_2010 (2010)
+  part 1: 606 EPT nodes, ~2.0 pts/m², grid (1460, 1454)
+  part 1: 16,622,046 points, 16,293 building heights, 22,253 crowns so far
+  LiDAR source: USGS_LPC_CA_NoCAL_Wildfires_B5b_2018 (2018)
+  part 2: 944 EPT nodes, ~2.9 pts/m², grid (1841, 1833)
+  part 2: 38,703,860 points, 25,547 building heights, 38,567 crowns so far
+  height model: trained on 26,677, predicted 403, CV MAE 4.0 m
+== San Francisco done in 5.2 min: 30.29 MB, 35,996 segments, 27,080 buildings {'osm': 21566, 'lidar': 4929, 'model': 403, 'osm-levels': 182}, 38,567 crowns, 9,129 places, 443 pause places
