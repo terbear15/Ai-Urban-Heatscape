@@ -1,0 +1,73 @@
+{
+ "city": "San Diego",
+ "slug": "san-diego",
+ "zones": [
+  "Downtown and Gaslamp Quarter",
+  "Balboa Park"
+ ],
+ "area_km2": 12.22,
+ "network": {
+  "nodes": 30783,
+  "edges": 36754,
+  "street_length_km": 673.22,
+  "intersections": 29394,
+  "streets_per_node_avg": 2.39,
+  "footpath_share": 0.501,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 4284,
+ "height_sources": {
+  "lidar": 4011,
+  "model": 90,
+  "osm": 141,
+  "osm-levels": 42
+ },
+ "height_model": {
+  "known": 4194,
+  "predicted": 90,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 6.94,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 28125,
+ "places": 1706,
+ "pause_places": 578,
+ "pause_by_kind": {
+  "water": 43,
+  "park": 502,
+  "station": 23,
+  "library": 7,
+  "community": 3
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CA_SanDiegoQL2_2014/",
+   "survey_year": 2014,
+   "points": 88920693,
+   "density_pts_m2": 2.9,
+   "classes": {
+    "1": 23880814,
+    "7": 23018,
+    "9": 496914,
+    "21": 17219882,
+    "22": 19576412,
+    "2": 27450281,
+    "17": 248306,
+    "10": 6611,
+    "25": 18455
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 16.76,
+ "minutes": 3.5
+}

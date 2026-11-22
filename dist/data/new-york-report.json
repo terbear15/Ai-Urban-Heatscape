@@ -1,0 +1,74 @@
+{
+ "city": "New York",
+ "slug": "new-york",
+ "zones": [
+  "Lower Manhattan",
+  "SoHo and Greenwich Village",
+  "Midtown and Times Square",
+  "DUMBO and Brooklyn Bridge"
+ ],
+ "area_km2": 15.9,
+ "network": {
+  "nodes": 75859,
+  "edges": 96703,
+  "street_length_km": 1691.4,
+  "intersections": 73066,
+  "streets_per_node_avg": 2.55,
+  "footpath_share": 0.687,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 27039,
+ "height_sources": {
+  "osm": 25798,
+  "model": 565,
+  "lidar": 585,
+  "osm-levels": 91
+ },
+ "height_model": {
+  "known": 26474,
+  "predicted": 565,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 18.44,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 30863,
+ "places": 14939,
+ "pause_places": 3442,
+ "pause_by_kind": {
+  "water": 173,
+  "community": 25,
+  "station": 111,
+  "library": 20,
+  "mall": 5,
+  "park": 3108
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity/",
+   "survey_year": 0,
+   "points": 219481160,
+   "density_pts_m2": 3.0,
+   "classes": {
+    "1": 87147285,
+    "2": 19767870,
+    "7": 52042,
+    "9": 10947275,
+    "10": 92345,
+    "17": 83178325,
+    "18": 18296018
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 29.2,
+ "minutes": 9.2
+}

@@ -1,0 +1,11 @@
+== Charlotte: 2 zone(s)
+  OSM tile 10: 35,926 nodes, 4,008 ways, 170 relations
+  OSM tile 20: 75,894 nodes, 9,753 ways, 330 relations
+  OSM tile 30: 111,625 nodes, 15,285 ways, 397 relations
+  OSMnx walk graph: 40,203 nodes, 44,944 edges
+  1,529 building footprints
+  LiDAR source: USGS_LPC_NC_Phase4_Mecklenburg_2016_LAS_2019 (2019)
+  part 0: 4198 EPT nodes, ~12.9 pts/m², grid (2020, 1797)
+  part 0: 187,086,335 points, 1,211 building heights, 14,944 crowns so far
+  height model: trained on 1,459, predicted 70, CV MAE 16.6 m
+== Charlotte done in 2.9 min: 10.73 MB, 44,940 segments, 1,529 buildings {'lidar': 719, 'osm': 733, 'osm-levels': 7, 'model': 70}, 14,944 crowns, 533 places, 111 pause places

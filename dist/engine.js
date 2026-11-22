@@ -98,7 +98,31 @@ class Grid {
 
 const ringArea = ring => { let s = 0; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) s += (ring[j][0] + ring[i][0]) * (ring[j][1] - ring[i][1]); return Math.abs(s / 2); };
 
+// Packed city data (format 3, python/pack_city_data.py) back to the readable form.
+function unpack(d) {
+  const [ox, oy] = d.origin, q = d.q;
+  const rings = (flat, key) => {
+    const out = [];
+    for (let i = 0; i < flat.length;) {
+      const h = flat[i] / 10, n = flat[i + 1], ring = [];
+      let x = 0, y = 0;
+      for (let k = 0; k < n; k++) { x += flat[i + 2 + 2 * k]; y += flat[i + 3 + 2 * k]; ring.push([ox + x / q, oy + y / q]); }
+      ring.push(ring[0]);
+      out.push({type: 'Feature', properties: {[key]: h}, geometry: {type: 'Polygon', coordinates: [ring]}});
+      i += 2 + 2 * n;
+    }
+    return {type: 'FeatureCollection', features: out};
+  };
+  const N = d.nodes, edges = [];
+  for (let i = 0; i < d.edges.length; i += 4) {
+    const a = d.edges[i], b = d.edges[i + 1];
+    edges.push([a, b, ox + N[2 * a] / q, oy + N[2 * a + 1] / q, ox + N[2 * b] / q, oy + N[2 * b + 1] / q, d.edges[i + 2] / 10, d.edges[i + 3]]);
+  }
+  return {meta: d.meta, names: d.names, pois: d.pois, edges, buildings: rings(d.buildings, 'height'), trees: rings(d.trees, 'h')};
+}
+
 function create(data) {
+  if (data.v === 3) data = unpack(data);
   const [w0, s0, e0, n0] = data.meta.bounds;
   const origin = [(w0 + e0) / 2, (s0 + n0) / 2];
   const sx = 111320 * Math.cos(origin[1] * Math.PI / 180), sy = 111320;

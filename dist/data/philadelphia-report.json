@@ -1,0 +1,72 @@
+{
+ "city": "Philadelphia",
+ "slug": "philadelphia",
+ "zones": [
+  "Center City"
+ ],
+ "area_km2": 6.51,
+ "network": {
+  "nodes": 28495,
+  "edges": 35808,
+  "street_length_km": 657.94,
+  "intersections": 27207,
+  "streets_per_node_avg": 2.51,
+  "footpath_share": 0.504,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 14520,
+ "height_sources": {
+  "lidar": 5530,
+  "osm": 8752,
+  "model": 134,
+  "osm-levels": 104
+ },
+ "height_model": {
+  "known": 14386,
+  "predicted": 134,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 7.31,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 13060,
+ "places": 2758,
+ "pause_places": 203,
+ "pause_by_kind": {
+  "water": 7,
+  "station": 23,
+  "library": 11,
+  "park": 149,
+  "community": 10,
+  "mall": 3
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://noaa-nos-coastal-lidar-pds.s3.amazonaws.com/entwine/geoid18/9848/",
+   "survey_year": 0,
+   "points": 265052045,
+   "density_pts_m2": 20.9,
+   "classes": {
+    "1": 214800203,
+    "7": 454915,
+    "8": 4252000,
+    "18": 51949,
+    "2": 42319096,
+    "9": 658996,
+    "20": 8594,
+    "17": 2506292
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 12.25,
+ "minutes": 5.5
+}

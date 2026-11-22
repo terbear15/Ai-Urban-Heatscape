@@ -1,0 +1,72 @@
+{
+ "city": "San Francisco",
+ "slug": "san-francisco",
+ "zones": [
+  "Union Square and Financial District",
+  "Fisherman's Wharf and North Beach",
+  "Embarcadero",
+  "Mission District"
+ ],
+ "area_km2": 14.98,
+ "network": {
+  "nodes": 56983,
+  "edges": 72196,
+  "street_length_km": 1313.7,
+  "intersections": 54347,
+  "streets_per_node_avg": 2.53,
+  "footpath_share": 0.626,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 22198,
+ "height_sources": {
+  "osm": 16411,
+  "model": 149,
+  "lidar": 5535,
+  "osm-levels": 103
+ },
+ "height_model": {
+  "known": 22049,
+  "predicted": 149,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 5.02,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 34051,
+ "places": 9264,
+ "pause_places": 394,
+ "pause_by_kind": {
+  "water": 58,
+  "station": 20,
+  "library": 12,
+  "community": 47,
+  "park": 253,
+  "mall": 4
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/ARRA-CA_GoldenGate_2010/",
+   "survey_year": 2010,
+   "points": 134541545,
+   "density_pts_m2": 3.1,
+   "classes": {
+    "1": 8242550,
+    "4": 84927280,
+    "7": 208817,
+    "9": 3560700,
+    "2": 37602198
+   },
+   "vegetation_classes": true
+  }
+ ],
+ "data_mb": 28.34,
+ "minutes": 5.7
+}
