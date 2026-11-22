@@ -21,7 +21,7 @@ API = "https://commons.wikimedia.org/w/api.php"
 HEADERS = {"User-Agent": "HeatScape course project (github.com/terbear15/Ai-Urban-Heatscape)"}
 SIZE = 600
 FREE = re.compile(r"^(cc[- ]by(-sa)?[- ]?\d|cc0|public domain|pd)", re.I)
-BAD = re.compile(r"lights|dusk|evening|car|nissan|gt-r|illustration|render|collage|montage|night|sunset|panorama|aerial|map|logo|drawing|1[89]\d\d|20[01]\d|fog|snow|fireworks", re.I)
+BAD = re.compile(r"lights|dusk|evening|\bcars?\b|nissan|gt-r|illustration|render|collage|montage|night|sunset|panorama|aerial|map|logo|drawing|1[89]\d\d|20[01]\d|fog|snow|fireworks", re.I)
 
 QUERIES = {
     "new-york": "Lower Manhattan skyline", "los-angeles": "Downtown Los Angeles skyline",
