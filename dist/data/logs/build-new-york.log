@@ -1,22 +1,2 @@
 == New York: 4 zone(s)
   OSM tile 10: 26,788 nodes, 4,722 ways, 343 relations
-  OSM tile 20: 49,433 nodes, 9,256 ways, 617 relations
-  OSM tile 30: 84,643 nodes, 16,772 ways, 1,029 relations
-  OSM tile 40: 110,062 nodes, 22,624 ways, 1,278 relations
-  OSM tile 50: 146,709 nodes, 29,433 ways, 1,679 relations
-  OSM tile 60: 191,572 nodes, 38,283 ways, 1,977 relations
-  OSM tile 70: 246,049 nodes, 49,023 ways, 2,533 relations
-  OSM tile 80: 284,902 nodes, 56,899 ways, 3,050 relations
-  OSM tile 90: 338,988 nodes, 66,534 ways, 3,398 relations
-  OSM tile 100: 381,073 nodes, 74,368 ways, 3,701 relations
-  OSM tile 110: 431,412 nodes, 84,911 ways, 4,150 relations
-  OSM tile 120: 481,979 nodes, 93,812 ways, 4,566 relations
-  OSM tile 130: 492,632 nodes, 95,242 ways, 4,604 relations
-  OSM tile 132: 504,586 nodes, 96,995 ways, 4,678 relations
-  OSMnx walk graph: 75,859 nodes, 96,704 edges
-  27,039 building footprints
-  LiDAR source: NY_NewYorkCity (year unknown)
-  part 0: 6065 EPT nodes, ~3.0 pts/m², grid (5148, 3578)
-  part 0: 219,481,160 points, 22,647 building heights, 30,863 crowns so far
-  height model: trained on 26,474, predicted 565, CV MAE 18.4 m
-== New York done in 9.2 min: 29.2 MB, 96,703 segments, 27,039 buildings {'osm': 25798, 'model': 565, 'lidar': 585, 'osm-levels': 91}, 30,863 crowns, 14,939 places, 3442 pause places

@@ -1,13 +1,2 @@
 == Los Angeles: 1 zone(s)
   OSM tile 10: 23,034 nodes, 3,838 ways, 393 relations
-  OSM tile 20: 48,734 nodes, 8,632 ways, 612 relations
-  OSM tile 30: 77,767 nodes, 13,208 ways, 781 relations
-  OSM tile 40: 107,827 nodes, 18,110 ways, 920 relations
-  OSM tile 49: 135,467 nodes, 22,430 ways, 1,055 relations
-  OSMnx walk graph: 30,801 nodes, 37,977 edges
-  2,357 building footprints
-  LiDAR source: USGS_LPC_CA_LosAngeles_2016_LAS_2018 (2018)
-  part 0: 3178 EPT nodes, ~4.0 pts/m², grid (2603, 2219)
-  part 0: 92,343,087 points, 2,203 building heights, 13,666 crowns so far
-  height model: trained on 2,342, predicted 15, CV MAE 15.0 m
-== Los Angeles done in 3.2 min: 9.76 MB, 37,963 segments, 2,357 buildings {'osm-levels': 34, 'osm': 1989, 'lidar': 319, 'model': 15}, 13,666 crowns, 2,018 places, 74 pause places
