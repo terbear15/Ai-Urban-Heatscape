@@ -8,8 +8,8 @@ times smaller, which matters for loading on a phone:
   - tree crowns are stored as their convex hull (the engine sweeps crowns as hulls,
     so the shadow is identical);
   - heights are stored in decimetres.
-dist/engine.js unpacks it on load. Also writes dist/data/<slug>-buildings.geojson and
--trees.geojson (5 decimals) for the map. Standard library only; safe to run twice.
+dist/engine.js unpacks it on load; the map layers are built from it in the browser
+(dist/shade-worker.js), so the city is downloaded once. Standard library only; safe to run twice.
 Usage: python python/pack_city_data.py [slug ...]"""
 import json
 import sys
@@ -116,9 +116,7 @@ def pack(slug):
     text = path.read_text(encoding="utf-8")
     data = json.loads(text[text.index("=") + 1:].rstrip().rstrip(";"))
     if data.get("v") == 3:
-        write_layers(slug, {"buildings": decode(data["buildings"], data["origin"], "height"),
-                            "trees": decode(data["trees"], data["origin"], "h")})
-        print(slug, "already packed; map layers rewritten")
+        print(slug, "already packed")
         return
     west, south = data["meta"]["bounds"][0], data["meta"]["bounds"][1]
     origin = (round(west, 4), round(south, 4))
@@ -169,7 +167,6 @@ def pack(slug):
 
     packed = {"v": 3, "origin": [ox, oy], "q": Q, "nodes": nodes, "edges": edges, "buildings": blds,
               "trees": trees, "names": data.get("names", []), "pois": data.get("pois", []), "meta": data["meta"]}
-    write_layers(slug, {"buildings": bld_layer, "trees": tree_layer})
     before = len(text)
     out = "window.CITYDATA=" + json.dumps(packed, separators=(",", ":")) + ";\n"
     path.write_text(out, encoding="utf-8")

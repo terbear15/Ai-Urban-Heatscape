@@ -39,8 +39,14 @@ function call(msg) {
     worker.postMessage({...msg, id});
   });
 }
+let pendingLayers = null;
 worker.onmessage = ({data}) => {
   if (data.type === 'ready') return onData(data.stats);
+  if (data.type === 'layers') {
+    pendingLayers = data;
+    if (map.getSource('buildings')) { map.getSource('buildings').setData(data.buildings); map.getSource('trees').setData(data.trees); }
+    return;
+  }
   const job = pending.get(data.id);
   if (!job) return;
   pending.delete(data.id);
@@ -123,9 +129,9 @@ if (map) {
     map.addLayer({id: 'building-shadows', type: 'fill', source: 'building-shadows', paint: {'fill-color': css('--map-building-shadow'), 'fill-opacity': .9, 'fill-antialias': false}});
     map.addSource('tree-shadows', {type: 'geojson', data: empty, tolerance: .3});
     map.addLayer({id: 'tree-shadows', type: 'fill', source: 'tree-shadows', paint: {'fill-color': css('--map-tree-shadow'), 'fill-opacity': .9, 'fill-antialias': false}});
-    map.addSource('trees', {type: 'geojson', data: `data/${CITY.slug}-trees.geojson?${v}`});
+    map.addSource('trees', {type: 'geojson', data: pendingLayers ? pendingLayers.trees : empty});
     map.addLayer({id: 'trees', type: 'fill', source: 'trees', paint: {'fill-color': css('--map-tree'), 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 13, .55, 16, .9]}});
-    map.addSource('buildings', {type: 'geojson', data: `data/${CITY.slug}-buildings.geojson?${v}`});
+    map.addSource('buildings', {type: 'geojson', data: pendingLayers ? pendingLayers.buildings : empty});
     map.addLayer({id: 'buildings', type: 'fill', source: 'buildings', paint: {
       'fill-color': css('--map-building'), 'fill-outline-color': css('--map-building-edge'),
       // Zoomed out, buildings fade so the shade pattern reads (D7).
