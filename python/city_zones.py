@@ -8,11 +8,7 @@ HeatScape works in that city.
 
 ZONES = {
     "new-york": [
-        ("Lower Manhattan", -74.010, 40.708, 1.3),
-        ("SoHo and Greenwich Village", -74.000, 40.727, 1.2),
-        ("Midtown and Times Square", -73.985, 40.756, 1.6),
-        ("Central Park", -73.968, 40.782, 1.4),
-        ("Upper West Side and Upper East Side", -73.966, 40.785, 1.8),
+        ("Manhattan", -73.971, 40.776, 4.0),
     ],
     "los-angeles": [
         ("Downtown LA", -118.250, 34.048, 1.6),
@@ -160,12 +156,8 @@ ZONES = {
 # zone whose names all fail to resolve. Philadelphia uses the city's own Center City
 # neighborhoods (python/prepare_center_city.py).
 OFFICIAL = {
-    "new-york": {  # NYC Department of City Planning Neighborhood Tabulation Areas (2020)
-        "Lower Manhattan": ["nta:Financial District-Battery Park City", "nta:Tribeca-Civic Center"],
-        "SoHo and Greenwich Village": ["nta:SoHo-Little Italy-Hudson Square", "nta:Greenwich Village", "nta:West Village"],
-        "Midtown and Times Square": ["nta:Midtown-Times Square", "nta:East Midtown-Turtle Bay", "nta:Midtown South-Flatiron-Union Square", "nta:Chelsea-Hudson Yards", "nta:Gramercy"],
-        "Central Park": ["nta:Central Park"],
-        "Upper West Side and Upper East Side": ["nta:Upper West Side-Lincoln Square", "nta:Upper West Side (Central)", "nta:Upper West Side-Manhattan Valley", "nta:Upper East Side-Lenox Hill-Roosevelt Island", "nta:Upper East Side-Carnegie Hill", "nta:Upper East Side-Yorkville"],
+    "new-york": {  # NYC Department of City Planning Neighborhood Tabulation Areas (2020), all of Manhattan
+        "Manhattan": ["ntaboro:Manhattan"],
     },
     "los-angeles": {  # LA County Countywide Statistical Areas (LA City neighborhoods)
         "Downtown LA": ["lacounty:Los Angeles - Downtown"],

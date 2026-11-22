@@ -62,7 +62,7 @@ def ok(geom, lon0, lat0, official=False):
         return False
     c = geom.representative_point()
     far = GEOD.inv(lon0, lat0, c.x, c.y)[2] / 1000
-    return far <= 10 and (0.05 if not official else 0.02) <= km2(geom) <= 60
+    return far <= 10 and (0.05 if not official else 0.02) <= km2(geom) <= (60 if not official else 150)
 
 
 def center_of(zone):
@@ -113,7 +113,10 @@ def from_dataset(name):
         feats = (data or {}).get("features") or []
         geoms = [shape(f["geometry"]).buffer(0) for f in feats if f.get("geometry")]
         return (unary_union(geoms), src) if geoms else None
-    if kind == "nta":
+    if kind == "ntaboro":
+        data = get_json(NTA, {"boroname": label, "$limit": 500})
+        src = "NYC DCP NTA 2020"
+    elif kind == "nta":
         data = get_json(NTA, {"ntaname": label})
         src = "NYC DCP NTA 2020"
     else:
@@ -178,10 +181,10 @@ def main():
             official_hit = False
             for name in names:
                 pick = None
-                is_dataset = ":" in name and name.split(":", 1)[0] in ("nta", "lacounty", "lacity", "layer")
+                is_dataset = ":" in name and name.split(":", 1)[0] in ("nta", "ntaboro", "lacounty", "lacity", "layer")
                 if official_hit and not is_dataset:
                     continue  # plain OSM names are fallbacks once an official layer answered
-                if ":" in name and name.split(":", 1)[0] in ("nta", "lacounty", "lacity", "layer"):
+                if ":" in name and name.split(":", 1)[0] in ("nta", "ntaboro", "lacounty", "lacity", "layer"):
                     hit = from_dataset(name)
                     if hit:
                         pick = (hit[0], hit[1], "official dataset")
