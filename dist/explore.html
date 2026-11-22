@@ -58,7 +58,6 @@ footer{align-items:flex-start}
     </div>
     <label class="city-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="filter" type="search" placeholder="Search cities or areas" aria-label="Search cities or areas" autocomplete="off"></label>
   </div>
-  <div class="legend-row"><span><i class="dot"></i>Building and tree shade</span><span><i class="dot off"></i>Walking routes only (shade coming)</span></div>
   <div class="grid" id="grid" aria-live="polite"></div>
   <p class="empty" id="empty" hidden>No city or area matches that search.</p>
 </main>
@@ -75,17 +74,16 @@ async function build() {
   Object.entries(views).forEach(([slug, city]) => {  // views.json is in metro GDP order
     const link = document.createElement('a');
     link.className = 'city';
-    link.href = (city.shade ? 'shade.html' : 'cities.html') + '?city=' + slug;
+    link.href = 'shade.html?city=' + slug;
     const zones = (city.zones || []).join(' · ');
     link.setAttribute('aria-label', 'Open ' + city.name + ' walking map' + (zones ? '. Covers ' + zones : ''));
-    link.innerHTML = '<div class="frame"><img alt="" loading="lazy" decoding="async"><div class="zones"></div></div><div class="name"><i class="dot"></i><span></span></div><div class="tag"></div>';
+    link.innerHTML = '<div class="frame"><img alt="" loading="lazy" decoding="async"><div class="zones"></div></div><div class="name"><span></span></div><div class="tag"></div>';
     const img = link.querySelector('img');
     img.src = 'thumbs/' + slug + '.jpg?v=' + ((scenes[slug] || {}).date || 'nasa');
     img.onerror = () => img.remove();
     link.querySelector('.zones').textContent = zones || city.areaName || '';
     link.querySelector('.name span').textContent = city.name;
-    link.querySelector('.dot').classList.toggle('off', !city.shade);
-    link.querySelector('.tag').textContent = city.shade ? 'Building and tree shade' : 'Walking routes';
+    link.querySelector('.tag').textContent = (city.zones || []).slice(0, 3).join(' · ');
     grid.append(link);
     cards.push({link, text: (city.name + ' ' + zones + ' ' + (city.areaName || '')).toLowerCase()});
   });
