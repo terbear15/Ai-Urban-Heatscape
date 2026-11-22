@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [official-zones, more-cities]
-    paths: [python/prepare_city_views.py, python/city_zones.py, python/official_zones.py, .github/workflows/city-data.yml]
+    paths: [python/prepare_city_views.py, python/city_zones.py, python/official_zones.py, python/downtown_boxes.py, .github/workflows/city-data.yml]
 
 permissions:
   contents: write
