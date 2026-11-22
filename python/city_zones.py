@@ -150,7 +150,7 @@ OFFICIAL = {
         "Museum District": ["Museum District, Houston"],
     },
     "phoenix": {
-        "Downtown": ["Downtown Phoenix", "Downtown, Phoenix", "Central City, Phoenix"],
+        "Downtown": ["Downtown Phoenix", "Downtown, Phoenix"],
         "Roosevelt Row": ["Roosevelt Row, Phoenix", "Evans Churchill, Phoenix", "Roosevelt, Phoenix", "Roosevelt Historic District, Phoenix"],
     },
     "san-diego": {
@@ -221,7 +221,7 @@ OFFICIAL = {
         "Mount Vernon": ["Mount Vernon, Baltimore"],
     },
     "miami": {
-        "Downtown and Bayfront": ["Downtown, Miami", "Downtown Miami", "Central Business District, Miami", "Park West, Miami", "Bayfront Park, Miami"],
+        "Downtown and Bayfront": ["Downtown, Miami", "Downtown Miami", "Central Business District, Miami", "Park West, Miami"],
         "Brickell": ["Brickell, Miami"],
         "Wynwood": ["Wynwood, Miami"],
         "Little Havana": ["Little Havana, Miami", "East Little Havana, Miami", "Little Havana"],
