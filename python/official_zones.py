@@ -25,6 +25,16 @@ URL = "https://nominatim.openstreetmap.org/search"
 NTA = "https://data.cityofnewyork.us/resource/9nt8-h7nd.geojson"
 LACOUNTY = "https://services1.arcgis.com/AXaYBvnJsB5Q7sDF/ArcGIS/rest/services/eGIS_CountyWSA/FeatureServer/0/query"
 OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter"]
+# City open-data neighborhood layers: "layer:<key>:<FIELD>=<value>" in city_zones.OFFICIAL.
+LAYERS = {
+    "sf": ("socrata", "https://data.sf.gov/resource/j2bu-swwd.geojson", "San Francisco Analysis Neighborhoods"),
+    "seattle": ("arcgis", "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/nma_nhoods_sub/FeatureServer/0/query",
+                "Seattle City Clerk Neighborhood Map Atlas"),
+    "atlanta": ("arcgis", "https://gis.atlantaga.gov/dpcd/rest/services/AdministrativeArea/GeopoliticalArea/FeatureServer/1/query",
+                "City of Atlanta Department of City Planning neighborhoods"),
+    "detroit": ("arcgis", "https://services5.arcgis.com/vElyTHUSDMtSHSgT/ArcGIS/rest/services/MyMapService/FeatureServer/1/query",
+                "Detroit neighborhoods layer"),
+}
 # Kinds of OSM objects that are areas people name: boundaries, places and parks. Shops,
 # campuses, buildings and roads are refused even when they share the name.
 GOOD_TYPES = {"administrative", "neighbourhood", "neighborhood", "suburb", "quarter", "district", "borough",
@@ -89,6 +99,17 @@ def get_json(url, params, tries=4):
 def from_dataset(name):
     """'nta:<name>' (NYC), 'lacounty:<label>' or 'lacity:<city>' (LA County CSAs). Returns (geometry, source id) or None."""
     kind, label = name.split(":", 1)
+    if kind == "layer":
+        key, rule = label.split(":", 1)
+        field, value = rule.split("=", 1)
+        how, url, src = LAYERS[key]
+        if how == "socrata":
+            data = get_json(url, {field: value})
+        else:
+            data = get_json(url, {"where": f"{field}='{value}'", "outFields": field, "outSR": 4326, "f": "geojson"})
+        feats = (data or {}).get("features") or []
+        geoms = [shape(f["geometry"]).buffer(0) for f in feats if f.get("geometry")]
+        return (unary_union(geoms), src) if geoms else None
     if kind == "nta":
         data = get_json(NTA, {"ntaname": label})
         src = "NYC DCP NTA 2020"
@@ -148,9 +169,13 @@ def main():
         for zone, names in zones.items():
             lon0, lat0 = center_of(circles[zone])
             found = 0
+            official_hit = False
             for name in names:
                 pick = None
-                if ":" in name and name.split(":", 1)[0] in ("nta", "lacounty", "lacity"):
+                is_dataset = ":" in name and name.split(":", 1)[0] in ("nta", "lacounty", "lacity", "layer")
+                if official_hit and not is_dataset:
+                    continue  # plain OSM names are fallbacks once an official layer answered
+                if ":" in name and name.split(":", 1)[0] in ("nta", "lacounty", "lacity", "layer"):
                     hit = from_dataset(name)
                     if hit:
                         pick = (hit[0], hit[1], "official dataset")
@@ -174,6 +199,7 @@ def main():
                     geom, source, kind = pick
                     size = km2(geom)
                     found += 1
+                    official_hit = official_hit or kind == "official dataset"
                     features.append({"type": "Feature", "geometry": mapping(geom), "properties": {
                         "zone": zone, "query": name, "source": source, "type": kind, "km2": round(size, 2)}})
                     print(f"{slug}: {name} -> {source} {kind} {size:.2f} km2")

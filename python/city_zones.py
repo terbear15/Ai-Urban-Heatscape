@@ -141,8 +141,8 @@ OFFICIAL = {
     "chicago": {
         "The Loop": ["Loop, Chicago"],
         "River North and Magnificent Mile": ["Near North Side, Chicago"],
-        "Museum Campus": ["Museum Campus, Chicago", "Grant Park, Chicago"],
-        "Navy Pier": ["Streeterville, Chicago"],
+        "Museum Campus": ["Grant Park, Chicago", "Museum Campus, Chicago"],
+        "Navy Pier": ["Streeterville, Chicago", "Near North Side, Chicago"],
     },
     "houston": {
         "Downtown": ["Downtown, Houston"],
@@ -168,18 +168,18 @@ OFFICIAL = {
         "Uptown": ["First Ward, Charlotte", "Second Ward, Charlotte", "Third Ward, Charlotte", "Fourth Ward, Charlotte"],
         "South End": ["South End, Charlotte", "Dilworth, Charlotte"],
     },
-    "san-francisco": {
-        "Union Square and Financial District": ["Union Square, San Francisco", "Financial District, San Francisco", "Chinatown, San Francisco"],
-        "Fisherman's Wharf and North Beach": ["Fisherman's Wharf, San Francisco", "North Beach, San Francisco"],
-        "Embarcadero": ["South Beach, San Francisco", "Rincon Hill, San Francisco"],
-        "Mission District": ["Mission District, San Francisco"],
-        "Golden Gate Park": ["Golden Gate Park, San Francisco"],
+    "san-francisco": {  # San Francisco Analysis Neighborhoods
+        "Union Square and Financial District": ["layer:sf:nhood=Financial District/South Beach", "layer:sf:nhood=Chinatown", "layer:sf:nhood=Nob Hill", "layer:sf:nhood=Tenderloin"],
+        "Fisherman's Wharf and North Beach": ["layer:sf:nhood=North Beach", "layer:sf:nhood=Russian Hill"],
+        "Embarcadero": ["layer:sf:nhood=South of Market"],
+        "Mission District": ["layer:sf:nhood=Mission"],
+        "Golden Gate Park": ["layer:sf:nhood=Golden Gate Park"],
     },
-    "seattle": {
-        "Downtown and Pike Place": ["Downtown Seattle", "Belltown, Seattle"],
-        "Pioneer Square": ["Pioneer Square, Seattle"],
-        "Seattle Center": ["Lower Queen Anne, Seattle", "Seattle Center"],
-        "Capitol Hill": ["Capitol Hill, Seattle"],
+    "seattle": {  # Seattle City Clerk Neighborhood Map Atlas
+        "Downtown and Pike Place": ["layer:seattle:S_HOOD=Central Business District", "layer:seattle:S_HOOD=Pike-Market", "layer:seattle:S_HOOD=Pike Market", "layer:seattle:S_HOOD=Belltown"],
+        "Pioneer Square": ["layer:seattle:S_HOOD=Pioneer Square", "layer:seattle:S_HOOD=International District"],
+        "Seattle Center": ["layer:seattle:S_HOOD=Lower Queen Anne", "Seattle Center"],
+        "Capitol Hill": ["layer:seattle:S_HOOD=Broadway", "Capitol Hill, Seattle"],
     },
     "denver": {
         "Downtown and LoDo": ["Central Business District, Denver", "Union Station, Denver", "Auraria, Denver"],
@@ -198,10 +198,10 @@ OFFICIAL = {
         "Back Bay": ["Back Bay, Boston"],
         "Seaport": ["Seaport District, Boston", "South Boston Waterfront, Boston"],
     },
-    "atlanta": {
-        "Downtown": ["Downtown Atlanta"],
-        "Midtown": ["Midtown Atlanta"],
-        "Old Fourth Ward and BeltLine": ["Old Fourth Ward, Atlanta"],
+    "atlanta": {  # City of Atlanta Department of City Planning neighborhoods
+        "Downtown": ["layer:atlanta:NAME=Downtown", "Downtown Atlanta"],
+        "Midtown": ["layer:atlanta:NAME=Midtown", "Midtown Atlanta"],
+        "Old Fourth Ward and BeltLine": ["layer:atlanta:NAME=Old Fourth Ward", "Old Fourth Ward, Atlanta"],
     },
     "minneapolis": {
         "Downtown": ["Downtown West, Minneapolis", "Downtown East, Minneapolis"],
@@ -211,9 +211,9 @@ OFFICIAL = {
         "Downtown": ["Downtown San Jose"],
     },
     "detroit": {
-        "Downtown": ["Downtown Detroit"],
-        "Midtown": ["Midtown, Detroit"],
-        "Riverwalk": ["Rivertown, Detroit"],
+        "Downtown": ["layer:detroit:NHood_Name=Downtown", "Downtown Detroit"],
+        "Midtown": ["layer:detroit:NHood_Name=Midtown", "Midtown, Detroit"],
+        "Riverwalk": ["layer:detroit:NHood_Name=Rivertown", "Rivertown, Detroit"],
     },
     "baltimore": {
         "Inner Harbor": ["Inner Harbor, Baltimore", "Downtown, Baltimore"],
