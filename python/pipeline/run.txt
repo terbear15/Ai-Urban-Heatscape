@@ -1,10 +1,2 @@
-st-louis
-portland
-nashville
-indianapolis
-cincinnati
-kansas-city
-pittsburgh
-cleveland
-salt-lake-city
-milwaukee
+new-york
+los-angeles
