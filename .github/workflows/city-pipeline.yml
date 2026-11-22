@@ -78,4 +78,4 @@ jobs:
           git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
           git add dist/data dist/cities/views.json
           git diff --cached --quiet || git commit -m "City shade data: $(grep -v '^\s*$' python/pipeline/run.txt | tr '\n' ' ')"
-          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
+          for i in 1 2 3; do git pull --rebase -X theirs && git push && break; sleep 5; done
