@@ -384,6 +384,6 @@ const slotFor = (slots, meters) => slots(Math.min(7, Math.floor(meters / WALK_M_
           treeCount: trees.length, buildingCount: buildings.length, ll, xy};
 }
 
-root.HeatEngine = {create, WALK_M_PER_MIN, SLOT_MIN, hull, Grid};
+root.HeatEngine = {create, unpack, WALK_M_PER_MIN, SLOT_MIN, hull, Grid};
 if (typeof module !== 'undefined') module.exports = root.HeatEngine;
 })(typeof self !== 'undefined' ? self : (typeof window !== 'undefined' ? window : globalThis));

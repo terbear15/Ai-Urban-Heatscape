@@ -44,16 +44,53 @@ function schedulePrefetch(time, lat, lon, trees) {
   prefetch = setTimeout(step, 30);
 }
 
+let areaRings = null;
+function loadArea(slug) {
+  if (areaRings) return areaRings;
+  try {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'cities/' + slug + '.geojson', false);
+    xhr.send();
+    const land = JSON.parse(xhr.responseText).features.find(f => f.properties.layer === 'land').geometry;
+    areaRings = land.type === 'Polygon' ? [land.coordinates] : land.coordinates;
+  } catch (e) { areaRings = []; }
+  return areaRings;
+}
+function inRing(x, y, ring) {
+  let hit = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [x1, y1] = ring[i], [x2, y2] = ring[j];
+    if ((y1 > y) !== (y2 > y) && x < (x2 - x1) * (y - y1) / (y2 - y1) + x1) hit = !hit;
+  }
+  return hit;
+}
+function inside(collection, slug) {
+  const polys = loadArea(slug);
+  if (!collection || !polys.length) return collection || {type: 'FeatureCollection', features: []};
+  const features = collection.features.filter(f => {
+    const ring = f.geometry.coordinates[0];
+    let x = 0, y = 0;
+    for (let i = 0; i < ring.length - 1; i++) { x += ring[i][0]; y += ring[i][1]; }
+    x /= ring.length - 1; y /= ring.length - 1;
+    return polys.some(([outer, ...holes]) => inRing(x, y, outer) && !holes.some(h => inRing(x, y, h)));
+  });
+  return {type: 'FeatureCollection', features};
+}
+
 self.onmessage = ({data: msg}) => {
   try {
     if (msg.type === 'init') {
       importScripts('vendor/suncalc.js', 'engine.js?' + msg.version, 'data/' + msg.slug + '.js?' + msg.version);
-      engine = HeatEngine.create(CITYDATA);
+      const data = CITYDATA.v === 3 ? HeatEngine.unpack(CITYDATA) : CITYDATA;
+      engine = HeatEngine.create(data);
       self.postMessage({type: 'ready', stats: {
         buildings: engine.buildingCount, trees: engine.treeCount, segments: engine.edges.length,
         component: engine.componentSize, meta: CITYDATA.meta, pois: CITYDATA.pois || [],
       }});
-      CITYDATA.buildings = CITYDATA.trees = null; // engine has its own copies
+      // Map layers come from the same download: buildings and crowns inside the area only
+      // (the data reaches 150 m further so edge streets get the right shade).
+      self.postMessage({type: 'layers', buildings: inside(data.buildings, msg.slug), trees: inside(data.trees, msg.slug)});
+      CITYDATA.buildings = CITYDATA.trees = data.buildings = data.trees = null; // engine has its own copies
     } else if (msg.type === 'shade') {
       const s = slot(msg.time, msg.lat, msg.lon, msg.trees, true);
       self.postMessage({type: 'shade', id: msg.id, night: s.night, geometry: s.geometry});
