@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import requests
 import geopandas as gpd
-from shapely.geometry import box, mapping
+from shapely.geometry import shape, box, mapping
 from shapely.ops import transform, unary_union
 from pyproj import CRS, Transformer
 from shapely.geometry import Point
@@ -59,6 +59,21 @@ def places(state):
     return gpd.read_file(path).to_crs(4326)
 
 
+# Daylight / standard UTC offsets and abbreviations by time zone.
+TIME_ZONES = {
+    "eastern": ("-04:00", "EDT", "-05:00", "EST"), "central": ("-05:00", "CDT", "-06:00", "CST"),
+    "mountain": ("-06:00", "MDT", "-07:00", "MST"), "arizona": ("-07:00", "MST", "-07:00", "MST"),
+    "pacific": ("-07:00", "PDT", "-08:00", "PST"),
+}
+CITY_ZONE = {
+    **dict.fromkeys(["new-york", "washington", "boston", "atlanta", "philadelphia", "miami", "detroit", "charlotte", "baltimore"], "eastern"),
+    **dict.fromkeys(["chicago", "dallas", "houston", "minneapolis"], "central"),
+    "denver": "mountain", "phoenix": "arizona",
+    **dict.fromkeys(["los-angeles", "san-francisco", "san-jose", "seattle", "san-diego"], "pacific"),
+}
+CENTER_CITY = ROOT / "dist" / "location" / "center-city.geojson"
+
+
 def main():
     tables = {state: places(state) for state in {value[0] for value in CITIES.values()}}
     views = {}
@@ -95,7 +110,11 @@ def main():
             else:
                 shapes.append(box(*zone[1]))
         # HeatScape works only in the downtown and visitor areas, on land.
-        land = land.intersection(unary_union(shapes)).buffer(0)
+        if key == "philadelphia" and CENTER_CITY.exists():
+            # Philadelphia uses the official Center City neighborhoods (python/prepare_center_city.py).
+            land = shape(json.loads(CENTER_CITY.read_text(encoding="utf-8"))["features"][0]["geometry"])
+        else:
+            land = land.intersection(unary_union(shapes)).buffer(0)
         assert land.is_valid and not land.is_empty, key
         west, south, east, north = land.bounds
         # Camera envelope with about 15 miles of context around the areas.
@@ -107,6 +126,13 @@ def main():
         views[key] = {"name": name, "bounds": [[west, south], [east, north]],
                       "limit": [[scope[0], scope[1]], [scope[2], scope[3]]],
                       "custom": False, "zones": [z[0] for z in zones]}
+        summer, summer_name, winter, winter_name = TIME_ZONES[CITY_ZONE[key]]
+        views[key].update(
+            tz={"summer": summer, "summerName": summer_name, "winter": winter, "winterName": winter_name},
+            areaName="Center City" if key == "philadelphia" else "Downtown",
+            # The shade map opens for a city once its data file exists.
+            shade=(ROOT / "dist" / "data" / f"{key}.js").exists(),
+        )
         print(name, land.geom_type, land.bounds)
     save(OUT / "views.json", views)
 

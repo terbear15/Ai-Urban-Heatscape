@@ -1,0 +1,30 @@
+name: Stamp asset versions
+
+# After each push to main, point every page at ?v=<commit> for its local CSS and JS,
+# so visitors never get a stale cached file. Pushes made with GITHUB_TOKEN do not
+# start another run, so this does not loop.
+on:
+  push:
+    branches: [main]
+    paths: ["dist/**"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stamp-versions
+  cancel-in-progress: false
+
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python python/stamp_versions.py
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add dist/*.html
+          git diff --cached --quiet || git commit -m "Stamp asset versions"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
