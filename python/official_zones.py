@@ -23,9 +23,8 @@ from city_zones import OFFICIAL, ZONES  # noqa: E402
 OUT = Path(__file__).resolve().parent / "zones"
 URL = "https://nominatim.openstreetmap.org/search"
 NTA = "https://data.cityofnewyork.us/resource/9nt8-h7nd.geojson"
-LATIMES = "https://gis-portal.usc.edu/arcgis/rest/services/GhostMetro/Los_Angeles_County_Neighborhoods/MapServer/0/query"
-OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter",
-            "https://overpass.private.coffee/api/interpreter"]
+LACOUNTY = "https://services1.arcgis.com/AXaYBvnJsB5Q7sDF/ArcGIS/rest/services/eGIS_CountyWSA/FeatureServer/0/query"
+OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter"]
 # Kinds of OSM objects that are areas people name: boundaries, places and parks. Shops,
 # campuses, buildings and roads are refused even when they share the name.
 GOOD_TYPES = {"administrative", "neighbourhood", "neighborhood", "suburb", "quarter", "district", "borough",
@@ -88,14 +87,15 @@ def get_json(url, params, tries=4):
 
 
 def from_dataset(name):
-    """'nta:<name>' (NYC) or 'latimes:<name>' (LA County). Returns (geometry, source id) or None."""
+    """'nta:<name>' (NYC), 'lacounty:<label>' or 'lacity:<city>' (LA County CSAs). Returns (geometry, source id) or None."""
     kind, label = name.split(":", 1)
     if kind == "nta":
         data = get_json(NTA, {"ntaname": label})
         src = "NYC DCP NTA 2020"
     else:
-        data = get_json(LATIMES, {"where": f"name='{label}'", "outFields": "name", "outSR": 4326, "f": "geojson"})
-        src = "Los Angeles Times Mapping L.A."
+        where = f"LABEL='{label}'" if kind == "lacounty" else f"LCITY='{label}' AND CITY_TYPE='City'"
+        data = get_json(LACOUNTY, {"where": where, "outFields": "LABEL", "outSR": 4326, "f": "geojson"})
+        src = "LA County Countywide Statistical Areas"
     feats = (data or {}).get("features") or []
     geoms = [shape(f["geometry"]).buffer(0) for f in feats if f.get("geometry")]
     return (unary_union(geoms), src) if geoms else None
@@ -110,7 +110,7 @@ def overpass(label, lon0, lat0):
          f'relation["name"="{esc}"]({bbox}););out geom;')
     for url in OVERPASS:
         try:
-            r = requests.post(url, data={"data": q}, headers=HEADERS, timeout=120)
+            r = requests.post(url, data={"data": q}, headers=HEADERS, timeout=45)
             r.raise_for_status()
             elements = r.json().get("elements", [])
             break
@@ -150,7 +150,7 @@ def main():
             found = 0
             for name in names:
                 pick = None
-                if ":" in name and name.split(":", 1)[0] in ("nta", "latimes"):
+                if ":" in name and name.split(":", 1)[0] in ("nta", "lacounty", "lacity"):
                     hit = from_dataset(name)
                     if hit:
                         pick = (hit[0], hit[1], "official dataset")

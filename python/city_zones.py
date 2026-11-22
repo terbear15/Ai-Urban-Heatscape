@@ -130,13 +130,13 @@ OFFICIAL = {
         "Central Park": ["nta:Central Park"],
         "DUMBO and Brooklyn Bridge": ["nta:Downtown Brooklyn-DUMBO-Boerum Hill", "nta:Brooklyn Heights"],
     },
-    "los-angeles": {  # Los Angeles Times Mapping L.A. neighborhoods; separate cities by their limits
-        "Downtown LA": ["latimes:Downtown"],
-        "Hollywood": ["latimes:Hollywood"],
-        "Sunset Strip": ["latimes:West Hollywood"],
-        "Beverly Hills": ["latimes:Beverly Hills"],
-        "Santa Monica": ["latimes:Santa Monica"],
-        "Venice": ["latimes:Venice"],
+    "los-angeles": {  # LA County Countywide Statistical Areas (LA City neighborhoods); separate cities by their limits
+        "Downtown LA": ["lacounty:Los Angeles - Downtown"],
+        "Hollywood": ["lacounty:Los Angeles - Hollywood"],
+        "Sunset Strip": ["lacity:West Hollywood"],
+        "Beverly Hills": ["lacity:Beverly Hills"],
+        "Santa Monica": ["lacity:Santa Monica"],
+        "Venice": ["lacounty:Los Angeles - Venice"],
     },
     "chicago": {
         "The Loop": ["Loop, Chicago"],
