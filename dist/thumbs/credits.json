@@ -1,122 +1,105 @@
 {
- "new-york": {
-  "title": "Lower Manhattan from Governors Island with a fishing boat (46294p).jpg",
-  "artist": "Rhododendrites",
-  "license": "CC BY-SA 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Lower_Manhattan_from_Governors_Island_with_a_fishing_boat_(46294p).jpg"
- },
- "los-angeles": {
-  "title": "Los Angeles downtown p1000070.jpg",
-  "artist": "Unknown",
-  "license": "CC BY-SA 2.0 fr",
-  "url": "https://commons.wikimedia.org/wiki/File:Los_Angeles_downtown_p1000070.jpg"
- },
- "chicago": {
-  "title": "Chicago Loop Skyline from Grant Park, Chicago, Illinois (9179527395).jpg",
-  "artist": "Ken Lund from Reno, Nevada, USA",
-  "license": "CC BY-SA 2.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Chicago_Loop_Skyline_from_Grant_Park,_Chicago,_Illinois_(9179527395).jpg"
- },
- "san-francisco": {
-  "title": "San Francisco (CA, USA), Pioneer Park, Blick auf den Business District -- 2022 -- 0885.jpg",
-  "artist": "Dietmar Rabich",
-  "license": "CC BY-SA 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:San_Francisco_(CA,_USA),_Pioneer_Park,_Blick_auf_den_Business_District_--_2022_--_0885.jpg"
- },
- "dallas": {
-  "title": "Dallas Texas Skyline - Trinity River - Margaret Hunt Hill Bridge.jpg",
-  "artist": "Tony Webster",
-  "license": "CC BY-SA 2.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Dallas_Texas_Skyline_-_Trinity_River_-_Margaret_Hunt_Hill_Bridge.jpg"
- },
- "houston": {
-  "title": "Downtown Houston from Downtown Aquarium 2.JPG",
-  "artist": "Agsftw",
-  "license": "CC BY-SA 3.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Downtown_Houston_from_Downtown_Aquarium_2.JPG"
- },
- "washington": {
-  "title": "Washington Monument and the National Mall 4.jpg",
-  "artist": "Kurt Kaiser",
-  "license": "CC0",
-  "url": "https://commons.wikimedia.org/wiki/File:Washington_Monument_and_the_National_Mall_4.jpg"
- },
- "boston": {
-  "title": "Boston Skyline Charles River.jpg",
-  "artist": "EgorovaSvetlana",
-  "license": "CC BY-SA 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Boston_Skyline_Charles_River.jpg"
- },
- "atlanta": {
-  "title": "Atlanta skyline from Jackson Street Bridge 2020.jpg",
-  "artist": "Marc Merlin",
-  "license": "CC BY-SA 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Atlanta_skyline_from_Jackson_Street_Bridge_2020.jpg"
- },
- "seattle": {
-  "title": "Seattle 4.jpg",
-  "artist": "Daniel Schwen",
-  "license": "CC BY-SA 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Seattle_4.jpg"
- },
- "philadelphia": {
-  "title": "Center City Philadelphia - panoramio.jpg",
-  "artist": "michaelwm25",
-  "license": "CC BY 3.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Center_City_Philadelphia_-_panoramio.jpg"
- },
- "miami": {
-  "title": "Downtown Miami Skyline photo Don Ramey Logan.jpg",
-  "artist": "Don Ramey Logan",
-  "license": "CC BY 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Downtown_Miami_Skyline_photo_Don_Ramey_Logan.jpg"
- },
- "san-jose": {
-  "title": "San Jose California Skyline.jpg",
-  "artist": "Michael from San Jose, California, USA",
-  "license": "CC BY 2.0",
-  "url": "https://commons.wikimedia.org/wiki/File:San_Jose_California_Skyline.jpg"
- },
- "phoenix": {
-  "title": "Downtown Phoenix Skyline (6974043971).jpg",
-  "artist": "Alan Stark from Goodyear, AZ, United States",
-  "license": "CC BY-SA 2.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Downtown_Phoenix_Skyline_(6974043971).jpg"
- },
- "minneapolis": {
-  "title": "Downtown Minneapolis skyline across the Mississippi River.jpg",
-  "artist": "Guywelch2000",
-  "license": "CC BY 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_skyline_across_the_Mississippi_River.jpg"
- },
- "detroit": {
-  "title": "Detroit Skyline (123143197).jpeg",
-  "artist": "Michael Tighe",
-  "license": "CC0",
-  "url": "https://commons.wikimedia.org/wiki/File:Detroit_Skyline_(123143197).jpeg"
- },
- "san-diego": {
-  "title": "Downtown San Diego Skyline from Coronado.jpg",
-  "artist": "Erin Asadourian",
-  "license": "CC BY 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Downtown_San_Diego_Skyline_from_Coronado.jpg"
- },
- "denver": {
-  "title": "Downtown Denver skyline.jpg",
-  "artist": "Gtj82 at English Wikipedia",
-  "license": "Public domain",
-  "url": "https://commons.wikimedia.org/wiki/File:Downtown_Denver_skyline.jpg"
- },
- "charlotte": {
-  "title": "Charlotte Skyline during the morning.jpg",
-  "artist": "Bruce Emmerling",
-  "license": "CC BY-SA 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Charlotte_Skyline_during_the_morning.jpg"
- },
- "baltimore": {
-  "title": "Inner Harbor Skyline View.JPG",
-  "artist": "Kimberlyshorter",
-  "license": "CC BY-SA 4.0",
-  "url": "https://commons.wikimedia.org/wiki/File:Inner_Harbor_Skyline_View.JPG"
+ "source": "NASA HLS via GIBS",
+ "scenes": {
+  "new-york": {
+   "date": "2026-09-10",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.0
+  },
+  "los-angeles": {
+   "date": "2026-10-16",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.001
+  },
+  "chicago": {
+   "date": "2026-09-01",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.007
+  },
+  "san-francisco": {
+   "date": "2026-09-10",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.001
+  },
+  "dallas": {
+   "date": "2026-09-04",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.003
+  },
+  "houston": {
+   "date": "2026-09-22",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.008
+  },
+  "washington": {
+   "date": "2026-09-01",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.005
+  },
+  "boston": {
+   "date": "2026-08-10",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.001
+  },
+  "atlanta": {
+   "date": "2026-10-07",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.009
+  },
+  "seattle": {
+   "date": "2026-08-04",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.0
+  },
+  "philadelphia": {
+   "date": "2026-06-18",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.002
+  },
+  "miami": {
+   "date": "2026-05-19",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.086
+  },
+  "san-jose": {
+   "date": "2026-09-10",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.006
+  },
+  "phoenix": {
+   "date": "2026-09-10",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.008
+  },
+  "minneapolis": {
+   "date": "2026-08-19",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.007
+  },
+  "detroit": {
+   "date": "2026-09-28",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.007
+  },
+  "san-diego": {
+   "date": "2026-06-21",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.001
+  },
+  "denver": {
+   "date": "2026-09-01",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.002
+  },
+  "charlotte": {
+   "date": "2026-09-04",
+   "layer": "HLS_S30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.005
+  },
+  "baltimore": {
+   "date": "2026-08-07",
+   "layer": "HLS_L30_Nadir_BRDF_Adjusted_Reflectance",
+   "score": 0.0
+  }
  }
 }
