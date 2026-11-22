@@ -8,6 +8,3 @@ pittsburgh
 cleveland
 salt-lake-city
 milwaukee
-phoenix
-san-jose
-miami
