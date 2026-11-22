@@ -165,8 +165,15 @@ def survey(slug, area_ll, buildings):
         def read(key):
             return laspy.read(io.BytesIO(get(base + f"ept-data/{key}.laz", timeout=120).content))
 
-        with ThreadPoolExecutor(max_workers=16) as pool:
-            for cloud in pool.map(read, keys):
+        def clouds():
+            # Bounded batches: map() would queue every download at once and hold the decoded
+            # clouds in memory faster than they are gridded (Chicago ran out of memory).
+            with ThreadPoolExecutor(max_workers=12) as pool:
+                for start in range(0, len(keys), 48):
+                    yield from pool.map(read, keys[start:start + 48])
+
+        if True:
+            for cloud in clouds():
                 x, y, z = np.asarray(cloud.x), np.asarray(cloud.y), np.asarray(cloud.z)
                 row = np.floor((north - y) / cell).astype(np.int64)
                 col = np.floor((x - west) / cell).astype(np.int64)
@@ -184,6 +191,7 @@ def survey(slug, area_ll, buildings):
                 np.add.at(veg, (row[v], col[v]), 1)
                 b = cls == 6
                 np.add.at(bld, (row[b], col[b]), 1)
+                del cloud, x, y, z, row, col, cls
         if not np.isfinite(ground).any():
             log(f"  part {index}: no ground returns")
             continue
