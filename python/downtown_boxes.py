@@ -22,4 +22,12 @@ BOXES = {
         # Little Havana: W Flagler St (north), SW 13th St (south), SW 27th Ave (west), I-95 (east).
         "Little Havana": [(-80.2378, 25.7740), (-80.2045, 25.7740), (-80.2045, 25.7605), (-80.2378, 25.7605)],
     },
+    "indianapolis": {
+        # Mile Square and the blocks inside the inner freeway loop: North St to South St, West St to East St.
+        "Downtown": [(-86.1700, 39.7800), (-86.1460, 39.7800), (-86.1460, 39.7590), (-86.1700, 39.7590)],
+    },
+    "kansas-city": {
+        # Crossroads Arts District: I-670 (north) to 20th St (south), Broadway (west) to Gillham Rd (east).
+        "Crossroads": [(-94.5895, 39.0950), (-94.5745, 39.0950), (-94.5745, 39.0845), (-94.5895, 39.0845)],
+    },
 }
