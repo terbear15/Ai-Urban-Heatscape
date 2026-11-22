@@ -1,2 +1,21 @@
-== New York: 4 zone(s)
-  OSM tile 10: 26,788 nodes, 4,722 ways, 343 relations
+== New York: 5 zone(s)
+  OSM tile 10: 9,326 nodes, 1,407 ways, 274 relations
+  OSM tile 20: 24,029 nodes, 4,149 ways, 565 relations
+  OSM tile 30: 44,513 nodes, 8,152 ways, 713 relations
+  OSM tile 40: 87,110 nodes, 16,391 ways, 913 relations
+  OSM tile 50: 115,543 nodes, 21,318 ways, 1,046 relations
+  OSM tile 60: 167,530 nodes, 30,468 ways, 1,267 relations
+  OSM tile 70: 203,120 nodes, 37,971 ways, 1,479 relations
+  OSM tile 80: 243,119 nodes, 44,659 ways, 1,637 relations
+  OSM tile 90: 277,862 nodes, 52,088 ways, 1,729 relations
+  OSM tile 100: 315,194 nodes, 57,865 ways, 1,929 relations
+  OSM tile 110: 339,738 nodes, 62,291 ways, 2,050 relations
+  OSM tile 120: 379,795 nodes, 69,213 ways, 2,374 relations
+  OSM tile 130: 396,910 nodes, 72,137 ways, 2,456 relations
+  OSM tile 140: 448,059 nodes, 82,116 ways, 2,866 relations
+  OSM tile 150: 468,976 nodes, 85,864 ways, 2,999 relations
+  OSM tile 160: 519,362 nodes, 96,092 ways, 3,363 relations
+  OSM tile 170: 540,823 nodes, 100,031 ways, 3,501 relations
+  OSM tile 180: 595,427 nodes, 110,716 ways, 4,077 relations
+  OSM tile 190: 616,334 nodes, 114,909 ways, 4,416 relations
+  OSM tile 200: 663,822 nodes, 123,561 ways, 4,697 relations
