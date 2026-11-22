@@ -71,7 +71,7 @@ jobs:
             cp -v "$dir"/build-*.log dist/data/logs/ 2>/dev/null || true
           done
           python python/set_shade_flags.py
-          python python/split_city_data.py
+          python python/pack_city_data.py
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
