@@ -17,6 +17,7 @@ ZONES = {
     "los-angeles": [
         ("Downtown LA", -118.250, 34.048, 1.6),
         ("Westlake and Koreatown", -118.290, 34.062, 1.6),
+        ("Larchmont and Little Armenia", -118.300, 34.079, 0.9),
         ("Hollywood", -118.330, 34.101, 1.4),
     ],
     "chicago": [
@@ -169,6 +170,7 @@ OFFICIAL = {
     "los-angeles": {  # LA County Countywide Statistical Areas (LA City neighborhoods)
         "Downtown LA": ["lacounty:Los Angeles - Downtown"],
         "Westlake and Koreatown": ["lacounty:Los Angeles - Westlake", "lacounty:Los Angeles - Koreatown", "lacounty:Los Angeles - Wilshire Center"],
+        "Larchmont and Little Armenia": [],  # street-bounded connector, python/downtown_boxes.py
         "Hollywood": ["lacounty:Los Angeles - Hollywood", "lacounty:Los Angeles - East Hollywood"],
     },
     "chicago": {
