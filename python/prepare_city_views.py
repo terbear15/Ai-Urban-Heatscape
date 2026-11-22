@@ -8,6 +8,8 @@ from shapely.ops import transform, unary_union
 from pyproj import CRS, Transformer
 from shapely.geometry import Point
 from city_zones import ZONES
+from downtown_boxes import BOXES
+from shapely.geometry import Polygon
 
 ROOT = Path(__file__).resolve().parents[1]
 import sys
@@ -17,7 +19,7 @@ OUT.mkdir(exist_ok=True)
 CACHE = ROOT / "raw" / "places"
 CACHE.mkdir(parents=True, exist_ok=True)
 BASE = "https://www2.census.gov/geo/tiger/GENZ2024/shp/"
-# Twenty cities: the 20 largest U.S. metro economies (nominal GDP, 2024, from BEA
+# Thirty cities. The first twenty: the 20 largest U.S. metro economies (nominal GDP, 2024, from BEA
 # county GDP summed to metro areas), stored in that order. The core city of each metro is mapped.
 CITIES = {
     "new-york": ("36", "New York"),
@@ -40,6 +42,17 @@ CITIES = {
     "denver": ("08", "Denver"),
     "charlotte": ("37", "Charlotte"),
     "baltimore": ("24", "Baltimore"),
+    # Ten more large metros with four distinct seasons and a walkable downtown.
+    "st-louis": ("29", "St. Louis"),
+    "portland": ("41", "Portland"),
+    "nashville": ("47", "Nashville"),
+    "indianapolis": ("18", "Indianapolis"),
+    "cincinnati": ("39", "Cincinnati"),
+    "kansas-city": ("29", "Kansas City"),
+    "pittsburgh": ("42", "Pittsburgh"),
+    "cleveland": ("39", "Cleveland"),
+    "salt-lake-city": ("49", "Salt Lake City"),
+    "milwaukee": ("55", "Milwaukee"),
 }
 LA_PLACES = ("Los Angeles", "Santa Monica", "Pasadena", "Inglewood",
              "West Hollywood", "Beverly Hills", "Culver City", "Glendale", "South Pasadena")
@@ -66,10 +79,10 @@ TIME_ZONES = {
     "pacific": ("-07:00", "PDT", "-08:00", "PST"),
 }
 CITY_ZONE = {
-    **dict.fromkeys(["new-york", "washington", "boston", "atlanta", "philadelphia", "miami", "detroit", "charlotte", "baltimore"], "eastern"),
-    **dict.fromkeys(["chicago", "dallas", "houston", "minneapolis"], "central"),
-    "denver": "mountain", "phoenix": "arizona",
-    **dict.fromkeys(["los-angeles", "san-francisco", "san-jose", "seattle", "san-diego"], "pacific"),
+    **dict.fromkeys(["new-york", "washington", "boston", "atlanta", "philadelphia", "miami", "detroit", "charlotte", "baltimore", "indianapolis", "cincinnati", "pittsburgh", "cleveland"], "eastern"),
+    **dict.fromkeys(["chicago", "dallas", "houston", "minneapolis", "st-louis", "nashville", "kansas-city", "milwaukee"], "central"),
+    "denver": "mountain", "salt-lake-city": "mountain", "phoenix": "arizona",
+    **dict.fromkeys(["los-angeles", "san-francisco", "san-jose", "seattle", "san-diego", "portland"], "pacific"),
 }
 CENTER_CITY = ROOT / "dist" / "location" / "center-city.geojson"
 ZONE_DIR = ROOT / "python" / "zones"
@@ -114,6 +127,10 @@ def main():
                 # Official boundary (OpenStreetMap neighborhood, district, park or city).
                 shapes.append(unary_union(polygons[zone[0]]))
                 continue
+            if zone[0] in BOXES.get(key, {}):
+                # Street-bounded downtown block (python/downtown_boxes.py).
+                shapes.append(Polygon(BOXES[key][zone[0]]))
+                continue
             if len(zone) == 4:
                 _, lon, lat, km = zone
                 shapes.append(transform(reverse, transform(forward, Point(lon, lat)).buffer(km * 1000, quad_segs=32)))
@@ -150,7 +167,10 @@ def main():
             for piece in pieces[1:]:
                 if piece.area > 20000 and unary_union(keep).distance(piece) < 150:
                     keep.append(piece)
-            land = transform(reverse, unary_union(keep)).buffer(0)
+            final = unary_union(keep)
+            # List only zones that really ended up inside the area (a zone across a wide river is lost).
+            zones = [z for z, i in zip(zones, kept) if flat[i].intersection(final).area >= 0.25 * flat[i].area]
+            land = transform(reverse, final).buffer(0)
         assert land.is_valid and not land.is_empty, key
         west, south, east, north = land.bounds
         # Camera envelope with about 15 miles of context around the areas.

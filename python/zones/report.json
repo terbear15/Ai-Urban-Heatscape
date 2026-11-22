@@ -120,5 +120,58 @@
    "Little Havana",
    "ZONE Little Havana (circle kept)"
   ]
+ },
+ "st-louis": {
+  "places": 3,
+  "missing": []
+ },
+ "portland": {
+  "places": 6,
+  "missing": []
+ },
+ "nashville": {
+  "places": 4,
+  "missing": []
+ },
+ "indianapolis": {
+  "places": 0,
+  "missing": [
+   "Downtown, Indianapolis",
+   "Mile Square, Indianapolis",
+   "ZONE Downtown (circle kept)"
+  ]
+ },
+ "cincinnati": {
+  "places": 3,
+  "missing": []
+ },
+ "kansas-city": {
+  "places": 3,
+  "missing": [
+   "Crossroads, Kansas City",
+   "Crossroads Arts District, Kansas City",
+   "ZONE Crossroads (circle kept)"
+  ]
+ },
+ "pittsburgh": {
+  "places": 3,
+  "missing": []
+ },
+ "cleveland": {
+  "places": 2,
+  "missing": []
+ },
+ "salt-lake-city": {
+  "places": 1,
+  "missing": [
+   "Central Business District, Salt Lake City"
+  ]
+ },
+ "milwaukee": {
+  "places": 3,
+  "missing": [
+   "Downtown, Milwaukee",
+   "Third Ward, Milwaukee"
+  ]
  }
 }

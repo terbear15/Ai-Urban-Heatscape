@@ -8,6 +8,7 @@ place (zone, query, OSM id, class/type) and python/zones/report.json listing any
 that did not resolve. Run on GitHub Actions; needs requests, shapely and pyproj."""
 import json
 import math
+import os
 import sys
 import time
 from pathlib import Path
@@ -47,7 +48,9 @@ STATES = {"new-york": "New York", "los-angeles": "California", "chicago": "Illin
           "san-francisco": "California", "seattle": "Washington", "denver": "Colorado",
           "washington": "District of Columbia", "boston": "Massachusetts", "atlanta": "Georgia",
           "minneapolis": "Minnesota", "san-jose": "California", "detroit": "Michigan",
-          "baltimore": "Maryland", "miami": "Florida"}
+          "baltimore": "Maryland", "miami": "Florida", "st-louis": "Missouri", "portland": "Oregon",
+          "nashville": "Tennessee", "indianapolis": "Indiana", "cincinnati": "Ohio", "kansas-city": "Missouri",
+          "pittsburgh": "Pennsylvania", "cleveland": "Ohio", "salt-lake-city": "Utah", "milwaukee": "Wisconsin"}
 
 
 def km2(geom):
@@ -162,8 +165,11 @@ def overpass(label, lon0, lat0):
 
 def main():
     OUT.mkdir(exist_ok=True)
-    report = {}
+    report_path = OUT / "report.json"
+    report = json.loads(report_path.read_text()) if report_path.exists() else {}
     for slug, zones in OFFICIAL.items():
+        if (OUT / f"{slug}.geojson").exists() and not os.environ.get("ZONES_ALL") and slug not in os.environ.get("ZONES_ONLY", "").split(","):
+            continue  # already resolved; set ZONES_ALL=1 or ZONES_ONLY=<slugs> to redo
         circles = {z[0]: z for z in ZONES[slug]}
         features, missing = [], []
         for zone, names in zones.items():
