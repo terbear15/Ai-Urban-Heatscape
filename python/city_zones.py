@@ -114,6 +114,45 @@ ZONES = {
         ("Wynwood", -80.199, 25.801, 0.8),
         ("Little Havana", -80.218, 25.766, 0.8),
     ],
+    "st-louis": [
+        ("Downtown", -90.190, 38.628, 1.1),
+        ("Downtown West", -90.205, 38.632, 0.8),
+    ],
+    "portland": [
+        ("Downtown", -122.679, 45.517, 1.0),
+        ("Pearl District", -122.683, 45.528, 0.6),
+        ("Old Town Chinatown", -122.673, 45.525, 0.5),
+    ],
+    "nashville": [
+        ("Downtown", -86.778, 36.162, 1.1),
+        ("The Gulch", -86.786, 36.152, 0.5),
+    ],
+    "indianapolis": [
+        ("Downtown", -86.158, 39.768, 1.3),
+    ],
+    "cincinnati": [
+        ("Downtown", -84.512, 39.102, 0.9),
+        ("Over-the-Rhine", -84.516, 39.112, 0.7),
+    ],
+    "kansas-city": [
+        ("Downtown", -94.583, 39.100, 1.1),
+        ("Crossroads", -94.581, 39.088, 0.6),
+        ("River Market", -94.582, 39.110, 0.5),
+    ],
+    "pittsburgh": [
+        ("Downtown", -79.997, 40.441, 0.9),
+        ("Strip District", -79.978, 40.452, 0.7),
+    ],
+    "cleveland": [
+        ("Downtown", -81.690, 41.500, 1.2),
+    ],
+    "salt-lake-city": [
+        ("Downtown", -111.891, 40.763, 1.2),
+    ],
+    "milwaukee": [
+        ("Downtown", -87.909, 43.041, 1.1),
+        ("Third Ward", -87.907, 43.033, 0.5),
+    ],
 }
 
 
@@ -225,5 +264,44 @@ OFFICIAL = {
         "Brickell": ["Brickell, Miami"],
         "Wynwood": ["Wynwood, Miami"],
         "Little Havana": ["Little Havana, Miami", "East Little Havana, Miami", "Little Havana"],
+    },
+    "st-louis": {
+        "Downtown": ["Downtown, St. Louis", "Gateway Arch National Park"],
+        "Downtown West": ["Downtown West, St. Louis"],
+    },
+    "portland": {
+        "Downtown": ["Downtown, Portland", "Portland Downtown"],
+        "Pearl District": ["Pearl, Portland", "Pearl District, Portland"],
+        "Old Town Chinatown": ["Old Town, Portland", "Old Town Chinatown, Portland"],
+    },
+    "nashville": {
+        "Downtown": ["Downtown, Nashville", "Downtown Nashville"],
+        "The Gulch": ["The Gulch, Nashville", "Gulch, Nashville"],
+    },
+    "indianapolis": {
+        "Downtown": ["Downtown, Indianapolis", "Mile Square, Indianapolis"],
+    },
+    "cincinnati": {
+        "Downtown": ["Downtown, Cincinnati", "Central Business District, Cincinnati"],
+        "Over-the-Rhine": ["Over-the-Rhine, Cincinnati"],
+    },
+    "kansas-city": {
+        "Downtown": ["Central Business District, Kansas City", "Downtown, Kansas City"],
+        "Crossroads": ["Crossroads, Kansas City", "Crossroads Arts District, Kansas City"],
+        "River Market": ["River Market, Kansas City"],
+    },
+    "pittsburgh": {
+        "Downtown": ["Central Business District, Pittsburgh", "Downtown, Pittsburgh"],
+        "Strip District": ["Strip District, Pittsburgh"],
+    },
+    "cleveland": {
+        "Downtown": ["Downtown, Cleveland", "Downtown Cleveland"],
+    },
+    "salt-lake-city": {
+        "Downtown": ["Downtown, Salt Lake City", "Central Business District, Salt Lake City"],
+    },
+    "milwaukee": {
+        "Downtown": ["Downtown, Milwaukee", "Westown, Milwaukee", "East Town, Milwaukee"],
+        "Third Ward": ["Historic Third Ward, Milwaukee", "Third Ward, Milwaukee"],
     },
 }
