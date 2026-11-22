@@ -6,6 +6,7 @@ name: City shade data
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths: [python/pipeline/run.txt]
 
 permissions:
@@ -78,4 +79,4 @@ jobs:
           git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
           git add dist/data dist/cities/views.json
           git diff --cached --quiet || git commit -m "City shade data: $(grep -v '^\s*$' python/pipeline/run.txt | tr '\n' ' ')"
-          for i in 1 2 3; do git pull --rebase -X theirs && git push && break; sleep 5; done
+          ok=; for i in 1 2 3; do if git pull --rebase -X theirs && git push; then ok=1; break; fi; sleep 5; done; test -n "$ok"
