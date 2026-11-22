@@ -115,3 +115,115 @@ ZONES = {
         ("Little Havana", -80.218, 25.766, 0.8),
     ],
 }
+
+
+# Official areas. Each zone above maps to one or more named places whose boundary
+# polygon is looked up in OpenStreetMap (neighborhood, district, park or city
+# boundaries) by python/official_zones.py. The circles above are used only for a
+# zone whose names all fail to resolve. Philadelphia uses the city's own Center City
+# neighborhoods (python/prepare_center_city.py).
+OFFICIAL = {
+    "new-york": {  # NYC Department of City Planning Neighborhood Tabulation Areas (2020)
+        "Lower Manhattan": ["nta:Financial District-Battery Park City", "nta:Tribeca-Civic Center"],
+        "SoHo and Greenwich Village": ["nta:SoHo-Little Italy-Hudson Square", "nta:Greenwich Village", "nta:West Village"],
+        "Midtown and Times Square": ["nta:Midtown-Times Square", "nta:East Midtown-Turtle Bay", "nta:Midtown South-Flatiron-Union Square", "nta:Chelsea-Hudson Yards", "nta:Gramercy"],
+        "Central Park": ["nta:Central Park"],
+        "DUMBO and Brooklyn Bridge": ["nta:Downtown Brooklyn-DUMBO-Boerum Hill", "nta:Brooklyn Heights"],
+    },
+    "los-angeles": {  # LA County Countywide Statistical Areas (LA City neighborhoods); separate cities by their limits
+        "Downtown LA": ["lacounty:Los Angeles - Downtown"],
+        "Hollywood": ["lacounty:Los Angeles - Hollywood"],
+        "Sunset Strip": ["lacity:West Hollywood"],
+        "Beverly Hills": ["lacity:Beverly Hills"],
+        "Santa Monica": ["lacity:Santa Monica"],
+        "Venice": ["lacounty:Los Angeles - Venice"],
+    },
+    "chicago": {
+        "The Loop": ["Loop, Chicago"],
+        "River North and Magnificent Mile": ["Near North Side, Chicago"],
+        "Museum Campus": ["Grant Park, Chicago", "Museum Campus, Chicago"],
+        "Navy Pier": ["Streeterville, Chicago", "Near North Side, Chicago"],
+    },
+    "houston": {
+        "Downtown": ["Downtown, Houston"],
+        "Midtown": ["Midtown, Houston"],
+        "Museum District": ["Museum District, Houston"],
+    },
+    "phoenix": {
+        "Downtown": ["Downtown Phoenix", "Downtown, Phoenix"],
+        "Roosevelt Row": ["Roosevelt Row, Phoenix", "Evans Churchill, Phoenix", "Roosevelt, Phoenix", "Roosevelt Historic District, Phoenix"],
+    },
+    "san-diego": {
+        "Downtown and Gaslamp Quarter": ["Downtown, San Diego"],
+        "Balboa Park": ["Balboa Park, San Diego"],
+        "Old Town": ["Old Town, San Diego", "Old Town San Diego", "Old Town San Diego State Historic Park"],
+        "La Jolla": ["La Jolla Village, San Diego", "La Jolla, San Diego"],
+    },
+    "dallas": {
+        "Downtown": ["Downtown Dallas", "Downtown, Dallas", "City Center District, Dallas", "Main Street District, Dallas"],
+        "Uptown and Arts District": ["Uptown, Dallas", "Arts District, Dallas"],
+        "Deep Ellum": ["Deep Ellum, Dallas"],
+    },
+    "charlotte": {
+        "Uptown": ["First Ward, Charlotte", "Second Ward, Charlotte", "Third Ward, Charlotte", "Fourth Ward, Charlotte"],
+        "South End": ["South End, Charlotte", "Dilworth, Charlotte"],
+    },
+    "san-francisco": {  # San Francisco Analysis Neighborhoods
+        "Union Square and Financial District": ["layer:sf:nhood=Financial District/South Beach", "layer:sf:nhood=Chinatown", "layer:sf:nhood=Nob Hill", "layer:sf:nhood=Tenderloin"],
+        "Fisherman's Wharf and North Beach": ["layer:sf:nhood=North Beach", "layer:sf:nhood=Russian Hill"],
+        "Embarcadero": ["layer:sf:nhood=South of Market"],
+        "Mission District": ["layer:sf:nhood=Mission"],
+        "Golden Gate Park": ["layer:sf:nhood=Golden Gate Park"],
+    },
+    "seattle": {  # Seattle City Clerk Neighborhood Map Atlas
+        "Downtown and Pike Place": ["layer:seattle:S_HOOD=Central Business District", "layer:seattle:S_HOOD=Pike-Market", "layer:seattle:S_HOOD=Pike Market", "layer:seattle:S_HOOD=Belltown"],
+        "Pioneer Square": ["layer:seattle:S_HOOD=Pioneer Square", "layer:seattle:S_HOOD=International District"],
+        "Seattle Center": ["layer:seattle:S_HOOD=Lower Queen Anne", "Seattle Center"],
+        "Capitol Hill": ["layer:seattle:S_HOOD=Broadway", "Capitol Hill, Seattle"],
+    },
+    "denver": {
+        "Downtown and LoDo": ["Central Business District, Denver", "Union Station, Denver", "Auraria, Denver"],
+        "Civic Center": ["Civic Center, Denver"],
+        "RiNo": ["Five Points, Denver"],
+    },
+    "washington": {
+        "National Mall": ["National Mall, Washington"],
+        "Downtown and Penn Quarter": ["Downtown, Washington", "Penn Quarter, Washington", "Chinatown, Washington"],
+        "Dupont Circle": ["Dupont Circle, Washington"],
+        "Georgetown": ["Georgetown, Washington"],
+    },
+    "boston": {
+        "Downtown and Freedom Trail": ["Downtown, Boston", "Beacon Hill, Boston", "West End, Boston"],
+        "North End": ["North End, Boston"],
+        "Back Bay": ["Back Bay, Boston"],
+        "Seaport": ["Seaport District, Boston", "South Boston Waterfront, Boston"],
+    },
+    "atlanta": {  # City of Atlanta Department of City Planning neighborhoods
+        "Downtown": ["layer:atlanta:NAME=Downtown", "Downtown Atlanta"],
+        "Midtown": ["layer:atlanta:NAME=Midtown", "Midtown Atlanta"],
+        "Old Fourth Ward and BeltLine": ["layer:atlanta:NAME=Old Fourth Ward", "Old Fourth Ward, Atlanta"],
+    },
+    "minneapolis": {
+        "Downtown": ["Downtown West, Minneapolis", "Downtown East, Minneapolis"],
+        "Mill District and Riverfront": ["Downtown East, Minneapolis", "Marcy-Holmes, Minneapolis"],
+    },
+    "san-jose": {
+        "Downtown": ["Downtown San Jose", "Downtown, San Jose", "Downtown Core, San Jose"],
+    },
+    "detroit": {
+        "Downtown": ["layer:detroit:NHood_Name=Downtown", "Downtown Detroit"],
+        "Midtown": ["layer:detroit:NHood_Name=Midtown", "Midtown, Detroit"],
+        "Riverwalk": ["layer:detroit:NHood_Name=Rivertown", "Rivertown, Detroit"],
+    },
+    "baltimore": {
+        "Inner Harbor": ["Inner Harbor, Baltimore", "Downtown, Baltimore"],
+        "Fells Point": ["Fells Point, Baltimore", "Fell's Point, Baltimore", "Fells Point Historic District"],
+        "Mount Vernon": ["Mount Vernon, Baltimore"],
+    },
+    "miami": {
+        "Downtown and Bayfront": ["Downtown, Miami", "Downtown Miami", "Central Business District, Miami", "Park West, Miami"],
+        "Brickell": ["Brickell, Miami"],
+        "Wynwood": ["Wynwood, Miami"],
+        "Little Havana": ["Little Havana, Miami", "East Little Havana, Miami", "Little Havana"],
+    },
+}

@@ -115,6 +115,7 @@ if (map) {
     if (event.sourceId === 'base' || event.sourceId === 'labels') problem('Background map tiles are not loading. Routes and shade still work.');
   });
   map.on('load', () => {
+    document.querySelectorAll('.maplibregl-ctrl-attrib.maplibregl-compact-show').forEach(el => { el.classList.remove('maplibregl-compact-show'); el.removeAttribute('open'); });
     const v = CITY.version;
     map.addSource('area', {type: 'geojson', data: 'cities/' + CITY.slug + '.geojson', tolerance: 0});
     map.addLayer({id: 'labels', type: 'raster', source: 'labels', paint: {'raster-fade-duration': 0, 'raster-opacity': .8}});

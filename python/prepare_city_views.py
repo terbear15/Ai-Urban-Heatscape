@@ -72,6 +72,7 @@ CITY_ZONE = {
     **dict.fromkeys(["los-angeles", "san-francisco", "san-jose", "seattle", "san-diego"], "pacific"),
 }
 CENTER_CITY = ROOT / "dist" / "location" / "center-city.geojson"
+ZONE_DIR = ROOT / "python" / "zones"
 
 
 def main():
@@ -103,7 +104,16 @@ def main():
         forward = Transformer.from_crs(4326, local, always_xy=True).transform
         reverse = Transformer.from_crs(local, 4326, always_xy=True).transform
         shapes = []
+        official = ZONE_DIR / f"{key}.geojson"
+        polygons = {}
+        if official.exists():
+            for f in json.loads(official.read_text(encoding="utf-8"))["features"]:
+                polygons.setdefault(f["properties"]["zone"], []).append(shape(f["geometry"]).buffer(0))
         for zone in zones:
+            if zone[0] in polygons:
+                # Official boundary (OpenStreetMap neighborhood, district, park or city).
+                shapes.append(unary_union(polygons[zone[0]]))
+                continue
             if len(zone) == 4:
                 _, lon, lat, km = zone
                 shapes.append(transform(reverse, transform(forward, Point(lon, lat)).buffer(km * 1000, quad_segs=32)))
@@ -114,7 +124,33 @@ def main():
             # Philadelphia uses the official Center City neighborhoods (python/prepare_center_city.py).
             land = shape(json.loads(CENTER_CITY.read_text(encoding="utf-8"))["features"][0]["geometry"])
         else:
-            land = land.intersection(unary_union(shapes)).buffer(0)
+            # One connected downtown: start from the downtown zone and keep only visitor zones
+            # within ~1 km of what is already kept (far-off zones are dropped). Gaps of up to
+            # ~700 m between kept zones are filled so the area reads as one piece.
+            flat = [transform(forward, g) for g in shapes]
+            core = next((i for i, z in enumerate(zones) if any(w in z[0] for w in ("Downtown", "Loop", "Lower Manhattan", "Union Square"))), 0)
+            kept, grown = [core], True
+            while grown:
+                grown = False
+                for i, g in enumerate(flat):
+                    if i not in kept and unary_union([flat[k] for k in kept]).distance(g) <= 1000 \
+                            and g.centroid.distance(flat[core].centroid) <= 8000:
+                        kept.append(i)
+                        grown = True
+            kept.sort()
+            dropped = [zones[i][0] for i in range(len(zones)) if i not in kept]
+            if dropped:
+                print(name, "drops far zones:", ", ".join(dropped))
+            zones = [zones[i] for i in kept]
+            joined = unary_union([flat[i] for i in kept]).buffer(350, quad_segs=16).buffer(-350, quad_segs=16)
+            land = transform(forward, land).intersection(joined).buffer(0)
+            # Keep the land piece holding downtown and any piece across a narrow river (<150 m).
+            pieces = sorted(getattr(land, "geoms", [land]), key=lambda g: -g.intersection(flat[core]).area)
+            keep = [pieces[0]]
+            for piece in pieces[1:]:
+                if piece.area > 20000 and unary_union(keep).distance(piece) < 150:
+                    keep.append(piece)
+            land = transform(reverse, unary_union(keep)).buffer(0)
         assert land.is_valid and not land.is_empty, key
         west, south, east, north = land.bounds
         # Camera envelope with about 15 miles of context around the areas.
