@@ -1,0 +1,71 @@
+{
+ "city": "Pittsburgh",
+ "slug": "pittsburgh",
+ "zones": [
+  "Downtown",
+  "Strip District"
+ ],
+ "area_km2": 2.99,
+ "network": {
+  "nodes": 25957,
+  "edges": 30998,
+  "street_length_km": 561.98,
+  "intersections": 24308,
+  "streets_per_node_avg": 2.39,
+  "footpath_share": 0.531,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 1057,
+ "height_sources": {
+  "osm": 86,
+  "lidar": 946,
+  "model": 17,
+  "osm-levels": 8
+ },
+ "height_model": {
+  "known": 1040,
+  "predicted": 17,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 13.38,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 9884,
+ "places": 1072,
+ "pause_places": 431,
+ "pause_by_kind": {
+  "park": 405,
+  "library": 5,
+  "station": 11,
+  "water": 8,
+  "mall": 2
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/PA_WesternPA_2_2019/",
+   "survey_year": 2019,
+   "points": 119848574,
+   "density_pts_m2": 4.5,
+   "classes": {
+    "1": 64576010,
+    "18": 10815,
+    "2": 50808451,
+    "7": 49835,
+    "9": 1145818,
+    "17": 3214173,
+    "20": 43472
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 7.1,
+ "minutes": 3.6
+}

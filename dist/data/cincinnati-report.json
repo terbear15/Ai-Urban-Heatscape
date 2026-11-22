@@ -1,0 +1,74 @@
+{
+ "city": "Cincinnati",
+ "slug": "cincinnati",
+ "zones": [
+  "Downtown",
+  "Over-the-Rhine"
+ ],
+ "area_km2": 4.07,
+ "network": {
+  "nodes": 21174,
+  "edges": 25177,
+  "street_length_km": 447.66,
+  "intersections": 20166,
+  "streets_per_node_avg": 2.38,
+  "footpath_share": 0.547,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 4213,
+ "height_sources": {
+  "lidar": 58,
+  "osm": 1095,
+  "osm-levels": 1989,
+  "model": 1071
+ },
+ "height_model": {
+  "known": 3142,
+  "predicted": 1071,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 6.87,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 1222,
+ "places": 1227,
+ "pause_places": 168,
+ "pause_by_kind": {
+  "station": 3,
+  "water": 20,
+  "community": 5,
+  "library": 5,
+  "mall": 2,
+  "park": 133
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/KY_FullState/",
+   "survey_year": 0,
+   "points": 4561135,
+   "density_pts_m2": 0.3,
+   "classes": {
+    "2": 1062386,
+    "7": 5029,
+    "12": 1288668,
+    "9": 657657,
+    "10": 5052,
+    "1": 680366,
+    "18": 491316,
+    "17": 328589,
+    "25": 42072
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 3.76,
+ "minutes": 1.6
+}

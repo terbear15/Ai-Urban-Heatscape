@@ -1,0 +1,16 @@
+== Cleveland: 1 zone(s)
+  OSM tile 10: 10,370 nodes, 1,334 ways, 89 relations
+  OSM tile 20: 25,474 nodes, 3,510 ways, 127 relations
+  OSM tile 30: 35,303 nodes, 5,248 ways, 176 relations
+  OSM tile 40: 44,101 nodes, 6,723 ways, 247 relations
+  OSM tile 50: 49,150 nodes, 7,771 ways, 276 relations
+  OSM tile 60: 55,961 nodes, 9,005 ways, 307 relations
+  OSM tile 70: 62,435 nodes, 10,078 ways, 337 relations
+  OSM tile 72: 66,921 nodes, 10,846 ways, 352 relations
+  OSMnx walk graph: 17,126 nodes, 21,092 edges
+  1,184 building footprints
+  LiDAR source: OH_Statewide_Phase1_1_2019 (2019)
+  part 0: 9586 EPT nodes, ~9.1 pts/m², grid (3395, 2855)
+  part 0: 351,688,620 points, 1,124 building heights, 17,037 crowns so far
+  height model: trained on 1,167, predicted 17, CV MAE 11.7 m
+== Cleveland done in 5.5 min: 8.91 MB, 21,090 segments, 1,184 buildings {'lidar': 1063, 'osm': 92, 'osm-levels': 12, 'model': 17}, 17,037 crowns, 971 places, 81 pause places

@@ -1,0 +1,71 @@
+{
+ "city": "Cleveland",
+ "slug": "cleveland",
+ "zones": [
+  "Downtown"
+ ],
+ "area_km2": 7.97,
+ "network": {
+  "nodes": 17126,
+  "edges": 21090,
+  "street_length_km": 475.86,
+  "intersections": 16337,
+  "streets_per_node_avg": 2.46,
+  "footpath_share": 0.548,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 1184,
+ "height_sources": {
+  "lidar": 1063,
+  "osm": 92,
+  "osm-levels": 12,
+  "model": 17
+ },
+ "height_model": {
+  "known": 1167,
+  "predicted": 17,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 11.72,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 17037,
+ "places": 971,
+ "pause_places": 81,
+ "pause_by_kind": {
+  "station": 18,
+  "library": 3,
+  "community": 3,
+  "park": 53,
+  "water": 1,
+  "mall": 3
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/OH_Statewide_Phase1_1_2019/",
+   "survey_year": 2019,
+   "points": 351688620,
+   "density_pts_m2": 9.1,
+   "classes": {
+    "1": 152710671,
+    "7": 1073155,
+    "9": 4752397,
+    "2": 188016121,
+    "18": 14668,
+    "20": 73157,
+    "17": 5048451
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 8.91,
+ "minutes": 5.5
+}

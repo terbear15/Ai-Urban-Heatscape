@@ -1,0 +1,72 @@
+{
+ "city": "Portland",
+ "slug": "portland",
+ "zones": [
+  "Downtown",
+  "Pearl District",
+  "Old Town Chinatown"
+ ],
+ "area_km2": 4.31,
+ "network": {
+  "nodes": 19024,
+  "edges": 23354,
+  "street_length_km": 327.53,
+  "intersections": 18395,
+  "streets_per_node_avg": 2.46,
+  "footpath_share": 0.537,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 2049,
+ "height_sources": {
+  "model": 9,
+  "lidar": 1636,
+  "osm-levels": 121,
+  "osm": 283
+ },
+ "height_model": {
+  "known": 2040,
+  "predicted": 9,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 10.89,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 15876,
+ "places": 2472,
+ "pause_places": 134,
+ "pause_by_kind": {
+  "water": 68,
+  "library": 4,
+  "station": 24,
+  "community": 6,
+  "park": 32
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/OR_OLCMetro_2019/",
+   "survey_year": 2019,
+   "points": 137955641,
+   "density_pts_m2": 8.5,
+   "classes": {
+    "1": 115423523,
+    "2": 13134504,
+    "7": 579042,
+    "9": 2157355,
+    "18": 2328970,
+    "20": 14616,
+    "17": 4317631
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 9.75,
+ "minutes": 2.5
+}

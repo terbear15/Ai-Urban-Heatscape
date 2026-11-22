@@ -1,0 +1,73 @@
+{
+ "city": "Kansas City",
+ "slug": "kansas-city",
+ "zones": [
+  "Downtown",
+  "Crossroads",
+  "River Market"
+ ],
+ "area_km2": 6.89,
+ "network": {
+  "nodes": 23707,
+  "edges": 28371,
+  "street_length_km": 476.82,
+  "intersections": 22407,
+  "streets_per_node_avg": 2.39,
+  "footpath_share": 0.545,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 2351,
+ "height_sources": {
+  "lidar": 1974,
+  "model": 36,
+  "osm": 331,
+  "osm-levels": 10
+ },
+ "height_model": {
+  "known": 2315,
+  "predicted": 36,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 7.08,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 11818,
+ "places": 1637,
+ "pause_places": 80,
+ "pause_by_kind": {
+  "water": 10,
+  "station": 3,
+  "park": 62,
+  "library": 2,
+  "mall": 1,
+  "community": 2
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MO_FEMANRCS_1_2020/",
+   "survey_year": 2020,
+   "points": 40950076,
+   "density_pts_m2": 2.3,
+   "classes": {
+    "2": 23038721,
+    "20": 8306,
+    "1": 16428270,
+    "7": 23709,
+    "9": 450394,
+    "18": 92913,
+    "17": 907763
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 7.58,
+ "minutes": 2.1
+}

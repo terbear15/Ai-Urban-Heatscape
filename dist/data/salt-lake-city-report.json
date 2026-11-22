@@ -1,0 +1,67 @@
+{
+ "city": "Salt Lake City",
+ "slug": "salt-lake-city",
+ "zones": [
+  "Downtown"
+ ],
+ "area_km2": 3.08,
+ "network": {
+  "nodes": 9412,
+  "edges": 11378,
+  "street_length_km": 193.62,
+  "intersections": 8834,
+  "streets_per_node_avg": 2.42,
+  "footpath_share": 0.516,
+  "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
+ },
+ "buildings": 1148,
+ "height_sources": {
+  "lidar": 836,
+  "osm": 176,
+  "osm-levels": 55,
+  "model": 81
+ },
+ "height_model": {
+  "known": 1067,
+  "predicted": 81,
+  "model": "RandomForestRegressor(200 trees)",
+  "cv_mae_m": 11.65,
+  "features": [
+   "log area",
+   "log perimeter",
+   "compactness",
+   "vertices",
+   "building type",
+   "mean known height within 60 m",
+   "max known height within 60 m"
+  ]
+ },
+ "trees": 6730,
+ "places": 980,
+ "pause_places": 141,
+ "pause_by_kind": {
+  "station": 12,
+  "water": 23,
+  "community": 4,
+  "park": 100,
+  "library": 1,
+  "mall": 1
+ },
+ "lidar": [
+  {
+   "part": 0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_UT_Wasatch_L4_2013_LAS_2016/",
+   "survey_year": 2016,
+   "points": 34675949,
+   "density_pts_m2": 4.5,
+   "classes": {
+    "1": 17602177,
+    "2": 16976792,
+    "7": 96980
+   },
+   "vegetation_classes": false
+  }
+ ],
+ "data_mb": 3.89,
+ "minutes": 1.1
+}
