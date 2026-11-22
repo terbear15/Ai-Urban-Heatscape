@@ -1,33 +1,30 @@
-/* HeatScape shade engine (one city at a time).
+/* HeatScape shade and routing engine (version 2). Runs in a Web Worker or in Node.
  *
- * Works in a local planar frame (meters). For a sun position it:
- *   1. casts building shadows (footprint + wall quads swept by height / tan(elevation)),
- *   2. optionally casts tree shadows (LiDAR-height crowns, swept the same way),
- *   3. samples every street segment every 10 m and stores the sunlit share (edge.sun),
- *   4. finds the shortest walk and a lower-sun (summer) or sunnier (winter) walk that
- *      only takes local detours within the allowed extra time.
+ * Planar frame in meters centered on the city data. For a sun position:
+ *   - every building and tree crown is swept away from the sun by height / tan(elevation)
+ *     (capped at 400 m); the shadow pieces are scan-filled into a sparse 2 m grid;
+ *   - each street segment is sampled every 5 m on both sidewalks (offset from the
+ *     centerline by the segment's sidewalk distance) and gets the sunlit share per side.
+ * Routing: time-dependent Dijkstra. The sun is updated as the walk goes on: shade is
+ * computed for 15-minute slots after departure, and each segment uses the slot in which
+ * the walker reaches it. On each segment the walker takes the better sidewalk
+ * (shadier in summer, sunnier in winter).
  */
 (function (root) {
-// Local planar frame, centered on the city data when create() runs.
-let origin = [-75.163, 39.9525];
-let sx = 111320 * Math.cos(origin[1] * Math.PI / 180);
-const sy = 111320;
-const xy = p => [(p[0] - origin[0]) * sx, (p[1] - origin[1]) * sy];
-const ll = p => [p[0] / sx + origin[0], p[1] / sy + origin[1]];
-const distance = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+'use strict';
 const WALK_M_PER_MIN = 80.4672; // 3 mph
-const CELL = 40; // spatial index cell size in meters
+const CELL = 2;                 // shade grid, meters
+const BLOCK = 64;               // cells per sparse block side
+const SLOT_MIN = 15;            // minutes per sun slot
+const SAMPLE_M = 5;
 
-function contains(p, ring) {
-  let inside = false;
-  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-    const a = ring[i], b = ring[j];
-    if ((a[1] > p[1]) !== (b[1] > p[1]) && p[0] < (b[0] - a[0]) * (p[1] - a[1]) / (b[1] - a[1]) + a[0]) inside = !inside;
-  }
-  return inside;
+function outerRings(g) {
+  if (g.type === 'Polygon') return [g.coordinates[0]];
+  if (g.type === 'MultiPolygon') return g.coordinates.map(p => p[0]);
+  return [];
 }
 
-// Convex hull (monotone chain), closed ring.
+// Convex hull (monotone chain), closed ring, for drawing one shadow per object.
 function hull(points) {
   const pts = points.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
   const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
@@ -39,130 +36,198 @@ function hull(points) {
   return ring;
 }
 
-function outerRings(geometry) {
-  if (geometry.type === 'Polygon') return [geometry.coordinates[0]];
-  if (geometry.type === 'MultiPolygon') return geometry.coordinates.map(polygon => polygon[0]);
-  return [];
+// Boolean shade raster. Dense typed array when the area is compact, otherwise sparse
+// 64x64 blocks allocated on first write. Polygons are scan-filled row by row.
+class Grid {
+  constructor(bounds) {
+    const [x0, y0, x1, y1] = bounds;
+    this.c0 = Math.floor(x0 / CELL); this.r0 = Math.floor(y0 / CELL);
+    this.cols = Math.ceil(x1 / CELL) - this.c0 + 1; this.rows = Math.ceil(y1 / CELL) - this.r0 + 1;
+    this.dense = this.cols * this.rows <= 24e6 ? new Uint8Array(this.cols * this.rows) : null;
+    this.blocks = this.dense ? null : new Map();
+  }
+  span(r, ca, cb) {
+    if (this.dense) {
+      const rr = r - this.r0;
+      if (rr < 0 || rr >= this.rows) return;
+      const a = Math.max(0, ca - this.c0), b = Math.min(this.cols - 1, cb - this.c0);
+      if (a <= b) this.dense.fill(1, rr * this.cols + a, rr * this.cols + b + 1);
+      return;
+    }
+    const br = Math.floor(r / BLOCK), ir = ((r % BLOCK) + BLOCK) % BLOCK;
+    for (let c = ca; c <= cb;) {
+      const bc = Math.floor(c / BLOCK), end = Math.min(cb, bc * BLOCK + BLOCK - 1);
+      const key = br * 1e6 + bc;
+      let block = this.blocks.get(key);
+      if (!block) { block = new Uint8Array(BLOCK * BLOCK); this.blocks.set(key, block); }
+      const base = ir * BLOCK - bc * BLOCK;
+      block.fill(1, base + c, base + end + 1);
+      c = end + 1;
+    }
+  }
+  fillPolygon(ring) {
+    let y0 = Infinity, y1 = -Infinity;
+    for (const p of ring) { if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
+    const r0 = Math.ceil(y0 / CELL - .5), r1 = Math.floor(y1 / CELL - .5);
+    const xs = [];
+    for (let r = r0; r <= r1; r++) {
+      const y = (r + .5) * CELL;
+      xs.length = 0;
+      for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        const a = ring[i], b = ring[j];
+        if ((a[1] > y) !== (b[1] > y)) xs.push(a[0] + (y - a[1]) * (b[0] - a[0]) / (b[1] - a[1]));
+      }
+      if (xs.length === 2) { if (xs[0] > xs[1]) { const t = xs[0]; xs[0] = xs[1]; xs[1] = t; } }
+      else xs.sort((p, q) => p - q);
+      for (let k = 0; k + 1 < xs.length; k += 2) {
+        const ca = Math.ceil(xs[k] / CELL - .5), cb = Math.floor(xs[k + 1] / CELL - .5);
+        if (ca <= cb) this.span(r, ca, cb);
+      }
+    }
+  }
+  hit(x, y) {
+    const r = Math.floor(y / CELL), c = Math.floor(x / CELL);
+    if (this.dense) {
+      const rr = r - this.r0, cc = c - this.c0;
+      return rr >= 0 && cc >= 0 && rr < this.rows && cc < this.cols && this.dense[rr * this.cols + cc] === 1;
+    }
+    const block = this.blocks.get(Math.floor(r / BLOCK) * 1e6 + Math.floor(c / BLOCK));
+    return block ? block[(((r % BLOCK) + BLOCK) % BLOCK) * BLOCK + (((c % BLOCK) + BLOCK) % BLOCK)] === 1 : false;
+  }
 }
 
+const ringArea = ring => { let s = 0; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) s += (ring[j][0] + ring[i][0]) * (ring[j][1] - ring[i][1]); return Math.abs(s / 2); };
+
 function create(data) {
-  if (data.meta && data.meta.bounds) {
-    const [w, s, ea, n] = data.meta.bounds;
-    origin = [(w + ea) / 2, (s + n) / 2];
-    sx = 111320 * Math.cos(origin[1] * Math.PI / 180);
-  }
-  // ---- walking network ----
+  const [w0, s0, e0, n0] = data.meta.bounds;
+  const origin = [(w0 + e0) / 2, (s0 + n0) / 2];
+  const sx = 111320 * Math.cos(origin[1] * Math.PI / 180), sy = 111320;
+  const xy = p => [(p[0] - origin[0]) * sx, (p[1] - origin[1]) * sy];
+  const ll = p => [p[0] / sx + origin[0], p[1] / sy + origin[1]];
+  const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+  const names = data.names || [];
+
+  // ---- network ----
   const nodes = new Map();
-  // Compact segments are [a, b, lon1, lat1, lon2, lat2].
-  const rawEdges = data.edges.map(e => Array.isArray(e) ? {a: String(e[0]), b: String(e[1]), p: [e[2], e[3]], q: [e[4], e[5]]} : e);
-  const edges = rawEdges.map((e, id) => {
-    for (const [k, p] of [[e.a, e.p], [e.b, e.q]]) if (!nodes.has(k)) nodes.set(k, {p: xy(p), links: []});
-    const edge = {...e, id, length: distance(xy(e.p), xy(e.q)), sun: 1};
-    nodes.get(e.a).links.push(edge);
-    nodes.get(e.b).links.push(edge);
+  const edges = data.edges.map((e, id) => {
+    const raw = Array.isArray(e)
+      ? {a: String(e[0]), b: String(e[1]), p: [e[2], e[3]], q: [e[4], e[5]], w: e[6] || 0, name: names[e[7]] ?? ''}
+      : {a: e.a, b: e.b, p: e.p, q: e.q, w: e.w || 0, name: e.name || ''};
+    const P = xy(raw.p), Q = xy(raw.q), length = dist(P, Q);
+    for (const [k, p] of [[raw.a, P], [raw.b, Q]]) if (!nodes.has(k)) nodes.set(k, {p, links: []});
+    // Unit normal pointing to the left of a -> b.
+    const nx = length ? -(Q[1] - P[1]) / length : 0, ny = length ? (Q[0] - P[0]) / length : 0;
+    const edge = {id, a: raw.a, b: raw.b, P, Q, length, w: raw.w, name: raw.name, nx, ny};
+    nodes.get(raw.a).links.push(edge);
+    nodes.get(raw.b).links.push(edge);
     return edge;
   });
-  // Keep the largest connected component so every snapped point can reach every other.
+  // Largest connected component.
   let largest = new Set();
   const visited = new Set();
   for (const key of nodes.keys()) {
     if (visited.has(key)) continue;
-    const component = new Set([key]), queue = [key];
+    const component = new Set([key]), stack = [key];
     visited.add(key);
-    while (queue.length) {
-      const k = queue.pop();
+    while (stack.length) {
+      const k = stack.pop();
       for (const e of nodes.get(k).links) {
-        const other = e.a === k ? e.b : e.a;
-        if (!visited.has(other)) { visited.add(other); component.add(other); queue.push(other); }
+        const o = e.a === k ? e.b : e.a;
+        if (!visited.has(o)) { visited.add(o); component.add(o); stack.push(o); }
       }
     }
     if (component.size > largest.size) largest = component;
   }
   const reachable = [...largest];
-
-  // ---- shade sources in the planar frame ----
-  const buildings = data.buildings.features.map(f => ({ring: f.geometry.coordinates[0].map(xy), height: f.properties.height}));
-  const trees = ((data.trees && data.trees.features) || []).flatMap(f =>
-    outerRings(f.geometry).map(ring => ({ring: ring.map(xy), height: f.properties.h ?? f.properties.height_m})));
-
-  let lastShade = null;
-
-  function updateShade(azimuth, altitude, options = {}) {
-    const {geometry = false, withTrees = false} = options;
-    const bins = new Map(), polys = [];
-    const buildingShadows = [], treeShadows = [];
-    function add(ring, sink) {
-      const index = polys.length;
-      polys.push(ring);
-      let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-      for (const [x, y] of ring) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
-      for (let x = Math.floor(x0 / CELL); x <= Math.floor(x1 / CELL); x++)
-        for (let y = Math.floor(y0 / CELL); y <= Math.floor(y1 / CELL); y++) {
-          const key = x + ',' + y;
-          if (!bins.has(key)) bins.set(key, []);
-          bins.get(key).push(index);
-        }
-    }
-    const night = altitude <= 0;
-    if (!night) {
-      // Very low sun gives extremely long shadows; cap them at 400 m.
-      const reach = h => Math.min(400, h / Math.tan(Math.max(altitude, .02)));
-      // SunCalc azimuth: 0 = sun due south, positive toward west. The sun lies along
-      // (-sin, -cos) in (east, north) terms, so shadows fall along (+sin, +cos).
-      const dx = Math.sin(azimuth), dy = Math.cos(azimuth);
-      const sweep = (source, sink, footprintToo) => {
-        for (const {ring, height} of source) {
-          const len = reach(height), ox = dx * len, oy = dy * len;
-          const moved = ring.map(([x, y]) => [x + ox, y + oy]);
-          if (footprintToo) add(ring, null);
-          // Exact shadow for scoring: the shifted footprint plus one quad per wall.
-          add(moved, null);
-          for (let i = 0; i < ring.length - 1; i++) {
-            const p = ring[i], q = ring[i + 1];
-            add([p, q, moved[i + 1], moved[i], p], null);
-          }
-          // One polygon per object for drawing: the hull of footprint and shifted footprint.
-          if (sink) sink.push({type: 'Feature', properties: {}, geometry: {type: 'Polygon', coordinates: [hull(ring.concat(moved)).map(ll)]}});
-        }
-      };
-      sweep(buildings, geometry ? buildingShadows : null, true);
-      if (withTrees) sweep(trees, geometry ? treeShadows : null, true);
-    }
-    function shaded(p) {
-      const list = bins.get(Math.floor(p[0] / CELL) + ',' + Math.floor(p[1] / CELL));
-      return Boolean(list && list.some(i => contains(p, polys[i])));
-    }
-    for (const e of edges) {
-      if (night) { e.sun = 0; continue; }
-      const p = xy(e.p), q = xy(e.q), n = Math.max(1, Math.ceil(e.length / 10));
-      let count = 0;
-      for (let i = 0; i < n; i++) {
-        const t = (i + .5) / n;
-        if (shaded([p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])])) count++;
-      }
-      e.sun = 1 - count / n;
-    }
-    lastShade = {azimuth, altitude, withTrees, night};
-    return {
-      night,
-      buildings: {type: 'FeatureCollection', features: buildingShadows},
-      trees: {type: 'FeatureCollection', features: treeShadows},
-    };
+  // Spatial index of reachable nodes for snapping (100 m cells).
+  const nodeCells = new Map();
+  for (const k of reachable) {
+    const p = nodes.get(k).p, key = Math.floor(p[0] / 100) + ',' + Math.floor(p[1] / 100);
+    if (!nodeCells.has(key)) nodeCells.set(key, []);
+    nodeCells.get(key).push(k);
   }
 
-  function snap(coord) {
-    const p = xy(coord);
-    let best = null, d = Infinity;
-    for (const k of reachable) {
-      const dd = distance(p, nodes.get(k).p);
-      if (dd < d) { d = dd; best = k; }
+  // ---- shade sources ----
+  // Near-convex objects (area >= 92% of their hull) are swept as one hull: the same shadow, one fill.
+  const prep = (ring, h, forceHull) => {
+    const convex = forceHull || ringArea(ring) >= .92 * ringArea(hull(ring));
+    return {ring, h, convex};
+  };
+  const buildings = data.buildings.features.map(f => prep(f.geometry.coordinates[0].map(xy), f.properties.height, false));
+  const trees = ((data.trees && data.trees.features) || []).flatMap(f =>
+    outerRings(f.geometry).map(ring => prep(ring.map(xy), f.properties.h ?? f.properties.height_m, true)));
+  let bx0 = Infinity, by0 = Infinity, bx1 = -Infinity, by1 = -Infinity;
+  for (const {ring} of buildings.concat(trees)) for (const [x, y] of ring) { if (x < bx0) bx0 = x; if (y < by0) by0 = y; if (x > bx1) bx1 = x; if (y > by1) by1 = y; }
+  for (const e of edges) for (const [x, y] of [e.P, e.Q]) { if (x < bx0) bx0 = x; if (y < by0) by0 = y; if (x > bx1) bx1 = x; if (y > by1) by1 = y; }
+  const gridBounds = [bx0 - 450, by0 - 450, bx1 + 450, by1 + 450];
+
+  // ---- shade for one sun position ----
+  function shadeSlot(sun, withTrees, wantGeometry) {
+    const n = edges.length;
+    const left = new Float32Array(n), right = new Float32Array(n);
+    const geometry = wantGeometry ? {buildings: [], trees: []} : null;
+    if (sun.altitude <= 0) return {left, right, night: true, geometry};
+    const grid = new Grid(gridBounds);
+    const reach = h => Math.min(400, h / Math.tan(Math.max(sun.altitude, .02)));
+    const dx = Math.sin(sun.azimuth), dy = Math.cos(sun.azimuth); // SunCalc: shadows fall along (+sin, +cos)
+    const sweep = (list, sink) => {
+      for (const {ring, h, convex} of list) {
+        const len = reach(h), ox = dx * len, oy = dy * len;
+        const moved = ring.map(([x, y]) => [x + ox, y + oy]);
+        const swept = hull(ring.concat(moved));
+        if (convex) grid.fillPolygon(swept);
+        else {
+          grid.fillPolygon(ring);
+          grid.fillPolygon(moved);
+          for (let i = 0; i < ring.length - 1; i++) grid.fillPolygon([ring[i], ring[i + 1], moved[i + 1], moved[i], ring[i]]);
+        }
+        if (sink) sink.push({type: 'Feature', properties: {}, geometry: {type: 'Polygon', coordinates: [swept.map(ll)]}});
+      }
+    };
+    sweep(buildings, geometry && geometry.buildings);
+    if (withTrees) sweep(trees, geometry && geometry.trees);
+    for (const e of edges) {
+      const k = Math.max(1, Math.ceil(e.length / SAMPLE_M));
+      let sl = 0, sr = 0;
+      for (let i = 0; i < k; i++) {
+        const t = (i + .5) / k;
+        const x = e.P[0] + t * (e.Q[0] - e.P[0]), y = e.P[1] + t * (e.Q[1] - e.P[1]);
+        if (!grid.hit(x + e.nx * e.w, y + e.ny * e.w)) sl++;
+        if (!grid.hit(x - e.nx * e.w, y - e.ny * e.w)) sr++;
+      }
+      left[e.id] = sl / k;
+      right[e.id] = sr / k;
     }
+    return {left, right, night: false, geometry};
+  }
+
+  // ---- routing ----
+  function snap(coord) {
+    const p = xy(coord), cx = Math.floor(p[0] / 100), cy = Math.floor(p[1] / 100);
+    let best = null, d = Infinity;
+    for (let r = 0; r <= 6 && (best === null || r <= 2); r++) {
+      for (let i = cx - r; i <= cx + r; i++) for (let j = cy - r; j <= cy + r; j++) {
+        if (Math.max(Math.abs(i - cx), Math.abs(j - cy)) !== r) continue;
+        for (const k of nodeCells.get(i + ',' + j) || []) {
+          const dd = dist(p, nodes.get(k).p);
+          if (dd < d) { d = dd; best = k; }
+        }
+      }
+    }
+    if (best === null) return null;
     return {id: best, meters: d, coord: ll(nodes.get(best).p)};
   }
 
-  // Dijkstra with cost = length × (1 + penalty × badness), badness = sun (summer) or shade (winter).
-  function path(start, end, penalty, winter) {
-    const costs = new Map([[start, 0]]), previous = new Map(), heap = [];
+  // Sun share on an edge in a slot, taking the better sidewalk for the season.
+  const sideSun = (slot, e, winter) => {
+    const l = slot.left[e.id], r = slot.right[e.id];
+    return winter ? Math.max(l, r) : Math.min(l, r);
+  };
+  // `slots` is a function: slot index -> shade for that 15-minute slot (computed lazily by the caller).
+const slotFor = (slots, meters) => slots(Math.min(7, Math.floor(meters / WALK_M_PER_MIN / SLOT_MIN)));
+
+  function path(start, end, slots, penalty, winter) {
+    const cost = new Map([[start, 0]]), walked = new Map([[start, 0]]), prev = new Map(), heap = [[0, start]];
     const push = item => {
       heap.push(item);
       let i = heap.length - 1;
@@ -170,7 +235,7 @@ function create(data) {
       heap[i] = item;
     };
     const pop = () => {
-      const first = heap[0], last = heap.pop();
+      const top = heap[0], last = heap.pop();
       if (heap.length) {
         let i = 0;
         while (i * 2 + 1 < heap.length) {
@@ -181,83 +246,120 @@ function create(data) {
         }
         heap[i] = last;
       }
-      return first;
+      return top;
     };
-    push([0, start]);
     while (heap.length) {
-      const [cost, k] = pop();
-      if (cost !== costs.get(k)) continue;
+      const [c, k] = pop();
+      if (c !== cost.get(k)) continue;
       if (k === end) break;
+      const m = walked.get(k);
+      const slot = slotFor(slots, m);
       for (const e of nodes.get(k).links) {
-        const next = e.a === k ? e.b : e.a;
-        const badness = winter ? 1 - e.sun : e.sun;
-        const value = cost + e.length * (1 + penalty * badness);
-        if (value < (costs.get(next) ?? Infinity)) { costs.set(next, value); previous.set(next, {k, e}); push([value, next]); }
+        const o = e.a === k ? e.b : e.a;
+        const sun = sideSun(slot, e, winter);
+        const bad = winter ? 1 - sun : sun;
+        const value = c + e.length * (1 + penalty * bad);
+        if (value < (cost.get(o) ?? Infinity)) {
+          cost.set(o, value); walked.set(o, m + e.length); prev.set(o, {k, e}); push([value, o]);
+        }
       }
     }
-    if (!costs.has(end)) return null;
-    let k = end;
+    if (!cost.has(end)) return null;
     const segments = [];
-    while (k !== start) { const prev = previous.get(k); segments.push(prev.e); k = prev.k; }
-    segments.reverse();
-    return finish(segments, start);
+    for (let k = end; k !== start;) { const p = prev.get(k); segments.push(p.e); k = p.k; }
+    return segments.reverse();
   }
 
-  function metrics(segments) {
-    return {
-      length: segments.reduce((sum, e) => sum + e.length, 0),
-      exposure: segments.reduce((sum, e) => sum + e.length * e.sun, 0),
-    };
+  function describe(segments, start, slots, winter) {
+    let meters = 0, sunM = 0;
+    const keys = [start], parts = [];
+    for (const e of segments) {
+      const from = keys.at(-1), forward = e.a === from;
+      keys.push(forward ? e.b : e.a);
+      const slot = slotFor(slots, meters);
+      const l = slot.left[e.id], r = slot.right[e.id];
+      const useLeft = winter ? l >= r : l <= r;
+      const sun = useLeft ? l : r;
+      // Compass side of the sidewalk used, relative to the walking direction.
+      let nx = useLeft ? e.nx : -e.nx, ny = useLeft ? e.ny : -e.ny;
+      const side = e.w > 0 ? (Math.abs(nx) > Math.abs(ny) ? (nx > 0 ? 'east' : 'west') : (ny > 0 ? 'north' : 'south')) : '';
+      parts.push({name: e.name, length: e.length, sun, side,
+                  coords: [ll(nodes.get(from).p), ll(nodes.get(keys.at(-1)).p)]});
+      meters += e.length;
+      sunM += e.length * sun;
+    }
+    return {length: meters, exposure: sunM, minutes: meters / WALK_M_PER_MIN, sunMinutes: sunM / WALK_M_PER_MIN,
+            coords: keys.map(k => ll(nodes.get(k).p)), parts, segments};
   }
-  function routeNodes(segments, start) {
-    const keys = [start];
-    for (const e of segments) keys.push(e.a === keys.at(-1) ? e.b : e.a);
-    return keys;
-  }
-  function finish(segments, start) {
-    return {...metrics(segments), segments, coords: routeNodes(segments, start).map(key => ll(nodes.get(key).p))};
-  }
-  // Lower is better: sun minutes in summer, shade minutes in winter.
-  const badness = (m, winter) => winter ? m.length - m.exposure : m.exposure;
 
-  // Accept a candidate's detours one at a time, each only if it stays within the extra-time budget.
-  function localDetours(fast, candidate, start, maxExtra, winter) {
-    const fastKeys = routeNodes(fast.segments, start);
-    const positions = new Map(fastKeys.map((key, index) => [key, index]));
-    const joins = routeNodes(candidate.segments, start).flatMap((key, index) => positions.has(key) ? [[positions.get(key), index]] : []);
-    const segments = [];
+  // Lower is better: sun meters in summer, shade meters in winter.
+  const badness = (r, winter) => winter ? r.length - r.exposure : r.exposure;
+
+  // Replace parts of the shortest walk with a candidate's detours, each only if it helps
+  // and the total extra length stays within the budget.
+  function blend(fast, candidate, start, slots, winter, budget) {
+    const fastKeys = [start];
+    for (const e of fast.segments) fastKeys.push(e.a === fastKeys.at(-1) ? e.b : e.a);
+    const candKeys = [start];
+    for (const e of candidate) candKeys.push(e.a === candKeys.at(-1) ? e.b : e.a);
+    const pos = new Map(fastKeys.map((k, i) => [k, i]));
+    const joins = candKeys.flatMap((k, i) => pos.has(k) ? [[pos.get(k), i]] : []);
+    const out = [];
+    let extra = 0;
     for (let i = 1; i < joins.length; i++) {
-      const [from, altFrom] = joins[i - 1], [to, altTo] = joins[i];
-      if (to <= from) return fast;
-      const direct = fast.segments.slice(from, to), detour = candidate.segments.slice(altFrom, altTo);
-      const base = metrics(direct), alt = metrics(detour);
-      segments.push(...(alt.length <= base.length + maxExtra + 1e-6 && badness(alt, winter) < badness(base, winter) - 1e-6 ? detour : direct));
+      const [f0, c0] = joins[i - 1], [f1, c1] = joins[i];
+      if (f1 <= f0) return fast.segments;
+      const direct = fast.segments.slice(f0, f1), detour = candidate.slice(c0, c1);
+      const dl = direct.reduce((s, e) => s + e.length, 0), cl = detour.reduce((s, e) => s + e.length, 0);
+      const before = describe(out.concat(direct), start, slots, winter), after = describe(out.concat(detour), start, slots, winter);
+      if (extra + cl - dl <= budget + 1e-6 && badness(after, winter) < badness(before, winter) - 1e-6) {
+        out.push(...detour); extra += cl - dl;
+      } else out.push(...direct);
     }
-    const result = finish(segments, start);
-    return badness(result, winter) >= badness(fast, winter) - 1e-6 ? fast : result;
+    return out;
   }
 
-  function routes(a, b, extraMinutes, winter = false) {
+  /* Three routes: shortest, balanced (at most ~1 min extra or half the budget) and best
+     (most shade in summer, most sun in winter) within the extra-time budget. */
+  function routes(a, b, slots, extraMinutes, winter) {
     const start = snap(a), end = snap(b);
+    if (!start || !end) throw Error('Choose points on or near a street inside the dashed boundary.');
     if (start.id === end.id) throw Error('Choose two places farther apart.');
-    if (start.meters > 150 || end.meters > 150) throw Error('Choose points on or near a street inside Center City.');
-    const fast = path(start.id, end.id, 0, winter);
-    if (!fast) throw Error('No connected walking route between these points.');
-    let best = fast;
-    if (!(lastShade && lastShade.night)) {
+    if (start.meters > 150 || end.meters > 150) throw Error('Choose points on or near a street inside the dashed boundary.');
+    const fastSegs = path(start.id, end.id, slots, 0, winter);
+    if (!fastSegs) throw Error('No connected walking route between these points.');
+    const fast = describe(fastSegs, start.id, slots, winter);
+    const budget = extraMinutes * WALK_M_PER_MIN;
+    const midBudget = Math.min(WALK_M_PER_MIN, budget / 2);
+    let best = fast, mid = fast;
+    if (!slots(0).night) {
       for (const penalty of [.5, 1, 2, 4, 8, 16, 40]) {
-        const candidate = path(start.id, end.id, penalty, winter);
-        if (!candidate) continue;
-        const mixed = localDetours(fast, candidate, start.id, extraMinutes * WALK_M_PER_MIN, winter);
-        if (badness(mixed, winter) < badness(best, winter)) best = mixed;
+        const cand = path(start.id, end.id, slots, penalty, winter);
+        if (!cand) continue;
+        for (const [limit, keep] of [[budget, 'best'], [midBudget, 'mid']]) {
+          const mixed = describe(blend(fast, cand, start.id, slots, winter, limit), start.id, slots, winter);
+          if (keep === 'best' && badness(mixed, winter) < badness(best, winter)) best = mixed;
+          if (keep === 'mid' && badness(mixed, winter) < badness(mid, winter)) mid = mixed;
+        }
       }
     }
-    return {fast, shade: best, start, end};
+    const strip = r => ({length: r.length, exposure: r.exposure, minutes: r.minutes, sunMinutes: r.sunMinutes, coords: r.coords, parts: r.parts});
+    const same = (x, y) => x.segments.length === y.segments.length && x.segments.every((e, i) => e === y.segments[i]);
+    return {fast: strip(fast), best: strip(best), mid: same(mid, best) || same(mid, fast) ? null : strip(mid),
+            start, end, segmentIds: {fast: fast.segments.map(e => e.id), best: best.segments.map(e => e.id)}};
   }
 
-  return {nodes, edges, updateShade, routes, snap, componentSize: largest.size, treeCount: trees.length, buildingCount: buildings.length};
+  // Sun minutes along fixed routes for each slot (best departure time).
+  function exposureOf(segmentIds, slot, winter) {
+    let s = 0;
+    for (const id of segmentIds) { const e = edges[id]; s += e.length * sideSun(slot, e, winter); }
+    return s / WALK_M_PER_MIN;
+  }
+
+  return {shadeSlot, routes, snap, exposureOf, edges, componentSize: largest.size,
+          treeCount: trees.length, buildingCount: buildings.length, ll, xy};
 }
 
-root.HeatEngine = {create, xy, ll, contains, distance, WALK_M_PER_MIN};
+root.HeatEngine = {create, WALK_M_PER_MIN, SLOT_MIN, hull, Grid};
 if (typeof module !== 'undefined') module.exports = root.HeatEngine;
-})(typeof window !== 'undefined' ? window : globalThis);
+})(typeof self !== 'undefined' ? self : (typeof window !== 'undefined' ? window : globalThis));
