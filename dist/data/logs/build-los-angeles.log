@@ -16,3 +16,37 @@
   OSM tile 150: 742,370 nodes, 89,150 ways, 2,147 relations
   OSM tile 160: 796,863 nodes, 95,936 ways, 2,328 relations
   OSM tile 170: 865,965 nodes, 102,898 ways, 2,489 relations
+  OSM tile 180: 921,552 nodes, 109,053 ways, 2,597 relations
+  OSM tile 190: 991,209 nodes, 116,729 ways, 2,782 relations
+  OSM tile 200: 1,046,997 nodes, 123,121 ways, 2,937 relations
+  OSM tile 210: 1,099,287 nodes, 128,973 ways, 3,104 relations
+  OSM tile 220: 1,164,201 nodes, 136,293 ways, 3,227 relations
+  OSM tile 230: 1,221,457 nodes, 142,653 ways, 3,372 relations
+  OSM tile 240: 1,291,827 nodes, 150,377 ways, 3,465 relations
+  OSM tile 250: 1,345,179 nodes, 155,526 ways, 3,583 relations
+  OSM tile 260: 1,407,106 nodes, 161,941 ways, 3,713 relations
+  OSM tile 270: 1,475,650 nodes, 169,116 ways, 3,831 relations
+  OSM tile 280: 1,532,819 nodes, 175,449 ways, 3,991 relations
+  OSM tile 290: 1,599,759 nodes, 182,568 ways, 4,087 relations
+  OSM tile 300: 1,673,188 nodes, 189,936 ways, 4,249 relations
+  OSM tile 310: 1,736,112 nodes, 196,634 ways, 4,384 relations
+  OSM tile 320: 1,817,990 nodes, 205,179 ways, 4,467 relations
+  OSM tile 330: 1,871,031 nodes, 210,907 ways, 4,635 relations
+  OSM tile 340: 1,945,165 nodes, 218,318 ways, 4,724 relations
+  OSM tile 350: 2,023,630 nodes, 226,857 ways, 4,916 relations
+  OSM tile 360: 2,079,055 nodes, 232,954 ways, 5,045 relations
+  OSM tile 370: 2,137,953 nodes, 239,421 ways, 5,169 relations
+  OSM tile 380: 2,200,451 nodes, 246,391 ways, 5,360 relations
+  OSM tile 390: 2,251,561 nodes, 251,932 ways, 5,437 relations
+  OSM tile 400: 2,317,540 nodes, 260,451 ways, 5,583 relations
+  OSM tile 410: 2,378,140 nodes, 266,764 ways, 5,685 relations
+  OSM tile 420: 2,435,330 nodes, 273,053 ways, 5,777 relations
+  OSM tile 430: 2,497,366 nodes, 279,715 ways, 5,863 relations
+  OSM tile 432: 2,510,598 nodes, 281,406 ways, 5,937 relations
+  OSMnx walk graph: 224,274 nodes, 273,322 edges
+  37,324 building footprints
+  LiDAR source: USGS_LPC_CA_LosAngeles_2016_LAS_2018 (2018)
+  part 0: 36310 EPT nodes, ~6.0 pts/m², grid (6118, 9011)
+  part 0: 1,323,643,376 points, 36,652 building heights, 99,795 crowns so far
+  height model: trained on 37,220, predicted 104, CV MAE 3.0 m
+== Los Angeles done in 78.9 min: 82.15 MB, 273,255 segments, 37,324 buildings {'osm-levels': 67, 'osm': 35642, 'lidar': 1511, 'model': 104}, 99,795 crowns, 5,612 places, 176 pause places

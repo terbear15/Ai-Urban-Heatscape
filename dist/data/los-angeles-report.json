@@ -2,30 +2,33 @@
  "city": "Los Angeles",
  "slug": "los-angeles",
  "zones": [
-  "Downtown LA"
+  "Downtown LA",
+  "Westlake and Koreatown",
+  "Larchmont and Little Armenia",
+  "Hollywood"
  ],
- "area_km2": 5.76,
+ "area_km2": 33.21,
  "network": {
-  "nodes": 30801,
-  "edges": 37963,
-  "street_length_km": 760.31,
-  "intersections": 29676,
-  "streets_per_node_avg": 2.47,
-  "footpath_share": 0.594,
+  "nodes": 224274,
+  "edges": 273255,
+  "street_length_km": 5808.79,
+  "intersections": 218083,
+  "streets_per_node_avg": 2.44,
+  "footpath_share": 0.551,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 2357,
+ "buildings": 37324,
  "height_sources": {
-  "osm-levels": 34,
-  "osm": 1989,
-  "lidar": 319,
-  "model": 15
+  "osm-levels": 67,
+  "osm": 35642,
+  "lidar": 1511,
+  "model": 104
  },
  "height_model": {
-  "known": 2342,
-  "predicted": 15,
+  "known": 37220,
+  "predicted": 104,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 14.99,
+  "cv_mae_m": 2.97,
   "features": [
    "log area",
    "log perimeter",
@@ -36,34 +39,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 13666,
- "places": 2018,
- "pause_places": 74,
+ "trees": 99795,
+ "places": 5612,
+ "pause_places": 176,
  "pause_by_kind": {
-  "community": 2,
-  "water": 7,
-  "station": 8,
-  "mall": 4,
-  "park": 51,
-  "library": 2
+  "community": 8,
+  "water": 8,
+  "station": 18,
+  "mall": 16,
+  "library": 10,
+  "park": 116
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_CA_LosAngeles_2016_LAS_2018/",
    "survey_year": 2018,
-   "points": 92343087,
-   "density_pts_m2": 4.0,
+   "points": 1323643376,
+   "density_pts_m2": 6.0,
    "classes": {
-    "1": 71552545,
-    "2": 19799532,
-    "7": 10983,
-    "18": 86118,
-    "17": 893909
+    "1": 1100726220,
+    "2": 220825193,
+    "7": 79785,
+    "18": 111118,
+    "17": 1738723,
+    "9": 152174,
+    "10": 10163
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 9.76,
- "minutes": 3.2
+ "data_mb": 82.15,
+ "minutes": 78.9
 }

@@ -9,13 +9,27 @@
   OSM tile 80: 243,119 nodes, 44,659 ways, 1,637 relations
   OSM tile 90: 277,862 nodes, 52,088 ways, 1,729 relations
   OSM tile 100: 315,194 nodes, 57,865 ways, 1,929 relations
-  OSM tile 110: 339,738 nodes, 62,291 ways, 2,050 relations
-  OSM tile 120: 379,795 nodes, 69,213 ways, 2,374 relations
-  OSM tile 130: 396,910 nodes, 72,137 ways, 2,456 relations
-  OSM tile 140: 448,059 nodes, 82,116 ways, 2,866 relations
-  OSM tile 150: 468,976 nodes, 85,864 ways, 2,999 relations
-  OSM tile 160: 519,362 nodes, 96,092 ways, 3,363 relations
-  OSM tile 170: 540,823 nodes, 100,031 ways, 3,501 relations
-  OSM tile 180: 595,427 nodes, 110,716 ways, 4,077 relations
-  OSM tile 190: 616,334 nodes, 114,909 ways, 4,416 relations
-  OSM tile 200: 663,822 nodes, 123,561 ways, 4,697 relations
+  OSM tile 110: 339,739 nodes, 62,291 ways, 2,050 relations
+  OSM tile 120: 379,796 nodes, 69,213 ways, 2,374 relations
+  OSM tile 130: 396,911 nodes, 72,137 ways, 2,456 relations
+  OSM tile 140: 448,060 nodes, 82,116 ways, 2,866 relations
+  OSM tile 150: 468,977 nodes, 85,864 ways, 2,999 relations
+  OSM tile 160: 519,363 nodes, 96,092 ways, 3,363 relations
+  OSM tile 170: 540,824 nodes, 100,031 ways, 3,501 relations
+  OSM tile 180: 595,428 nodes, 110,716 ways, 4,077 relations
+  OSM tile 190: 616,335 nodes, 114,909 ways, 4,416 relations
+  OSM tile 200: 663,823 nodes, 123,561 ways, 4,697 relations
+  OSM tile 210: 695,269 nodes, 129,206 ways, 4,915 relations
+  OSM tile 220: 754,747 nodes, 139,505 ways, 5,156 relations
+  OSM tile 230: 782,098 nodes, 145,734 ways, 5,382 relations
+  OSM tile 240: 842,165 nodes, 156,180 ways, 5,741 relations
+  OSM tile 250: 869,991 nodes, 161,015 ways, 5,997 relations
+  OSM tile 260: 932,847 nodes, 171,013 ways, 6,201 relations
+  OSM tile 270: 951,819 nodes, 173,851 ways, 6,289 relations
+  OSMnx walk graph: 134,134 nodes, 171,318 edges
+  39,058 building footprints
+  LiDAR source: USGS_Lidar_Point_Cloud_NJ_SdL5_2014_LAS_2015 (2015)
+  part 0: 2684 EPT nodes, ~0.6 pts/m², grid (7935, 4755)
+  part 0: 91,501,316 points, 314 building heights, 4,009 crowns so far
+  height model: trained on 37,887, predicted 1,171, CV MAE 15.1 m
+== New York done in 28.0 min: 27.77 MB, 171,302 segments, 39,058 buildings {'osm': 37535, 'model': 1171, 'osm-levels': 312, 'lidar': 40}, 4,009 crowns, 20,413 places, 3974 pause places
