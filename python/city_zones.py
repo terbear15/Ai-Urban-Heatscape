@@ -126,7 +126,7 @@ OFFICIAL = {
     "new-york": {  # NYC Department of City Planning Neighborhood Tabulation Areas (2020)
         "Lower Manhattan": ["nta:Financial District-Battery Park City", "nta:Tribeca-Civic Center"],
         "SoHo and Greenwich Village": ["nta:SoHo-Little Italy-Hudson Square", "nta:Greenwich Village", "nta:West Village"],
-        "Midtown and Times Square": ["nta:Midtown-Times Square", "nta:East Midtown-Turtle Bay"],
+        "Midtown and Times Square": ["nta:Midtown-Times Square", "nta:East Midtown-Turtle Bay", "nta:Midtown South-Flatiron-Union Square", "nta:Chelsea-Hudson Yards", "nta:Gramercy"],
         "Central Park": ["nta:Central Park"],
         "DUMBO and Brooklyn Bridge": ["nta:Downtown Brooklyn-DUMBO-Boerum Hill", "nta:Brooklyn Heights"],
     },
