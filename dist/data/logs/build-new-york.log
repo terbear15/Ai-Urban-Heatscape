@@ -20,16 +20,3 @@
   OSM tile 190: 616,335 nodes, 114,909 ways, 4,416 relations
   OSM tile 200: 663,823 nodes, 123,561 ways, 4,697 relations
   OSM tile 210: 695,269 nodes, 129,206 ways, 4,915 relations
-  OSM tile 220: 754,747 nodes, 139,505 ways, 5,156 relations
-  OSM tile 230: 782,098 nodes, 145,734 ways, 5,382 relations
-  OSM tile 240: 842,165 nodes, 156,180 ways, 5,741 relations
-  OSM tile 250: 869,991 nodes, 161,015 ways, 5,997 relations
-  OSM tile 260: 932,847 nodes, 171,013 ways, 6,201 relations
-  OSM tile 270: 951,819 nodes, 173,851 ways, 6,289 relations
-  OSMnx walk graph: 134,134 nodes, 171,318 edges
-  39,058 building footprints
-  LiDAR source: USGS_Lidar_Point_Cloud_NJ_SdL5_2014_LAS_2015 (2015)
-  part 0: 2684 EPT nodes, ~0.6 pts/m², grid (7935, 4755)
-  part 0: 91,501,316 points, 314 building heights, 4,009 crowns so far
-  height model: trained on 37,887, predicted 1,171, CV MAE 15.1 m
-== New York done in 28.0 min: 27.77 MB, 171,302 segments, 39,058 buildings {'osm': 37535, 'model': 1171, 'osm-levels': 312, 'lidar': 40}, 4,009 crowns, 20,413 places, 3974 pause places

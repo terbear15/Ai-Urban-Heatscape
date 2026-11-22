@@ -17,16 +17,16 @@
  },
  "buildings": 4213,
  "height_sources": {
-  "lidar": 58,
+  "lidar": 2927,
   "osm": 1095,
-  "osm-levels": 1989,
-  "model": 1071
+  "osm-levels": 145,
+  "model": 46
  },
  "height_model": {
-  "known": 3142,
-  "predicted": 1071,
+  "known": 4167,
+  "predicted": 46,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 6.87,
+  "cv_mae_m": 6.75,
   "features": [
    "log area",
    "log perimeter",
@@ -37,7 +37,7 @@
    "max known height within 60 m"
   ]
  },
- "trees": 1222,
+ "trees": 11664,
  "places": 1227,
  "pause_places": 168,
  "pause_by_kind": {
@@ -51,24 +51,22 @@
  "lidar": [
   {
    "part": 0,
-   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/KY_FullState/",
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/OH_StatewideP3_6_B21/",
    "survey_year": 0,
-   "points": 4561135,
-   "density_pts_m2": 0.3,
+   "points": 318552040,
+   "density_pts_m2": 18.4,
    "classes": {
-    "2": 1062386,
-    "7": 5029,
-    "12": 1288668,
-    "9": 657657,
-    "10": 5052,
-    "1": 680366,
-    "18": 491316,
-    "17": 328589,
-    "25": 42072
+    "1": 206071020,
+    "2": 105201002,
+    "7": 62928,
+    "18": 52040,
+    "9": 86273,
+    "17": 7074649,
+    "20": 4128
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 3.76,
- "minutes": 1.7
+ "data_mb": 7.98,
+ "minutes": 4.0
 }
