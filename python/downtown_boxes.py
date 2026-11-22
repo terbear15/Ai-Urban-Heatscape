@@ -6,6 +6,10 @@ no boundary for that zone; the result is still clipped to land.
 """
 
 BOXES = {
+    "los-angeles": {
+        # Connects Koreatown to Hollywood: 3rd St (south) to Santa Monica Blvd (north), Western Ave (west) to Vermont Ave (east).
+        "Larchmont and Little Armenia": [(-118.3095, 34.0905), (-118.2915, 34.0905), (-118.2915, 34.0685), (-118.3095, 34.0685)],
+    },
     "san-jose": {
         # Downtown Core: Julian St (north), I-280 (south), SR-87 (west), 7th St / San Jose State (east).
         "Downtown": [(-121.8985, 37.3418), (-121.8793, 37.3418), (-121.8793, 37.3262), (-121.8985, 37.3262)],
