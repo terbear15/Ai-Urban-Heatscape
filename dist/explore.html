@@ -64,7 +64,7 @@ async function build() {
     link.setAttribute('aria-label', 'Open ' + city.name + ' walking map' + (zones ? '. Covers ' + zones : ''));
     link.innerHTML = '<div class="frame"><img alt="" loading="lazy" decoding="async"><div class="zones"></div></div><div class="name"><i class="dot"></i><span></span></div><div class="tag"></div>';
     const img = link.querySelector('img');
-    img.src = 'thumbs/' + slug + '.jpg';
+    img.src = 'thumbs/' + slug + '.jpg?v=' + (city.thumb || '2');
     img.onerror = () => img.remove();
     link.querySelector('.zones').textContent = zones || city.areaName || '';
     link.querySelector('.name span').textContent = city.name;
