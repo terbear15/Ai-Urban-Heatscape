@@ -44,7 +44,7 @@ worker.onmessage = ({data}) => {
   if (data.type === 'ready') return onData(data.stats);
   if (data.type === 'layers') {
     pendingLayers = data;
-    if (map.getSource('buildings')) { map.getSource('buildings').setData(data.buildings); map.getSource('trees').setData(data.trees); }
+    if (map.getSource('buildings')) map.getSource('buildings').setData(data.buildings);
     return;
   }
   const job = pending.get(data.id);
@@ -125,12 +125,12 @@ if (map) {
     const v = CITY.version;
     map.addSource('area', {type: 'geojson', data: 'cities/' + CITY.slug + '.geojson', tolerance: 0});
     map.addLayer({id: 'labels', type: 'raster', source: 'labels', paint: {'raster-fade-duration': 0, 'raster-opacity': .8}});
-    map.addSource('building-shadows', {type: 'geojson', data: empty, tolerance: .3});
-    map.addLayer({id: 'building-shadows', type: 'fill', source: 'building-shadows', paint: {'fill-color': css('--map-building-shadow'), 'fill-opacity': .9, 'fill-antialias': false}});
-    map.addSource('tree-shadows', {type: 'geojson', data: empty, tolerance: .3});
-    map.addLayer({id: 'tree-shadows', type: 'fill', source: 'tree-shadows', paint: {'fill-color': css('--map-tree-shadow'), 'fill-opacity': .9, 'fill-antialias': false}});
-    map.addSource('trees', {type: 'geojson', data: pendingLayers ? pendingLayers.trees : empty});
-    map.addLayer({id: 'trees', type: 'fill', source: 'trees', paint: {'fill-color': css('--map-tree'), 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 13, .55, 16, .9]}});
+    // Shadows and tree crowns arrive as one picture from the worker, already clipped to the
+    // area: one image instead of hundreds of thousands of polygons (New York, Washington).
+    const blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+    const [w0, s0, e0, n0] = [CITY.bounds[0][0], CITY.bounds[0][1], CITY.bounds[1][0], CITY.bounds[1][1]];
+    map.addSource('shade-image', {type: 'image', url: blank, coordinates: [[w0, n0], [e0, n0], [e0, s0], [w0, s0]]});
+    map.addLayer({id: 'shade-image', type: 'raster', source: 'shade-image', paint: {'raster-opacity': .9, 'raster-fade-duration': 0, 'raster-resampling': 'linear'}});
     map.addSource('buildings', {type: 'geojson', data: pendingLayers ? pendingLayers.buildings : empty});
     map.addLayer({id: 'buildings', type: 'fill', source: 'buildings', paint: {
       'fill-color': css('--map-building'), 'fill-outline-color': css('--map-building-edge'),
@@ -206,9 +206,7 @@ function start() {
 function paintColors() {
   if (!mapReady) return;
   const set = (layer, prop, token) => map.setPaintProperty(layer, prop, css(token));
-  set('building-shadows', 'fill-color', '--map-building-shadow');
-  set('tree-shadows', 'fill-color', '--map-tree-shadow');
-  set('trees', 'fill-color', '--map-tree');
+  refreshShade();  // the picture is painted in the worker with the season's colors
   set('buildings', 'fill-color', '--map-building');
   set('buildings', 'fill-outline-color', '--map-building-edge');
   set('city-mask', 'fill-color', '--map-mask');
@@ -408,17 +406,28 @@ function setSeason(next, quiet) {
 }
 
 // Shadows on the map. While the slider moves only the shadows update (U13).
-let shadeBusy = false, shadeAgain = false;
+let shadeBusy = false, shadeAgain = false, shadeUrl = null;
+function rgba(token, alpha) {
+  const ctx = rgba.ctx || (rgba.ctx = document.createElement('canvas').getContext('2d'));
+  ctx.fillStyle = '#000'; ctx.fillStyle = css(token);
+  const hex = ctx.fillStyle.startsWith('#') ? ctx.fillStyle : '#000000';
+  return [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16), alpha];
+}
+const shadeColors = () => ({1: rgba('--map-tree-shadow', 235), 2: rgba('--map-building-shadow', 235), 3: rgba('--map-tree', 215)});
 async function refreshShade() {
   if (!ready) return;
   if (shadeBusy) { shadeAgain = true; return; }
   shadeBusy = true;
   const version = ++shadeVersion, trees = useTrees();
   try {
-    const out = await call({type: 'shade', time: departure(), lat: center[1], lon: center[0], trees});
+    const out = await call({type: 'shade', time: departure(), lat: center[1], lon: center[0], trees, colors: shadeColors()});
+    if (version === shadeVersion && out.image) {
+      const url = URL.createObjectURL(out.image);
+      map.getSource('shade-image').updateImage({url, coordinates: out.corners});
+      if (shadeUrl) setTimeout(URL.revokeObjectURL.bind(URL, shadeUrl), 2000);
+      shadeUrl = url;
+    }
     if (version === shadeVersion) {
-      map.getSource('building-shadows').setData(fc(out.geometry ? out.geometry.buildings : []));
-      map.getSource('tree-shadows').setData(fc(out.geometry ? out.geometry.trees : []));
       const sun = SunCalc.getPosition(new Date(departure()), center[1], center[0]);
       $('solarLabel').textContent = out.night ? 'The sun is below the horizon' : `Sun ${Math.round(sun.altitude * 180 / Math.PI)}° above the horizon`;
       $('treeStatus').textContent = season === 'winter' ? 'Leaf-off: trees are not counted in winter' :

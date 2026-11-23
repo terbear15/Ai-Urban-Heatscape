@@ -2,7 +2,7 @@
  * positions (cached) and routes, so the page never freezes while it works.
  *
  * Messages in:  {type:'init', slug, version}
- *               {type:'shade', id, time, lat, lon, trees}              -> shadow geometry for the map
+ *               {type:'shade', id, time, lat, lon, trees, colors}      -> PNG of shadows and crowns for the map
  *               {type:'route', id, a, b, time, lat, lon, trees, extra, winter}
  *               {type:'besttime', id, segments:{fast,best}, times:[...], lat, lon, trees, winter}
  * Messages out: {type:'ready'|'shade'|'route'|'besttime'|'error', id, ...}
@@ -128,18 +128,28 @@ self.onmessage = ({data: msg}) => {
       importScripts('vendor/suncalc.js', 'engine.js?' + msg.version, 'data/' + msg.slug + '.js?' + msg.version);
       const data = CITYDATA.v === 3 ? HeatEngine.unpack(CITYDATA) : CITYDATA;
       engine = HeatEngine.create(data);
+      engine.setDisplayArea(loadArea(msg.slug));
       self.postMessage({type: 'ready', stats: {
         buildings: engine.buildingCount, trees: engine.treeCount, segments: engine.edges.length,
         component: engine.componentSize, meta: CITYDATA.meta, pois: CITYDATA.pois || [],
       }});
       // Map layers come from the same download: buildings and crowns inside the area only
       // (the data reaches 150 m further so edge streets get the right shade).
-      self.postMessage({type: 'layers', buildings: inside(data.buildings, msg.slug), trees: inside(data.trees, msg.slug)});
+      self.postMessage({type: 'layers', buildings: inside(data.buildings, msg.slug)});
       CITYDATA.buildings = CITYDATA.trees = data.buildings = data.trees = null; // engine has its own copies
     } else if (msg.type === 'shade') {
-      const s = slot(msg.time, msg.lat, msg.lon, msg.trees, true);
-      const geometry = s.geometry && {buildings: clipShadows(s.geometry.buildings, citySlug), trees: clipShadows(s.geometry.trees, citySlug)};
-      self.postMessage({type: 'shade', id: msg.id, night: s.night, geometry});
+      const s = slot(msg.time, msg.lat, msg.lon, msg.trees, 'raster');
+      const r = s.geometry.raster, rgba = new Uint8ClampedArray(r.width * r.height * 4);
+      const palette = [null, msg.colors[1], msg.colors[2], msg.colors[3]];
+      for (let i = 0; i < r.data.length; i++) {
+        const c = palette[r.data[i]];
+        if (c) { const k = i * 4; rgba[k] = c[0]; rgba[k + 1] = c[1]; rgba[k + 2] = c[2]; rgba[k + 3] = c[3]; }
+      }
+      const canvas = new OffscreenCanvas(r.width, r.height);
+      canvas.getContext('2d').putImageData(new ImageData(rgba, r.width, r.height), 0, 0);
+      s.geometry = null; // keep the shade numbers cached, not the 12 MB picture
+      const id = msg.id, night = s.night;
+      canvas.convertToBlob({type: 'image/png'}).then(image => self.postMessage({type: 'shade', id, night, image, corners: r.corners}));
       schedulePrefetch(msg.time, msg.lat, msg.lon, msg.trees);
     } else if (msg.type === 'route') {
       const result = engine.routes(msg.a, msg.b, slotsFrom(msg.time, msg.lat, msg.lon, msg.trees), msg.extra, msg.winter);

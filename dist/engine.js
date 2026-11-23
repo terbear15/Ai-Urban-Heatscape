@@ -96,6 +96,36 @@ class Grid {
   }
 }
 
+// Picture of the shade for the map: one byte per cell (0 none, 1 tree shadow, 2 building
+// shadow, 3 tree crown), drawn as a single image instead of hundreds of thousands of polygons.
+class Raster {
+  constructor([x0, y0, x1, y1], cell) {
+    this.x0 = x0; this.y1 = y1; this.cell = cell;
+    this.w = Math.ceil((x1 - x0) / cell); this.h = Math.ceil((y1 - y0) / cell);
+    this.data = new Uint8Array(this.w * this.h);
+  }
+  // Even-odd scanline fill of one or more rings (local metres); writes `value`.
+  fill(rings, value) {
+    let ya = Infinity, yb = -Infinity;
+    for (const ring of rings) for (const p of ring) { if (p[1] < ya) ya = p[1]; if (p[1] > yb) yb = p[1]; }
+    const ra = Math.max(0, Math.floor((this.y1 - yb) / this.cell)), rb = Math.min(this.h - 1, Math.ceil((this.y1 - ya) / this.cell));
+    const xs = [];
+    for (let r = ra; r <= rb; r++) {
+      const y = this.y1 - (r + .5) * this.cell;
+      xs.length = 0;
+      for (const ring of rings) for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        const a = ring[i], b = ring[j];
+        if ((a[1] > y) !== (b[1] > y)) xs.push(a[0] + (y - a[1]) * (b[0] - a[0]) / (b[1] - a[1]));
+      }
+      xs.sort((p, q) => p - q);
+      for (let k = 0; k + 1 < xs.length; k += 2) {
+        const ca = Math.max(0, Math.ceil((xs[k] - this.x0) / this.cell - .5)), cb = Math.min(this.w - 1, Math.floor((xs[k + 1] - this.x0) / this.cell - .5));
+        if (ca <= cb) this.data.fill(value, r * this.w + ca, r * this.w + cb + 1);
+      }
+    }
+  }
+}
+
 const ringArea = ring => { let s = 0; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) s += (ring[j][0] + ring[i][0]) * (ring[j][1] - ring[i][1]); return Math.abs(s / 2); };
 
 // Packed city data (format 3, python/pack_city_data.py) back to the readable form.
@@ -189,8 +219,10 @@ function create(data) {
   function shadeSlot(sun, withTrees, wantGeometry) {
     const n = edges.length;
     const left = new Float32Array(n), right = new Float32Array(n);
-    const geometry = wantGeometry ? {buildings: [], trees: []} : null;
-    if (sun.altitude <= 0) return {left, right, night: true, geometry};
+    const asRaster = wantGeometry === 'raster' && display;
+    const picture = asRaster ? new Raster(display.frame, display.cell) : null;
+    const geometry = wantGeometry && !asRaster ? {buildings: [], trees: []} : null;
+    if (sun.altitude <= 0) return {left, right, night: true, geometry: asRaster ? finishRaster(picture, false) : geometry};
     const grid = new Grid(gridBounds);
     const reach = h => Math.min(400, h / Math.tan(Math.max(sun.altitude, .02)));
     const dx = Math.sin(sun.azimuth), dy = Math.cos(sun.azimuth); // SunCalc: shadows fall along (+sin, +cos)
@@ -206,10 +238,13 @@ function create(data) {
           for (let i = 0; i < ring.length - 1; i++) grid.fillPolygon([ring[i], ring[i + 1], moved[i + 1], moved[i], ring[i]]);
         }
         if (sink) sink.push({type: 'Feature', properties: {}, geometry: {type: 'Polygon', coordinates: [swept.map(ll)]}});
+        if (picture && inFrame(swept)) picture.fill([swept], paint);
       }
     };
-    sweep(buildings, geometry && geometry.buildings);
+    let paint = 1;
     if (withTrees) sweep(trees, geometry && geometry.trees);
+    paint = 2;
+    sweep(buildings, geometry && geometry.buildings);
     for (const e of edges) {
       const k = Math.max(1, Math.ceil(e.length / SAMPLE_M));
       let sl = 0, sr = 0;
@@ -222,7 +257,42 @@ function create(data) {
       left[e.id] = sl / k;
       right[e.id] = sr / k;
     }
-    return {left, right, night: false, geometry};
+    return {left, right, night: false, geometry: asRaster ? finishRaster(picture, true) : geometry};
+  }
+
+  // ---- map picture (set once per city with the area to show) ----
+  let display = null;
+  const inFrame = ring => {
+    const [x0, y0, x1, y1] = display.frame;
+    for (const [x, y] of ring) if (x >= x0 && x <= x1 && y >= y0 && y <= y1) return true;
+    return false;
+  };
+  function setDisplayArea(polygons) {
+    // polygons: [[outerRing, ...holes], ...] in lon/lat
+    const rings = polygons.flat().map(r => r.map(([lon, lat]) => xy([lon, lat])));
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (const r of rings) for (const [x, y] of r) { if (x < x0) x0 = x; if (y < y0) y0 = y; if (x > x1) x1 = x; if (y > y1) y1 = y; }
+    const cell = Math.max(2, Math.ceil(Math.max(x1 - x0, y1 - y0) / 6000));
+    const frame = [x0 - cell, y0 - cell, x1 + cell, y1 + cell];
+    const mask = new Raster(frame, cell);
+    mask.fill(rings, 1);
+    display = {frame, cell};
+    const crowns = new Raster(frame, cell);
+    for (const t of trees) if (inFrame(t.ring)) crowns.fill([t.ring], 1);
+    Object.assign(display, {mask: mask.data, crowns: crowns.data});
+    const [w, n] = ll([frame[0], frame[3]]), [e, s] = ll([frame[2], frame[1]]);
+    display.corners = [[w, n], [e, n], [e, s], [w, s]];
+    display.w = mask.w; display.h = mask.h;
+    return {width: mask.w, height: mask.h, cell};
+  }
+  function finishRaster(picture, day) {
+    const {mask, crowns} = display, data = picture.data;
+    for (let i = 0; i < data.length; i++) {
+      if (!mask[i]) data[i] = 0;
+      else if (crowns[i]) data[i] = 3;
+      else if (!day) data[i] = 0;
+    }
+    return {raster: {width: picture.w, height: picture.h, data, corners: display.corners}};
   }
 
   // ---- routing ----
@@ -381,7 +451,7 @@ const slotFor = (slots, meters) => slots(Math.min(7, Math.floor(meters / WALK_M_
   }
 
   return {shadeSlot, routes, snap, exposureOf, edges, componentSize: largest.size,
-          treeCount: trees.length, buildingCount: buildings.length, ll, xy};
+          treeCount: trees.length, buildingCount: buildings.length, ll, xy, setDisplayArea};
 }
 
 root.HeatEngine = {create, unpack, WALK_M_PER_MIN, SLOT_MIN, hull, Grid};
