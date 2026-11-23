@@ -1,16 +1,20 @@
 == Cleveland: 1 zone(s)
-  OSM tile 10: 10,370 nodes, 1,334 ways, 89 relations
-  OSM tile 20: 25,474 nodes, 3,510 ways, 127 relations
-  OSM tile 30: 35,303 nodes, 5,248 ways, 176 relations
-  OSM tile 40: 44,101 nodes, 6,723 ways, 247 relations
-  OSM tile 50: 49,150 nodes, 7,771 ways, 276 relations
-  OSM tile 60: 55,961 nodes, 9,005 ways, 307 relations
-  OSM tile 70: 62,435 nodes, 10,078 ways, 337 relations
-  OSM tile 72: 66,921 nodes, 10,846 ways, 352 relations
-  OSMnx walk graph: 17,126 nodes, 21,092 edges
-  1,184 building footprints
+  OSM tile 10: 16,622 nodes, 1,815 ways, 112 relations
+  OSM tile 20: 38,038 nodes, 4,809 ways, 149 relations
+  OSM tile 30: 53,071 nodes, 7,174 ways, 165 relations
+  OSM tile 40: 67,730 nodes, 9,447 ways, 177 relations
+  OSM tile 50: 82,408 nodes, 11,739 ways, 210 relations
+  OSM tile 60: 91,803 nodes, 13,291 ways, 245 relations
+  OSM tile 70: 100,413 nodes, 14,698 ways, 321 relations
+  OSM tile 80: 109,510 nodes, 16,316 ways, 357 relations
+  OSM tile 90: 120,550 nodes, 18,328 ways, 381 relations
+  OSM tile 100: 129,231 nodes, 20,125 ways, 429 relations
+  OSM tile 110: 138,697 nodes, 21,759 ways, 446 relations
+  OSM tile 117: 148,821 nodes, 23,016 ways, 453 relations
+  OSMnx walk graph: 30,528 nodes, 38,113 edges
+  4,887 building footprints
   LiDAR source: OH_Statewide_Phase1_1_2019 (2019)
-  part 0: 9586 EPT nodes, ~9.1 pts/m², grid (3395, 2855)
-  part 0: 351,688,620 points, 1,124 building heights, 17,037 crowns so far
-  height model: trained on 1,167, predicted 17, CV MAE 11.7 m
-== Cleveland done in 6.0 min: 8.91 MB, 21,090 segments, 1,184 buildings {'lidar': 1063, 'osm': 92, 'osm-levels': 12, 'model': 17}, 17,037 crowns, 971 places, 81 pause places
+  part 0: 19013 EPT nodes, ~11.2 pts/m², grid (3963, 4188)
+  part 0: 741,711,330 points, 4,809 building heights, 35,996 crowns so far
+  height model: trained on 4,854, predicted 33, CV MAE 6.0 m
+== Cleveland done in 11.6 min: 19.26 MB, 38,109 segments, 4,887 buildings {'lidar': 4748, 'model': 33, 'osm': 93, 'osm-levels': 13}, 35,996 crowns, 1,367 places, 118 pause places

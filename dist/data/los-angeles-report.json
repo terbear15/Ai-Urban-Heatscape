@@ -7,28 +7,28 @@
   "Larchmont and Little Armenia",
   "Hollywood"
  ],
- "area_km2": 33.21,
+ "area_km2": 42.27,
  "network": {
-  "nodes": 224274,
-  "edges": 273255,
-  "street_length_km": 5808.79,
-  "intersections": 218083,
-  "streets_per_node_avg": 2.44,
-  "footpath_share": 0.551,
+  "nodes": 129952,
+  "edges": 159172,
+  "street_length_km": 3380.92,
+  "intersections": 126095,
+  "streets_per_node_avg": 2.45,
+  "footpath_share": 0.577,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 37324,
+ "buildings": 49811,
  "height_sources": {
-  "osm-levels": 67,
-  "osm": 35642,
-  "lidar": 1511,
-  "model": 104
+  "osm-levels": 48,
+  "osm": 48018,
+  "lidar": 1673,
+  "model": 72
  },
  "height_model": {
-  "known": 37220,
-  "predicted": 104,
+  "known": 49739,
+  "predicted": 72,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.97,
+  "cv_mae_m": 2.37,
   "features": [
    "log area",
    "log perimeter",
@@ -39,36 +39,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 99795,
- "places": 5612,
- "pause_places": 176,
+ "trees": 104466,
+ "places": 5928,
+ "pause_places": 200,
  "pause_by_kind": {
-  "community": 8,
-  "water": 8,
-  "station": 18,
   "mall": 16,
-  "library": 10,
-  "park": 116
+  "water": 11,
+  "community": 12,
+  "station": 18,
+  "library": 13,
+  "park": 130
  },
  "lidar": [
   {
    "part": 0,
-   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_CA_LosAngeles_2016_LAS_2018/",
-   "survey_year": 2018,
-   "points": 1323643376,
-   "density_pts_m2": 6.0,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CA_LosAngeles_1_B23/",
+   "survey_year": 0,
+   "points": 1385758684,
+   "density_pts_m2": 11.6,
    "classes": {
-    "1": 1100726220,
-    "2": 220825193,
-    "7": 79785,
-    "18": 111118,
-    "17": 1738723,
-    "9": 152174,
-    "10": 10163
+    "1": 857326907,
+    "18": 64903,
+    "2": 520481465,
+    "7": 245534,
+    "9": 574960,
+    "17": 7013828,
+    "20": 51087
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 82.15,
- "minutes": 78.9
+ "data_mb": 75.13,
+ "minutes": 40.2
 }

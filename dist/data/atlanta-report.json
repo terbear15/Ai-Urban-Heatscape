@@ -6,28 +6,28 @@
   "Midtown",
   "Old Fourth Ward and BeltLine"
  ],
- "area_km2": 13.31,
+ "area_km2": 25.64,
  "network": {
-  "nodes": 59567,
-  "edges": 70867,
-  "street_length_km": 1167.49,
-  "intersections": 55404,
-  "streets_per_node_avg": 2.38,
-  "footpath_share": 0.581,
+  "nodes": 93669,
+  "edges": 109548,
+  "street_length_km": 1887.59,
+  "intersections": 87525,
+  "streets_per_node_avg": 2.34,
+  "footpath_share": 0.537,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 6887,
+ "buildings": 16569,
  "height_sources": {
-  "lidar": 6069,
-  "osm": 346,
-  "model": 160,
-  "osm-levels": 312
+  "lidar": 4640,
+  "model": 9712,
+  "osm-levels": 1857,
+  "osm": 360
  },
  "height_model": {
-  "known": 6727,
-  "predicted": 160,
+  "known": 6857,
+  "predicted": 9712,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 11.45,
+  "cv_mae_m": 10.76,
   "features": [
    "log area",
    "log perimeter",
@@ -38,40 +38,38 @@
    "max known height within 60 m"
   ]
  },
- "trees": 37462,
- "places": 2569,
- "pause_places": 192,
+ "trees": 15778,
+ "places": 3162,
+ "pause_places": 246,
  "pause_by_kind": {
-  "water": 29,
+  "park": 159,
+  "water": 35,
+  "station": 19,
+  "mall": 9,
   "community": 16,
-  "park": 116,
-  "station": 16,
-  "mall": 8,
-  "library": 7
+  "library": 8
  },
  "lidar": [
   {
    "part": 0,
-   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/GA_Statewide_B2_2018/",
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/GA_Statewide_B3_2018/",
    "survey_year": 2018,
-   "points": 114439209,
-   "density_pts_m2": 2.7,
+   "points": 98937259,
+   "density_pts_m2": 1.1,
    "classes": {
-    "1": 18562404,
-    "2": 23983533,
-    "7": 30505,
-    "3": 5647877,
-    "4": 8597728,
-    "5": 32456015,
-    "6": 24148602,
-    "17": 1009742,
-    "9": 2527,
-    "18": 43,
-    "20": 233
+    "1": 7452151,
+    "2": 23628526,
+    "6": 10889991,
+    "7": 5539,
+    "5": 44884514,
+    "3": 3308314,
+    "4": 8393315,
+    "17": 374787,
+    "18": 122
    },
    "vegetation_classes": true
   }
  ],
- "data_mb": 24.58,
- "minutes": 5.9
+ "data_mb": 21.62,
+ "minutes": 9.2
 }

@@ -2,34 +2,30 @@
  "city": "New York",
  "slug": "new-york",
  "zones": [
-  "Lower Manhattan",
-  "SoHo and Greenwich Village",
-  "Midtown and Times Square",
-  "Central Park",
-  "Upper West Side and Upper East Side"
+  "Manhattan"
  ],
- "area_km2": 30.78,
+ "area_km2": 64.76,
  "network": {
-  "nodes": 134134,
-  "edges": 171302,
-  "street_length_km": 3162.93,
-  "intersections": 129884,
-  "streets_per_node_avg": 2.55,
-  "footpath_share": 0.687,
+  "nodes": 295191,
+  "edges": 371356,
+  "street_length_km": 7535.91,
+  "intersections": 284900,
+  "streets_per_node_avg": 2.52,
+  "footpath_share": 0.605,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 39058,
+ "buildings": 64104,
  "height_sources": {
-  "osm": 37535,
-  "model": 1171,
-  "osm-levels": 312,
-  "lidar": 40
+  "osm": 61866,
+  "lidar": 1337,
+  "model": 746,
+  "osm-levels": 155
  },
  "height_model": {
-  "known": 37887,
-  "predicted": 1171,
+  "known": 63358,
+  "predicted": 746,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 15.08,
+  "cv_mae_m": 11.23,
   "features": [
    "log area",
    "log perimeter",
@@ -40,36 +36,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 4009,
- "places": 20413,
- "pause_places": 3974,
+ "trees": 130267,
+ "places": 28650,
+ "pause_places": 5295,
  "pause_by_kind": {
-  "station": 139,
-  "water": 322,
-  "library": 38,
-  "park": 3431,
-  "community": 39,
-  "mall": 5
+  "station": 194,
+  "park": 4403,
+  "water": 553,
+  "community": 73,
+  "library": 64,
+  "mall": 8
  },
  "lidar": [
   {
    "part": 0,
-   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_Lidar_Point_Cloud_NJ_SdL5_2014_LAS_2015/",
-   "survey_year": 2015,
-   "points": 91501316,
-   "density_pts_m2": 0.6,
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity/",
+   "survey_year": 0,
+   "points": 881333588,
+   "density_pts_m2": 2.3,
    "classes": {
-    "1": 43691767,
-    "2": 8590749,
-    "7": 8317,
-    "17": 21220160,
-    "18": 6636826,
-    "9": 11288083,
-    "10": 65414
+    "1": 353399022,
+    "2": 104452814,
+    "7": 158344,
+    "9": 33537591,
+    "10": 426239,
+    "17": 313052908,
+    "18": 76306670
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 27.77,
- "minutes": 28.0
+ "data_mb": 109.93,
+ "minutes": 122.8
 }

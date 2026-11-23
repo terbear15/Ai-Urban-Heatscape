@@ -5,28 +5,28 @@
   "Downtown",
   "Mill District and Riverfront"
  ],
- "area_km2": 5.24,
+ "area_km2": 10.17,
  "network": {
-  "nodes": 28862,
-  "edges": 35949,
-  "street_length_km": 679.03,
-  "intersections": 27221,
-  "streets_per_node_avg": 2.49,
-  "footpath_share": 0.64,
+  "nodes": 46747,
+  "edges": 58764,
+  "street_length_km": 1143.77,
+  "intersections": 44256,
+  "streets_per_node_avg": 2.51,
+  "footpath_share": 0.609,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 2410,
+ "buildings": 5786,
  "height_sources": {
-  "lidar": 2182,
-  "model": 43,
-  "osm": 143,
-  "osm-levels": 42
+  "lidar": 5566,
+  "model": 34,
+  "osm": 154,
+  "osm-levels": 32
  },
  "height_model": {
-  "known": 2367,
-  "predicted": 43,
+  "known": 5752,
+  "predicted": 34,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 9.15,
+  "cv_mae_m": 5.98,
   "features": [
    "log area",
    "log perimeter",
@@ -37,41 +37,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 14531,
- "places": 1608,
- "pause_places": 192,
+ "trees": 37366,
+ "places": 2482,
+ "pause_places": 296,
  "pause_by_kind": {
-  "community": 5,
-  "water": 16,
-  "park": 163,
-  "station": 5,
-  "library": 2,
-  "mall": 1
+  "community": 17,
+  "water": 24,
+  "station": 8,
+  "park": 240,
+  "library": 5,
+  "mall": 2
  },
  "lidar": [
   {
    "part": 0,
-   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MN_FullState/",
+   "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MN_CentralMissRiver_4_B22/",
    "survey_year": 0,
-   "points": 139182223,
-   "density_pts_m2": 5.0,
+   "points": 915795684,
+   "density_pts_m2": 19.6,
    "classes": {
-    "2": 58078494,
-    "7": 2423352,
-    "8": 5507914,
-    "5": 7226967,
-    "6": 34104718,
-    "9": 626830,
-    "1": 23169495,
-    "3": 3766757,
-    "10": 111389,
-    "14": 2581424,
-    "4": 1584690,
-    "0": 193
+    "2": 362625810,
+    "7": 866421,
+    "9": 11434658,
+    "18": 8474434,
+    "1": 523663598,
+    "20": 90963,
+    "17": 8639800
    },
-   "vegetation_classes": true
+   "vegetation_classes": false
   }
  ],
- "data_mb": 9.49,
- "minutes": 3.4
+ "data_mb": 22.03,
+ "minutes": 17.9
 }

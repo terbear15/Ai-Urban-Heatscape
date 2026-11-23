@@ -1,14 +1,13 @@
-== Denver: 3 zone(s)
-  OSM tile 10: 75,037 nodes, 10,060 ways, 121 relations
-  OSM tile 20: 147,126 nodes, 20,829 ways, 165 relations
-  OSM tile 30: 193,862 nodes, 28,409 ways, 268 relations
-  OSM tile 40: 260,798 nodes, 38,089 ways, 415 relations
-  OSM tile 50: 352,124 nodes, 52,101 ways, 519 relations
-  OSM tile 54: 419,072 nodes, 64,286 ways, 587 relations
-  OSMnx walk graph: 39,813 nodes, 51,553 edges
-  11,147 building footprints
+== Denver: 2 zone(s)
+  OSM tile 10: 60,254 nodes, 8,374 ways, 62 relations
+  OSM tile 20: 136,556 nodes, 19,639 ways, 126 relations
+  OSM tile 30: 204,153 nodes, 29,282 ways, 318 relations
+  OSM tile 40: 316,640 nodes, 47,955 ways, 478 relations
+  OSM tile 49: 404,307 nodes, 66,654 ways, 589 relations
+  OSMnx walk graph: 36,670 nodes, 47,073 edges
+  14,041 building footprints
   LiDAR source: CO_DRCOG_2_2020 (2020)
-  part 0: 2203 EPT nodes, ~2.9 pts/m², grid (3664, 1921)
-  part 0: 81,776,535 points, 6,206 building heights, 20,592 crowns so far
-  height model: trained on 11,004, predicted 143, CV MAE 7.3 m
-== Denver done in 4.3 min: 16.32 MB, 51,542 segments, 11,147 buildings {'lidar': 4914, 'model': 143, 'osm-levels': 131, 'osm': 5959}, 20,592 crowns, 2,491 places, 56 pause places
+  part 0: 1889 EPT nodes, ~2.9 pts/m², grid (2632, 2158)
+  part 0: 66,957,665 points, 6,244 building heights, 19,651 crowns so far
+  height model: trained on 13,968, predicted 73, CV MAE 7.1 m
+== Denver done in 3.9 min: 16.84 MB, 47,062 segments, 14,041 buildings {'lidar': 4577, 'model': 73, 'osm-levels': 122, 'osm': 9269}, 19,651 crowns, 3,235 places, 63 pause places

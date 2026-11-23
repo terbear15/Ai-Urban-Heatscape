@@ -1,16 +1,32 @@
 == Washington: 4 zone(s)
-  OSM tile 10: 53,310 nodes, 9,032 ways, 390 relations
-  OSM tile 20: 106,716 nodes, 18,679 ways, 807 relations
-  OSM tile 30: 159,075 nodes, 27,055 ways, 1,182 relations
-  OSM tile 40: 214,530 nodes, 35,140 ways, 1,530 relations
-  OSM tile 50: 253,555 nodes, 40,406 ways, 1,716 relations
-  OSM tile 60: 284,542 nodes, 44,947 ways, 1,875 relations
-  OSM tile 70: 327,883 nodes, 52,117 ways, 2,013 relations
-  OSM tile 72: 342,145 nodes, 54,473 ways, 2,028 relations
-  OSMnx walk graph: 66,954 nodes, 80,672 edges
-  8,963 building footprints
+  OSM tile 10: 59,728 nodes, 8,757 ways, 413 relations
+  OSM tile 20: 100,305 nodes, 14,171 ways, 646 relations
+  OSM tile 30: 155,637 nodes, 23,387 ways, 753 relations
+  OSM tile 40: 187,521 nodes, 28,600 ways, 895 relations
+  OSM tile 50: 217,177 nodes, 33,318 ways, 1,080 relations
+  OSM tile 60: 267,819 nodes, 41,519 ways, 1,271 relations
+  OSM tile 70: 309,058 nodes, 48,442 ways, 1,386 relations
+  OSM tile 80: 338,039 nodes, 53,499 ways, 1,629 relations
+  OSM tile 90: 395,736 nodes, 64,005 ways, 1,873 relations
+  OSM tile 100: 433,070 nodes, 69,213 ways, 1,940 relations
+  OSM tile 110: 472,402 nodes, 75,235 ways, 2,170 relations
+  OSM tile 120: 521,035 nodes, 82,748 ways, 2,357 relations
+  OSM tile 130: 544,411 nodes, 85,506 ways, 2,422 relations
+  OSM tile 140: 597,424 nodes, 93,075 ways, 2,689 relations
+  OSM tile 150: 631,381 nodes, 96,705 ways, 2,809 relations
+  OSM tile 160: 658,301 nodes, 100,728 ways, 2,957 relations
+  OSM tile 170: 694,148 nodes, 105,317 ways, 3,122 relations
+  OSM tile 180: 727,509 nodes, 110,237 ways, 3,275 relations
+  OSM tile 190: 756,599 nodes, 114,424 ways, 3,355 relations
+  OSM tile 200: 796,273 nodes, 120,369 ways, 3,496 relations
+  OSM tile 210: 819,182 nodes, 123,422 ways, 3,548 relations
+  OSM tile 220: 870,998 nodes, 131,367 ways, 3,726 relations
+  OSM tile 230: 899,848 nodes, 135,602 ways, 3,773 relations
+  OSM tile 240: 930,929 nodes, 140,590 ways, 3,854 relations
+  OSMnx walk graph: 166,924 nodes, 199,737 edges
+  39,044 building footprints
   LiDAR source: USGS_LPC_MD_VA_Sandy_NCR_2014_LAS_2015 (2015)
-  part 0: 4966 EPT nodes, ~4.6 pts/m², grid (2443, 3914)
-  part 0: 174,870,308 points, 8,775 building heights, 27,593 crowns so far
-  height model: trained on 8,843, predicted 120, CV MAE 3.1 m
-== Washington done in 5.3 min: 21.4 MB, 80,670 segments, 8,963 buildings {'lidar': 8609, 'osm': 211, 'model': 120, 'osm-levels': 23}, 27,593 crowns, 3,004 places, 636 pause places
+  part 0: 15535 EPT nodes, ~4.2 pts/m², grid (6700, 5003)
+  part 0: 560,034,730 points, 37,952 building heights, 86,076 crowns so far
+  height model: trained on 38,313, predicted 731, CV MAE 2.5 m
+== Washington done in 26.7 min: 65.52 MB, 199,724 segments, 39,044 buildings {'lidar': 37564, 'model': 731, 'osm': 666, 'osm-levels': 83}, 86,076 crowns, 8,646 places, 1385 pause places

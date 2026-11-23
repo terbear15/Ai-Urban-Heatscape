@@ -1,15 +1,20 @@
 == San Diego: 2 zone(s)
-  OSM tile 10: 17,773 nodes, 2,447 ways, 66 relations
-  OSM tile 20: 43,322 nodes, 6,410 ways, 127 relations
-  OSM tile 30: 78,862 nodes, 11,059 ways, 263 relations
-  OSM tile 40: 106,045 nodes, 16,275 ways, 444 relations
-  OSM tile 50: 138,519 nodes, 22,171 ways, 613 relations
-  OSM tile 60: 159,548 nodes, 25,650 ways, 765 relations
-  OSM tile 63: 159,717 nodes, 25,653 ways, 765 relations
-  OSMnx walk graph: 30,783 nodes, 36,755 edges
-  4,284 building footprints
+  OSM tile 10: 20,554 nodes, 3,093 ways, 64 relations
+  OSM tile 20: 54,345 nodes, 8,385 ways, 123 relations
+  OSM tile 30: 92,882 nodes, 14,520 ways, 169 relations
+  OSM tile 40: 129,100 nodes, 19,638 ways, 251 relations
+  OSM tile 50: 159,902 nodes, 24,107 ways, 323 relations
+  OSM tile 60: 193,919 nodes, 28,986 ways, 460 relations
+  OSM tile 70: 223,791 nodes, 32,854 ways, 609 relations
+  OSM tile 80: 245,917 nodes, 37,121 ways, 753 relations
+  OSM tile 90: 271,366 nodes, 41,860 ways, 877 relations
+  OSM tile 100: 304,873 nodes, 47,339 ways, 1,072 relations
+  OSM tile 110: 324,567 nodes, 50,190 ways, 1,146 relations
+  OSM tile 120: 342,159 nodes, 52,937 ways, 1,178 relations
+  OSMnx walk graph: 43,823 nodes, 52,306 edges
+  20,382 building footprints
   LiDAR source: CA_SanDiegoQL2_2014 (2014)
-  part 0: 2403 EPT nodes, ~2.9 pts/m², grid (2769, 2789)
-  part 0: 88,920,693 points, 4,096 building heights, 28,125 crowns so far
-  height model: trained on 4,194, predicted 90, CV MAE 6.9 m
-== San Diego done in 3.5 min: 16.76 MB, 36,754 segments, 4,284 buildings {'lidar': 4011, 'model': 90, 'osm': 141, 'osm-levels': 42}, 28,125 crowns, 1,706 places, 578 pause places
+  part 0: 4226 EPT nodes, ~2.6 pts/m², grid (3852, 3947)
+  part 0: 159,740,608 points, 19,735 building heights, 58,939 crowns so far
+  height model: trained on 19,841, predicted 541, CV MAE 2.8 m
+== San Diego done in 7.1 min: 34.87 MB, 52,305 segments, 20,382 buildings {'lidar': 19646, 'model': 541, 'osm-levels': 51, 'osm': 144}, 58,939 crowns, 2,501 places, 604 pause places

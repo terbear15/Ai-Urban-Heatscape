@@ -5,28 +5,28 @@
   "Downtown",
   "Over-the-Rhine"
  ],
- "area_km2": 4.07,
+ "area_km2": 7.85,
  "network": {
-  "nodes": 21174,
-  "edges": 25177,
-  "street_length_km": 447.66,
-  "intersections": 20166,
+  "nodes": 30719,
+  "edges": 36514,
+  "street_length_km": 647.41,
+  "intersections": 29149,
   "streets_per_node_avg": 2.38,
-  "footpath_share": 0.547,
+  "footpath_share": 0.543,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 4213,
+ "buildings": 8686,
  "height_sources": {
-  "lidar": 2927,
-  "osm": 1095,
-  "osm-levels": 145,
-  "model": 46
+  "lidar": 7003,
+  "osm": 1365,
+  "model": 104,
+  "osm-levels": 214
  },
  "height_model": {
-  "known": 4167,
-  "predicted": 46,
+  "known": 8582,
+  "predicted": 104,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 6.75,
+  "cv_mae_m": 4.76,
   "features": [
    "log area",
    "log perimeter",
@@ -37,36 +37,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 11664,
- "places": 1227,
- "pause_places": 168,
+ "trees": 22077,
+ "places": 1581,
+ "pause_places": 264,
  "pause_by_kind": {
   "station": 3,
-  "water": 20,
-  "community": 5,
-  "library": 5,
-  "mall": 2,
-  "park": 133
+  "water": 31,
+  "park": 212,
+  "community": 7,
+  "library": 9,
+  "mall": 2
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/OH_StatewideP3_6_B21/",
    "survey_year": 0,
-   "points": 318552040,
-   "density_pts_m2": 18.4,
+   "points": 219254131,
+   "density_pts_m2": 8.0,
    "classes": {
-    "1": 206071020,
-    "2": 105201002,
-    "7": 62928,
-    "18": 52040,
-    "9": 86273,
-    "17": 7074649,
-    "20": 4128
+    "1": 149368370,
+    "2": 66248898,
+    "7": 51392,
+    "18": 67080,
+    "9": 87702,
+    "17": 3426603,
+    "20": 4086
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 7.98,
- "minutes": 4.0
+ "data_mb": 14.38,
+ "minutes": 4.1
 }

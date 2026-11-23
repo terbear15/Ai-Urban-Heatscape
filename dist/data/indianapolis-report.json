@@ -4,28 +4,28 @@
  "zones": [
   "Downtown"
  ],
- "area_km2": 4.79,
+ "area_km2": 10.71,
  "network": {
-  "nodes": 13295,
-  "edges": 16074,
-  "street_length_km": 294.49,
-  "intersections": 12728,
-  "streets_per_node_avg": 2.42,
-  "footpath_share": 0.571,
+  "nodes": 30573,
+  "edges": 37426,
+  "street_length_km": 794.83,
+  "intersections": 29443,
+  "streets_per_node_avg": 2.45,
+  "footpath_share": 0.526,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 2082,
+ "buildings": 7266,
  "height_sources": {
-  "lidar": 1952,
-  "model": 29,
-  "osm": 93,
-  "osm-levels": 8
+  "lidar": 6932,
+  "model": 231,
+  "osm-levels": 9,
+  "osm": 94
  },
  "height_model": {
-  "known": 2053,
-  "predicted": 29,
+  "known": 7035,
+  "predicted": 231,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 6.12,
+  "cv_mae_m": 3.82,
   "features": [
    "log area",
    "log perimeter",
@@ -36,33 +36,35 @@
    "max known height within 60 m"
   ]
  },
- "trees": 8404,
- "places": 802,
- "pause_places": 59,
+ "trees": 24772,
+ "places": 1090,
+ "pause_places": 76,
  "pause_by_kind": {
-  "park": 47,
-  "library": 4,
+  "park": 62,
+  "library": 5,
   "water": 4,
   "station": 3,
-  "community": 1
+  "community": 2
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_IN_Central_MarionCo_2016_LAS_2018/",
    "survey_year": 2018,
-   "points": 27185903,
-   "density_pts_m2": 2.6,
+   "points": 74051055,
+   "density_pts_m2": 2.5,
    "classes": {
-    "1": 19339858,
-    "2": 7724464,
-    "18": 96737,
-    "7": 6130,
-    "17": 18714
+    "1": 49540917,
+    "2": 23675151,
+    "9": 100149,
+    "18": 206273,
+    "17": 519142,
+    "7": 7575,
+    "10": 1848
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 5.06,
- "minutes": 1.2
+ "data_mb": 14.91,
+ "minutes": 3.3
 }

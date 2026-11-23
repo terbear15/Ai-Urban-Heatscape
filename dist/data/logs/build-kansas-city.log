@@ -1,13 +1,18 @@
 == Kansas City: 3 zone(s)
-  OSM tile 10: 10,447 nodes, 1,367 ways, 81 relations
-  OSM tile 20: 46,070 nodes, 6,785 ways, 232 relations
-  OSM tile 30: 83,811 nodes, 13,325 ways, 373 relations
-  OSM tile 40: 115,805 nodes, 18,534 ways, 442 relations
-  OSM tile 42: 123,462 nodes, 19,914 ways, 448 relations
-  OSMnx walk graph: 23,707 nodes, 28,373 edges
-  2,351 building footprints
+  OSM tile 10: 15,728 nodes, 2,447 ways, 44 relations
+  OSM tile 20: 38,551 nodes, 7,073 ways, 46 relations
+  OSM tile 30: 61,317 nodes, 11,236 ways, 75 relations
+  OSM tile 40: 89,211 nodes, 16,336 ways, 97 relations
+  OSM tile 50: 116,991 nodes, 20,053 ways, 158 relations
+  OSM tile 60: 144,945 nodes, 23,995 ways, 246 relations
+  OSM tile 70: 177,496 nodes, 29,276 ways, 359 relations
+  OSM tile 80: 217,042 nodes, 36,156 ways, 518 relations
+  OSM tile 90: 248,562 nodes, 41,448 ways, 571 relations
+  OSM tile 91: 252,162 nodes, 42,093 ways, 577 relations
+  OSMnx walk graph: 48,000 nodes, 58,451 edges
+  8,354 building footprints
   LiDAR source: MO_FEMANRCS_1_2020 (2020)
-  part 0: 1038 EPT nodes, ~2.3 pts/m², grid (2630, 1678)
-  part 0: 40,950,076 points, 2,281 building heights, 11,818 crowns so far
-  height model: trained on 2,315, predicted 36, CV MAE 7.1 m
-== Kansas City done in 2.2 min: 7.58 MB, 28,371 segments, 2,351 buildings {'lidar': 1974, 'model': 36, 'osm': 331, 'osm-levels': 10}, 11,818 crowns, 1,637 places, 80 pause places
+  part 0: 2771 EPT nodes, ~2.6 pts/m², grid (2957, 4053)
+  part 0: 125,745,249 points, 8,239 building heights, 31,425 crowns so far
+  height model: trained on 8,277, predicted 77, CV MAE 4.3 m
+== Kansas City done in 5.3 min: 20.23 MB, 58,448 segments, 8,354 buildings {'lidar': 7935, 'model': 77, 'osm-levels': 11, 'osm': 331}, 31,425 crowns, 2,083 places, 128 pause places

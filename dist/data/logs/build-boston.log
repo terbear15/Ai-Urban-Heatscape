@@ -1,16 +1,23 @@
 == Boston: 4 zone(s)
-  OSM tile 10: 11,337 nodes, 1,096 ways, 90 relations
-  OSM tile 20: 26,934 nodes, 3,790 ways, 267 relations
-  OSM tile 30: 41,129 nodes, 6,386 ways, 341 relations
-  OSM tile 40: 74,205 nodes, 12,979 ways, 625 relations
-  OSM tile 50: 109,104 nodes, 19,397 ways, 850 relations
-  OSM tile 60: 155,941 nodes, 28,529 ways, 1,111 relations
-  OSM tile 70: 189,179 nodes, 35,716 ways, 1,402 relations
-  OSM tile 78: 224,412 nodes, 41,818 ways, 1,974 relations
-  OSMnx walk graph: 51,884 nodes, 61,875 edges
-  8,623 building footprints
+  OSM tile 10: 8,391 nodes, 641 ways, 64 relations
+  OSM tile 20: 19,497 nodes, 2,326 ways, 117 relations
+  OSM tile 30: 37,710 nodes, 5,140 ways, 145 relations
+  OSM tile 40: 60,640 nodes, 9,053 ways, 338 relations
+  OSM tile 50: 80,870 nodes, 12,345 ways, 395 relations
+  OSM tile 60: 111,871 nodes, 18,355 ways, 509 relations
+  OSM tile 70: 150,246 nodes, 26,008 ways, 842 relations
+  OSM tile 80: 182,943 nodes, 31,864 ways, 967 relations
+  OSM tile 90: 220,957 nodes, 39,151 ways, 1,134 relations
+  OSM tile 100: 253,957 nodes, 46,412 ways, 1,521 relations
+  OSM tile 110: 288,532 nodes, 53,838 ways, 2,036 relations
+  OSM tile 120: 320,835 nodes, 60,630 ways, 2,680 relations
+  OSM tile 130: 359,051 nodes, 66,813 ways, 3,120 relations
+  OSM tile 140: 394,748 nodes, 73,048 ways, 3,500 relations
+  OSM tile 150: 433,232 nodes, 80,143 ways, 3,898 relations
+  OSMnx walk graph: 98,951 nodes, 117,050 edges
+  17,017 building footprints
   LiDAR source: MA_CentralEastern_1_2021 (2021)
-  part 0: 9227 EPT nodes, ~8.2 pts/m², grid (2579, 4090)
-  part 0: 345,646,667 points, 7,646 building heights, 20,430 crowns so far
-  height model: trained on 8,494, predicted 129, CV MAE 7.7 m
-== Boston done in 8.4 min: 15.52 MB, 61,855 segments, 8,623 buildings {'lidar': 6881, 'osm': 1321, 'model': 129, 'osm-levels': 292}, 20,430 crowns, 3,932 places, 418 pause places
+  part 0: 18804 EPT nodes, ~8.4 pts/m², grid (4425, 4866)
+  part 0: 723,078,000 points, 15,985 building heights, 44,251 crowns so far
+  height model: trained on 16,870, predicted 147, CV MAE 5.0 m
+== Boston done in 16.0 min: 32.05 MB, 117,029 segments, 17,017 buildings {'lidar': 15201, 'osm': 1358, 'model': 147, 'osm-levels': 311}, 44,251 crowns, 5,342 places, 554 pause places

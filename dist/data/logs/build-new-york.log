@@ -1,22 +1,74 @@
-== New York: 5 zone(s)
-  OSM tile 10: 9,326 nodes, 1,407 ways, 274 relations
-  OSM tile 20: 24,029 nodes, 4,149 ways, 565 relations
-  OSM tile 30: 44,513 nodes, 8,152 ways, 713 relations
-  OSM tile 40: 87,110 nodes, 16,391 ways, 913 relations
-  OSM tile 50: 115,543 nodes, 21,318 ways, 1,046 relations
-  OSM tile 60: 167,530 nodes, 30,468 ways, 1,267 relations
-  OSM tile 70: 203,120 nodes, 37,971 ways, 1,479 relations
-  OSM tile 80: 243,119 nodes, 44,659 ways, 1,637 relations
-  OSM tile 90: 277,862 nodes, 52,088 ways, 1,729 relations
-  OSM tile 100: 315,194 nodes, 57,865 ways, 1,929 relations
-  OSM tile 110: 339,739 nodes, 62,291 ways, 2,050 relations
-  OSM tile 120: 379,796 nodes, 69,213 ways, 2,374 relations
-  OSM tile 130: 396,911 nodes, 72,137 ways, 2,456 relations
-  OSM tile 140: 448,060 nodes, 82,116 ways, 2,866 relations
-  OSM tile 150: 468,977 nodes, 85,864 ways, 2,999 relations
-  OSM tile 160: 519,363 nodes, 96,092 ways, 3,363 relations
-  OSM tile 170: 540,824 nodes, 100,031 ways, 3,501 relations
-  OSM tile 180: 595,428 nodes, 110,716 ways, 4,077 relations
-  OSM tile 190: 616,335 nodes, 114,909 ways, 4,416 relations
-  OSM tile 200: 663,823 nodes, 123,561 ways, 4,697 relations
-  OSM tile 210: 695,269 nodes, 129,206 ways, 4,915 relations
+== New York: 1 zone(s)
+  OSM tile 10: 28,031 nodes, 3,913 ways, 297 relations
+  OSM tile 20: 49,991 nodes, 8,230 ways, 586 relations
+  OSM tile 30: 75,126 nodes, 13,540 ways, 812 relations
+  OSM tile 40: 107,432 nodes, 19,444 ways, 1,057 relations
+  OSM tile 50: 143,674 nodes, 25,280 ways, 1,219 relations
+  OSM tile 60: 182,047 nodes, 34,016 ways, 1,320 relations
+  OSM tile 70: 214,883 nodes, 41,769 ways, 1,397 relations
+  OSM tile 80: 240,317 nodes, 45,205 ways, 1,532 relations
+  OSM tile 90: 266,424 nodes, 50,244 ways, 1,632 relations
+  OSM tile 100: 296,039 nodes, 56,218 ways, 1,710 relations
+  OSM tile 110: 327,657 nodes, 62,529 ways, 1,789 relations
+  OSM tile 120: 351,935 nodes, 66,526 ways, 1,979 relations
+  OSM tile 130: 379,833 nodes, 72,495 ways, 2,041 relations
+  OSM tile 140: 406,444 nodes, 78,886 ways, 2,162 relations
+  OSM tile 150: 425,293 nodes, 81,575 ways, 2,269 relations
+  OSM tile 160: 445,221 nodes, 85,523 ways, 2,393 relations
+  OSM tile 170: 464,331 nodes, 90,073 ways, 2,546 relations
+  OSM tile 180: 485,992 nodes, 95,071 ways, 2,626 relations
+  OSM tile 190: 527,438 nodes, 101,552 ways, 2,878 relations
+  OSM tile 200: 548,657 nodes, 105,692 ways, 2,989 relations
+  OSM tile 210: 589,942 nodes, 114,643 ways, 3,160 relations
+  OSM tile 220: 603,867 nodes, 116,180 ways, 3,263 relations
+  OSM tile 230: 646,300 nodes, 123,609 ways, 3,429 relations
+  OSM tile 240: 679,173 nodes, 130,482 ways, 3,526 relations
+  OSM tile 250: 703,350 nodes, 135,552 ways, 3,620 relations
+  OSM tile 260: 728,391 nodes, 139,286 ways, 3,761 relations
+  OSM tile 270: 766,322 nodes, 145,654 ways, 3,924 relations
+  OSM tile 280: 809,445 nodes, 155,653 ways, 4,125 relations
+  OSM tile 290: 814,558 nodes, 156,458 ways, 4,135 relations
+  OSM tile 300: 851,762 nodes, 161,969 ways, 4,247 relations
+  OSM tile 310: 884,826 nodes, 168,709 ways, 4,379 relations
+  OSM tile 320: 912,387 nodes, 174,744 ways, 4,469 relations
+  OSM tile 330: 930,697 nodes, 177,613 ways, 4,586 relations
+  OSM tile 340: 958,912 nodes, 182,200 ways, 4,726 relations
+  OSM tile 350: 988,680 nodes, 188,923 ways, 4,838 relations
+  OSM tile 360: 1,003,228 nodes, 191,442 ways, 4,932 relations
+  OSM tile 370: 1,032,767 nodes, 195,382 ways, 5,016 relations
+  OSM tile 380: 1,055,548 nodes, 200,417 ways, 5,301 relations
+  OSM tile 390: 1,077,907 nodes, 205,510 ways, 5,407 relations
+  OSM tile 400: 1,097,223 nodes, 208,368 ways, 5,441 relations
+  OSM tile 410: 1,143,871 nodes, 217,527 ways, 5,844 relations
+  OSM tile 420: 1,179,290 nodes, 224,395 ways, 6,065 relations
+  OSM tile 430: 1,205,353 nodes, 228,599 ways, 6,114 relations
+  OSM tile 440: 1,232,362 nodes, 233,121 ways, 6,253 relations
+  OSM tile 450: 1,279,750 nodes, 242,801 ways, 6,575 relations
+  OSM tile 460: 1,309,498 nodes, 249,629 ways, 6,733 relations
+  OSM tile 470: 1,340,413 nodes, 254,983 ways, 6,781 relations
+  OSM tile 480: 1,375,585 nodes, 262,098 ways, 7,118 relations
+  OSM tile 490: 1,428,080 nodes, 272,533 ways, 7,579 relations
+  OSM tile 500: 1,454,896 nodes, 277,224 ways, 7,618 relations
+  OSM tile 510: 1,473,688 nodes, 280,499 ways, 7,699 relations
+  OSM tile 520: 1,521,541 nodes, 290,029 ways, 8,176 relations
+  OSM tile 530: 1,557,785 nodes, 297,104 ways, 8,255 relations
+  OSM tile 540: 1,577,187 nodes, 300,646 ways, 8,293 relations
+  OSM tile 550: 1,608,067 nodes, 306,157 ways, 8,492 relations
+  OSM tile 560: 1,659,246 nodes, 316,297 ways, 8,768 relations
+  OSM tile 570: 1,677,572 nodes, 319,672 ways, 8,798 relations
+  OSM tile 580: 1,708,753 nodes, 324,894 ways, 8,833 relations
+  OSM tile 590: 1,758,643 nodes, 335,443 ways, 9,281 relations
+  OSM tile 600: 1,778,413 nodes, 339,267 ways, 9,380 relations
+  OSM tile 610: 1,799,051 nodes, 343,230 ways, 9,412 relations
+  OSM tile 620: 1,823,525 nodes, 346,751 ways, 9,492 relations
+  OSM tile 630: 1,880,295 nodes, 356,606 ways, 9,893 relations
+  OSM tile 640: 1,895,681 nodes, 358,854 ways, 9,916 relations
+  OSM tile 650: 1,935,958 nodes, 365,106 ways, 9,959 relations
+  OSM tile 660: 1,950,661 nodes, 367,230 ways, 10,019 relations
+  OSM tile 665: 1,972,799 nodes, 369,765 ways, 10,100 relations
+  OSMnx walk graph: 295,191 nodes, 371,376 edges
+  64,104 building footprints
+  part 0: 23027 EPT nodes, ~2.3 pts/m², grid (15162, 6254)
+  part 0: 881,333,588 points, 58,237 building heights, 130,267 crowns so far
+  height model: trained on 63,358, predicted 746, CV MAE 11.2 m
+== New York done in 122.8 min: 109.93 MB, 371,356 segments, 64,104 buildings {'osm': 61866, 'lidar': 1337, 'model': 746, 'osm-levels': 155}, 130,267 crowns, 28,650 places, 5295 pause places

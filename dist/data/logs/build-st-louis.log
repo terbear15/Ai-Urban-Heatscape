@@ -1,12 +1,17 @@
 == St. Louis: 2 zone(s)
-  OSM tile 10: 14,696 nodes, 1,520 ways, 73 relations
-  OSM tile 20: 66,234 nodes, 10,210 ways, 218 relations
-  OSM tile 30: 120,923 nodes, 19,276 ways, 382 relations
-  OSM tile 40: 166,982 nodes, 26,864 ways, 432 relations
-  OSMnx walk graph: 33,006 nodes, 38,460 edges
-  1,163 building footprints
+  OSM tile 10: 4,113 nodes, 236 ways, 37 relations
+  OSM tile 20: 18,690 nodes, 1,801 ways, 84 relations
+  OSM tile 30: 34,285 nodes, 4,210 ways, 132 relations
+  OSM tile 40: 60,622 nodes, 8,059 ways, 176 relations
+  OSM tile 50: 95,577 nodes, 14,889 ways, 256 relations
+  OSM tile 60: 135,011 nodes, 21,594 ways, 358 relations
+  OSM tile 70: 171,139 nodes, 27,782 ways, 442 relations
+  OSM tile 80: 204,752 nodes, 33,342 ways, 479 relations
+  OSM tile 88: 231,521 nodes, 37,539 ways, 512 relations
+  OSMnx walk graph: 45,367 nodes, 53,759 edges
+  3,462 building footprints
   LiDAR source: USGS_LPC_MO_StLouis_2017_LAS_2018 (2018)
-  part 0: 1521 EPT nodes, ~2.2 pts/m², grid (2044, 2449)
-  part 0: 44,589,872 points, 1,043 building heights, 10,174 crowns so far
-  height model: trained on 1,109, predicted 54, CV MAE 11.3 m
-== St. Louis done in 2.5 min: 7.45 MB, 38,460 segments, 1,163 buildings {'lidar': 969, 'osm': 115, 'model': 54, 'osm-levels': 25}, 10,174 crowns, 1,127 places, 2278 pause places
+  part 0: 3016 EPT nodes, ~2.2 pts/m², grid (4423, 2469)
+  part 0: 98,000,204 points, 3,313 building heights, 21,285 crowns so far
+  height model: trained on 3,383, predicted 79, CV MAE 5.4 m
+== St. Louis done in 4.9 min: 13.89 MB, 53,756 segments, 3,462 buildings {'lidar': 3238, 'model': 79, 'osm': 117, 'osm-levels': 28}, 21,285 crowns, 1,394 places, 2352 pause places

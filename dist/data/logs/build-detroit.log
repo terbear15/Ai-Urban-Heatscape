@@ -1,18 +1,20 @@
 == Detroit: 3 zone(s)
-  OSM tile 10: 12,000 nodes, 1,673 ways, 92 relations
-  OSM tile 20: 21,297 nodes, 3,400 ways, 140 relations
-  OSM tile 30: 33,592 nodes, 5,290 ways, 181 relations
-  OSM tile 40: 52,656 nodes, 8,121 ways, 267 relations
-  OSM tile 50: 66,119 nodes, 10,733 ways, 339 relations
-  OSM tile 60: 87,244 nodes, 14,733 ways, 445 relations
-  OSM tile 70: 113,684 nodes, 19,738 ways, 634 relations
-  OSM tile 80: 136,354 nodes, 23,814 ways, 743 relations
-  OSM tile 90: 156,072 nodes, 28,102 ways, 840 relations
-  OSM tile 91: 157,186 nodes, 28,375 ways, 842 relations
-  OSMnx walk graph: 40,071 nodes, 49,876 edges
-  2,047 building footprints
+  OSM tile 10: 14,457 nodes, 2,223 ways, 93 relations
+  OSM tile 20: 25,907 nodes, 4,633 ways, 136 relations
+  OSM tile 30: 37,836 nodes, 7,151 ways, 201 relations
+  OSM tile 40: 51,071 nodes, 9,354 ways, 248 relations
+  OSM tile 50: 67,512 nodes, 12,098 ways, 312 relations
+  OSM tile 60: 84,025 nodes, 15,191 ways, 363 relations
+  OSM tile 70: 98,734 nodes, 18,188 ways, 432 relations
+  OSM tile 80: 123,405 nodes, 22,688 ways, 625 relations
+  OSM tile 90: 145,058 nodes, 26,655 ways, 731 relations
+  OSM tile 100: 166,310 nodes, 30,547 ways, 824 relations
+  OSM tile 110: 189,758 nodes, 35,234 ways, 944 relations
+  OSM tile 117: 204,744 nodes, 38,363 ways, 994 relations
+  OSMnx walk graph: 49,799 nodes, 62,729 edges
+  4,594 building footprints
   LiDAR source: USGS_LPC_MI_WayneCo_2017_LAS_2018 (2018)
-  part 0: 3530 EPT nodes, ~2.9 pts/m², grid (2721, 4275)
-  part 0: 132,675,096 points, 1,858 building heights, 16,903 crowns so far
-  height model: trained on 1,978, predicted 69, CV MAE 10.3 m
-== Detroit done in 4.8 min: 11.48 MB, 49,875 segments, 2,047 buildings {'lidar': 1776, 'osm-levels': 60, 'model': 69, 'osm': 142}, 16,903 crowns, 1,949 places, 172 pause places
+  part 0: 4732 EPT nodes, ~2.8 pts/m², grid (3861, 4276)
+  part 0: 187,684,030 points, 4,369 building heights, 35,568 crowns so far
+  height model: trained on 4,500, predicted 94, CV MAE 6.1 m
+== Detroit done in 7.4 min: 21.56 MB, 62,727 segments, 4,594 buildings {'lidar': 4282, 'osm-levels': 71, 'model': 94, 'osm': 147}, 35,568 crowns, 2,373 places, 205 pause places

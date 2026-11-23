@@ -1,12 +1,18 @@
 == Nashville: 2 zone(s)
-  OSM tile 10: 13,994 nodes, 2,502 ways, 109 relations
-  OSM tile 20: 29,254 nodes, 6,217 ways, 233 relations
-  OSM tile 30: 57,505 nodes, 10,871 ways, 313 relations
-  OSM tile 35: 68,556 nodes, 13,037 ways, 327 relations
-  OSMnx walk graph: 21,820 nodes, 27,395 edges
-  1,437 building footprints
+  OSM tile 10: 7,162 nodes, 1,245 ways, 75 relations
+  OSM tile 20: 20,438 nodes, 4,048 ways, 102 relations
+  OSM tile 30: 31,928 nodes, 6,659 ways, 163 relations
+  OSM tile 40: 46,347 nodes, 9,793 ways, 252 relations
+  OSM tile 50: 70,984 nodes, 13,396 ways, 288 relations
+  OSM tile 60: 90,064 nodes, 17,152 ways, 337 relations
+  OSM tile 70: 109,331 nodes, 20,921 ways, 354 relations
+  OSM tile 80: 129,811 nodes, 24,751 ways, 400 relations
+  OSM tile 90: 148,251 nodes, 27,564 ways, 421 relations
+  OSM tile 96: 157,083 nodes, 29,108 ways, 426 relations
+  OSMnx walk graph: 44,913 nodes, 55,176 edges
+  5,150 building footprints
   LiDAR source: TN_DavidsonCo_1_2022 (2022)
-  part 0: 7099 EPT nodes, ~16.4 pts/m², grid (2022, 2304)
-  part 0: 304,827,924 points, 1,291 building heights, 10,946 crowns so far
-  height model: trained on 1,407, predicted 30, CV MAE 8.8 m
-== Nashville done in 3.9 min: 6.89 MB, 27,382 segments, 1,437 buildings {'lidar': 1188, 'osm': 212, 'osm-levels': 7, 'model': 30}, 10,946 crowns, 817 places, 40 pause places
+  part 0: 17774 EPT nodes, ~16.8 pts/m², grid (3148, 3740)
+  part 0: 791,015,113 points, 4,898 building heights, 25,386 crowns so far
+  height model: trained on 5,014, predicted 136, CV MAE 4.8 m
+== Nashville done in 10.2 min: 16.17 MB, 55,160 segments, 5,150 buildings {'lidar': 4773, 'osm': 234, 'osm-levels': 7, 'model': 136}, 25,386 crowns, 1,090 places, 49 pause places

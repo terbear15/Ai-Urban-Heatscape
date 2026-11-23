@@ -5,28 +5,28 @@
   "Downtown",
   "Strip District"
  ],
- "area_km2": 2.99,
+ "area_km2": 6.54,
  "network": {
-  "nodes": 25957,
-  "edges": 30998,
-  "street_length_km": 561.98,
-  "intersections": 24308,
+  "nodes": 35807,
+  "edges": 42706,
+  "street_length_km": 766.58,
+  "intersections": 33575,
   "streets_per_node_avg": 2.39,
-  "footpath_share": 0.531,
+  "footpath_share": 0.536,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 1057,
+ "buildings": 3897,
  "height_sources": {
-  "osm": 86,
-  "lidar": 946,
-  "model": 17,
-  "osm-levels": 8
+  "lidar": 3493,
+  "model": 36,
+  "osm": 359,
+  "osm-levels": 9
  },
  "height_model": {
-  "known": 1040,
-  "predicted": 17,
+  "known": 3861,
+  "predicted": 36,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 13.38,
+  "cv_mae_m": 6.16,
   "features": [
    "log area",
    "log perimeter",
@@ -37,14 +37,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 9884,
- "places": 1072,
- "pause_places": 431,
+ "trees": 21137,
+ "places": 1235,
+ "pause_places": 451,
  "pause_by_kind": {
-  "park": 405,
-  "library": 5,
-  "station": 11,
+  "library": 12,
+  "park": 414,
+  "station": 12,
   "water": 8,
+  "community": 3,
   "mall": 2
  },
  "lidar": [
@@ -52,20 +53,20 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/PA_WesternPA_2_2019/",
    "survey_year": 2019,
-   "points": 119848574,
-   "density_pts_m2": 4.5,
+   "points": 146684406,
+   "density_pts_m2": 4.3,
    "classes": {
-    "1": 64576010,
-    "18": 10815,
-    "2": 50808451,
-    "7": 49835,
-    "9": 1145818,
-    "17": 3214173,
-    "20": 43472
+    "1": 79265271,
+    "18": 22243,
+    "2": 62880940,
+    "7": 59379,
+    "9": 1146585,
+    "17": 3266440,
+    "20": 43548
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 7.1,
- "minutes": 2.9
+ "data_mb": 13.79,
+ "minutes": 4.8
 }

@@ -6,28 +6,28 @@
   "Crossroads",
   "River Market"
  ],
- "area_km2": 6.89,
+ "area_km2": 13.99,
  "network": {
-  "nodes": 23707,
-  "edges": 28371,
-  "street_length_km": 476.82,
-  "intersections": 22407,
-  "streets_per_node_avg": 2.39,
-  "footpath_share": 0.545,
+  "nodes": 48000,
+  "edges": 58448,
+  "street_length_km": 1177.52,
+  "intersections": 45740,
+  "streets_per_node_avg": 2.44,
+  "footpath_share": 0.534,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 2351,
+ "buildings": 8354,
  "height_sources": {
-  "lidar": 1974,
-  "model": 36,
-  "osm": 331,
-  "osm-levels": 10
+  "lidar": 7935,
+  "model": 77,
+  "osm-levels": 11,
+  "osm": 331
  },
  "height_model": {
-  "known": 2315,
-  "predicted": 36,
+  "known": 8277,
+  "predicted": 77,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 7.08,
+  "cv_mae_m": 4.33,
   "features": [
    "log area",
    "log perimeter",
@@ -38,36 +38,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 11818,
- "places": 1637,
- "pause_places": 80,
+ "trees": 31425,
+ "places": 2083,
+ "pause_places": 128,
  "pause_by_kind": {
-  "water": 10,
-  "station": 3,
-  "park": 62,
-  "library": 2,
-  "mall": 1,
-  "community": 2
+  "water": 16,
+  "community": 5,
+  "station": 4,
+  "park": 99,
+  "library": 3,
+  "mall": 1
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MO_FEMANRCS_1_2020/",
    "survey_year": 2020,
-   "points": 40950076,
-   "density_pts_m2": 2.3,
+   "points": 125745249,
+   "density_pts_m2": 2.6,
    "classes": {
-    "2": 23038721,
-    "20": 8306,
-    "1": 16428270,
-    "7": 23709,
-    "9": 450394,
-    "18": 92913,
-    "17": 907763
+    "1": 52093194,
+    "2": 71049718,
+    "7": 115278,
+    "20": 15804,
+    "9": 851575,
+    "18": 339702,
+    "17": 1279978
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 7.58,
- "minutes": 2.2
+ "data_mb": 20.23,
+ "minutes": 5.3
 }

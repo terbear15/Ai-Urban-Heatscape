@@ -1,16 +1,18 @@
 == Dallas: 3 zone(s)
-  OSM tile 10: 17,232 nodes, 2,917 ways, 113 relations
-  OSM tile 20: 40,188 nodes, 7,150 ways, 186 relations
-  OSM tile 30: 62,480 nodes, 11,911 ways, 266 relations
-  OSM tile 40: 87,977 nodes, 16,374 ways, 329 relations
-  OSM tile 50: 112,661 nodes, 21,513 ways, 490 relations
-  OSM tile 60: 138,784 nodes, 27,414 ways, 635 relations
-  OSM tile 70: 163,209 nodes, 33,340 ways, 752 relations
-  OSM tile 72: 166,084 nodes, 33,984 ways, 767 relations
-  OSMnx walk graph: 54,359 nodes, 66,935 edges
-  2,132 building footprints
+  OSM tile 10: 3,376 nodes, 329 ways, 40 relations
+  OSM tile 20: 31,195 nodes, 4,709 ways, 114 relations
+  OSM tile 30: 56,068 nodes, 8,893 ways, 177 relations
+  OSM tile 40: 80,074 nodes, 13,044 ways, 236 relations
+  OSM tile 50: 105,899 nodes, 17,954 ways, 308 relations
+  OSM tile 60: 135,304 nodes, 23,015 ways, 402 relations
+  OSM tile 70: 161,064 nodes, 28,267 ways, 533 relations
+  OSM tile 80: 186,217 nodes, 33,070 ways, 651 relations
+  OSM tile 90: 214,300 nodes, 39,508 ways, 787 relations
+  OSM tile 100: 239,638 nodes, 44,815 ways, 863 relations
+  OSMnx walk graph: 66,187 nodes, 82,024 edges
+  8,557 building footprints
   LiDAR source: TX_Pecos_Dallas_B3_2018 (2018)
-  part 0: 3906 EPT nodes, ~4.7 pts/m², grid (3062, 2818)
-  part 0: 160,433,333 points, 2,043 building heights, 22,954 crowns so far
-  height model: trained on 2,111, predicted 21, CV MAE 11.4 m
-== Dallas done in 4.7 min: 16.34 MB, 66,935 segments, 2,132 buildings {'lidar': 1786, 'osm': 318, 'model': 21, 'osm-levels': 7}, 22,954 crowns, 1,557 places, 105 pause places
+  part 0: 5606 EPT nodes, ~5.0 pts/m², grid (3840, 3020)
+  part 0: 231,189,126 points, 8,301 building heights, 43,104 crowns so far
+  height model: trained on 8,371, predicted 186, CV MAE 5.0 m
+== Dallas done in 7.4 min: 29.22 MB, 82,024 segments, 8,557 buildings {'lidar': 8003, 'model': 186, 'osm': 359, 'osm-levels': 9}, 43,104 crowns, 2,280 places, 143 pause places

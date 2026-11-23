@@ -7,28 +7,28 @@
   "Seattle Center",
   "Capitol Hill"
  ],
- "area_km2": 8.04,
+ "area_km2": 15.87,
  "network": {
-  "nodes": 60945,
-  "edges": 75672,
-  "street_length_km": 1083.01,
-  "intersections": 58809,
+  "nodes": 87163,
+  "edges": 108066,
+  "street_length_km": 1561.04,
+  "intersections": 84371,
   "streets_per_node_avg": 2.48,
-  "footpath_share": 0.612,
+  "footpath_share": 0.616,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 7531,
+ "buildings": 17788,
  "height_sources": {
-  "lidar": 6705,
-  "model": 120,
-  "osm": 603,
-  "osm-levels": 103
+  "lidar": 16636,
+  "model": 186,
+  "osm-levels": 168,
+  "osm": 798
  },
  "height_model": {
-  "known": 7411,
-  "predicted": 120,
+  "known": 17602,
+  "predicted": 186,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 7.15,
+  "cv_mae_m": 5.15,
   "features": [
    "log area",
    "log perimeter",
@@ -39,36 +39,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 38466,
- "places": 5397,
- "pause_places": 140,
+ "trees": 64375,
+ "places": 6936,
+ "pause_places": 230,
  "pause_by_kind": {
-  "water": 29,
-  "community": 11,
-  "station": 18,
-  "library": 5,
-  "park": 75,
-  "mall": 2
+  "water": 39,
+  "mall": 4,
+  "community": 25,
+  "station": 28,
+  "park": 125,
+  "library": 9
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/WA_KingCo_1_2021/",
    "survey_year": 2021,
-   "points": 255024451,
-   "density_pts_m2": 4.5,
+   "points": 379898074,
+   "density_pts_m2": 5.1,
    "classes": {
-    "1": 189596207,
-    "2": 42653990,
-    "7": 275089,
-    "9": 11103215,
-    "18": 8882921,
-    "17": 2489389,
-    "20": 23640
+    "1": 291454340,
+    "2": 65530484,
+    "7": 370405,
+    "9": 11111690,
+    "18": 8911949,
+    "17": 2495560,
+    "20": 23646
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 25.85,
- "minutes": 6.6
+ "data_mb": 43.25,
+ "minutes": 11.3
 }

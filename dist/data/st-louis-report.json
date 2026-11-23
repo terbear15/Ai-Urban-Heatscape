@@ -5,28 +5,28 @@
   "Downtown",
   "Downtown West"
  ],
- "area_km2": 6.26,
+ "area_km2": 14.19,
  "network": {
-  "nodes": 33006,
-  "edges": 38460,
-  "street_length_km": 511.59,
-  "intersections": 31126,
-  "streets_per_node_avg": 2.33,
-  "footpath_share": 0.597,
+  "nodes": 45367,
+  "edges": 53756,
+  "street_length_km": 923.94,
+  "intersections": 42702,
+  "streets_per_node_avg": 2.37,
+  "footpath_share": 0.538,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 1163,
+ "buildings": 3462,
  "height_sources": {
-  "lidar": 969,
-  "osm": 115,
-  "model": 54,
-  "osm-levels": 25
+  "lidar": 3238,
+  "model": 79,
+  "osm": 117,
+  "osm-levels": 28
  },
  "height_model": {
-  "known": 1109,
-  "predicted": 54,
+  "known": 3383,
+  "predicted": 79,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 11.32,
+  "cv_mae_m": 5.43,
   "features": [
    "log area",
    "log perimeter",
@@ -37,14 +37,14 @@
    "max known height within 60 m"
   ]
  },
- "trees": 10174,
- "places": 1127,
- "pause_places": 2278,
+ "trees": 21285,
+ "places": 1394,
+ "pause_places": 2352,
  "pause_by_kind": {
-  "water": 24,
+  "water": 28,
   "station": 9,
-  "park": 2242,
-  "community": 1,
+  "community": 5,
+  "park": 2308,
   "library": 1,
   "mall": 1
  },
@@ -53,19 +53,19 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_MO_StLouis_2017_LAS_2018/",
    "survey_year": 2018,
-   "points": 44589872,
+   "points": 98000204,
    "density_pts_m2": 2.2,
    "classes": {
-    "1": 27829114,
-    "2": 15177037,
-    "7": 25019,
-    "9": 459987,
-    "17": 1088493,
-    "10": 10222
+    "1": 59597475,
+    "2": 35654588,
+    "7": 50132,
+    "9": 1289376,
+    "10": 21122,
+    "17": 1387511
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 7.45,
- "minutes": 2.5
+ "data_mb": 13.89,
+ "minutes": 4.9
 }

@@ -4,28 +4,28 @@
  "zones": [
   "Downtown"
  ],
- "area_km2": 3.08,
+ "area_km2": 6.41,
  "network": {
-  "nodes": 9412,
-  "edges": 11378,
-  "street_length_km": 193.62,
-  "intersections": 8834,
-  "streets_per_node_avg": 2.42,
-  "footpath_share": 0.516,
+  "nodes": 34016,
+  "edges": 40182,
+  "street_length_km": 673.2,
+  "intersections": 32401,
+  "streets_per_node_avg": 2.36,
+  "footpath_share": 0.527,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 1148,
+ "buildings": 5019,
  "height_sources": {
-  "lidar": 836,
-  "osm": 176,
-  "osm-levels": 55,
-  "model": 81
+  "lidar": 4583,
+  "model": 124,
+  "osm-levels": 81,
+  "osm": 231
  },
  "height_model": {
-  "known": 1067,
-  "predicted": 81,
+  "known": 4895,
+  "predicted": 124,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 11.65,
+  "cv_mae_m": 4.89,
   "features": [
    "log area",
    "log perimeter",
@@ -36,15 +36,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 6730,
- "places": 980,
- "pause_places": 141,
+ "trees": 22687,
+ "places": 1556,
+ "pause_places": 275,
  "pause_by_kind": {
-  "station": 12,
-  "water": 23,
-  "community": 4,
-  "park": 100,
-  "library": 1,
+  "water": 31,
+  "park": 221,
+  "community": 5,
+  "station": 13,
+  "library": 4,
   "mall": 1
  },
  "lidar": [
@@ -52,16 +52,16 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_UT_Wasatch_L4_2013_LAS_2016/",
    "survey_year": 2016,
-   "points": 34675949,
-   "density_pts_m2": 4.5,
+   "points": 227458075,
+   "density_pts_m2": 7.4,
    "classes": {
-    "1": 17602177,
-    "2": 16976792,
-    "7": 96980
+    "1": 142629125,
+    "2": 84261884,
+    "7": 567066
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 3.89,
- "minutes": 0.9
+ "data_mb": 14.39,
+ "minutes": 4.4
 }

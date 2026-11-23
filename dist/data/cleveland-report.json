@@ -4,28 +4,28 @@
  "zones": [
   "Downtown"
  ],
- "area_km2": 7.97,
+ "area_km2": 16.4,
  "network": {
-  "nodes": 17126,
-  "edges": 21090,
-  "street_length_km": 475.86,
-  "intersections": 16337,
-  "streets_per_node_avg": 2.46,
-  "footpath_share": 0.548,
+  "nodes": 30528,
+  "edges": 38109,
+  "street_length_km": 933.03,
+  "intersections": 29152,
+  "streets_per_node_avg": 2.5,
+  "footpath_share": 0.555,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 1184,
+ "buildings": 4887,
  "height_sources": {
-  "lidar": 1063,
-  "osm": 92,
-  "osm-levels": 12,
-  "model": 17
+  "lidar": 4748,
+  "model": 33,
+  "osm": 93,
+  "osm-levels": 13
  },
  "height_model": {
-  "known": 1167,
-  "predicted": 17,
+  "known": 4854,
+  "predicted": 33,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 11.72,
+  "cv_mae_m": 5.99,
   "features": [
    "log area",
    "log perimeter",
@@ -36,14 +36,14 @@
    "max known height within 60 m"
   ]
  },
- "trees": 17037,
- "places": 971,
- "pause_places": 81,
+ "trees": 35996,
+ "places": 1367,
+ "pause_places": 118,
  "pause_by_kind": {
-  "station": 18,
-  "library": 3,
-  "community": 3,
-  "park": 53,
+  "park": 80,
+  "station": 22,
+  "community": 7,
+  "library": 5,
   "water": 1,
   "mall": 3
  },
@@ -52,20 +52,20 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/OH_Statewide_Phase1_1_2019/",
    "survey_year": 2019,
-   "points": 351688620,
-   "density_pts_m2": 9.1,
+   "points": 741711330,
+   "density_pts_m2": 11.2,
    "classes": {
-    "1": 152710671,
-    "7": 1073155,
-    "9": 4752397,
-    "2": 188016121,
-    "18": 14668,
-    "20": 73157,
-    "17": 5048451
+    "1": 364561176,
+    "2": 362084044,
+    "7": 1767462,
+    "9": 6325695,
+    "18": 19698,
+    "20": 98034,
+    "17": 6855221
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 8.91,
- "minutes": 6.0
+ "data_mb": 19.26,
+ "minutes": 11.6
 }

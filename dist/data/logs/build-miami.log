@@ -1,20 +1,22 @@
-== Miami: 3 zone(s)
-  OSM tile 10: 3,345 nodes, 353 ways, 45 relations
-  OSM tile 20: 25,678 nodes, 4,344 ways, 250 relations
-  OSM tile 30: 41,320 nodes, 6,890 ways, 316 relations
-  OSM tile 40: 66,093 nodes, 11,478 ways, 496 relations
-  OSM tile 50: 95,908 nodes, 16,156 ways, 632 relations
-  OSM tile 60: 130,039 nodes, 21,360 ways, 747 relations
-  OSM tile 70: 162,158 nodes, 26,523 ways, 850 relations
-  OSM tile 80: 195,422 nodes, 31,604 ways, 930 relations
-  OSM tile 90: 231,011 nodes, 36,815 ways, 998 relations
-  OSM tile 100: 273,484 nodes, 43,143 ways, 1,094 relations
-  OSM tile 110: 314,872 nodes, 49,261 ways, 1,177 relations
-  OSM tile 120: 356,607 nodes, 55,355 ways, 1,272 relations
-  OSMnx walk graph: 84,040 nodes, 98,109 edges
-  10,846 building footprints
+== Miami: 4 zone(s)
+  OSM tile 10: 1,122 nodes, 73 ways, 32 relations
+  OSM tile 20: 19,571 nodes, 3,050 ways, 183 relations
+  OSM tile 30: 34,768 nodes, 5,685 ways, 257 relations
+  OSM tile 40: 60,273 nodes, 10,371 ways, 448 relations
+  OSM tile 50: 88,110 nodes, 15,106 ways, 596 relations
+  OSM tile 60: 121,338 nodes, 20,146 ways, 715 relations
+  OSM tile 70: 154,711 nodes, 25,304 ways, 777 relations
+  OSM tile 80: 187,749 nodes, 30,435 ways, 894 relations
+  OSM tile 90: 224,635 nodes, 35,760 ways, 978 relations
+  OSM tile 100: 265,551 nodes, 41,917 ways, 1,073 relations
+  OSM tile 110: 308,613 nodes, 48,351 ways, 1,162 relations
+  OSM tile 120: 352,700 nodes, 54,627 ways, 1,208 relations
+  OSM tile 130: 386,714 nodes, 59,911 ways, 1,313 relations
+  OSM tile 132: 396,845 nodes, 61,491 ways, 1,345 relations
+  OSMnx walk graph: 91,872 nodes, 107,072 edges
+  20,356 building footprints
   LiDAR source: FL_TopobathyFLKeysNOAA_Hydroflattened_2019 (2019)
-  part 0: 9775 EPT nodes, ~8.8 pts/m², grid (4081, 3241)
-  part 0: 466,971,294 points, 1,016 building heights, 8,415 crowns so far
-  height model: trained on 10,048, predicted 798, CV MAE 4.9 m
-== Miami done in 9.2 min: 14.53 MB, 98,109 segments, 10,846 buildings {'lidar': 370, 'osm': 9556, 'model': 798, 'osm-levels': 122}, 8,415 crowns, 2,319 places, 106 pause places
+  part 0: 9881 EPT nodes, ~8.1 pts/m², grid (4163, 3478)
+  part 0: 467,180,378 points, 1,103 building heights, 8,958 crowns so far
+  height model: trained on 18,918, predicted 1,438, CV MAE 3.6 m
+== Miami done in 8.8 min: 18.3 MB, 107,072 segments, 20,356 buildings {'osm': 18399, 'lidar': 389, 'model': 1438, 'osm-levels': 130}, 8,958 crowns, 3,390 places, 132 pause places

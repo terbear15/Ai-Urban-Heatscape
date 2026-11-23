@@ -6,28 +6,28 @@
   "Pearl District",
   "Old Town Chinatown"
  ],
- "area_km2": 4.31,
+ "area_km2": 8.9,
  "network": {
-  "nodes": 19024,
-  "edges": 23354,
-  "street_length_km": 327.53,
-  "intersections": 18395,
-  "streets_per_node_avg": 2.46,
-  "footpath_share": 0.537,
+  "nodes": 39622,
+  "edges": 45388,
+  "street_length_km": 609.85,
+  "intersections": 38561,
+  "streets_per_node_avg": 2.29,
+  "footpath_share": 0.464,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 2049,
+ "buildings": 5745,
  "height_sources": {
-  "model": 9,
-  "lidar": 1636,
-  "osm-levels": 121,
-  "osm": 283
+  "lidar": 4819,
+  "model": 30,
+  "osm-levels": 128,
+  "osm": 768
  },
  "height_model": {
-  "known": 2040,
-  "predicted": 9,
+  "known": 5715,
+  "predicted": 30,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 10.89,
+  "cv_mae_m": 6.38,
   "features": [
    "log area",
    "log perimeter",
@@ -38,35 +38,35 @@
    "max known height within 60 m"
   ]
  },
- "trees": 15876,
- "places": 2472,
- "pause_places": 134,
+ "trees": 33798,
+ "places": 3302,
+ "pause_places": 164,
  "pause_by_kind": {
-  "water": 68,
-  "library": 4,
-  "station": 24,
-  "community": 6,
-  "park": 32
+  "water": 82,
+  "library": 6,
+  "station": 26,
+  "community": 10,
+  "park": 40
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/OR_OLCMetro_2019/",
    "survey_year": 2019,
-   "points": 137955641,
-   "density_pts_m2": 8.5,
+   "points": 463963560,
+   "density_pts_m2": 9.8,
    "classes": {
-    "1": 115423523,
-    "2": 13134504,
-    "7": 579042,
-    "9": 2157355,
-    "18": 2328970,
-    "20": 14616,
-    "17": 4317631
+    "1": 411327501,
+    "2": 39327274,
+    "7": 2014324,
+    "9": 2784031,
+    "18": 2837454,
+    "20": 17195,
+    "17": 5655781
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 9.75,
- "minutes": 2.8
+ "data_mb": 21.3,
+ "minutes": 7.1
 }

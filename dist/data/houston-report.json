@@ -3,31 +3,30 @@
  "slug": "houston",
  "zones": [
   "Downtown",
-  "Midtown",
-  "Museum District"
+  "Midtown"
  ],
- "area_km2": 9.98,
+ "area_km2": 16.85,
  "network": {
-  "nodes": 50004,
-  "edges": 61001,
-  "street_length_km": 1172.8,
-  "intersections": 46885,
-  "streets_per_node_avg": 2.44,
-  "footpath_share": 0.401,
+  "nodes": 51172,
+  "edges": 62630,
+  "street_length_km": 1247.19,
+  "intersections": 47943,
+  "streets_per_node_avg": 2.45,
+  "footpath_share": 0.377,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 4556,
+ "buildings": 11838,
  "height_sources": {
-  "lidar": 4224,
-  "osm": 222,
-  "model": 91,
-  "osm-levels": 19
+  "lidar": 11484,
+  "osm": 236,
+  "model": 98,
+  "osm-levels": 20
  },
  "height_model": {
-  "known": 4465,
-  "predicted": 91,
+  "known": 11740,
+  "predicted": 98,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 7.13,
+  "cv_mae_m": 4.48,
   "features": [
    "log area",
    "log perimeter",
@@ -38,14 +37,14 @@
    "max known height within 60 m"
   ]
  },
- "trees": 27294,
- "places": 1254,
- "pause_places": 118,
+ "trees": 42838,
+ "places": 1678,
+ "pause_places": 133,
  "pause_by_kind": {
-  "station": 23,
-  "water": 10,
-  "library": 6,
-  "park": 72,
+  "station": 21,
+  "water": 21,
+  "library": 5,
+  "park": 79,
   "mall": 1,
   "community": 6
  },
@@ -54,24 +53,24 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/TX_Coastal_B1_2018/",
    "survey_year": 2018,
-   "points": 428213270,
-   "density_pts_m2": 10.1,
+   "points": 442611754,
+   "density_pts_m2": 10.0,
    "classes": {
-    "1": 95390320,
-    "6": 81386471,
-    "7": 1360530,
-    "2": 186804076,
-    "3": 7013075,
-    "5": 42969481,
-    "4": 6205907,
-    "9": 470339,
-    "10": 13109,
-    "17": 6573708,
-    "14": 26254
+    "1": 97769208,
+    "6": 93110285,
+    "7": 1535844,
+    "2": 180323912,
+    "3": 8942200,
+    "5": 46758614,
+    "4": 6811167,
+    "9": 614375,
+    "14": 31575,
+    "17": 6697167,
+    "10": 17407
    },
    "vegetation_classes": true
   }
  ],
- "data_mb": 17.4,
- "minutes": 8.0
+ "data_mb": 25.81,
+ "minutes": 6.7
 }
