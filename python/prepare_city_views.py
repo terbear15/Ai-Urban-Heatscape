@@ -103,8 +103,28 @@ def tracts(state, city, forward):
         part = geom.intersection(city).buffer(0)
         if part.is_empty or part.area < 0.5 * geom.area:
             continue
-        out.append({"id": row.GEOID, "geom": part, "density": (pop.get(row.GEOID, 0) if pop else 4000) / max(geom.area / 1e6, 0.01)})
+        out.append({"id": row.GEOID, "county": row.COUNTYFP, "geom": part, "density": (pop.get(row.GEOID, 0) if pop else 4000) / max(geom.area / 1e6, 0.01)})
     return out
+
+
+WATER = "https://www2.census.gov/geo/tiger/TIGER2024/AREAWATER/"
+
+
+def water(state, counties, forward):
+    """Detailed water polygons (rivers, harbors, lakes) from TIGER/Line for these counties."""
+    shapes = []
+    for county in sorted(counties):
+        name = f"tl_2024_{state}{county}_areawater.zip"
+        path = CACHE / name
+        if not path.exists():
+            response = requests.get(WATER + name, timeout=120)
+            if response.status_code != 200:
+                print("  no water file", name)
+                continue
+            path.write_bytes(response.content)
+        table = gpd.read_file(path).to_crs(4326)
+        shapes += [transform(forward, g).buffer(0) for g in table.geometry if g is not None]
+    return unary_union(shapes) if shapes else None
 
 
 def reverse_of(forward):
@@ -263,6 +283,15 @@ def main():
                 print(name, f"{len(used)} census tracts added; {core_area / 1e6:.1f} -> {base.area / 1e6:.1f} km2")
             final = fill_small_holes(base.buffer(0.5, join_style=2).buffer(-0.5, join_style=2)).intersection(city).buffer(0)
             final = main_part(final)
+            if key == "new-york":
+                # Manhattan only: New York County's tracts, so no Brooklyn or Queens shoreline.
+                manhattan = unary_union([t["geom"] for t in pool if t["county"] == "061"])
+                final = final.intersection(manhattan.buffer(1)).buffer(0)
+            # Take out rivers, harbors and lakes (Census land boundaries are coarse at the shore).
+            wet = water(CITIES[key][0], {t["county"] for t in pool if t["geom"].intersects(final)}, forward)
+            if wet is not None:
+                final = final.difference(wet).buffer(0)
+            final = unary_union([p for p in getattr(final, "geoms", [final]) if p.area > 20000])
             # List only zones that really ended up inside the area (a zone across a wide river is lost).
             zones = [z for z, i in zip(zones, kept) if flat[i].intersection(final).area >= 0.25 * flat[i].area]
             land = transform(reverse, final).buffer(0)
