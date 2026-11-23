@@ -72,6 +72,55 @@ def places(state):
     return gpd.read_file(path).to_crs(4326)
 
 
+ACS = "https://api.census.gov/data/2023/acs/acs5"
+
+
+def tracts(state, city, forward):
+    """Census tracts inside the city (projected), with people per km2 (ACS 2023 5-year)."""
+    name = f"cb_2024_{state}_tract_500k.zip"
+    path = CACHE / name
+    if not path.exists():
+        response = requests.get(BASE + name, timeout=90)
+        response.raise_for_status()
+        path.write_bytes(response.content)
+    table = gpd.read_file(path).to_crs(4326)
+    pops_path = CACHE / f"acs2023_tract_pop_{state}.json"
+    if not pops_path.exists():
+        rows = requests.get(ACS, params={"get": "B01003_001E", "for": "tract:*", "in": [f"state:{state}", "county:*"]}, timeout=90).json()
+        pops_path.write_text(json.dumps(rows))
+    rows = json.loads(pops_path.read_text())
+    head = rows[0]
+    pop = {r[head.index("state")] + r[head.index("county")] + r[head.index("tract")]: int(r[0] or 0) for r in rows[1:]}
+    w, s_, e, n = transform(reverse_of(forward), city).bounds
+    out = []
+    for _, row in table.cx[w:e, s_:n].iterrows():
+        geom = transform(forward, row.geometry).buffer(0)
+        part = geom.intersection(city).buffer(0)
+        if part.is_empty or part.area < 0.5 * geom.area:
+            continue
+        out.append({"id": row.GEOID, "geom": part, "density": pop.get(row.GEOID, 0) / max(geom.area / 1e6, 0.01)})
+    return out
+
+
+def reverse_of(forward):
+    return REVERSE[id(forward)]
+
+
+REVERSE = {}
+
+
+def largest_parts(geom):
+    return sorted(getattr(geom, "geoms", [geom]), key=lambda g: -g.area)
+
+
+def fill_small_holes(geom, max_area=300_000):
+    polys = []
+    for p in getattr(geom, "geoms", [geom]):
+        holes = [h for h in p.interiors if Polygon(h).area > max_area]
+        polys.append(Polygon(p.exterior, holes))
+    return unary_union(polys)
+
+
 # Daylight / standard UTC offsets and abbreviations by time zone.
 TIME_ZONES = {
     "eastern": ("-04:00", "EDT", "-05:00", "EST"), "central": ("-05:00", "CDT", "-06:00", "CST"),
@@ -89,7 +138,7 @@ ZONE_DIR = ROOT / "python" / "zones"
 # Cities whose connected center runs further than 8 km (Manhattan up to the Upper
 # West and East Sides, Downtown LA to Hollywood).
 REACH = {"new-york": 14000, "los-angeles": 14000}
-# Each area is grown to about twice its connected center (NYC is all of Manhattan already).
+# Each area grows by census tracts to about twice its connected center (NYC is all of Manhattan).
 GROW = 2.0
 NO_GROW = {"new-york"}
 
@@ -123,6 +172,7 @@ def main():
         local = CRS.from_proj4(f"+proj=aeqd +lat_0={lat0} +lon_0={lon0} +datum=WGS84")
         forward = Transformer.from_crs(4326, local, always_xy=True).transform
         reverse = Transformer.from_crs(local, 4326, always_xy=True).transform
+        REVERSE[id(forward)] = reverse
         shapes = []
         official = ZONE_DIR / f"{key}.geojson"
         polygons = {}
@@ -166,34 +216,43 @@ def main():
             if dropped:
                 print(name, "drops far zones:", ", ".join(dropped))
             zones = [zones[i] for i in kept]
-            joined = unary_union([flat[i] for i in kept]).buffer(350, quad_segs=16).buffer(-350, quad_segs=16)
-            land = transform(forward, land).intersection(joined).buffer(0)
-            # Keep the land piece holding downtown and any piece across a narrow river (<150 m).
-            pieces = sorted(getattr(land, "geoms", [land]), key=lambda g: -g.intersection(flat[core]).area)
-            keep = [pieces[0]]
-            for piece in pieces[1:]:
-                if piece.area > 20000 and unary_union(keep).distance(piece) < 150:
-                    keep.append(piece)
-            final = unary_union(keep)
-            if key not in NO_GROW:
-                # Grow outward from the connected center until the area doubles, staying on the
-                # city's land: the blocks around a downtown are its densest neighborhoods.
-                city = transform(forward, city_land).buffer(0)
-                target = GROW * final.area
+            city = transform(forward, city_land).buffer(0)
+            base = unary_union([flat[i] for i in kept]).intersection(city).buffer(0)
+            pool = tracts(CITIES[key][0], city, forward)
+            used = set()
+            touches = lambda geom, t: t["id"] not in used and geom.distance(t["geom"]) < 5
 
-                def grown(d):
-                    g = final.buffer(d, quad_segs=16).intersection(city).buffer(0)
-                    parts = sorted(getattr(g, "geoms", [g]), key=lambda p: -p.intersection(final).area)
-                    return parts[0]
-                lo, hi = 0.0, 8000.0
-                for _ in range(22):
-                    mid = (lo + hi) / 2
-                    if grown(mid).area < target:
-                        lo = mid
-                    else:
-                        hi = mid
-                final = unary_union([grown(hi), final]).buffer(30).buffer(-30)
-                print(name, f"grown by {hi:.0f} m to {final.area / 1e6:.1f} km2")
+            def main_part(geom):
+                return max(getattr(geom, "geoms", [geom]), key=lambda g: g.intersection(flat[core]).area + g.area * 1e-9)
+            # 1. Join the kept zones with whole census tracts (government units that follow streets).
+            for _ in range(400):
+                main = main_part(base)
+                others = [g for g in getattr(base, "geoms", [base]) if not g.equals(main) and g.distance(main) > 5]
+                if not others:
+                    break
+                rest = unary_union(others)
+                cands = [t for t in pool if touches(main, t)]
+                if not cands:
+                    break
+                best = min(cands, key=lambda t: t["geom"].distance(rest))
+                if best["geom"].distance(rest) >= main.distance(rest):
+                    break  # no tract brings the pieces closer (open water between them)
+                used.add(best["id"])
+                base = unary_union([base, best["geom"]]).buffer(0)
+            base = main_part(base)
+            core_area = base.area
+            # 2. Grow by the most densely populated neighbouring tract until the area doubles.
+            if key not in NO_GROW:
+                while base.area < GROW * core_area:
+                    cands = [t for t in pool if touches(base, t)]
+                    if not cands:
+                        break
+                    best = max(cands, key=lambda t: t["density"])
+                    used.add(best["id"])
+                    base = main_part(unary_union([base, best["geom"]]).buffer(0))
+                print(name, f"{len(used)} census tracts added; {core_area / 1e6:.1f} -> {base.area / 1e6:.1f} km2")
+            final = fill_small_holes(base.buffer(0.5, join_style=2).buffer(-0.5, join_style=2)).intersection(city).buffer(0)
+            final = main_part(final)
             # List only zones that really ended up inside the area (a zone across a wide river is lost).
             zones = [z for z, i in zip(zones, kept) if flat[i].intersection(final).area >= 0.25 * flat[i].area]
             land = transform(reverse, final).buffer(0)
