@@ -118,7 +118,7 @@ def largest_parts(geom):
     return sorted(getattr(geom, "geoms", [geom]), key=lambda g: -g.area)
 
 
-def fill_small_holes(geom, max_area=300_000):
+def fill_small_holes(geom, max_area=3_000_000):
     polys = []
     for p in getattr(geom, "geoms", [geom]):
         holes = [h for h in p.interiors if Polygon(h).area > max_area]
@@ -145,6 +145,7 @@ ZONE_DIR = ROOT / "python" / "zones"
 REACH = {"new-york": 14000, "los-angeles": 14000}
 # Each area grows by census tracts to about twice its connected center (NYC is all of Manhattan).
 GROW = 2.0
+MIN_AREA = 6_000_000  # m2; small downtown cores still get a walkable area
 NO_GROW = {"new-york"}
 
 
@@ -248,11 +249,15 @@ def main():
             core_area = base.area
             # 2. Grow by the most densely populated neighbouring tract until the area doubles.
             if key not in NO_GROW:
-                while base.area < GROW * core_area:
+                target = max(GROW * core_area, MIN_AREA)
+                while base.area < target:
                     cands = [t for t in pool if touches(base, t)]
                     if not cands:
                         break
-                    best = max(cands, key=lambda t: t["density"])
+                    edge = base.boundary.buffer(4)
+                    # Compact growth: tracts that share more of their border with the area come
+                    # first (no thin fingers), weighted by density.
+                    best = max(cands, key=lambda t: (t["geom"].boundary.intersection(edge).length / t["geom"].boundary.length) * t["density"] ** 0.5)
                     used.add(best["id"])
                     base = main_part(unary_union([base, best["geom"]]).buffer(0))
                 print(name, f"{len(used)} census tracts added; {core_area / 1e6:.1f} -> {base.area / 1e6:.1f} km2")
