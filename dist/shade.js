@@ -145,7 +145,7 @@ if (map) {
       map.addLayer({id: 'route-' + key, type: 'line', source: 'route-' + key, layout, paint: {'line-width': 4}});
     }
     map.addSource('pause', {type: 'geojson', data: empty});
-    map.addLayer({id: 'pause', type: 'circle', source: 'pause', paint: {
+    map.addLayer({id: 'pause', type: 'circle', source: 'pause', minzoom: 14, paint: {
       'circle-radius': ['interpolate', ['linear'], ['zoom'], 13, 3, 17, 7], 'circle-color': ['match', ['get', 'kind'],
         'water', '#3f8fd6', 'park', '#4f9a62', 'library', '#8a63c2', 'community', '#c2782f', 'mall', '#b0577e', 'station', '#4c6a8a', '#666'],
       'circle-stroke-color': '#fff', 'circle-stroke-width': 1.5}});
@@ -243,12 +243,14 @@ function pausePlaces() {
   };
   const kept = [];
   for (const p of stats.pois || []) {
+    if (areaRings && !areaRings.some(r => contains([p[2], p[3]], r))) continue;  // only inside the dashed area
     if (generic[p[1]] && generic[p[1]].test(String(p[0]).trim())) continue;
     const radius = p[1] === 'water' ? 150 : 300;
     if (kept.some(q => q[1] === p[1] && (p[1] === 'water' || q[0] === p[0]) && near(p, q, radius))) continue;
     kept.push(p);
   }
-  return (pauseCache = kept);
+  if (areaRings) pauseCache = kept;
+  return kept;
 }
 
 function updatePause() {
