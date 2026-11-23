@@ -77,9 +77,54 @@ function inside(collection, slug) {
   return {type: 'FeatureCollection', features};
 }
 
+// Shadows are convex (each is a hull), so the part inside the area is the area ring
+// clipped by the shadow (Sutherland-Hodgman with the convex shadow as the clipper).
+function clipToConvex(subject, clip) {
+  let area2 = 0;
+  for (let i = 0; i < clip.length - 1; i++) area2 += clip[i][0] * clip[i + 1][1] - clip[i + 1][0] * clip[i][1];
+  const sign = area2 >= 0 ? 1 : -1;
+  const side = (a, b, p) => sign * ((b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0])) >= 0;
+  const cross = (p, q, a, b) => {
+    const x1 = p[0], y1 = p[1], x2 = q[0], y2 = q[1], x3 = a[0], y3 = a[1], x4 = b[0], y4 = b[1];
+    const d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4) || 1e-15;
+    const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / d;
+    return [x1 + t * (x2 - x1), y1 + t * (y2 - y1)];
+  };
+  let out = subject.slice(0, -1);
+  for (let i = 0; i < clip.length - 1 && out.length; i++) {
+    const a = clip[i], b = clip[i + 1], input = out;
+    out = [];
+    for (let j = 0; j < input.length; j++) {
+      const p = input[j], q = input[(j + 1) % input.length];
+      const pin = side(a, b, p), qin = side(a, b, q);
+      if (pin) out.push(p);
+      if (pin !== qin) out.push(cross(p, q, a, b));
+    }
+  }
+  return out.length >= 3 ? [...out, out[0]] : null;
+}
+function clipShadows(features, slug) {
+  const polys = loadArea(slug);
+  if (!polys.length) return features;
+  const inArea = ([x, y]) => polys.some(([outer, ...holes]) => inRing(x, y, outer) && !holes.some(h => inRing(x, y, h)));
+  const out = [];
+  for (const f of features) {
+    const ring = f.geometry.coordinates[0];
+    const flags = ring.slice(0, -1).map(inArea);
+    if (flags.every(Boolean)) { out.push(f); continue; }
+    for (const [outer] of polys) {
+      const piece = clipToConvex(outer, ring);
+      if (piece) out.push({type: 'Feature', properties: {}, geometry: {type: 'Polygon', coordinates: [piece]}});
+    }
+  }
+  return out;
+}
+let citySlug = '';
+
 self.onmessage = ({data: msg}) => {
   try {
     if (msg.type === 'init') {
+      citySlug = msg.slug;
       importScripts('vendor/suncalc.js', 'engine.js?' + msg.version, 'data/' + msg.slug + '.js?' + msg.version);
       const data = CITYDATA.v === 3 ? HeatEngine.unpack(CITYDATA) : CITYDATA;
       engine = HeatEngine.create(data);
@@ -93,7 +138,8 @@ self.onmessage = ({data: msg}) => {
       CITYDATA.buildings = CITYDATA.trees = data.buildings = data.trees = null; // engine has its own copies
     } else if (msg.type === 'shade') {
       const s = slot(msg.time, msg.lat, msg.lon, msg.trees, true);
-      self.postMessage({type: 'shade', id: msg.id, night: s.night, geometry: s.geometry});
+      const geometry = s.geometry && {buildings: clipShadows(s.geometry.buildings, citySlug), trees: clipShadows(s.geometry.trees, citySlug)};
+      self.postMessage({type: 'shade', id: msg.id, night: s.night, geometry});
       schedulePrefetch(msg.time, msg.lat, msg.lon, msg.trees);
     } else if (msg.type === 'route') {
       const result = engine.routes(msg.a, msg.b, slotsFrom(msg.time, msg.lat, msg.lon, msg.trees), msg.extra, msg.winter);

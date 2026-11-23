@@ -136,7 +136,7 @@ if (map) {
       'fill-color': css('--map-building'), 'fill-outline-color': css('--map-building-edge'),
       // Zoomed out, buildings fade so the shade pattern reads (D7).
       'fill-opacity': ['interpolate', ['linear'], ['zoom'], 13, .15, 15, .5, 16.5, .95]}});
-    map.addLayer({id: 'city-mask', type: 'fill', source: 'area', filter: ['==', ['get', 'layer'], 'mask'], paint: {'fill-color': css('--map-mask'), 'fill-opacity': .92, 'fill-antialias': false}});
+    map.addLayer({id: 'city-mask', type: 'fill', source: 'area', filter: ['==', ['get', 'layer'], 'mask'], paint: {'fill-color': css('--map-mask'), 'fill-opacity': .62, 'fill-antialias': false}});
     map.addLayer({id: 'city-limits', type: 'line', source: 'area', filter: ['==', ['get', 'layer'], 'land'], paint: {'line-color': css('--map-boundary'), 'line-width': 1.6, 'line-opacity': .9, 'line-dasharray': [3, 2]}});
     for (const key of ['fast', 'mid', 'best']) {
       map.addSource('route-' + key, {type: 'geojson', data: empty});
