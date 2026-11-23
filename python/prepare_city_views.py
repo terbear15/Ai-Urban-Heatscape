@@ -84,16 +84,18 @@ def tracts(state, city, forward):
         response.raise_for_status()
         path.write_bytes(response.content)
     table = gpd.read_file(path).to_crs(4326)
-    pops_path = CACHE / f"acs2023_tract_pop_{state}.json"
-    if not pops_path.exists():
-        r = requests.get(ACS, params={"get": "B01003_001E", "for": "tract:*", "in": f"state:{state} county:*"}, timeout=120)
-        if r.status_code != 200 or not r.text.startswith("["):
-            raise SystemExit(f"Census API {r.status_code}: {r.text[:300]}")
-        rows = r.json()
-        pops_path.write_text(json.dumps(rows))
-    rows = json.loads(pops_path.read_text())
-    head = rows[0]
-    pop = {r[head.index("state")] + r[head.index("county")] + r[head.index("tract")]: int(r[0] or 0) for r in rows[1:]}
+    # Population per tract from the ACS when the API answers without a key; otherwise tract
+    # size stands in for density (tracts are drawn to hold about 4,000 people, 1,200-8,000).
+    pop = {}
+    try:
+        r = requests.get(ACS, params={"get": "B01003_001E", "for": "tract:*", "in": f"state:{state} county:*"}, timeout=60)
+        if r.status_code == 200 and r.text.startswith("["):
+            rows = r.json()
+            head = rows[0]
+            pop = {x[head.index("state")] + x[head.index("county")] + x[head.index("tract")]: int(x[0] or 0) for x in rows[1:]}
+    except requests.RequestException:
+        pass
+    print("  tract population:", "ACS 2023" if pop else "unavailable, using tract size")
     w, s_, e, n = transform(reverse_of(forward), city).bounds
     out = []
     for _, row in table.cx[w:e, s_:n].iterrows():
@@ -101,7 +103,7 @@ def tracts(state, city, forward):
         part = geom.intersection(city).buffer(0)
         if part.is_empty or part.area < 0.5 * geom.area:
             continue
-        out.append({"id": row.GEOID, "geom": part, "density": pop.get(row.GEOID, 0) / max(geom.area / 1e6, 0.01)})
+        out.append({"id": row.GEOID, "geom": part, "density": (pop.get(row.GEOID, 0) if pop else 4000) / max(geom.area / 1e6, 0.01)})
     return out
 
 
