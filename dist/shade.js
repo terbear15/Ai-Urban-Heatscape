@@ -415,7 +415,7 @@ function rgba(token, alpha) {
   const hex = ctx.fillStyle.startsWith('#') ? ctx.fillStyle : '#000000';
   return [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16), alpha];
 }
-const shadeColors = () => ({1: rgba('--map-tree-shadow', 235), 2: rgba('--map-building-shadow', 235), 3: rgba('--map-tree', 215)});
+const shadeColors = () => ({1: rgba('--map-tree-shadow', 118), 2: rgba('--map-building-shadow', 118), 3: rgba('--map-tree', 108)});
 async function refreshShade() {
   if (!ready) return;
   if (shadeBusy) { shadeAgain = true; return; }
