@@ -86,7 +86,10 @@ def tracts(state, city, forward):
     table = gpd.read_file(path).to_crs(4326)
     pops_path = CACHE / f"acs2023_tract_pop_{state}.json"
     if not pops_path.exists():
-        rows = requests.get(ACS, params={"get": "B01003_001E", "for": "tract:*", "in": [f"state:{state}", "county:*"]}, timeout=90).json()
+        r = requests.get(ACS, params={"get": "B01003_001E", "for": "tract:*", "in": f"state:{state} county:*"}, timeout=120)
+        if r.status_code != 200 or not r.text.startswith("["):
+            raise SystemExit(f"Census API {r.status_code}: {r.text[:300]}")
+        rows = r.json()
         pops_path.write_text(json.dumps(rows))
     rows = json.loads(pops_path.read_text())
     head = rows[0]
