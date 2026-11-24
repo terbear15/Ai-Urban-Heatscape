@@ -62,6 +62,10 @@ def save(path, data):
     path.write_text(json.dumps(data, separators=(",", ":")), encoding="utf-8")
 
 
+# Neighbouring cities whose land belongs to a city's map (Harvard and MIT are in Cambridge).
+EXTRA_PLACES = {"boston": ("Boston", "Cambridge")}
+
+
 def places(state):
     name = f"cb_2024_{state}_place_500k.zip"
     path = CACHE / name
@@ -172,6 +176,8 @@ NO_GROW = {"new-york", "philadelphia"}
 TARGET_KM2 = {"san-francisco": 48, "los-angeles": 56}
 # Wider bays to close (metres; default 800): Detroit's V between the river and Woodward.
 BAY_REACH = {"detroit": 2000}
+# Widest river a bridge crosses inside the area (metres; default 400): the Charles at Boston.
+JOIN_GAP = {"boston": 800}
 
 
 def main():
@@ -179,7 +185,7 @@ def main():
     views = {}
     for key, (state, name) in CITIES.items():
         table = tables[state]
-        members = LA_PLACES if key == "los-angeles" else (name,)
+        members = LA_PLACES if key == "los-angeles" else EXTRA_PLACES.get(key, (name,))
         selection = table[table.NAME.isin(members)]
         if selection.empty:
             # Consolidated cities (e.g. Indianapolis) are listed as "<name> city (balance)".
@@ -260,7 +266,7 @@ def main():
                 main = main_part(geom)
                 keep = [main]
                 for g in sorted(getattr(geom, "geoms", [geom]), key=lambda g: g.distance(main)):
-                    if g is not main and g.area > 50000 and unary_union(keep).distance(g) < 400:
+                    if g is not main and g.area > 50000 and unary_union(keep).distance(g) < JOIN_GAP.get(key, 400):
                         keep.append(g)
                 return unary_union(keep)
             # 1. Join the kept zones with whole census tracts (government units that follow streets).

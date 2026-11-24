@@ -9,7 +9,12 @@ BOXES = {
     "philadelphia": {
         # An even band north of Center City: Vine St (south) to Fairmount Ave (north), Schuylkill
         # River (west) to the Delaware River (east). Art Museum, Spring Garden, Callowhill, Chinatown North.
-        "Art Museum, Spring Garden and Callowhill": [(-75.1830, 39.9675), (-75.1360, 39.9675), (-75.1360, 39.9580), (-75.1830, 39.9580)],
+        "Art Museum, Spring Garden and Callowhill": [(-75.1830, 39.9675), (-75.1360, 39.9675), (-75.1360, 39.9530), (-75.1830, 39.9530)],
+    },
+    "boston": {
+        # Cambridge from Kendall Square and MIT to Harvard Square: Charles River (south) to
+        # Cambridge St / Kirkland St (north), Harvard Square (west) to the Longfellow Bridge (east).
+        "MIT, Kendall Square and Harvard": [(-71.1240, 42.3790), (-71.0770, 42.3790), (-71.0770, 42.3540), (-71.1240, 42.3540)],
     },
     "los-angeles": {
         # Connects Koreatown to Hollywood: 3rd St (south) to Santa Monica Blvd (north), Western Ave (west) to Vermont Ave (east).

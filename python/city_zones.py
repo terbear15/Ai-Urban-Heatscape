@@ -89,6 +89,7 @@ ZONES = {
         ("North End", -71.054, 42.365, 0.6),
         ("Back Bay", -71.080, 42.350, 1.0),
         ("Seaport", -71.044, 42.350, 0.8),
+        ("MIT, Kendall Square and Harvard", (-71.1240, 42.3540, -71.0770, 42.3790)),
     ],
     "atlanta": [
         ("Downtown", -84.390, 33.757, 1.2),
@@ -235,6 +236,7 @@ OFFICIAL = {
         "North End": ["North End, Boston"],
         "Back Bay": ["Back Bay, Boston"],
         "Seaport": ["Seaport District, Boston", "South Boston Waterfront, Boston"],
+        "MIT, Kendall Square and Harvard": [],  # street-bounded band in Cambridge, python/downtown_boxes.py
     },
     "atlanta": {  # City of Atlanta Department of City Planning neighborhoods
         "Downtown": ["layer:atlanta:NAME=Downtown", "Downtown Atlanta"],
