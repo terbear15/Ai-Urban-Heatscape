@@ -1,4 +1,4 @@
-== San Francisco: 10 zone(s)
+== San Francisco: 11 zone(s)
   OSM tile 10: 18,804 nodes, 3,419 ways, 224 relations
   OSM tile 20: 46,645 nodes, 8,248 ways, 810 relations
   OSM tile 30: 75,605 nodes, 14,088 ways, 1,115 relations
@@ -27,9 +27,9 @@
   OSM tile 260: 1,414,109 nodes, 178,430 ways, 5,196 relations
   OSM tile 264: 1,414,162 nodes, 178,446 ways, 5,196 relations
   OSMnx walk graph: 162,471 nodes, 195,284 edges
-  72,561 building footprints
+  78,662 building footprints
   LiDAR source: CA_SanFrancisco_1_B23 (year unknown)
   part 0: 29820 EPT nodes, ~8.6 pts/m², grid (4973, 7249)
-  part 0: 1,237,216,798 points, 71,541 building heights, 129,190 crowns so far
-  height model: trained on 72,362, predicted 199, CV MAE 2.7 m
-== San Francisco done in 57.2 min: 101.77 MB, 195,271 segments, 72,561 buildings {'osm': 61174, 'lidar': 11085, 'model': 199, 'osm-levels': 103}, 129,190 crowns, 15,397 places, 836 pause places
+  part 0: 1,237,216,798 points, 77,607 building heights, 134,579 crowns so far
+  height model: trained on 78,456, predicted 206, CV MAE 2.7 m
+== San Francisco done in 61.0 min: 106.55 MB, 195,271 segments, 78,662 buildings {'osm': 66199, 'lidar': 12153, 'model': 206, 'osm-levels': 104}, 134,579 crowns, 16,187 places, 858 pause places

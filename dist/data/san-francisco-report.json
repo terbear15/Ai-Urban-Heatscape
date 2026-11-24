@@ -11,9 +11,10 @@
   "Haight-Ashbury and Inner Sunset",
   "Castro and Twin Peaks",
   "Presidio",
+  "Marina and Pacific Heights",
   "Richmond, Sea Cliff and Lincoln Park"
  ],
- "area_km2": 50.73,
+ "area_km2": 55.22,
  "network": {
   "nodes": 162471,
   "edges": 195271,
@@ -23,18 +24,18 @@
   "footpath_share": 0.604,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 72561,
+ "buildings": 78662,
  "height_sources": {
-  "osm": 61174,
-  "lidar": 11085,
-  "model": 199,
-  "osm-levels": 103
+  "osm": 66199,
+  "lidar": 12153,
+  "model": 206,
+  "osm-levels": 104
  },
  "height_model": {
-  "known": 72362,
-  "predicted": 199,
+  "known": 78456,
+  "predicted": 206,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.73,
+  "cv_mae_m": 2.69,
   "features": [
    "log area",
    "log perimeter",
@@ -45,15 +46,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 129190,
- "places": 15397,
- "pause_places": 836,
+ "trees": 134579,
+ "places": 16187,
+ "pause_places": 858,
  "pause_by_kind": {
   "station": 37,
-  "water": 167,
+  "water": 178,
   "community": 68,
-  "park": 527,
-  "library": 27,
+  "park": 535,
+  "library": 30,
   "mall": 10
  },
  "lidar": [
@@ -76,6 +77,6 @@
    "vegetation_classes": false
   }
  ],
- "data_mb": 101.77,
- "minutes": 57.2
+ "data_mb": 106.55,
+ "minutes": 61.0
 }
