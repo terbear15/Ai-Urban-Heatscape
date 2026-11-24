@@ -35,6 +35,7 @@ ZONES = {
     "philadelphia": [
         # Center City: Vine Street to South Street, Schuylkill to Delaware River.
         ("Center City", (-75.1830, 39.9415, -75.1395, 39.9585)),
+        ("Art Museum, Spring Garden and Callowhill", (-75.1830, 39.9580, -75.1360, 39.9675)),
         ("University City", -75.195, 39.953, 1.2),
         ("South Philadelphia", -75.165, 39.928, 1.6),
     ],
@@ -305,6 +306,7 @@ OFFICIAL = {
     "philadelphia": {  # Philadelphia neighborhoods (OpenDataPhilly)
         "Center City": ["layer:philly:LISTNAME=" + n for n in ("Logan Square", "Rittenhouse", "Fitler Square", "Center City East",
                         "Washington Square West", "Society Hill", "Old City", "Chinatown")],
+        "Art Museum, Spring Garden and Callowhill": [],  # street-bounded band, python/downtown_boxes.py
         "University City": ["layer:philly:LISTNAME=" + n for n in ("University City", "Powelton", "West Powelton", "Spruce Hill",
                             "Cedar Park", "Walnut Hill")],
         "South Philadelphia": ["layer:philly:LISTNAME=" + n for n in ("Queen Village", "Bella Vista", "Graduate Hospital",

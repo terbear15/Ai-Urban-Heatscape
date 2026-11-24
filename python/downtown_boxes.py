@@ -6,6 +6,11 @@ no boundary for that zone; the result is still clipped to land.
 """
 
 BOXES = {
+    "philadelphia": {
+        # An even band north of Center City: Vine St (south) to Fairmount Ave (north), Schuylkill
+        # River (west) to the Delaware River (east). Art Museum, Spring Garden, Callowhill, Chinatown North.
+        "Art Museum, Spring Garden and Callowhill": [(-75.1830, 39.9675), (-75.1360, 39.9675), (-75.1360, 39.9580), (-75.1830, 39.9580)],
+    },
     "los-angeles": {
         # Connects Koreatown to Hollywood: 3rd St (south) to Santa Monica Blvd (north), Western Ave (west) to Vermont Ave (east).
         "Larchmont and Little Armenia": [(-118.3095, 34.0905), (-118.2915, 34.0905), (-118.2915, 34.0685), (-118.3095, 34.0685)],
