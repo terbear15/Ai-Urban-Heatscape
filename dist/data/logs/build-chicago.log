@@ -1,31 +1,33 @@
 == Chicago: 4 zone(s)
-  OSM tile 10: 994 nodes, 47 ways, 12 relations
-  OSM tile 20: 2,692 nodes, 223 ways, 21 relations
-  OSM tile 30: 9,532 nodes, 1,144 ways, 56 relations
-  OSM tile 40: 11,030 nodes, 1,220 ways, 79 relations
-  OSM tile 50: 29,483 nodes, 3,419 ways, 193 relations
-  OSM tile 60: 63,418 nodes, 8,207 ways, 489 relations
-  OSM tile 70: 75,581 nodes, 10,324 ways, 572 relations
-  OSM tile 80: 106,440 nodes, 16,707 ways, 917 relations
-  OSM tile 90: 151,321 nodes, 26,220 ways, 1,248 relations
-  OSM tile 100: 185,446 nodes, 32,246 ways, 1,366 relations
-  OSM tile 110: 230,873 nodes, 40,182 ways, 1,663 relations
-  OSM tile 120: 268,348 nodes, 48,352 ways, 1,807 relations
-  OSM tile 130: 314,094 nodes, 55,804 ways, 1,943 relations
-  OSM tile 140: 356,980 nodes, 64,197 ways, 2,089 relations
-  OSM tile 150: 393,735 nodes, 72,018 ways, 2,178 relations
-  OSM tile 160: 437,673 nodes, 80,272 ways, 2,228 relations
-  OSM tile 170: 478,825 nodes, 88,871 ways, 2,326 relations
-  OSM tile 180: 516,896 nodes, 97,261 ways, 2,477 relations
-  OSM tile 190: 563,966 nodes, 107,683 ways, 2,514 relations
-  OSM tile 200: 603,081 nodes, 116,884 ways, 2,614 relations
-  OSM tile 210: 647,626 nodes, 126,435 ways, 2,733 relations
-  OSM tile 220: 696,183 nodes, 136,188 ways, 2,793 relations
-  OSM tile 225: 714,122 nodes, 140,175 ways, 2,851 relations
-  OSMnx walk graph: 111,697 nodes, 143,830 edges
-  33,580 building footprints
+  OSM tile 10: 201 nodes, 10 ways, 7 relations
+  OSM tile 20: 4,976 nodes, 548 ways, 32 relations
+  OSM tile 30: 12,316 nodes, 1,547 ways, 87 relations
+  OSM tile 40: 15,580 nodes, 1,960 ways, 106 relations
+  OSM tile 50: 44,040 nodes, 5,396 ways, 292 relations
+  OSM tile 60: 54,982 nodes, 7,791 ways, 430 relations
+  OSM tile 70: 82,083 nodes, 12,008 ways, 697 relations
+  OSM tile 80: 123,171 nodes, 20,813 ways, 1,071 relations
+  OSM tile 90: 153,470 nodes, 25,546 ways, 1,198 relations
+  OSM tile 100: 188,740 nodes, 32,630 ways, 1,398 relations
+  OSM tile 110: 238,365 nodes, 42,414 ways, 1,713 relations
+  OSM tile 120: 281,481 nodes, 48,594 ways, 1,822 relations
+  OSM tile 130: 313,228 nodes, 55,158 ways, 1,989 relations
+  OSM tile 140: 361,044 nodes, 63,931 ways, 2,111 relations
+  OSM tile 150: 408,658 nodes, 72,433 ways, 2,211 relations
+  OSM tile 160: 443,154 nodes, 79,892 ways, 2,287 relations
+  OSM tile 170: 488,451 nodes, 88,596 ways, 2,343 relations
+  OSM tile 180: 530,798 nodes, 97,268 ways, 2,428 relations
+  OSM tile 190: 575,509 nodes, 107,761 ways, 2,553 relations
+  OSM tile 200: 619,814 nodes, 117,203 ways, 2,670 relations
+  OSM tile 210: 663,715 nodes, 126,989 ways, 2,800 relations
+  OSM tile 220: 716,344 nodes, 137,561 ways, 2,838 relations
+  OSM tile 230: 752,669 nodes, 145,117 ways, 2,910 relations
+  OSM tile 240: 796,314 nodes, 154,294 ways, 3,011 relations
+  OSMnx walk graph: 119,647 nodes, 154,798 edges
+  41,514 building footprints
   LiDAR source: USGS_LPC_IL_4County_Cook_2017_LAS_2019 (2019)
-  part 0: 39775 EPT nodes, ~13.6 pts/m², grid (6398, 4842)
-  part 0: 1,687,558,871 points, 32,974 building heights, 69,664 crowns so far
-  height model: trained on 33,291, predicted 289, CV MAE 6.0 m
-== Chicago done in 29.7 min: 50.19 MB, 143,819 segments, 33,580 buildings {'lidar': 32590, 'model': 289, 'osm': 533, 'osm-levels': 168}, 69,664 crowns, 8,072 places, 2417 pause places
+  part 0: 43934 EPT nodes, ~13.4 pts/m², grid (6894, 4999)
+  retry https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_IL_4County_Cook_2017_LAS_2019/ept-data/11-1506-1336-1020.laz HTTPSConnectionPool(host='s3-us-west-2.amazonaws.com', port=443): Read timed out. (read timeout=120)
+  part 0: 1,852,760,408 points, 40,860 building heights, 80,199 crowns so far
+  height model: trained on 41,196, predicted 318, CV MAE 5.5 m
+== Chicago done in 30.7 min: 56.99 MB, 154,787 segments, 41,514 buildings {'lidar': 40470, 'model': 318, 'osm': 539, 'osm-levels': 187}, 80,199 crowns, 9,048 places, 2585 pause places

@@ -7,28 +7,28 @@
   "Museum Campus",
   "Navy Pier"
  ],
- "area_km2": 22.69,
+ "area_km2": 28.72,
  "network": {
-  "nodes": 111697,
-  "edges": 143819,
-  "street_length_km": 2806.09,
-  "intersections": 106007,
-  "streets_per_node_avg": 2.58,
-  "footpath_share": 0.57,
+  "nodes": 119647,
+  "edges": 154787,
+  "street_length_km": 3070.61,
+  "intersections": 113765,
+  "streets_per_node_avg": 2.59,
+  "footpath_share": 0.566,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 33580,
+ "buildings": 41514,
  "height_sources": {
-  "lidar": 32590,
-  "model": 289,
-  "osm": 533,
-  "osm-levels": 168
+  "lidar": 40470,
+  "model": 318,
+  "osm": 539,
+  "osm-levels": 187
  },
  "height_model": {
-  "known": 33291,
-  "predicted": 289,
+  "known": 41196,
+  "predicted": 318,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 5.97,
+  "cv_mae_m": 5.46,
   "features": [
    "log area",
    "log perimeter",
@@ -39,15 +39,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 69664,
- "places": 8072,
- "pause_places": 2417,
+ "trees": 80199,
+ "places": 9048,
+ "pause_places": 2585,
  "pause_by_kind": {
-  "station": 80,
-  "water": 43,
-  "community": 6,
+  "station": 83,
+  "water": 56,
   "library": 12,
-  "park": 2269,
+  "community": 11,
+  "park": 2416,
   "mall": 7
  },
  "lidar": [
@@ -55,24 +55,24 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_IL_4County_Cook_2017_LAS_2019/",
    "survey_year": 2019,
-   "points": 1687558871,
-   "density_pts_m2": 13.6,
+   "points": 1852760408,
+   "density_pts_m2": 13.4,
    "classes": {
-    "1": 61550098,
-    "2": 289750736,
-    "7": 4728320,
-    "9": 14312734,
-    "6": 207176154,
-    "3": 189513832,
-    "4": 222024001,
-    "5": 684456705,
-    "17": 13912191,
-    "10": 133446,
+    "1": 63093446,
+    "2": 320770588,
+    "7": 5053197,
+    "9": 14364944,
+    "6": 230253680,
+    "3": 210042754,
+    "4": 243824872,
+    "5": 750320645,
+    "17": 14899630,
+    "10": 135998,
     "18": 654
    },
    "vegetation_classes": true
   }
  ],
- "data_mb": 50.19,
- "minutes": 29.7
+ "data_mb": 56.99,
+ "minutes": 30.7
 }

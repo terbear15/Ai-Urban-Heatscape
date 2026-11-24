@@ -6,28 +6,28 @@
   "Uptown and Arts District",
   "Deep Ellum"
  ],
- "area_km2": 16.96,
+ "area_km2": 22.54,
  "network": {
-  "nodes": 66187,
-  "edges": 82024,
-  "street_length_km": 1530.27,
-  "intersections": 63499,
-  "streets_per_node_avg": 2.48,
-  "footpath_share": 0.471,
+  "nodes": 75439,
+  "edges": 93137,
+  "street_length_km": 1800.28,
+  "intersections": 72452,
+  "streets_per_node_avg": 2.47,
+  "footpath_share": 0.448,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 8557,
+ "buildings": 13835,
  "height_sources": {
-  "lidar": 8003,
-  "model": 186,
+  "lidar": 13267,
+  "model": 200,
   "osm": 359,
   "osm-levels": 9
  },
  "height_model": {
-  "known": 8371,
-  "predicted": 186,
+  "known": 13635,
+  "predicted": 200,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 4.97,
+  "cv_mae_m": 4.23,
   "features": [
    "log area",
    "log perimeter",
@@ -38,36 +38,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 43104,
- "places": 2280,
- "pause_places": 143,
+ "trees": 56980,
+ "places": 2446,
+ "pause_places": 161,
  "pause_by_kind": {
-  "water": 41,
+  "water": 46,
   "community": 6,
   "station": 16,
-  "park": 76,
+  "park": 88,
   "mall": 2,
-  "library": 2
+  "library": 3
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/TX_Pecos_Dallas_B3_2018/",
    "survey_year": 2018,
-   "points": 231189126,
-   "density_pts_m2": 5.0,
+   "points": 281475325,
+   "density_pts_m2": 4.7,
    "classes": {
-    "2": 69303144,
-    "7": 347846,
-    "18": 1810195,
-    "1": 156615836,
-    "17": 3094108,
-    "9": 17393,
-    "20": 604
+    "2": 87546345,
+    "7": 394478,
+    "18": 1811766,
+    "1": 188507206,
+    "17": 3180004,
+    "9": 34461,
+    "20": 1065
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 29.22,
- "minutes": 7.4
+ "data_mb": 38.8,
+ "minutes": 9.5
 }
