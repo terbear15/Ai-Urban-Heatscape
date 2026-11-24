@@ -28,4 +28,3 @@ pittsburgh
 cleveland
 salt-lake-city
 milwaukee
-
