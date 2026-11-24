@@ -20,11 +20,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install geopandas shapely pyproj requests
-      - name: Official boundaries (only when the zone lists change)
-        run: |
-          if [ ! -f python/zones/report.json ] || git diff --name-only HEAD~1 HEAD | grep -qE "city_zones.py|official_zones.py"; then
-            python -u python/official_zones.py
-          fi
+      - name: Official boundaries (only cities not looked up yet)
+        run: python -u python/official_zones.py
       - run: python python/prepare_city_views.py
       - name: Commit generated files
         run: |
