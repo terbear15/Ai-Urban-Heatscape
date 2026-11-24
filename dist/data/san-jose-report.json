@@ -4,28 +4,28 @@
  "zones": [
   "Downtown"
  ],
- "area_km2": 6.25,
+ "area_km2": 8.67,
  "network": {
-  "nodes": 22445,
-  "edges": 27777,
-  "street_length_km": 611.23,
-  "intersections": 21293,
-  "streets_per_node_avg": 2.48,
-  "footpath_share": 0.608,
+  "nodes": 30788,
+  "edges": 37835,
+  "street_length_km": 841.88,
+  "intersections": 29207,
+  "streets_per_node_avg": 2.46,
+  "footpath_share": 0.602,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 8988,
+ "buildings": 12607,
  "height_sources": {
-  "osm": 8283,
-  "model": 66,
-  "lidar": 582,
+  "osm": 11822,
+  "lidar": 659,
+  "model": 69,
   "osm-levels": 57
  },
  "height_model": {
-  "known": 8922,
-  "predicted": 66,
+  "known": 12538,
+  "predicted": 69,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.58,
+  "cv_mae_m": 2.22,
   "features": [
    "log area",
    "log perimeter",
@@ -36,14 +36,14 @@
    "max known height within 60 m"
   ]
  },
- "trees": 21571,
- "places": 1575,
- "pause_places": 74,
+ "trees": 27662,
+ "places": 1670,
+ "pause_places": 77,
  "pause_by_kind": {
   "water": 10,
   "community": 20,
   "station": 6,
-  "park": 32,
+  "park": 35,
   "library": 6
  },
  "lidar": [
@@ -51,23 +51,23 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CA_SantaClaraCounty_2020/",
    "survey_year": 2020,
-   "points": 402360331,
-   "density_pts_m2": 19.4,
+   "points": 585693070,
+   "density_pts_m2": 18.9,
    "classes": {
-    "1": 72281449,
-    "5": 34735837,
-    "6": 90297407,
-    "4": 43885472,
-    "2": 147270799,
-    "3": 9563637,
-    "17": 4210662,
-    "7": 92795,
-    "18": 22251,
-    "20": 22
+    "1": 107650226,
+    "5": 43208555,
+    "6": 131455406,
+    "18": 25615,
+    "4": 61750715,
+    "2": 221832053,
+    "3": 14728738,
+    "17": 4898544,
+    "7": 143113,
+    "20": 105
    },
    "vegetation_classes": true
   }
  ],
- "data_mb": 14.73,
- "minutes": 5.7
+ "data_mb": 19.22,
+ "minutes": 9.4
 }

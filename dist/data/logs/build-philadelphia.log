@@ -1,12 +1,22 @@
-== Philadelphia: 1 zone(s)
-  OSM tile 10: 27,605 nodes, 5,794 ways, 143 relations
-  OSM tile 20: 70,022 nodes, 14,995 ways, 305 relations
-  OSM tile 30: 113,358 nodes, 24,919 ways, 452 relations
-  OSM tile 40: 170,039 nodes, 36,140 ways, 672 relations
-  OSM tile 45: 186,390 nodes, 38,840 ways, 698 relations
-  OSMnx walk graph: 28,495 nodes, 35,809 edges
-  14,520 building footprints
-  part 0: 6298 EPT nodes, ~20.9 pts/m², grid (1456, 2177)
-  part 0: 265,052,045 points, 14,113 building heights, 13,060 crowns so far
-  height model: trained on 14,386, predicted 134, CV MAE 7.3 m
-== Philadelphia done in 5.5 min: 12.25 MB, 35,808 segments, 14,520 buildings {'lidar': 5530, 'osm': 8752, 'model': 134, 'osm-levels': 104}, 13,060 crowns, 2,758 places, 203 pause places
+== Philadelphia: 3 zone(s)
+  OSM tile 10: 10,200 nodes, 1,585 ways, 49 relations
+  OSM tile 20: 33,175 nodes, 6,753 ways, 176 relations
+  OSM tile 30: 89,208 nodes, 18,430 ways, 302 relations
+  OSM tile 40: 164,806 nodes, 34,015 ways, 422 relations
+  OSM tile 50: 248,812 nodes, 50,339 ways, 487 relations
+  OSM tile 60: 342,237 nodes, 68,209 ways, 551 relations
+  OSM tile 70: 440,012 nodes, 86,402 ways, 632 relations
+  OSM tile 80: 514,549 nodes, 99,420 ways, 803 relations
+  OSM tile 90: 558,510 nodes, 106,784 ways, 849 relations
+  OSM tile 100: 594,181 nodes, 112,761 ways, 895 relations
+  OSM tile 110: 619,073 nodes, 116,758 ways, 943 relations
+  OSM tile 120: 653,110 nodes, 121,855 ways, 1,002 relations
+  OSM tile 130: 702,957 nodes, 129,140 ways, 1,051 relations
+  OSM tile 140: 775,040 nodes, 140,603 ways, 1,075 relations
+  OSM tile 144: 800,740 nodes, 145,030 ways, 1,113 relations
+  OSMnx walk graph: 68,920 nodes, 87,715 edges
+  77,938 building footprints
+  part 0: 17674 EPT nodes, ~16.5 pts/m², grid (2964, 3869)
+  part 0: 756,871,036 points, 77,444 building heights, 38,412 crowns so far
+  height model: trained on 77,763, predicted 175, CV MAE 2.5 m
+== Philadelphia done in 24.5 min: 45.03 MB, 87,713 segments, 77,938 buildings {'lidar': 8637, 'osm-levels': 135, 'osm': 68991, 'model': 175}, 38,412 crowns, 5,182 places, 405 pause places

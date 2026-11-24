@@ -5,28 +5,28 @@
   "Downtown and Gaslamp Quarter",
   "Balboa Park"
  ],
- "area_km2": 24.49,
+ "area_km2": 30.12,
  "network": {
-  "nodes": 43823,
-  "edges": 52305,
-  "street_length_km": 1088.62,
-  "intersections": 41701,
-  "streets_per_node_avg": 2.39,
-  "footpath_share": 0.408,
+  "nodes": 64229,
+  "edges": 76303,
+  "street_length_km": 1637.73,
+  "intersections": 61309,
+  "streets_per_node_avg": 2.38,
+  "footpath_share": 0.368,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 20382,
+ "buildings": 30012,
  "height_sources": {
-  "lidar": 19646,
-  "model": 541,
-  "osm-levels": 51,
-  "osm": 144
+  "lidar": 29192,
+  "osm-levels": 111,
+  "model": 564,
+  "osm": 145
  },
  "height_model": {
-  "known": 19841,
-  "predicted": 541,
+  "known": 29448,
+  "predicted": 564,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.76,
+  "cv_mae_m": 2.37,
   "features": [
    "log area",
    "log perimeter",
@@ -37,37 +37,38 @@
    "max known height within 60 m"
   ]
  },
- "trees": 58939,
- "places": 2501,
- "pause_places": 604,
+ "trees": 77615,
+ "places": 3001,
+ "pause_places": 627,
  "pause_by_kind": {
-  "library": 10,
-  "water": 45,
-  "park": 519,
-  "station": 26,
-  "community": 4
+  "water": 46,
+  "community": 8,
+  "library": 13,
+  "park": 532,
+  "station": 27,
+  "mall": 1
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CA_SanDiegoQL2_2014/",
    "survey_year": 2014,
-   "points": 159740608,
-   "density_pts_m2": 2.6,
+   "points": 263054371,
+   "density_pts_m2": 2.8,
    "classes": {
-    "1": 43602737,
-    "2": 48519544,
-    "7": 32166,
-    "9": 1406172,
-    "21": 31002002,
-    "22": 34674993,
-    "25": 76431,
-    "10": 9807,
-    "17": 416756
+    "1": 72227354,
+    "2": 80928640,
+    "7": 48831,
+    "9": 1408812,
+    "21": 50495714,
+    "22": 57198557,
+    "25": 77157,
+    "10": 11775,
+    "17": 657531
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 34.87,
- "minutes": 7.1
+ "data_mb": 47.71,
+ "minutes": 11.2
 }

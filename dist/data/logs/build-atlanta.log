@@ -1,26 +1,32 @@
 == Atlanta: 3 zone(s)
-  OSM tile 10: 12,842 nodes, 1,078 ways, 43 relations
-  OSM tile 20: 27,798 nodes, 2,984 ways, 93 relations
-  OSM tile 30: 58,735 nodes, 7,069 ways, 105 relations
-  OSM tile 40: 86,631 nodes, 10,739 ways, 122 relations
-  OSM tile 50: 112,632 nodes, 15,016 ways, 207 relations
-  OSM tile 60: 144,827 nodes, 21,127 ways, 228 relations
-  OSM tile 70: 168,078 nodes, 24,982 ways, 244 relations
-  OSM tile 80: 188,491 nodes, 28,929 ways, 316 relations
-  OSM tile 90: 217,220 nodes, 34,259 ways, 369 relations
-  OSM tile 100: 239,853 nodes, 37,460 ways, 398 relations
-  OSM tile 110: 262,786 nodes, 41,462 ways, 458 relations
-  OSM tile 120: 291,798 nodes, 45,990 ways, 514 relations
-  OSM tile 130: 319,547 nodes, 50,817 ways, 575 relations
-  OSM tile 140: 345,396 nodes, 55,865 ways, 654 relations
-  OSM tile 150: 376,627 nodes, 62,321 ways, 800 relations
-  OSM tile 160: 406,155 nodes, 66,683 ways, 847 relations
-  OSM tile 170: 426,715 nodes, 69,896 ways, 898 relations
-  OSM tile 180: 452,416 nodes, 74,708 ways, 950 relations
-  OSMnx walk graph: 93,669 nodes, 109,554 edges
-  16,569 building footprints
+  OSM tile 10: 9,790 nodes, 1,257 ways, 60 relations
+  OSM tile 20: 24,578 nodes, 2,757 ways, 117 relations
+  OSM tile 30: 42,930 nodes, 5,496 ways, 142 relations
+  OSM tile 40: 73,867 nodes, 9,581 ways, 154 relations
+  OSM tile 50: 93,305 nodes, 12,163 ways, 173 relations
+  OSM tile 60: 128,880 nodes, 17,570 ways, 236 relations
+  OSM tile 70: 146,955 nodes, 20,092 ways, 280 relations
+  OSM tile 80: 179,151 nodes, 26,203 ways, 301 relations
+  OSM tile 90: 195,435 nodes, 28,897 ways, 351 relations
+  OSM tile 100: 222,208 nodes, 33,845 ways, 374 relations
+  OSM tile 110: 242,947 nodes, 37,287 ways, 435 relations
+  OSM tile 120: 271,676 nodes, 42,617 ways, 488 relations
+  OSM tile 130: 291,965 nodes, 45,708 ways, 526 relations
+  OSM tile 140: 319,203 nodes, 50,446 ways, 607 relations
+  OSM tile 150: 340,128 nodes, 53,469 ways, 648 relations
+  OSM tile 160: 369,140 nodes, 57,997 ways, 704 relations
+  OSM tile 170: 390,550 nodes, 61,099 ways, 722 relations
+  OSM tile 180: 422,432 nodes, 67,999 ways, 847 relations
+  OSM tile 190: 442,119 nodes, 70,289 ways, 855 relations
+  OSM tile 200: 473,350 nodes, 76,745 ways, 1,001 relations
+  OSM tile 210: 492,157 nodes, 78,612 ways, 1,008 relations
+  OSM tile 220: 523,013 nodes, 84,148 ways, 1,091 relations
+  OSM tile 230: 539,900 nodes, 85,764 ways, 1,104 relations
+  OSM tile 240: 565,602 nodes, 90,576 ways, 1,156 relations
+  OSMnx walk graph: 116,196 nodes, 134,564 edges
+  20,233 building footprints
   LiDAR source: GA_Statewide_B3_2018 (2018)
-  part 0: 1999 EPT nodes, ~1.1 pts/m², grid (5777, 3817)
-  part 0: 98,937,259 points, 4,649 building heights, 15,778 crowns so far
-  height model: trained on 6,857, predicted 9,712, CV MAE 10.8 m
-== Atlanta done in 9.2 min: 21.62 MB, 109,548 segments, 16,569 buildings {'lidar': 4640, 'model': 9712, 'osm-levels': 1857, 'osm': 360}, 15,778 crowns, 3,162 places, 246 pause places
+  part 0: 2902 EPT nodes, ~1.2 pts/m², grid (7723, 3817)
+  part 0: 141,681,017 points, 7,760 building heights, 33,770 crowns so far
+  height model: trained on 10,002, predicted 10,231, CV MAE 9.6 m
+== Atlanta done in 11.2 min: 33.63 MB, 134,556 segments, 20,233 buildings {'lidar': 7732, 'model': 10231, 'osm-levels': 1885, 'osm': 385}, 33,770 crowns, 3,527 places, 260 pause places

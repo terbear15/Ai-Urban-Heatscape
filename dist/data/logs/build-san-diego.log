@@ -1,20 +1,28 @@
 == San Diego: 2 zone(s)
-  OSM tile 10: 20,554 nodes, 3,093 ways, 64 relations
-  OSM tile 20: 54,345 nodes, 8,385 ways, 123 relations
-  OSM tile 30: 92,882 nodes, 14,520 ways, 169 relations
-  OSM tile 40: 129,100 nodes, 19,638 ways, 251 relations
-  OSM tile 50: 159,902 nodes, 24,107 ways, 323 relations
-  OSM tile 60: 193,919 nodes, 28,986 ways, 460 relations
-  OSM tile 70: 223,791 nodes, 32,854 ways, 609 relations
-  OSM tile 80: 245,917 nodes, 37,121 ways, 753 relations
-  OSM tile 90: 271,366 nodes, 41,860 ways, 877 relations
-  OSM tile 100: 304,873 nodes, 47,339 ways, 1,072 relations
-  OSM tile 110: 324,567 nodes, 50,190 ways, 1,146 relations
-  OSM tile 120: 342,159 nodes, 52,937 ways, 1,178 relations
-  OSMnx walk graph: 43,823 nodes, 52,306 edges
-  20,382 building footprints
+  OSM tile 10: 13,596 nodes, 1,715 ways, 75 relations
+  OSM tile 20: 45,273 nodes, 6,246 ways, 125 relations
+  OSM tile 30: 62,518 nodes, 8,714 ways, 179 relations
+  OSM tile 40: 83,350 nodes, 11,405 ways, 186 relations
+  OSM tile 50: 107,372 nodes, 15,115 ways, 225 relations
+  OSM tile 60: 135,993 nodes, 19,439 ways, 279 relations
+  OSM tile 70: 170,261 nodes, 24,161 ways, 333 relations
+  OSM tile 80: 210,453 nodes, 30,326 ways, 374 relations
+  OSM tile 90: 251,845 nodes, 35,844 ways, 452 relations
+  OSM tile 100: 288,339 nodes, 40,205 ways, 506 relations
+  OSM tile 110: 327,340 nodes, 45,898 ways, 635 relations
+  OSM tile 120: 353,739 nodes, 50,115 ways, 734 relations
+  OSM tile 130: 384,919 nodes, 54,151 ways, 883 relations
+  OSM tile 140: 406,066 nodes, 58,124 ways, 1,008 relations
+  OSM tile 150: 424,869 nodes, 61,334 ways, 1,085 relations
+  OSM tile 160: 447,536 nodes, 65,188 ways, 1,230 relations
+  OSM tile 170: 478,744 nodes, 70,245 ways, 1,405 relations
+  OSM tile 180: 495,789 nodes, 72,554 ways, 1,467 relations
+  OSM tile 190: 519,905 nodes, 75,804 ways, 1,522 relations
+  OSM tile 195: 528,324 nodes, 77,017 ways, 1,536 relations
+  OSMnx walk graph: 64,229 nodes, 76,304 edges
+  30,012 building footprints
   LiDAR source: CA_SanDiegoQL2_2014 (2014)
-  part 0: 4226 EPT nodes, ~2.6 pts/m², grid (3852, 3947)
-  part 0: 159,740,608 points, 19,735 building heights, 58,939 crowns so far
-  height model: trained on 19,841, predicted 541, CV MAE 2.8 m
-== San Diego done in 7.1 min: 34.87 MB, 52,305 segments, 20,382 buildings {'lidar': 19646, 'model': 541, 'osm-levels': 51, 'osm': 144}, 58,939 crowns, 2,501 places, 604 pause places
+  part 0: 6861 EPT nodes, ~2.8 pts/m², grid (4849, 4817)
+  part 0: 263,054,371 points, 29,281 building heights, 77,615 crowns so far
+  height model: trained on 29,448, predicted 564, CV MAE 2.4 m
+== San Diego done in 11.2 min: 47.71 MB, 76,303 segments, 30,012 buildings {'lidar': 29192, 'osm-levels': 111, 'model': 564, 'osm': 145}, 77,615 crowns, 3,001 places, 627 pause places

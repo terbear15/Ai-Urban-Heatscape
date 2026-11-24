@@ -5,30 +5,34 @@
   "Union Square and Financial District",
   "Fisherman's Wharf and North Beach",
   "Embarcadero",
-  "Mission District"
+  "Mission District",
+  "Golden Gate Park",
+  "Hayes Valley and Western Addition",
+  "Haight-Ashbury and Inner Sunset",
+  "Castro and Twin Peaks"
  ],
- "area_km2": 30.15,
+ "area_km2": 48.51,
  "network": {
-  "nodes": 102754,
-  "edges": 126194,
-  "street_length_km": 2143.22,
-  "intersections": 99002,
-  "streets_per_node_avg": 2.46,
-  "footpath_share": 0.605,
+  "nodes": 161075,
+  "edges": 193571,
+  "street_length_km": 3174.18,
+  "intersections": 155902,
+  "streets_per_node_avg": 2.4,
+  "footpath_share": 0.6,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 49076,
+ "buildings": 78403,
  "height_sources": {
-  "osm": 39032,
-  "lidar": 9766,
-  "model": 169,
-  "osm-levels": 109
+  "osm": 65908,
+  "lidar": 12208,
+  "model": 180,
+  "osm-levels": 107
  },
  "height_model": {
-  "known": 48907,
-  "predicted": 169,
+  "known": 78223,
+  "predicted": 180,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 3.34,
+  "cv_mae_m": 2.65,
   "features": [
    "log area",
    "log perimeter",
@@ -39,15 +43,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 82228,
- "places": 13136,
- "pause_places": 679,
+ "trees": 129482,
+ "places": 16061,
+ "pause_places": 860,
  "pause_by_kind": {
-  "station": 30,
-  "water": 104,
-  "community": 60,
-  "library": 22,
-  "park": 452,
+  "station": 37,
+  "water": 172,
+  "community": 68,
+  "library": 32,
+  "park": 540,
   "mall": 11
  },
  "lidar": [
@@ -55,21 +59,21 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CA_SanFrancisco_1_B23/",
    "survey_year": 0,
-   "points": 714608491,
-   "density_pts_m2": 9.4,
+   "points": 1234126654,
+   "density_pts_m2": 8.7,
    "classes": {
-    "1": 551721337,
-    "2": 142499109,
-    "7": 3064688,
-    "9": 13701170,
-    "18": 1030384,
-    "20": 160027,
-    "17": 2423864,
+    "1": 944561066,
+    "2": 259417240,
+    "7": 4086371,
+    "9": 22085921,
+    "18": 1032400,
+    "20": 234271,
+    "17": 2701473,
     "4": 7912
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 65.03,
- "minutes": 16.2
+ "data_mb": 103.47,
+ "minutes": 52.5
 }

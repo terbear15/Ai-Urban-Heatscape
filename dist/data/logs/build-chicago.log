@@ -27,7 +27,6 @@
   41,514 building footprints
   LiDAR source: USGS_LPC_IL_4County_Cook_2017_LAS_2019 (2019)
   part 0: 43934 EPT nodes, ~13.4 pts/m², grid (6894, 4999)
-  retry https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_IL_4County_Cook_2017_LAS_2019/ept-data/11-1506-1336-1020.laz HTTPSConnectionPool(host='s3-us-west-2.amazonaws.com', port=443): Read timed out. (read timeout=120)
   part 0: 1,852,760,408 points, 40,860 building heights, 80,199 crowns so far
   height model: trained on 41,196, predicted 318, CV MAE 5.5 m
-== Chicago done in 30.7 min: 56.99 MB, 154,787 segments, 41,514 buildings {'lidar': 40470, 'model': 318, 'osm': 539, 'osm-levels': 187}, 80,199 crowns, 9,048 places, 2585 pause places
+== Chicago done in 38.4 min: 56.99 MB, 154,787 segments, 41,514 buildings {'lidar': 40470, 'model': 318, 'osm': 539, 'osm-levels': 187}, 80,199 crowns, 9,048 places, 2585 pause places

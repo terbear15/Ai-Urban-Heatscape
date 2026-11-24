@@ -1,18 +1,20 @@
 == Kansas City: 3 zone(s)
-  OSM tile 10: 15,728 nodes, 2,447 ways, 44 relations
-  OSM tile 20: 38,551 nodes, 7,073 ways, 46 relations
-  OSM tile 30: 61,317 nodes, 11,236 ways, 75 relations
-  OSM tile 40: 89,211 nodes, 16,336 ways, 97 relations
-  OSM tile 50: 116,991 nodes, 20,053 ways, 158 relations
-  OSM tile 60: 144,945 nodes, 23,995 ways, 246 relations
-  OSM tile 70: 177,496 nodes, 29,276 ways, 359 relations
-  OSM tile 80: 217,042 nodes, 36,156 ways, 518 relations
-  OSM tile 90: 248,562 nodes, 41,448 ways, 571 relations
-  OSM tile 91: 252,162 nodes, 42,093 ways, 577 relations
-  OSMnx walk graph: 48,000 nodes, 58,451 edges
-  8,354 building footprints
+  OSM tile 10: 16,400 nodes, 2,502 ways, 43 relations
+  OSM tile 20: 40,000 nodes, 6,795 ways, 58 relations
+  OSM tile 30: 66,639 nodes, 11,638 ways, 69 relations
+  OSM tile 40: 90,499 nodes, 16,645 ways, 71 relations
+  OSM tile 50: 113,514 nodes, 20,910 ways, 98 relations
+  OSM tile 60: 140,318 nodes, 25,756 ways, 120 relations
+  OSM tile 70: 166,432 nodes, 29,710 ways, 170 relations
+  OSM tile 80: 195,393 nodes, 33,291 ways, 254 relations
+  OSM tile 90: 227,963 nodes, 38,658 ways, 379 relations
+  OSM tile 100: 266,529 nodes, 45,403 ways, 528 relations
+  OSM tile 110: 298,579 nodes, 50,618 ways, 597 relations
+  OSM tile 112: 306,236 nodes, 51,998 ways, 603 relations
+  OSMnx walk graph: 55,982 nodes, 68,650 edges
+  13,068 building footprints
   LiDAR source: MO_FEMANRCS_1_2020 (2020)
-  part 0: 2771 EPT nodes, ~2.6 pts/m², grid (2957, 4053)
-  part 0: 125,745,249 points, 8,239 building heights, 31,425 crowns so far
-  height model: trained on 8,277, predicted 77, CV MAE 4.3 m
-== Kansas City done in 5.3 min: 20.23 MB, 58,448 segments, 8,354 buildings {'lidar': 7935, 'model': 77, 'osm-levels': 11, 'osm': 331}, 31,425 crowns, 2,083 places, 128 pause places
+  part 0: 3519 EPT nodes, ~2.7 pts/m², grid (2957, 5148)
+  part 0: 164,256,489 points, 12,915 building heights, 41,384 crowns so far
+  height model: trained on 12,953, predicted 115, CV MAE 4.2 m
+== Kansas City done in 6.6 min: 26.66 MB, 68,647 segments, 13,068 buildings {'lidar': 12611, 'model': 115, 'osm-levels': 11, 'osm': 331}, 41,384 crowns, 2,280 places, 137 pause places

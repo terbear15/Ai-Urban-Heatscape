@@ -5,28 +5,28 @@
   "Downtown",
   "The Gulch"
  ],
- "area_km2": 10.82,
+ "area_km2": 15.16,
  "network": {
-  "nodes": 44913,
-  "edges": 55160,
-  "street_length_km": 1235.89,
-  "intersections": 42850,
-  "streets_per_node_avg": 2.46,
-  "footpath_share": 0.509,
+  "nodes": 57391,
+  "edges": 70155,
+  "street_length_km": 1512.29,
+  "intersections": 54628,
+  "streets_per_node_avg": 2.45,
+  "footpath_share": 0.513,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 5150,
+ "buildings": 6935,
  "height_sources": {
-  "lidar": 4773,
+  "lidar": 6598,
   "osm": 234,
-  "osm-levels": 7,
-  "model": 136
+  "model": 96,
+  "osm-levels": 7
  },
  "height_model": {
-  "known": 5014,
-  "predicted": 136,
+  "known": 6839,
+  "predicted": 96,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 4.79,
+  "cv_mae_m": 4.52,
   "features": [
    "log area",
    "log perimeter",
@@ -37,39 +37,39 @@
    "max known height within 60 m"
   ]
  },
- "trees": 25386,
- "places": 1090,
- "pause_places": 49,
+ "trees": 36119,
+ "places": 1355,
+ "pause_places": 73,
  "pause_by_kind": {
-  "park": 36,
+  "park": 55,
   "station": 5,
   "water": 4,
-  "library": 3,
-  "community": 1
+  "community": 5,
+  "library": 4
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/TN_DavidsonCo_1_2022/",
    "survey_year": 2022,
-   "points": 791015113,
-   "density_pts_m2": 16.8,
+   "points": 974468941,
+   "density_pts_m2": 16.9,
    "classes": {
-    "1": 197997455,
-    "2": 320710191,
-    "4": 35262309,
-    "5": 84987301,
-    "6": 131782151,
-    "7": 451764,
-    "9": 594840,
-    "17": 5636222,
-    "18": 164414,
-    "3": 13373128,
-    "20": 55338
+    "1": 240100791,
+    "2": 391582687,
+    "4": 42356337,
+    "5": 109652252,
+    "6": 167292163,
+    "7": 563913,
+    "9": 594592,
+    "17": 5790877,
+    "18": 193898,
+    "3": 16286331,
+    "20": 55100
    },
    "vegetation_classes": true
   }
  ],
- "data_mb": 16.17,
- "minutes": 10.2
+ "data_mb": 22.51,
+ "minutes": 13.4
 }

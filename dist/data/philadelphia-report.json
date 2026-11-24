@@ -2,30 +2,32 @@
  "city": "Philadelphia",
  "slug": "philadelphia",
  "zones": [
-  "Center City"
+  "Center City",
+  "University City",
+  "South Philadelphia"
  ],
- "area_km2": 6.51,
+ "area_km2": 22.05,
  "network": {
-  "nodes": 28495,
-  "edges": 35808,
-  "street_length_km": 657.94,
-  "intersections": 27207,
-  "streets_per_node_avg": 2.51,
-  "footpath_share": 0.504,
+  "nodes": 68920,
+  "edges": 87713,
+  "street_length_km": 1836.4,
+  "intersections": 65958,
+  "streets_per_node_avg": 2.55,
+  "footpath_share": 0.432,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 14520,
+ "buildings": 77938,
  "height_sources": {
-  "lidar": 5530,
-  "osm": 8752,
-  "model": 134,
-  "osm-levels": 104
+  "lidar": 8637,
+  "osm-levels": 135,
+  "osm": 68991,
+  "model": 175
  },
  "height_model": {
-  "known": 14386,
-  "predicted": 134,
+  "known": 77763,
+  "predicted": 175,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 7.31,
+  "cv_mae_m": 2.53,
   "features": [
    "log area",
    "log perimeter",
@@ -36,37 +38,37 @@
    "max known height within 60 m"
   ]
  },
- "trees": 13060,
- "places": 2758,
- "pause_places": 203,
+ "trees": 38412,
+ "places": 5182,
+ "pause_places": 405,
  "pause_by_kind": {
-  "water": 7,
-  "station": 23,
-  "library": 11,
-  "park": 149,
-  "community": 10,
-  "mall": 3
+  "station": 39,
+  "water": 10,
+  "park": 310,
+  "library": 22,
+  "community": 19,
+  "mall": 5
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://noaa-nos-coastal-lidar-pds.s3.amazonaws.com/entwine/geoid18/9848/",
    "survey_year": 0,
-   "points": 265052045,
-   "density_pts_m2": 20.9,
+   "points": 756871036,
+   "density_pts_m2": 16.5,
    "classes": {
-    "1": 214800203,
-    "7": 454915,
-    "8": 4252000,
-    "18": 51949,
-    "2": 42319096,
-    "9": 658996,
-    "20": 8594,
-    "17": 2506292
+    "1": 595271410,
+    "7": 560892,
+    "8": 13995638,
+    "18": 62719,
+    "2": 139365872,
+    "9": 1742619,
+    "20": 39195,
+    "17": 5832691
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 12.25,
- "minutes": 5.5
+ "data_mb": 45.03,
+ "minutes": 24.5
 }

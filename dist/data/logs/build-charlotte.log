@@ -1,18 +1,18 @@
 == Charlotte: 2 zone(s)
-  OSM tile 10: 40,673 nodes, 5,305 ways, 144 relations
-  OSM tile 20: 78,779 nodes, 10,534 ways, 228 relations
-  OSM tile 30: 125,952 nodes, 16,516 ways, 327 relations
-  OSM tile 40: 163,871 nodes, 22,456 ways, 458 relations
-  OSM tile 50: 196,168 nodes, 28,063 ways, 540 relations
-  OSM tile 60: 225,805 nodes, 33,216 ways, 579 relations
-  OSM tile 70: 255,690 nodes, 37,843 ways, 632 relations
-  OSM tile 80: 284,158 nodes, 42,384 ways, 678 relations
-  OSM tile 90: 304,397 nodes, 45,687 ways, 721 relations
-  OSM tile 99: 318,704 nodes, 47,981 ways, 747 relations
-  OSMnx walk graph: 107,908 nodes, 121,419 edges
-  5,899 building footprints
+  OSM tile 10: 31,301 nodes, 3,487 ways, 122 relations
+  OSM tile 20: 82,041 nodes, 9,900 ways, 231 relations
+  OSM tile 30: 120,974 nodes, 15,714 ways, 315 relations
+  OSM tile 40: 155,062 nodes, 21,413 ways, 423 relations
+  OSM tile 50: 186,631 nodes, 26,595 ways, 477 relations
+  OSM tile 60: 217,775 nodes, 31,619 ways, 523 relations
+  OSM tile 70: 249,434 nodes, 36,360 ways, 569 relations
+  OSM tile 80: 275,300 nodes, 40,673 ways, 621 relations
+  OSM tile 90: 296,082 nodes, 44,239 ways, 652 relations
+  OSM tile 100: 312,441 nodes, 46,922 ways, 685 relations
+  OSMnx walk graph: 105,994 nodes, 118,841 edges
+  10,075 building footprints
   LiDAR source: USGS_LPC_NC_Phase4_Mecklenburg_2016_LAS_2019 (2019)
-  part 0: 14208 EPT nodes, ~15.9 pts/m², grid (3355, 3649)
-  part 0: 778,623,316 points, 5,218 building heights, 42,434 crowns so far
-  height model: trained on 5,658, predicted 241, CV MAE 8.4 m
-== Charlotte done in 10.3 min: 30.18 MB, 121,413 segments, 5,899 buildings {'lidar': 4405, 'osm': 1149, 'model': 241, 'osm-levels': 104}, 42,434 crowns, 1,236 places, 206 pause places
+  part 0: 14583 EPT nodes, ~16.5 pts/m², grid (3993, 3172)
+  part 0: 834,654,723 points, 9,379 building heights, 55,604 crowns so far
+  height model: trained on 9,809, predicted 266, CV MAE 7.4 m
+== Charlotte done in 10.7 min: 38.12 MB, 118,836 segments, 10,075 buildings {'osm': 1091, 'lidar': 8614, 'model': 266, 'osm-levels': 104}, 55,604 crowns, 1,389 places, 237 pause places

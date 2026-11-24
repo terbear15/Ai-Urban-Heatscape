@@ -1,21 +1,24 @@
 == Seattle: 4 zone(s)
-  OSM tile 10: 26,539 nodes, 3,627 ways, 75 relations
-  OSM tile 20: 73,601 nodes, 10,915 ways, 123 relations
-  OSM tile 30: 123,487 nodes, 18,930 ways, 178 relations
-  OSM tile 40: 169,618 nodes, 26,492 ways, 259 relations
-  OSM tile 50: 212,790 nodes, 33,930 ways, 390 relations
-  OSM tile 60: 249,814 nodes, 40,451 ways, 570 relations
-  OSM tile 70: 276,328 nodes, 46,590 ways, 896 relations
-  OSM tile 80: 301,817 nodes, 52,625 ways, 1,192 relations
-  OSM tile 90: 325,058 nodes, 57,230 ways, 1,307 relations
-  OSM tile 100: 351,543 nodes, 61,556 ways, 1,361 relations
-  OSM tile 110: 379,288 nodes, 66,387 ways, 1,425 relations
-  OSM tile 120: 401,629 nodes, 69,914 ways, 1,441 relations
-  OSM tile 126: 402,785 nodes, 70,090 ways, 1,442 relations
-  OSMnx walk graph: 87,163 nodes, 108,106 edges
-  17,788 building footprints
+  OSM tile 10: 23,640 nodes, 3,025 ways, 78 relations
+  OSM tile 20: 58,756 nodes, 8,033 ways, 139 relations
+  OSM tile 30: 109,749 nodes, 16,360 ways, 268 relations
+  OSM tile 40: 154,297 nodes, 24,009 ways, 367 relations
+  OSM tile 50: 194,809 nodes, 30,623 ways, 434 relations
+  OSM tile 60: 233,857 nodes, 37,390 ways, 559 relations
+  OSM tile 70: 272,037 nodes, 44,071 ways, 716 relations
+  OSM tile 80: 304,755 nodes, 50,311 ways, 872 relations
+  OSM tile 90: 335,379 nodes, 57,061 ways, 1,186 relations
+  OSM tile 100: 358,288 nodes, 62,118 ways, 1,410 relations
+  OSM tile 110: 384,118 nodes, 67,193 ways, 1,513 relations
+  OSM tile 120: 416,908 nodes, 72,864 ways, 1,620 relations
+  OSM tile 130: 449,293 nodes, 78,355 ways, 1,688 relations
+  OSM tile 140: 476,009 nodes, 82,543 ways, 1,706 relations
+  OSM tile 150: 499,378 nodes, 86,171 ways, 1,714 relations
+  OSM tile 154: 499,378 nodes, 86,171 ways, 1,714 relations
+  OSMnx walk graph: 106,368 nodes, 131,029 edges
+  23,677 building footprints
   LiDAR source: WA_KingCo_1_2021 (2021)
-  part 0: 8035 EPT nodes, ~5.1 pts/m², grid (4132, 4538)
-  part 0: 379,898,074 points, 17,081 building heights, 64,375 crowns so far
-  height model: trained on 17,602, predicted 186, CV MAE 5.1 m
-== Seattle done in 11.3 min: 43.25 MB, 108,066 segments, 17,788 buildings {'lidar': 16636, 'model': 186, 'osm-levels': 168, 'osm': 798}, 64,375 crowns, 6,936 places, 230 pause places
+  part 0: 10135 EPT nodes, ~5.0 pts/m², grid (5225, 4538)
+  part 0: 474,280,640 points, 22,756 building heights, 79,509 crowns so far
+  height model: trained on 23,289, predicted 388, CV MAE 4.5 m
+== Seattle done in 14.4 min: 53.47 MB, 130,987 segments, 23,677 buildings {'lidar': 22304, 'model': 388, 'osm-levels': 176, 'osm': 809}, 79,509 crowns, 7,679 places, 264 pause places

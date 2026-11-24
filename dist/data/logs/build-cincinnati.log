@@ -1,14 +1,15 @@
 == Cincinnati: 2 zone(s)
-  OSM tile 10: 18,143 nodes, 2,836 ways, 202 relations
-  OSM tile 20: 47,465 nodes, 7,771 ways, 303 relations
-  OSM tile 30: 83,048 nodes, 15,125 ways, 654 relations
-  OSM tile 40: 115,962 nodes, 21,909 ways, 866 relations
-  OSM tile 50: 139,772 nodes, 26,439 ways, 912 relations
-  OSM tile 56: 151,377 nodes, 28,742 ways, 961 relations
-  OSMnx walk graph: 30,719 nodes, 36,524 edges
-  8,686 building footprints
+  OSM tile 10: 8,093 nodes, 1,027 ways, 125 relations
+  OSM tile 20: 39,157 nodes, 6,516 ways, 272 relations
+  OSM tile 30: 73,928 nodes, 13,093 ways, 547 relations
+  OSM tile 40: 109,844 nodes, 20,545 ways, 842 relations
+  OSM tile 50: 138,133 nodes, 26,116 ways, 934 relations
+  OSM tile 60: 159,520 nodes, 30,103 ways, 1,010 relations
+  OSM tile 64: 164,214 nodes, 31,021 ways, 1,044 relations
+  OSMnx walk graph: 34,123 nodes, 40,449 edges
+  11,064 building footprints
   LiDAR source: OH_StatewideP3_6_B21 (year unknown)
-  part 0: 4699 EPT nodes, ~8.0 pts/m², grid (3122, 2181)
-  part 0: 219,254,131 points, 7,847 building heights, 22,077 crowns so far
-  height model: trained on 8,582, predicted 104, CV MAE 4.8 m
-== Cincinnati done in 4.1 min: 14.38 MB, 36,514 segments, 8,686 buildings {'lidar': 7003, 'osm': 1365, 'model': 104, 'osm-levels': 214}, 22,077 crowns, 1,581 places, 264 pause places
+  part 0: 5497 EPT nodes, ~8.1 pts/m², grid (3291, 2360)
+  part 0: 253,580,662 points, 10,221 building heights, 28,109 crowns so far
+  height model: trained on 10,951, predicted 113, CV MAE 4.3 m
+== Cincinnati done in 5.8 min: 17.69 MB, 40,439 segments, 11,064 buildings {'lidar': 9348, 'osm-levels': 228, 'model': 113, 'osm': 1375}, 28,109 crowns, 1,695 places, 323 pause places

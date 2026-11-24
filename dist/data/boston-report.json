@@ -7,28 +7,28 @@
   "Back Bay",
   "Seaport"
  ],
- "area_km2": 17.02,
+ "area_km2": 21.15,
  "network": {
-  "nodes": 98951,
-  "edges": 117029,
-  "street_length_km": 1730.95,
-  "intersections": 95759,
-  "streets_per_node_avg": 2.37,
-  "footpath_share": 0.582,
+  "nodes": 106588,
+  "edges": 125662,
+  "street_length_km": 1869.02,
+  "intersections": 103151,
+  "streets_per_node_avg": 2.36,
+  "footpath_share": 0.572,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 17017,
+ "buildings": 22630,
  "height_sources": {
-  "lidar": 15201,
-  "osm": 1358,
-  "model": 147,
-  "osm-levels": 311
+  "lidar": 20793,
+  "model": 162,
+  "osm": 1366,
+  "osm-levels": 309
  },
  "height_model": {
-  "known": 16870,
-  "predicted": 147,
+  "known": 22468,
+  "predicted": 162,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 5.03,
+  "cv_mae_m": 4.37,
   "features": [
    "log area",
    "log perimeter",
@@ -39,15 +39,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 44251,
- "places": 5342,
- "pause_places": 554,
+ "trees": 56689,
+ "places": 5668,
+ "pause_places": 596,
  "pause_by_kind": {
-  "station": 45,
-  "water": 56,
-  "library": 63,
-  "park": 370,
-  "community": 18,
+  "station": 47,
+  "water": 58,
+  "library": 66,
+  "park": 403,
+  "community": 20,
   "mall": 2
  },
  "lidar": [
@@ -55,25 +55,25 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MA_CentralEastern_1_2021/",
    "survey_year": 2021,
-   "points": 723078000,
+   "points": 832730802,
    "density_pts_m2": 8.4,
    "classes": {
-    "1": 85326992,
-    "2": 276083823,
-    "3": 38309171,
-    "6": 180254415,
-    "7": 3224809,
-    "9": 41116056,
-    "18": 10893558,
-    "4": 19391361,
-    "5": 60405147,
-    "17": 7627587,
-    "20": 388639,
+    "1": 98586072,
+    "2": 319206518,
+    "3": 44725618,
+    "6": 195722509,
+    "7": 3819993,
+    "9": 49952338,
+    "18": 12998782,
+    "4": 22799876,
+    "5": 76713596,
+    "17": 7721779,
+    "20": 427279,
     "22": 56442
    },
    "vegetation_classes": true
   }
  ],
- "data_mb": 32.05,
- "minutes": 16.0
+ "data_mb": 39.43,
+ "minutes": 22.6
 }

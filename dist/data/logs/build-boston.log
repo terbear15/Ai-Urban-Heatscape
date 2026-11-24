@@ -1,23 +1,26 @@
 == Boston: 4 zone(s)
-  OSM tile 10: 8,391 nodes, 641 ways, 64 relations
-  OSM tile 20: 19,497 nodes, 2,326 ways, 117 relations
-  OSM tile 30: 37,710 nodes, 5,140 ways, 145 relations
-  OSM tile 40: 60,640 nodes, 9,053 ways, 338 relations
-  OSM tile 50: 80,870 nodes, 12,345 ways, 395 relations
-  OSM tile 60: 111,871 nodes, 18,355 ways, 509 relations
-  OSM tile 70: 150,246 nodes, 26,008 ways, 842 relations
-  OSM tile 80: 182,943 nodes, 31,864 ways, 967 relations
-  OSM tile 90: 220,957 nodes, 39,151 ways, 1,134 relations
-  OSM tile 100: 253,957 nodes, 46,412 ways, 1,521 relations
-  OSM tile 110: 288,532 nodes, 53,838 ways, 2,036 relations
-  OSM tile 120: 320,835 nodes, 60,630 ways, 2,680 relations
-  OSM tile 130: 359,051 nodes, 66,813 ways, 3,120 relations
-  OSM tile 140: 394,748 nodes, 73,048 ways, 3,500 relations
-  OSM tile 150: 433,232 nodes, 80,143 ways, 3,898 relations
-  OSMnx walk graph: 98,951 nodes, 117,050 edges
-  17,017 building footprints
+  OSM tile 10: 8,346 nodes, 632 ways, 64 relations
+  OSM tile 20: 19,496 nodes, 2,320 ways, 121 relations
+  OSM tile 30: 26,542 nodes, 3,499 ways, 137 relations
+  OSM tile 40: 44,225 nodes, 6,311 ways, 296 relations
+  OSM tile 50: 62,607 nodes, 9,232 ways, 347 relations
+  OSM tile 60: 82,628 nodes, 12,517 ways, 404 relations
+  OSM tile 70: 112,661 nodes, 18,346 ways, 518 relations
+  OSM tile 80: 144,645 nodes, 24,709 ways, 831 relations
+  OSM tile 90: 180,281 nodes, 31,117 ways, 966 relations
+  OSM tile 100: 215,573 nodes, 37,277 ways, 1,081 relations
+  OSM tile 110: 240,316 nodes, 42,555 ways, 1,198 relations
+  OSM tile 120: 273,503 nodes, 49,948 ways, 1,555 relations
+  OSM tile 130: 306,542 nodes, 57,025 ways, 2,053 relations
+  OSM tile 140: 338,814 nodes, 63,652 ways, 2,569 relations
+  OSM tile 150: 375,114 nodes, 69,692 ways, 3,056 relations
+  OSM tile 160: 406,244 nodes, 74,695 ways, 3,298 relations
+  OSM tile 170: 436,057 nodes, 80,069 ways, 3,650 relations
+  OSM tile 180: 472,641 nodes, 86,709 ways, 4,002 relations
+  OSMnx walk graph: 106,588 nodes, 125,683 edges
+  22,630 building footprints
   LiDAR source: MA_CentralEastern_1_2021 (2021)
-  part 0: 18804 EPT nodes, ~8.4 pts/m², grid (4425, 4866)
-  part 0: 723,078,000 points, 15,985 building heights, 44,251 crowns so far
-  height model: trained on 16,870, predicted 147, CV MAE 5.0 m
-== Boston done in 16.0 min: 32.05 MB, 117,029 segments, 17,017 buildings {'lidar': 15201, 'osm': 1358, 'model': 147, 'osm-levels': 311}, 44,251 crowns, 5,342 places, 554 pause places
+  part 0: 21366 EPT nodes, ~8.4 pts/m², grid (5092, 4860)
+  part 0: 832,730,802 points, 21,599 building heights, 56,689 crowns so far
+  height model: trained on 22,468, predicted 162, CV MAE 4.4 m
+== Boston done in 22.6 min: 39.43 MB, 125,662 segments, 22,630 buildings {'lidar': 20793, 'model': 162, 'osm': 1366, 'osm-levels': 309}, 56,689 crowns, 5,668 places, 596 pause places

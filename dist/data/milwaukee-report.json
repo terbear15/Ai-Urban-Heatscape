@@ -5,28 +5,28 @@
   "Downtown",
   "Third Ward"
  ],
- "area_km2": 9.37,
+ "area_km2": 12.23,
  "network": {
-  "nodes": 46514,
-  "edges": 55267,
-  "street_length_km": 786.73,
-  "intersections": 43944,
-  "streets_per_node_avg": 2.38,
-  "footpath_share": 0.596,
+  "nodes": 59057,
+  "edges": 72315,
+  "street_length_km": 1162.42,
+  "intersections": 55843,
+  "streets_per_node_avg": 2.45,
+  "footpath_share": 0.581,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 9389,
+ "buildings": 12890,
  "height_sources": {
-  "osm-levels": 1116,
-  "lidar": 7130,
-  "osm": 1039,
-  "model": 104
+  "lidar": 10544,
+  "osm-levels": 1107,
+  "osm": 1040,
+  "model": 199
  },
  "height_model": {
-  "known": 9285,
-  "predicted": 104,
+  "known": 12691,
+  "predicted": 199,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 6.02,
+  "cv_mae_m": 4.89,
   "features": [
    "log area",
    "log perimeter",
@@ -37,15 +37,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 24104,
- "places": 3007,
- "pause_places": 486,
+ "trees": 34655,
+ "places": 3189,
+ "pause_places": 502,
  "pause_by_kind": {
-  "library": 9,
   "water": 8,
+  "library": 9,
   "community": 25,
   "station": 1,
-  "park": 442,
+  "park": 458,
   "mall": 1
  },
  "lidar": [
@@ -53,19 +53,19 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_WI_SEWRPC_2017_LAS_2019/",
    "survey_year": 2019,
-   "points": 79192591,
-   "density_pts_m2": 2.1,
+   "points": 118745049,
+   "density_pts_m2": 2.3,
    "classes": {
-    "1": 30955162,
-    "2": 43129653,
-    "7": 27883,
-    "9": 4136096,
-    "10": 37565,
-    "17": 906232
+    "1": 45370182,
+    "2": 68087316,
+    "7": 37980,
+    "9": 4167353,
+    "10": 43593,
+    "17": 1038625
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 17.74,
- "minutes": 3.8
+ "data_mb": 24.4,
+ "minutes": 6.4
 }

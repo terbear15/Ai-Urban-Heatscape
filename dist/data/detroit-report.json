@@ -6,28 +6,28 @@
   "Midtown",
   "Riverwalk"
  ],
- "area_km2": 13.89,
+ "area_km2": 18.51,
  "network": {
-  "nodes": 49799,
-  "edges": 62727,
-  "street_length_km": 1370.0,
-  "intersections": 47629,
+  "nodes": 58410,
+  "edges": 73555,
+  "street_length_km": 1702.61,
+  "intersections": 56015,
   "streets_per_node_avg": 2.52,
-  "footpath_share": 0.485,
+  "footpath_share": 0.461,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 4594,
+ "buildings": 8614,
  "height_sources": {
-  "lidar": 4282,
-  "osm-levels": 71,
-  "model": 94,
-  "osm": 147
+  "lidar": 8278,
+  "model": 115,
+  "osm": 148,
+  "osm-levels": 73
  },
  "height_model": {
-  "known": 4500,
-  "predicted": 94,
+  "known": 8499,
+  "predicted": 115,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 6.07,
+  "cv_mae_m": 4.4,
   "features": [
    "log area",
    "log perimeter",
@@ -38,35 +38,35 @@
    "max known height within 60 m"
   ]
  },
- "trees": 35568,
- "places": 2373,
- "pause_places": 205,
+ "trees": 49419,
+ "places": 2610,
+ "pause_places": 217,
  "pause_by_kind": {
   "water": 6,
-  "community": 16,
+  "community": 17,
   "station": 15,
   "library": 4,
-  "park": 164
+  "park": 175
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_MI_WayneCo_2017_LAS_2018/",
    "survey_year": 2018,
-   "points": 187684030,
-   "density_pts_m2": 2.8,
+   "points": 237828455,
+   "density_pts_m2": 2.7,
    "classes": {
-    "1": 101613596,
-    "2": 80916671,
-    "7": 98204,
-    "9": 4243927,
-    "18": 2368,
-    "10": 11214,
-    "17": 798050
+    "1": 127922692,
+    "2": 102903717,
+    "7": 132374,
+    "9": 5933978,
+    "18": 3047,
+    "10": 17702,
+    "17": 914945
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 21.56,
- "minutes": 7.4
+ "data_mb": 29.84,
+ "minutes": 9.0
 }

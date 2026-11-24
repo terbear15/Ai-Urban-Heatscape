@@ -7,28 +7,28 @@
   "Dupont Circle",
   "Georgetown"
  ],
- "area_km2": 36.55,
+ "area_km2": 39.75,
  "network": {
-  "nodes": 166924,
-  "edges": 199724,
-  "street_length_km": 3017.06,
-  "intersections": 160750,
-  "streets_per_node_avg": 2.39,
-  "footpath_share": 0.586,
+  "nodes": 198986,
+  "edges": 240913,
+  "street_length_km": 3783.75,
+  "intersections": 191913,
+  "streets_per_node_avg": 2.42,
+  "footpath_share": 0.574,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 39044,
+ "buildings": 55756,
  "height_sources": {
-  "lidar": 37564,
-  "model": 731,
-  "osm": 666,
-  "osm-levels": 83
+  "lidar": 53789,
+  "osm-levels": 291,
+  "model": 1010,
+  "osm": 666
  },
  "height_model": {
-  "known": 38313,
-  "predicted": 731,
+  "known": 54746,
+  "predicted": 1010,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.52,
+  "cv_mae_m": 2.3,
   "features": [
    "log area",
    "log perimeter",
@@ -39,38 +39,38 @@
    "max known height within 60 m"
   ]
  },
- "trees": 86076,
- "places": 8646,
- "pause_places": 1385,
+ "trees": 102844,
+ "places": 9553,
+ "pause_places": 1533,
  "pause_by_kind": {
-  "water": 106,
-  "station": 46,
-  "park": 1181,
-  "community": 23,
-  "library": 28,
-  "mall": 1
+  "park": 1307,
+  "station": 49,
+  "water": 113,
+  "community": 30,
+  "library": 32,
+  "mall": 2
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_MD_VA_Sandy_NCR_2014_LAS_2015/",
    "survey_year": 2015,
-   "points": 560034730,
+   "points": 670730509,
    "density_pts_m2": 4.2,
    "classes": {
-    "1": 115539690,
-    "2": 104468384,
-    "7": 8793,
-    "9": 15054295,
-    "11": 2888,
-    "17": 192612955,
-    "18": 129993893,
-    "25": 2316871,
-    "10": 36961
+    "1": 137993507,
+    "2": 127512630,
+    "7": 11153,
+    "9": 14676769,
+    "11": 3007,
+    "17": 229504431,
+    "18": 158617174,
+    "25": 2371084,
+    "10": 40754
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 65.52,
- "minutes": 26.7
+ "data_mb": 80.21,
+ "minutes": 67.0
 }

@@ -4,28 +4,28 @@
  "zones": [
   "Manhattan"
  ],
- "area_km2": 64.76,
+ "area_km2": 57.05,
  "network": {
-  "nodes": 295191,
-  "edges": 371356,
-  "street_length_km": 7535.91,
-  "intersections": 284900,
-  "streets_per_node_avg": 2.52,
-  "footpath_share": 0.605,
+  "nodes": 257885,
+  "edges": 322328,
+  "street_length_km": 6367.89,
+  "intersections": 248671,
+  "streets_per_node_avg": 2.5,
+  "footpath_share": 0.602,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 64104,
+ "buildings": 59632,
  "height_sources": {
-  "osm": 61866,
-  "lidar": 1337,
-  "model": 746,
-  "osm-levels": 155
+  "osm": 57523,
+  "lidar": 1216,
+  "model": 744,
+  "osm-levels": 149
  },
  "height_model": {
-  "known": 63358,
-  "predicted": 746,
+  "known": 58888,
+  "predicted": 744,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 11.23,
+  "cv_mae_m": 11.76,
   "features": [
    "log area",
    "log perimeter",
@@ -36,15 +36,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 130267,
- "places": 28650,
- "pause_places": 5295,
+ "trees": 116138,
+ "places": 27699,
+ "pause_places": 4938,
  "pause_by_kind": {
-  "station": 194,
-  "park": 4403,
-  "water": 553,
+  "station": 185,
+  "park": 4102,
+  "water": 507,
   "community": 73,
-  "library": 64,
+  "library": 63,
   "mall": 8
  },
  "lidar": [
@@ -52,20 +52,20 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity/",
    "survey_year": 0,
-   "points": 881333588,
+   "points": 752533365,
    "density_pts_m2": 2.3,
    "classes": {
-    "1": 353399022,
-    "2": 104452814,
-    "7": 158344,
-    "9": 33537591,
-    "10": 426239,
-    "17": 313052908,
-    "18": 76306670
+    "1": 305443614,
+    "2": 87890211,
+    "7": 131254,
+    "9": 30930446,
+    "10": 394386,
+    "17": 263088298,
+    "18": 64655156
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 109.93,
- "minutes": 122.8
+ "data_mb": 98.2,
+ "minutes": 88.9
 }

@@ -5,28 +5,28 @@
   "Downtown",
   "Mill District and Riverfront"
  ],
- "area_km2": 10.17,
+ "area_km2": 13.24,
  "network": {
-  "nodes": 46747,
-  "edges": 58764,
-  "street_length_km": 1143.77,
-  "intersections": 44256,
-  "streets_per_node_avg": 2.51,
-  "footpath_share": 0.609,
+  "nodes": 63153,
+  "edges": 79928,
+  "street_length_km": 1619.85,
+  "intersections": 60044,
+  "streets_per_node_avg": 2.53,
+  "footpath_share": 0.577,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 5786,
+ "buildings": 9842,
  "height_sources": {
-  "lidar": 5566,
-  "model": 34,
-  "osm": 154,
-  "osm-levels": 32
+  "lidar": 9605,
+  "osm": 155,
+  "model": 45,
+  "osm-levels": 37
  },
  "height_model": {
-  "known": 5752,
-  "predicted": 34,
+  "known": 9797,
+  "predicted": 45,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 5.98,
+  "cv_mae_m": 4.85,
   "features": [
    "log area",
    "log perimeter",
@@ -37,36 +37,36 @@
    "max known height within 60 m"
   ]
  },
- "trees": 37366,
- "places": 2482,
- "pause_places": 296,
+ "trees": 49502,
+ "places": 3112,
+ "pause_places": 322,
  "pause_by_kind": {
-  "community": 17,
-  "water": 24,
-  "station": 8,
-  "park": 240,
-  "library": 5,
-  "mall": 2
+  "community": 21,
+  "water": 29,
+  "station": 9,
+  "library": 6,
+  "park": 254,
+  "mall": 3
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MN_CentralMissRiver_4_B22/",
    "survey_year": 0,
-   "points": 915795684,
-   "density_pts_m2": 19.6,
+   "points": 1279677476,
+   "density_pts_m2": 20.2,
    "classes": {
-    "2": 362625810,
-    "7": 866421,
-    "9": 11434658,
-    "18": 8474434,
-    "1": 523663598,
-    "20": 90963,
-    "17": 8639800
+    "2": 529593739,
+    "7": 977436,
+    "9": 11501606,
+    "18": 8570627,
+    "1": 717678129,
+    "20": 94022,
+    "17": 11261917
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 22.03,
- "minutes": 17.9
+ "data_mb": 29.74,
+ "minutes": 22.3
 }

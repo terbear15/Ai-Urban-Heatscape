@@ -5,28 +5,28 @@
   "Uptown",
   "South End"
  ],
- "area_km2": 14.28,
+ "area_km2": 19.92,
  "network": {
-  "nodes": 107908,
-  "edges": 121413,
-  "street_length_km": 1357.75,
-  "intersections": 99419,
-  "streets_per_node_avg": 2.25,
-  "footpath_share": 0.525,
+  "nodes": 105994,
+  "edges": 118836,
+  "street_length_km": 1321.92,
+  "intersections": 97671,
+  "streets_per_node_avg": 2.24,
+  "footpath_share": 0.516,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 5899,
+ "buildings": 10075,
  "height_sources": {
-  "lidar": 4405,
-  "osm": 1149,
-  "model": 241,
+  "osm": 1091,
+  "lidar": 8614,
+  "model": 266,
   "osm-levels": 104
  },
  "height_model": {
-  "known": 5658,
-  "predicted": 241,
+  "known": 9809,
+  "predicted": 266,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 8.44,
+  "cv_mae_m": 7.36,
   "features": [
    "log area",
    "log perimeter",
@@ -37,39 +37,39 @@
    "max known height within 60 m"
   ]
  },
- "trees": 42434,
- "places": 1236,
- "pause_places": 206,
+ "trees": 55604,
+ "places": 1389,
+ "pause_places": 237,
  "pause_by_kind": {
-  "water": 34,
   "station": 12,
-  "library": 3,
+  "water": 48,
   "community": 3,
-  "park": 154
+  "library": 3,
+  "park": 171
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_NC_Phase4_Mecklenburg_2016_LAS_2019/",
    "survey_year": 2019,
-   "points": 778623316,
-   "density_pts_m2": 15.9,
+   "points": 834654723,
+   "density_pts_m2": 16.5,
    "classes": {
-    "1": 10309257,
-    "2": 184283620,
-    "5": 415112645,
-    "6": 58656651,
-    "13": 31251483,
-    "3": 28458222,
-    "4": 49189732,
+    "1": 10714222,
+    "2": 191940205,
+    "5": 459239949,
+    "6": 58935447,
+    "13": 30835040,
+    "3": 29788357,
+    "4": 52007900,
     "7": 892,
-    "9": 3117,
-    "14": 1357207,
-    "10": 490
+    "9": 26079,
+    "10": 1219,
+    "14": 1165413
    },
    "vegetation_classes": true
   }
  ],
- "data_mb": 30.18,
- "minutes": 10.3
+ "data_mb": 38.12,
+ "minutes": 10.7
 }

@@ -1,2 +1,20 @@
 == Houston: 3 zone(s)
   OSM tile 10: 21,929 nodes, 3,427 ways, 80 relations
+  OSM tile 20: 41,282 nodes, 7,378 ways, 134 relations
+  OSM tile 30: 62,743 nodes, 11,588 ways, 182 relations
+  OSM tile 40: 84,638 nodes, 16,513 ways, 273 relations
+  OSM tile 50: 106,637 nodes, 21,521 ways, 357 relations
+  OSM tile 60: 132,301 nodes, 27,052 ways, 396 relations
+  OSM tile 70: 162,892 nodes, 33,009 ways, 453 relations
+  OSM tile 80: 190,428 nodes, 38,363 ways, 532 relations
+  OSM tile 90: 218,755 nodes, 43,831 ways, 595 relations
+  OSM tile 100: 246,662 nodes, 48,994 ways, 687 relations
+  OSM tile 110: 278,196 nodes, 54,781 ways, 724 relations
+  OSM tile 120: 308,893 nodes, 60,292 ways, 766 relations
+  OSMnx walk graph: 66,590 nodes, 80,936 edges
+  15,826 building footprints
+  LiDAR source: TX_Coastal_B1_2018 (2018)
+  part 0: 9157 EPT nodes, ~10.5 pts/m², grid (3768, 3909)
+  part 0: 618,567,879 points, 15,623 building heights, 54,084 crowns so far
+  height model: trained on 15,689, predicted 137, CV MAE 4.1 m
+== Houston done in 11.5 min: 33.64 MB, 80,920 segments, 15,826 buildings {'lidar': 15415, 'osm': 253, 'model': 137, 'osm-levels': 21}, 54,084 crowns, 2,026 places, 176 pause places

@@ -1,18 +1,20 @@
 == Nashville: 2 zone(s)
-  OSM tile 10: 7,162 nodes, 1,245 ways, 75 relations
-  OSM tile 20: 20,438 nodes, 4,048 ways, 102 relations
-  OSM tile 30: 31,928 nodes, 6,659 ways, 163 relations
-  OSM tile 40: 46,347 nodes, 9,793 ways, 252 relations
-  OSM tile 50: 70,984 nodes, 13,396 ways, 288 relations
-  OSM tile 60: 90,064 nodes, 17,152 ways, 337 relations
-  OSM tile 70: 109,331 nodes, 20,921 ways, 354 relations
-  OSM tile 80: 129,811 nodes, 24,751 ways, 400 relations
-  OSM tile 90: 148,251 nodes, 27,564 ways, 421 relations
-  OSM tile 96: 157,083 nodes, 29,108 ways, 426 relations
-  OSMnx walk graph: 44,913 nodes, 55,176 edges
-  5,150 building footprints
+  OSM tile 10: 4,946 nodes, 662 ways, 76 relations
+  OSM tile 20: 18,787 nodes, 3,507 ways, 104 relations
+  OSM tile 30: 33,608 nodes, 6,819 ways, 121 relations
+  OSM tile 40: 44,572 nodes, 9,351 ways, 199 relations
+  OSM tile 50: 59,365 nodes, 12,276 ways, 269 relations
+  OSM tile 60: 85,871 nodes, 16,294 ways, 309 relations
+  OSM tile 70: 105,965 nodes, 20,165 ways, 358 relations
+  OSM tile 80: 125,366 nodes, 23,786 ways, 384 relations
+  OSM tile 90: 145,142 nodes, 27,342 ways, 416 relations
+  OSM tile 100: 163,454 nodes, 30,815 ways, 465 relations
+  OSM tile 110: 182,778 nodes, 34,069 ways, 504 relations
+  OSM tile 120: 200,025 nodes, 36,587 ways, 516 relations
+  OSMnx walk graph: 57,391 nodes, 70,172 edges
+  6,935 building footprints
   LiDAR source: TN_DavidsonCo_1_2022 (2022)
-  part 0: 17774 EPT nodes, ~16.8 pts/m², grid (3148, 3740)
-  part 0: 791,015,113 points, 4,898 building heights, 25,386 crowns so far
-  height model: trained on 5,014, predicted 136, CV MAE 4.8 m
-== Nashville done in 10.2 min: 16.17 MB, 55,160 segments, 5,150 buildings {'lidar': 4773, 'osm': 234, 'osm-levels': 7, 'model': 136}, 25,386 crowns, 1,090 places, 49 pause places
+  part 0: 21704 EPT nodes, ~16.9 pts/m², grid (3853, 3740)
+  part 0: 974,468,941 points, 6,723 building heights, 36,119 crowns so far
+  height model: trained on 6,839, predicted 96, CV MAE 4.5 m
+== Nashville done in 13.4 min: 22.51 MB, 70,155 segments, 6,935 buildings {'lidar': 6598, 'osm': 234, 'model': 96, 'osm-levels': 7}, 36,119 crowns, 1,355 places, 73 pause places

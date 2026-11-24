@@ -13,20 +13,23 @@
   OSM tile 120: 676,125 nodes, 96,185 ways, 3,340 relations
   OSM tile 130: 760,341 nodes, 105,082 ways, 3,542 relations
   OSM tile 140: 818,771 nodes, 111,580 ways, 3,704 relations
-  OSM tile 150: 872,993 nodes, 117,602 ways, 3,840 relations
-  OSM tile 160: 912,296 nodes, 121,646 ways, 3,961 relations
-  OSM tile 170: 976,375 nodes, 128,809 ways, 4,117 relations
-  OSM tile 180: 1,049,675 nodes, 136,329 ways, 4,307 relations
-  OSM tile 190: 1,109,074 nodes, 142,601 ways, 4,546 relations
-  OSM tile 200: 1,164,491 nodes, 147,907 ways, 4,693 relations
-  OSM tile 210: 1,215,851 nodes, 153,505 ways, 4,757 relations
-  OSM tile 220: 1,256,085 nodes, 158,514 ways, 4,819 relations
-  OSM tile 230: 1,303,262 nodes, 164,498 ways, 4,989 relations
-  OSM tile 240: 1,353,303 nodes, 170,572 ways, 5,089 relations
-  OSM tile 250: 1,392,957 nodes, 175,029 ways, 5,159 relations
-  OSM tile 260: 1,411,012 nodes, 177,608 ways, 5,189 relations
-  OSM tile 264: 1,412,116 nodes, 177,792 ways, 5,196 relations
-  OSMnx walk graph: 161,074 nodes, 193,583 edges
+  OSM tile 150: 872,994 nodes, 117,602 ways, 3,840 relations
+  OSM tile 160: 912,297 nodes, 121,646 ways, 3,961 relations
+  OSM tile 170: 976,376 nodes, 128,809 ways, 4,117 relations
+  OSM tile 180: 1,049,676 nodes, 136,329 ways, 4,307 relations
+  OSM tile 190: 1,109,075 nodes, 142,601 ways, 4,546 relations
+  OSM tile 200: 1,164,492 nodes, 147,907 ways, 4,693 relations
+  OSM tile 210: 1,215,852 nodes, 153,505 ways, 4,757 relations
+  OSM tile 220: 1,256,086 nodes, 158,514 ways, 4,819 relations
+  OSM tile 230: 1,303,263 nodes, 164,498 ways, 4,989 relations
+  OSM tile 240: 1,353,304 nodes, 170,572 ways, 5,089 relations
+  OSM tile 250: 1,392,958 nodes, 175,029 ways, 5,159 relations
+  OSM tile 260: 1,411,013 nodes, 177,608 ways, 5,189 relations
+  OSM tile 264: 1,412,117 nodes, 177,792 ways, 5,196 relations
+  OSMnx walk graph: 161,075 nodes, 193,584 edges
   78,403 building footprints
   LiDAR source: CA_SanFrancisco_1_B23 (year unknown)
   part 0: 29753 EPT nodes, ~8.7 pts/m², grid (4935, 7170)
+  part 0: 1,234,126,654 points, 77,394 building heights, 129,482 crowns so far
+  height model: trained on 78,223, predicted 180, CV MAE 2.6 m
+== San Francisco done in 52.5 min: 103.47 MB, 193,571 segments, 78,403 buildings {'osm': 65908, 'lidar': 12208, 'model': 180, 'osm-levels': 107}, 129,482 crowns, 16,061 places, 860 pause places

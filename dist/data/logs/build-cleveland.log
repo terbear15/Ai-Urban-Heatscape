@@ -1,20 +1,24 @@
 == Cleveland: 1 zone(s)
-  OSM tile 10: 16,622 nodes, 1,815 ways, 112 relations
-  OSM tile 20: 38,038 nodes, 4,809 ways, 149 relations
-  OSM tile 30: 53,071 nodes, 7,174 ways, 165 relations
-  OSM tile 40: 67,730 nodes, 9,447 ways, 177 relations
-  OSM tile 50: 82,408 nodes, 11,739 ways, 210 relations
-  OSM tile 60: 91,803 nodes, 13,291 ways, 245 relations
-  OSM tile 70: 100,413 nodes, 14,698 ways, 321 relations
-  OSM tile 80: 109,510 nodes, 16,316 ways, 357 relations
-  OSM tile 90: 120,550 nodes, 18,328 ways, 381 relations
-  OSM tile 100: 129,231 nodes, 20,125 ways, 429 relations
-  OSM tile 110: 138,697 nodes, 21,759 ways, 446 relations
-  OSM tile 117: 148,821 nodes, 23,016 ways, 453 relations
-  OSMnx walk graph: 30,528 nodes, 38,113 edges
-  4,887 building footprints
+  OSM tile 10: 29,677 nodes, 3,875 ways, 112 relations
+  OSM tile 20: 52,822 nodes, 7,466 ways, 143 relations
+  OSM tile 30: 78,982 nodes, 11,145 ways, 157 relations
+  OSM tile 40: 105,101 nodes, 14,682 ways, 191 relations
+  OSM tile 50: 128,580 nodes, 17,773 ways, 229 relations
+  OSM tile 60: 145,696 nodes, 20,340 ways, 268 relations
+  OSM tile 70: 161,346 nodes, 22,827 ways, 286 relations
+  OSM tile 80: 176,012 nodes, 25,160 ways, 314 relations
+  OSM tile 90: 186,543 nodes, 26,737 ways, 335 relations
+  OSM tile 100: 194,794 nodes, 27,988 ways, 374 relations
+  OSM tile 110: 204,034 nodes, 29,485 ways, 434 relations
+  OSM tile 120: 211,905 nodes, 31,133 ways, 472 relations
+  OSM tile 130: 219,862 nodes, 32,570 ways, 492 relations
+  OSM tile 140: 228,761 nodes, 34,414 ways, 541 relations
+  OSM tile 150: 239,284 nodes, 36,095 ways, 558 relations
+  OSM tile 153: 248,239 nodes, 37,304 ways, 565 relations
+  OSMnx walk graph: 49,066 nodes, 60,751 edges
+  9,455 building footprints
   LiDAR source: OH_Statewide_Phase1_1_2019 (2019)
-  part 0: 19013 EPT nodes, ~11.2 pts/m², grid (3963, 4188)
-  part 0: 741,711,330 points, 4,809 building heights, 35,996 crowns so far
-  height model: trained on 4,854, predicted 33, CV MAE 6.0 m
-== Cleveland done in 11.6 min: 19.26 MB, 38,109 segments, 4,887 buildings {'lidar': 4748, 'model': 33, 'osm': 93, 'osm-levels': 13}, 35,996 crowns, 1,367 places, 118 pause places
+  part 0: 29556 EPT nodes, ~13.5 pts/m², grid (3963, 5667)
+  part 0: 1,208,465,154 points, 9,364 building heights, 53,598 crowns so far
+  height model: trained on 9,408, predicted 47, CV MAE 4.5 m
+== Cleveland done in 17.8 min: 30.12 MB, 60,747 segments, 9,455 buildings {'lidar': 9301, 'model': 47, 'osm': 94, 'osm-levels': 13}, 53,598 crowns, 1,622 places, 221 pause places

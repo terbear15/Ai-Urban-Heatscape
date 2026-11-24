@@ -1,32 +1,37 @@
 == Washington: 4 zone(s)
-  OSM tile 10: 59,728 nodes, 8,757 ways, 413 relations
-  OSM tile 20: 100,305 nodes, 14,171 ways, 646 relations
-  OSM tile 30: 155,637 nodes, 23,387 ways, 753 relations
-  OSM tile 40: 187,521 nodes, 28,600 ways, 895 relations
-  OSM tile 50: 217,177 nodes, 33,318 ways, 1,080 relations
-  OSM tile 60: 267,819 nodes, 41,519 ways, 1,271 relations
-  OSM tile 70: 309,058 nodes, 48,442 ways, 1,386 relations
-  OSM tile 80: 338,039 nodes, 53,499 ways, 1,629 relations
-  OSM tile 90: 395,736 nodes, 64,005 ways, 1,873 relations
-  OSM tile 100: 433,070 nodes, 69,213 ways, 1,940 relations
-  OSM tile 110: 472,402 nodes, 75,235 ways, 2,170 relations
-  OSM tile 120: 521,035 nodes, 82,748 ways, 2,357 relations
-  OSM tile 130: 544,411 nodes, 85,506 ways, 2,422 relations
-  OSM tile 140: 597,424 nodes, 93,075 ways, 2,689 relations
-  OSM tile 150: 631,381 nodes, 96,705 ways, 2,809 relations
-  OSM tile 160: 658,301 nodes, 100,728 ways, 2,957 relations
-  OSM tile 170: 694,148 nodes, 105,317 ways, 3,122 relations
-  OSM tile 180: 727,509 nodes, 110,237 ways, 3,275 relations
-  OSM tile 190: 756,599 nodes, 114,424 ways, 3,355 relations
-  OSM tile 200: 796,273 nodes, 120,369 ways, 3,496 relations
-  OSM tile 210: 819,182 nodes, 123,422 ways, 3,548 relations
-  OSM tile 220: 870,998 nodes, 131,367 ways, 3,726 relations
-  OSM tile 230: 899,848 nodes, 135,602 ways, 3,773 relations
-  OSM tile 240: 930,929 nodes, 140,590 ways, 3,854 relations
-  OSMnx walk graph: 166,924 nodes, 199,737 edges
-  39,044 building footprints
+  OSM tile 10: 32,444 nodes, 3,734 ways, 328 relations
+  OSM tile 20: 71,455 nodes, 9,066 ways, 501 relations
+  OSM tile 30: 104,844 nodes, 15,436 ways, 593 relations
+  OSM tile 40: 157,421 nodes, 24,182 ways, 697 relations
+  OSM tile 50: 202,233 nodes, 31,140 ways, 781 relations
+  OSM tile 60: 272,626 nodes, 41,450 ways, 883 relations
+  OSM tile 70: 329,995 nodes, 50,151 ways, 988 relations
+  OSM tile 80: 370,958 nodes, 56,306 ways, 1,103 relations
+  OSM tile 90: 423,639 nodes, 64,714 ways, 1,182 relations
+  OSM tile 100: 464,297 nodes, 71,300 ways, 1,410 relations
+  OSM tile 110: 497,065 nodes, 76,136 ways, 1,500 relations
+  OSM tile 120: 538,280 nodes, 83,321 ways, 1,711 relations
+  OSM tile 130: 588,212 nodes, 92,440 ways, 2,013 relations
+  OSM tile 140: 630,097 nodes, 99,786 ways, 2,141 relations
+  OSM tile 150: 663,414 nodes, 105,392 ways, 2,313 relations
+  OSM tile 160: 728,460 nodes, 115,251 ways, 2,577 relations
+  OSM tile 170: 762,781 nodes, 120,161 ways, 2,666 relations
+  OSM tile 180: 797,266 nodes, 125,305 ways, 2,844 relations
+  OSM tile 190: 855,148 nodes, 133,470 ways, 3,096 relations
+  OSM tile 200: 882,725 nodes, 135,906 ways, 3,201 relations
+  OSM tile 210: 915,936 nodes, 140,789 ways, 3,363 relations
+  OSM tile 220: 951,263 nodes, 145,248 ways, 3,528 relations
+  OSM tile 230: 986,253 nodes, 150,092 ways, 3,681 relations
+  OSM tile 240: 1,014,048 nodes, 154,533 ways, 3,756 relations
+  OSM tile 250: 1,049,324 nodes, 159,408 ways, 3,900 relations
+  OSM tile 260: 1,081,121 nodes, 164,055 ways, 3,982 relations
+  OSM tile 270: 1,122,719 nodes, 170,462 ways, 4,133 relations
+  OSM tile 280: 1,161,661 nodes, 176,569 ways, 4,194 relations
+  OSM tile 285: 1,172,878 nodes, 178,326 ways, 4,235 relations
+  OSMnx walk graph: 198,986 nodes, 240,928 edges
+  55,756 building footprints
   LiDAR source: USGS_LPC_MD_VA_Sandy_NCR_2014_LAS_2015 (2015)
-  part 0: 15535 EPT nodes, ~4.2 pts/m², grid (6700, 5003)
-  part 0: 560,034,730 points, 37,952 building heights, 86,076 crowns so far
-  height model: trained on 38,313, predicted 731, CV MAE 2.5 m
-== Washington done in 26.7 min: 65.52 MB, 199,724 segments, 39,044 buildings {'lidar': 37564, 'model': 731, 'osm': 666, 'osm-levels': 83}, 86,076 crowns, 8,646 places, 1385 pause places
+  part 0: 18584 EPT nodes, ~4.2 pts/m², grid (6283, 6302)
+  part 0: 670,730,509 points, 54,177 building heights, 102,844 crowns so far
+  height model: trained on 54,746, predicted 1,010, CV MAE 2.3 m
+== Washington done in 67.0 min: 80.21 MB, 240,913 segments, 55,756 buildings {'lidar': 53789, 'osm-levels': 291, 'model': 1010, 'osm': 666}, 102,844 crowns, 9,553 places, 1533 pause places

@@ -5,7 +5,7 @@
   "Downtown",
   "Strip District"
  ],
- "area_km2": 6.54,
+ "area_km2": 8.66,
  "network": {
   "nodes": 35807,
   "edges": 42706,
@@ -15,18 +15,18 @@
   "footpath_share": 0.536,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 3897,
+ "buildings": 4691,
  "height_sources": {
-  "lidar": 3493,
-  "model": 36,
-  "osm": 359,
-  "osm-levels": 9
+  "lidar": 4220,
+  "model": 38,
+  "osm": 421,
+  "osm-levels": 12
  },
  "height_model": {
-  "known": 3861,
-  "predicted": 36,
+  "known": 4653,
+  "predicted": 38,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 6.16,
+  "cv_mae_m": 5.32,
   "features": [
    "log area",
    "log perimeter",
@@ -37,15 +37,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 21137,
- "places": 1235,
- "pause_places": 451,
+ "trees": 23856,
+ "places": 1558,
+ "pause_places": 518,
  "pause_by_kind": {
-  "library": 12,
-  "park": 414,
+  "library": 15,
+  "park": 477,
   "station": 12,
   "water": 8,
-  "community": 3,
+  "community": 4,
   "mall": 2
  },
  "lidar": [
@@ -67,6 +67,6 @@
    "vegetation_classes": false
   }
  ],
- "data_mb": 13.79,
- "minutes": 4.8
+ "data_mb": 15.09,
+ "minutes": 4.3
 }

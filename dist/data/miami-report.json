@@ -7,28 +7,28 @@
   "Wynwood",
   "Little Havana"
  ],
- "area_km2": 29.08,
+ "area_km2": 36.56,
  "network": {
-  "nodes": 91872,
-  "edges": 107072,
-  "street_length_km": 1755.46,
-  "intersections": 88831,
-  "streets_per_node_avg": 2.33,
-  "footpath_share": 0.523,
+  "nodes": 115785,
+  "edges": 134137,
+  "street_length_km": 2156.1,
+  "intersections": 112052,
+  "streets_per_node_avg": 2.32,
+  "footpath_share": 0.528,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 20356,
+ "buildings": 29459,
  "height_sources": {
-  "osm": 18399,
-  "lidar": 389,
-  "model": 1438,
-  "osm-levels": 130
+  "osm": 27282,
+  "lidar": 390,
+  "model": 1652,
+  "osm-levels": 135
  },
  "height_model": {
-  "known": 18918,
-  "predicted": 1438,
+  "known": 27807,
+  "predicted": 1652,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 3.58,
+  "cv_mae_m": 2.82,
   "features": [
    "log area",
    "log perimeter",
@@ -39,15 +39,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 8958,
- "places": 3390,
- "pause_places": 132,
+ "trees": 8887,
+ "places": 3759,
+ "pause_places": 139,
  "pause_by_kind": {
-  "library": 13,
-  "station": 28,
+  "library": 15,
+  "station": 29,
   "water": 6,
-  "park": 78,
-  "community": 4,
+  "park": 81,
+  "community": 5,
   "mall": 3
  },
  "lidar": [
@@ -55,23 +55,23 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/FL_TopobathyFLKeysNOAA_Hydroflattened_2019/",
    "survey_year": 2019,
-   "points": 467180378,
-   "density_pts_m2": 8.1,
+   "points": 457693984,
+   "density_pts_m2": 6.5,
    "classes": {
-    "1": 182475564,
-    "7": 1791307,
-    "18": 1012968,
-    "2": 23996001,
-    "8": 23381196,
-    "13": 228781192,
-    "17": 2592537,
-    "20": 77444,
-    "9": 2981397,
-    "11": 90772
+    "1": 180470351,
+    "7": 1752702,
+    "18": 1012745,
+    "2": 23936625,
+    "8": 22557171,
+    "13": 222339382,
+    "17": 2576249,
+    "20": 72794,
+    "9": 2885615,
+    "11": 90350
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 18.3,
- "minutes": 8.8
+ "data_mb": 23.06,
+ "minutes": 12.0
 }

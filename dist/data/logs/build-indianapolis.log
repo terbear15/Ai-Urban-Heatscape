@@ -1,14 +1,17 @@
 == Indianapolis: 1 zone(s)
-  OSM tile 10: 17,112 nodes, 2,697 ways, 107 relations
-  OSM tile 20: 45,598 nodes, 7,955 ways, 197 relations
-  OSM tile 30: 78,098 nodes, 13,580 ways, 382 relations
-  OSM tile 40: 100,719 nodes, 18,468 ways, 492 relations
-  OSM tile 50: 122,844 nodes, 23,189 ways, 540 relations
-  OSM tile 54: 131,967 nodes, 24,692 ways, 625 relations
-  OSMnx walk graph: 30,573 nodes, 37,438 edges
-  7,266 building footprints
+  OSM tile 10: 5,219 nodes, 502 ways, 33 relations
+  OSM tile 20: 22,192 nodes, 3,543 ways, 63 relations
+  OSM tile 30: 43,998 nodes, 7,330 ways, 91 relations
+  OSM tile 40: 67,346 nodes, 11,814 ways, 133 relations
+  OSM tile 50: 95,164 nodes, 17,175 ways, 228 relations
+  OSM tile 60: 123,431 nodes, 22,172 ways, 412 relations
+  OSM tile 70: 145,734 nodes, 27,072 ways, 512 relations
+  OSM tile 80: 164,861 nodes, 31,258 ways, 561 relations
+  OSM tile 88: 181,079 nodes, 34,061 ways, 656 relations
+  OSMnx walk graph: 39,735 nodes, 49,169 edges
+  10,711 building footprints
   LiDAR source: USGS_LPC_IN_Central_MarionCo_2016_LAS_2018 (2018)
-  part 0: 3181 EPT nodes, ~2.5 pts/m², grid (3912, 1860)
-  part 0: 74,051,055 points, 6,997 building heights, 24,772 crowns so far
-  height model: trained on 7,035, predicted 231, CV MAE 3.8 m
-== Indianapolis done in 3.3 min: 14.91 MB, 37,426 segments, 7,266 buildings {'lidar': 6932, 'model': 231, 'osm-levels': 9, 'osm': 94}, 24,772 crowns, 1,090 places, 76 pause places
+  part 0: 4531 EPT nodes, ~2.6 pts/m², grid (4470, 2364)
+  part 0: 108,033,719 points, 10,355 building heights, 35,541 crowns so far
+  height model: trained on 10,395, predicted 316, CV MAE 3.5 m
+== Indianapolis done in 4.9 min: 21.45 MB, 49,154 segments, 10,711 buildings {'lidar': 10291, 'model': 316, 'osm-levels': 10, 'osm': 94}, 35,541 crowns, 1,211 places, 90 pause places

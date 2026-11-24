@@ -1,17 +1,17 @@
 == Portland: 3 zone(s)
-  OSM tile 10: 12,965 nodes, 1,590 ways, 233 relations
-  OSM tile 20: 32,638 nodes, 4,640 ways, 392 relations
-  OSM tile 30: 57,723 nodes, 9,940 ways, 594 relations
-  OSM tile 40: 84,295 nodes, 14,503 ways, 695 relations
-  OSM tile 50: 105,031 nodes, 17,400 ways, 739 relations
-  OSM tile 60: 132,097 nodes, 20,734 ways, 765 relations
-  OSM tile 70: 152,232 nodes, 22,695 ways, 777 relations
-  OSM tile 80: 168,297 nodes, 24,050 ways, 790 relations
-  OSM tile 88: 174,926 nodes, 24,618 ways, 795 relations
-  OSMnx walk graph: 39,622 nodes, 45,388 edges
-  5,745 building footprints
+  OSM tile 10: 8,808 nodes, 870 ways, 188 relations
+  OSM tile 20: 30,088 nodes, 4,323 ways, 375 relations
+  OSM tile 30: 56,917 nodes, 9,904 ways, 583 relations
+  OSM tile 40: 83,968 nodes, 14,312 ways, 683 relations
+  OSM tile 50: 105,748 nodes, 17,370 ways, 730 relations
+  OSM tile 60: 135,124 nodes, 20,812 ways, 753 relations
+  OSM tile 70: 156,035 nodes, 22,834 ways, 772 relations
+  OSM tile 80: 174,300 nodes, 24,330 ways, 784 relations
+  OSM tile 88: 181,600 nodes, 24,958 ways, 789 relations
+  OSMnx walk graph: 41,249 nodes, 46,962 edges
+  7,772 building footprints
   LiDAR source: OR_OLCMetro_2019 (2019)
-  part 0: 9255 EPT nodes, ~9.8 pts/m², grid (3366, 3506)
-  part 0: 463,963,560 points, 5,492 building heights, 33,798 crowns so far
-  height model: trained on 5,715, predicted 30, CV MAE 6.4 m
-== Portland done in 7.1 min: 21.3 MB, 45,388 segments, 5,745 buildings {'lidar': 4819, 'model': 30, 'osm-levels': 128, 'osm': 768}, 33,798 crowns, 3,302 places, 164 pause places
+  part 0: 9297 EPT nodes, ~9.7 pts/m², grid (3519, 3414)
+  part 0: 466,589,591 points, 7,514 building heights, 47,523 crowns so far
+  height model: trained on 7,739, predicted 33, CV MAE 6.0 m
+== Portland done in 7.9 min: 29.33 MB, 46,962 segments, 7,772 buildings {'model': 33, 'lidar': 6842, 'osm-levels': 129, 'osm': 768}, 47,523 crowns, 3,471 places, 233 pause places

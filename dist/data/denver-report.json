@@ -3,30 +3,31 @@
  "slug": "denver",
  "zones": [
   "Downtown and LoDo",
-  "Civic Center"
+  "Civic Center",
+  "RiNo"
  ],
- "area_km2": 6.28,
+ "area_km2": 8.39,
  "network": {
-  "nodes": 36670,
-  "edges": 47062,
-  "street_length_km": 843.19,
-  "intersections": 34662,
-  "streets_per_node_avg": 2.57,
-  "footpath_share": 0.594,
+  "nodes": 45116,
+  "edges": 58159,
+  "street_length_km": 1087.07,
+  "intersections": 42542,
+  "streets_per_node_avg": 2.58,
+  "footpath_share": 0.587,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 14041,
+ "buildings": 16157,
  "height_sources": {
-  "lidar": 4577,
-  "model": 73,
-  "osm-levels": 122,
-  "osm": 9269
+  "lidar": 5634,
+  "osm-levels": 189,
+  "model": 159,
+  "osm": 10175
  },
  "height_model": {
-  "known": 13968,
-  "predicted": 73,
+  "known": 15998,
+  "predicted": 159,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 7.08,
+  "cv_mae_m": 7.09,
   "features": [
    "log area",
    "log perimeter",
@@ -37,35 +38,35 @@
    "max known height within 60 m"
   ]
  },
- "trees": 19651,
- "places": 3235,
- "pause_places": 63,
+ "trees": 23739,
+ "places": 3464,
+ "pause_places": 78,
  "pause_by_kind": {
-  "station": 11,
-  "library": 4,
+  "station": 14,
   "community": 4,
+  "library": 6,
   "water": 4,
-  "park": 40
+  "park": 50
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CO_DRCOG_2_2020/",
    "survey_year": 2020,
-   "points": 66957665,
+   "points": 92079339,
    "density_pts_m2": 2.9,
    "classes": {
-    "1": 44574503,
-    "2": 21727480,
-    "7": 167115,
-    "18": 19276,
-    "9": 9342,
-    "17": 456258,
-    "20": 3691
+    "1": 58610803,
+    "2": 32537160,
+    "7": 225066,
+    "9": 20626,
+    "18": 28117,
+    "17": 649668,
+    "20": 7899
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 16.84,
- "minutes": 3.9
+ "data_mb": 19.8,
+ "minutes": 4.5
 }
