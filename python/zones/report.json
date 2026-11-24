@@ -4,8 +4,10 @@
   "missing": []
  },
  "los-angeles": {
-  "places": 6,
-  "missing": []
+  "places": 7,
+  "missing": [
+   "ZONE Larchmont and Little Armenia (circle kept)"
+  ]
  },
  "chicago": {
   "places": 4,
@@ -53,7 +55,7 @@
   ]
  },
  "san-francisco": {
-  "places": 9,
+  "places": 17,
   "missing": []
  },
  "seattle": {
@@ -173,5 +175,9 @@
    "Downtown, Milwaukee",
    "Third Ward, Milwaukee"
   ]
+ },
+ "philadelphia": {
+  "places": 25,
+  "missing": []
  }
 }
