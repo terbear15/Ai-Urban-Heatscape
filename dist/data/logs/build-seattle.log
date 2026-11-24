@@ -2,23 +2,23 @@
   OSM tile 10: 23,640 nodes, 3,025 ways, 78 relations
   OSM tile 20: 58,756 nodes, 8,033 ways, 139 relations
   OSM tile 30: 109,749 nodes, 16,360 ways, 268 relations
-  OSM tile 40: 154,297 nodes, 24,009 ways, 367 relations
-  OSM tile 50: 194,809 nodes, 30,623 ways, 434 relations
-  OSM tile 60: 233,857 nodes, 37,390 ways, 559 relations
-  OSM tile 70: 272,037 nodes, 44,071 ways, 716 relations
-  OSM tile 80: 304,755 nodes, 50,311 ways, 872 relations
-  OSM tile 90: 335,379 nodes, 57,061 ways, 1,186 relations
-  OSM tile 100: 358,288 nodes, 62,118 ways, 1,410 relations
-  OSM tile 110: 384,118 nodes, 67,193 ways, 1,513 relations
-  OSM tile 120: 416,908 nodes, 72,864 ways, 1,620 relations
-  OSM tile 130: 449,293 nodes, 78,355 ways, 1,688 relations
-  OSM tile 140: 476,009 nodes, 82,543 ways, 1,706 relations
-  OSM tile 150: 499,378 nodes, 86,171 ways, 1,714 relations
-  OSM tile 154: 499,378 nodes, 86,171 ways, 1,714 relations
-  OSMnx walk graph: 106,368 nodes, 131,029 edges
+  OSM tile 40: 154,297 nodes, 24,008 ways, 367 relations
+  OSM tile 50: 194,809 nodes, 30,622 ways, 434 relations
+  OSM tile 60: 233,857 nodes, 37,389 ways, 559 relations
+  OSM tile 70: 272,037 nodes, 44,070 ways, 716 relations
+  OSM tile 80: 304,755 nodes, 50,310 ways, 872 relations
+  OSM tile 90: 335,379 nodes, 57,060 ways, 1,186 relations
+  OSM tile 100: 358,288 nodes, 62,117 ways, 1,410 relations
+  OSM tile 110: 384,118 nodes, 67,192 ways, 1,513 relations
+  OSM tile 120: 416,908 nodes, 72,863 ways, 1,620 relations
+  OSM tile 130: 449,293 nodes, 78,354 ways, 1,688 relations
+  OSM tile 140: 476,009 nodes, 82,542 ways, 1,706 relations
+  OSM tile 150: 499,378 nodes, 86,170 ways, 1,714 relations
+  OSM tile 154: 499,378 nodes, 86,170 ways, 1,714 relations
+  OSMnx walk graph: 106,368 nodes, 131,018 edges
   23,677 building footprints
   LiDAR source: WA_KingCo_1_2021 (2021)
   part 0: 10135 EPT nodes, ~5.0 pts/m², grid (5225, 4538)
   part 0: 474,280,640 points, 22,756 building heights, 79,509 crowns so far
   height model: trained on 23,289, predicted 388, CV MAE 4.5 m
-== Seattle done in 14.4 min: 53.47 MB, 130,987 segments, 23,677 buildings {'lidar': 22304, 'model': 388, 'osm-levels': 176, 'osm': 809}, 79,509 crowns, 7,679 places, 264 pause places
+== Seattle done in 11.7 min: 53.47 MB, 130,986 segments, 23,677 buildings {'lidar': 22304, 'model': 388, 'osm-levels': 176, 'osm': 809}, 79,509 crowns, 7,679 places, 264 pause places

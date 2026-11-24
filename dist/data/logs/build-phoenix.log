@@ -11,4 +11,4 @@
   part 0: 5243 EPT nodes, ~10.0 pts/m², grid (1750, 3586)
   part 0: 250,426,150 points, 6,051 building heights, 27,831 crowns so far
   height model: trained on 6,089, predicted 142, CV MAE 2.7 m
-== Phoenix done in 5.9 min: 15.71 MB, 41,992 segments, 6,231 buildings {'lidar': 5991, 'model': 142, 'osm-levels': 12, 'osm': 86}, 27,831 crowns, 1,325 places, 108 pause places
+== Phoenix done in 4.5 min: 15.71 MB, 41,992 segments, 6,231 buildings {'lidar': 5991, 'model': 142, 'osm-levels': 12, 'osm': 86}, 27,831 crowns, 1,325 places, 108 pause places

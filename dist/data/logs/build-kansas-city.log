@@ -17,4 +17,4 @@
   part 0: 3519 EPT nodes, ~2.7 pts/m², grid (2957, 5148)
   part 0: 164,256,489 points, 12,915 building heights, 41,384 crowns so far
   height model: trained on 12,953, predicted 115, CV MAE 4.2 m
-== Kansas City done in 6.6 min: 26.66 MB, 68,647 segments, 13,068 buildings {'lidar': 12611, 'model': 115, 'osm-levels': 11, 'osm': 331}, 41,384 crowns, 2,280 places, 137 pause places
+== Kansas City done in 6.0 min: 26.66 MB, 68,647 segments, 13,068 buildings {'lidar': 12611, 'model': 115, 'osm-levels': 11, 'osm': 331}, 41,384 crowns, 2,280 places, 137 pause places

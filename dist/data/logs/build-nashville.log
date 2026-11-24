@@ -17,4 +17,4 @@
   part 0: 21704 EPT nodes, ~16.9 pts/m², grid (3853, 3740)
   part 0: 974,468,941 points, 6,723 building heights, 36,119 crowns so far
   height model: trained on 6,839, predicted 96, CV MAE 4.5 m
-== Nashville done in 13.4 min: 22.51 MB, 70,155 segments, 6,935 buildings {'lidar': 6598, 'osm': 234, 'model': 96, 'osm-levels': 7}, 36,119 crowns, 1,355 places, 73 pause places
+== Nashville done in 11.3 min: 22.51 MB, 70,155 segments, 6,935 buildings {'lidar': 6598, 'osm': 234, 'model': 96, 'osm-levels': 7}, 36,119 crowns, 1,355 places, 73 pause places

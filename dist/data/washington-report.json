@@ -7,26 +7,26 @@
   "Dupont Circle",
   "Georgetown"
  ],
- "area_km2": 39.75,
+ "area_km2": 40.49,
  "network": {
-  "nodes": 198986,
-  "edges": 240913,
-  "street_length_km": 3783.75,
-  "intersections": 191913,
+  "nodes": 198978,
+  "edges": 240904,
+  "street_length_km": 3783.61,
+  "intersections": 191906,
   "streets_per_node_avg": 2.42,
   "footpath_share": 0.574,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 55756,
+ "buildings": 56156,
  "height_sources": {
-  "lidar": 53789,
+  "lidar": 54184,
   "osm-levels": 291,
-  "model": 1010,
-  "osm": 666
+  "model": 1014,
+  "osm": 667
  },
  "height_model": {
-  "known": 54746,
-  "predicted": 1010,
+  "known": 55142,
+  "predicted": 1014,
   "model": "RandomForestRegressor(200 trees)",
   "cv_mae_m": 2.3,
   "features": [
@@ -39,13 +39,13 @@
    "max known height within 60 m"
   ]
  },
- "trees": 102844,
- "places": 9553,
- "pause_places": 1533,
+ "trees": 103478,
+ "places": 9614,
+ "pause_places": 1536,
  "pause_by_kind": {
-  "park": 1307,
+  "park": 1309,
   "station": 49,
-  "water": 113,
+  "water": 114,
   "community": 30,
   "library": 32,
   "mall": 2
@@ -71,6 +71,6 @@
    "vegetation_classes": false
   }
  ],
- "data_mb": 80.21,
- "minutes": 67.0
+ "data_mb": 80.54,
+ "minutes": 69.1
 }

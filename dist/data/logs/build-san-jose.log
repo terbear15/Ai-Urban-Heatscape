@@ -12,4 +12,4 @@
   part 0: 12185 EPT nodes, ~18.9 pts/m², grid (2780, 2780)
   part 0: 585,693,070 points, 12,176 building heights, 27,662 crowns so far
   height model: trained on 12,538, predicted 69, CV MAE 2.2 m
-== San Jose done in 9.4 min: 19.22 MB, 37,835 segments, 12,607 buildings {'osm': 11822, 'lidar': 659, 'model': 69, 'osm-levels': 57}, 27,662 crowns, 1,670 places, 77 pause places
+== San Jose done in 9.6 min: 19.22 MB, 37,835 segments, 12,607 buildings {'osm': 11822, 'lidar': 659, 'model': 69, 'osm-levels': 57}, 27,662 crowns, 1,670 places, 77 pause places

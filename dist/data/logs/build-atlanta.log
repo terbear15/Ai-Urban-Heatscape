@@ -29,4 +29,4 @@
   part 0: 2902 EPT nodes, ~1.2 pts/m², grid (7723, 3817)
   part 0: 141,681,017 points, 7,760 building heights, 33,770 crowns so far
   height model: trained on 10,002, predicted 10,231, CV MAE 9.6 m
-== Atlanta done in 11.2 min: 33.63 MB, 134,556 segments, 20,233 buildings {'lidar': 7732, 'model': 10231, 'osm-levels': 1885, 'osm': 385}, 33,770 crowns, 3,527 places, 260 pause places
+== Atlanta done in 11.9 min: 33.63 MB, 134,556 segments, 20,233 buildings {'lidar': 7732, 'model': 10231, 'osm-levels': 1885, 'osm': 385}, 33,770 crowns, 3,527 places, 260 pause places

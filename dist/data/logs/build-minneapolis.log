@@ -2,18 +2,18 @@
   OSM tile 10: 25,658 nodes, 4,410 ways, 192 relations
   OSM tile 20: 50,554 nodes, 9,074 ways, 225 relations
   OSM tile 30: 74,111 nodes, 13,502 ways, 287 relations
-  OSM tile 40: 102,053 nodes, 18,489 ways, 338 relations
-  OSM tile 50: 130,597 nodes, 23,677 ways, 432 relations
-  OSM tile 60: 155,393 nodes, 28,346 ways, 535 relations
-  OSM tile 70: 178,289 nodes, 32,763 ways, 577 relations
-  OSM tile 80: 205,226 nodes, 38,503 ways, 627 relations
-  OSM tile 90: 234,332 nodes, 43,339 ways, 673 relations
-  OSM tile 100: 265,631 nodes, 48,814 ways, 707 relations
-  OSM tile 108: 290,353 nodes, 53,005 ways, 733 relations
-  OSMnx walk graph: 63,153 nodes, 79,937 edges
+  OSM tile 40: 102,144 nodes, 18,489 ways, 338 relations
+  OSM tile 50: 130,688 nodes, 23,677 ways, 432 relations
+  OSM tile 60: 155,484 nodes, 28,346 ways, 535 relations
+  OSM tile 70: 178,380 nodes, 32,763 ways, 577 relations
+  OSM tile 80: 205,317 nodes, 38,503 ways, 627 relations
+  OSM tile 90: 234,442 nodes, 43,339 ways, 673 relations
+  OSM tile 100: 265,741 nodes, 48,814 ways, 707 relations
+  OSM tile 108: 290,463 nodes, 53,005 ways, 733 relations
+  OSMnx walk graph: 63,172 nodes, 79,959 edges
   9,842 building footprints
   LiDAR source: MN_CentralMissRiver_4_B22 (year unknown)
   part 0: 23860 EPT nodes, ~20.2 pts/m², grid (3997, 3967)
   part 0: 1,279,677,476 points, 9,722 building heights, 49,502 crowns so far
   height model: trained on 9,797, predicted 45, CV MAE 4.8 m
-== Minneapolis done in 22.3 min: 29.74 MB, 79,928 segments, 9,842 buildings {'lidar': 9605, 'osm': 155, 'model': 45, 'osm-levels': 37}, 49,502 crowns, 3,112 places, 322 pause places
+== Minneapolis done in 23.9 min: 29.74 MB, 79,950 segments, 9,842 buildings {'lidar': 9605, 'osm': 155, 'model': 45, 'osm-levels': 37}, 49,502 crowns, 3,112 places, 322 pause places

@@ -24,14 +24,15 @@
   OSM tile 230: 986,253 nodes, 150,092 ways, 3,681 relations
   OSM tile 240: 1,014,048 nodes, 154,533 ways, 3,756 relations
   OSM tile 250: 1,049,324 nodes, 159,408 ways, 3,900 relations
-  OSM tile 260: 1,081,121 nodes, 164,055 ways, 3,982 relations
-  OSM tile 270: 1,122,719 nodes, 170,462 ways, 4,133 relations
-  OSM tile 280: 1,161,661 nodes, 176,569 ways, 4,194 relations
-  OSM tile 285: 1,172,878 nodes, 178,326 ways, 4,235 relations
-  OSMnx walk graph: 198,986 nodes, 240,928 edges
-  55,756 building footprints
+  OSM tile 260: 1,081,104 nodes, 164,048 ways, 3,981 relations
+  OSM tile 270: 1,122,702 nodes, 170,455 ways, 4,132 relations
+  OSM tile 280: 1,161,644 nodes, 176,562 ways, 4,193 relations
+  OSM tile 285: 1,172,861 nodes, 178,319 ways, 4,234 relations
+  OSMnx walk graph: 198,978 nodes, 240,919 edges
+  56,156 building footprints
   LiDAR source: USGS_LPC_MD_VA_Sandy_NCR_2014_LAS_2015 (2015)
   part 0: 18584 EPT nodes, ~4.2 pts/m², grid (6283, 6302)
-  part 0: 670,730,509 points, 54,177 building heights, 102,844 crowns so far
-  height model: trained on 54,746, predicted 1,010, CV MAE 2.3 m
-== Washington done in 67.0 min: 80.21 MB, 240,913 segments, 55,756 buildings {'lidar': 53789, 'osm-levels': 291, 'model': 1010, 'osm': 666}, 102,844 crowns, 9,553 places, 1533 pause places
+  retry https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_MD_VA_Sandy_NCR_2014_LAS_2015/ept-data/11-937-1656-1020.laz ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+  part 0: 670,730,509 points, 54,573 building heights, 103,478 crowns so far
+  height model: trained on 55,142, predicted 1,014, CV MAE 2.3 m
+== Washington done in 69.1 min: 80.54 MB, 240,904 segments, 56,156 buildings {'lidar': 54184, 'osm-levels': 291, 'model': 1014, 'osm': 667}, 103,478 crowns, 9,614 places, 1536 pause places

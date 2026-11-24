@@ -5,48 +5,48 @@
   OSM tile 40: 140,805 nodes, 17,766 ways, 678 relations
   OSM tile 50: 180,376 nodes, 23,570 ways, 853 relations
   OSM tile 60: 242,014 nodes, 30,843 ways, 1,001 relations
-  OSM tile 70: 281,992 nodes, 35,724 ways, 1,078 relations
-  OSM tile 80: 327,389 nodes, 42,113 ways, 1,206 relations
-  OSM tile 90: 393,895 nodes, 49,023 ways, 1,288 relations
-  OSM tile 100: 435,476 nodes, 54,268 ways, 1,421 relations
-  OSM tile 110: 500,991 nodes, 61,771 ways, 1,532 relations
-  OSM tile 120: 567,299 nodes, 69,029 ways, 1,635 relations
-  OSM tile 130: 619,326 nodes, 75,216 ways, 1,818 relations
-  OSM tile 140: 682,270 nodes, 82,437 ways, 2,008 relations
-  OSM tile 150: 742,422 nodes, 89,159 ways, 2,147 relations
-  OSM tile 160: 796,915 nodes, 95,945 ways, 2,328 relations
-  OSM tile 170: 866,017 nodes, 102,907 ways, 2,489 relations
-  OSM tile 180: 921,604 nodes, 109,062 ways, 2,597 relations
-  OSM tile 190: 991,261 nodes, 116,738 ways, 2,782 relations
-  OSM tile 200: 1,047,050 nodes, 123,131 ways, 2,937 relations
-  OSM tile 210: 1,099,343 nodes, 128,983 ways, 3,104 relations
-  OSM tile 220: 1,164,269 nodes, 136,304 ways, 3,227 relations
-  OSM tile 230: 1,221,513 nodes, 142,663 ways, 3,372 relations
-  OSM tile 240: 1,291,884 nodes, 150,388 ways, 3,465 relations
-  OSM tile 250: 1,345,242 nodes, 155,538 ways, 3,583 relations
-  OSM tile 260: 1,407,189 nodes, 161,956 ways, 3,713 relations
-  OSM tile 270: 1,475,715 nodes, 169,129 ways, 3,831 relations
-  OSM tile 280: 1,532,884 nodes, 175,462 ways, 3,991 relations
-  OSM tile 290: 1,599,824 nodes, 182,581 ways, 4,087 relations
-  OSM tile 300: 1,673,259 nodes, 189,950 ways, 4,249 relations
-  OSM tile 310: 1,736,205 nodes, 196,650 ways, 4,384 relations
-  OSM tile 320: 1,818,062 nodes, 205,194 ways, 4,467 relations
-  OSM tile 330: 1,871,107 nodes, 210,923 ways, 4,635 relations
-  OSM tile 340: 1,945,245 nodes, 218,334 ways, 4,725 relations
-  OSM tile 350: 2,023,708 nodes, 226,874 ways, 4,916 relations
-  OSM tile 360: 2,079,174 nodes, 232,971 ways, 5,045 relations
-  OSM tile 370: 2,138,072 nodes, 239,438 ways, 5,169 relations
-  OSM tile 380: 2,200,570 nodes, 246,408 ways, 5,360 relations
-  OSM tile 390: 2,251,694 nodes, 251,950 ways, 5,437 relations
-  OSM tile 400: 2,317,673 nodes, 260,469 ways, 5,583 relations
-  OSM tile 410: 2,378,299 nodes, 266,784 ways, 5,685 relations
-  OSM tile 420: 2,435,473 nodes, 273,072 ways, 5,777 relations
-  OSM tile 430: 2,497,509 nodes, 279,734 ways, 5,863 relations
-  OSM tile 432: 2,510,757 nodes, 281,428 ways, 5,937 relations
+  OSM tile 70: 281,991 nodes, 35,724 ways, 1,078 relations
+  OSM tile 80: 327,388 nodes, 42,113 ways, 1,206 relations
+  OSM tile 90: 393,894 nodes, 49,023 ways, 1,288 relations
+  OSM tile 100: 435,475 nodes, 54,268 ways, 1,421 relations
+  OSM tile 110: 500,990 nodes, 61,771 ways, 1,532 relations
+  OSM tile 120: 567,298 nodes, 69,029 ways, 1,635 relations
+  OSM tile 130: 619,325 nodes, 75,216 ways, 1,818 relations
+  OSM tile 140: 682,269 nodes, 82,437 ways, 2,008 relations
+  OSM tile 150: 742,421 nodes, 89,159 ways, 2,147 relations
+  OSM tile 160: 796,914 nodes, 95,945 ways, 2,328 relations
+  OSM tile 170: 866,016 nodes, 102,907 ways, 2,489 relations
+  OSM tile 180: 921,603 nodes, 109,062 ways, 2,597 relations
+  OSM tile 190: 991,260 nodes, 116,738 ways, 2,782 relations
+  OSM tile 200: 1,047,049 nodes, 123,131 ways, 2,937 relations
+  OSM tile 210: 1,099,342 nodes, 128,983 ways, 3,104 relations
+  OSM tile 220: 1,164,268 nodes, 136,304 ways, 3,227 relations
+  OSM tile 230: 1,221,512 nodes, 142,663 ways, 3,372 relations
+  OSM tile 240: 1,291,883 nodes, 150,388 ways, 3,465 relations
+  OSM tile 250: 1,345,241 nodes, 155,538 ways, 3,583 relations
+  OSM tile 260: 1,407,188 nodes, 161,956 ways, 3,713 relations
+  OSM tile 270: 1,475,714 nodes, 169,129 ways, 3,831 relations
+  OSM tile 280: 1,532,883 nodes, 175,462 ways, 3,991 relations
+  OSM tile 290: 1,599,823 nodes, 182,581 ways, 4,087 relations
+  OSM tile 300: 1,673,258 nodes, 189,950 ways, 4,249 relations
+  OSM tile 310: 1,736,204 nodes, 196,650 ways, 4,384 relations
+  OSM tile 320: 1,818,061 nodes, 205,194 ways, 4,467 relations
+  OSM tile 330: 1,871,106 nodes, 210,923 ways, 4,635 relations
+  OSM tile 340: 1,945,244 nodes, 218,334 ways, 4,725 relations
+  OSM tile 350: 2,023,707 nodes, 226,874 ways, 4,916 relations
+  OSM tile 360: 2,079,177 nodes, 232,973 ways, 5,045 relations
+  OSM tile 370: 2,138,075 nodes, 239,440 ways, 5,169 relations
+  OSM tile 380: 2,200,569 nodes, 246,408 ways, 5,360 relations
+  OSM tile 390: 2,251,693 nodes, 251,950 ways, 5,437 relations
+  OSM tile 400: 2,317,672 nodes, 260,469 ways, 5,583 relations
+  OSM tile 410: 2,378,298 nodes, 266,784 ways, 5,685 relations
+  OSM tile 420: 2,435,472 nodes, 273,072 ways, 5,777 relations
+  OSM tile 430: 2,497,508 nodes, 279,734 ways, 5,863 relations
+  OSM tile 432: 2,510,756 nodes, 281,428 ways, 5,937 relations
   OSMnx walk graph: 224,285 nodes, 273,337 edges
-  67,295 building footprints
+  69,007 building footprints
   LiDAR source: CA_LosAngeles_1_B23 (year unknown)
   part 0: 67629 EPT nodes, ~11.4 pts/m², grid (6118, 9011)
-  part 0: 2,512,741,223 points, 66,100 building heights, 150,814 crowns so far
-  height model: trained on 67,186, predicted 109, CV MAE 2.3 m
-== Los Angeles done in 99.4 min: 115.02 MB, 273,270 segments, 67,295 buildings {'osm-levels': 67, 'osm': 64483, 'lidar': 2636, 'model': 109}, 150,814 crowns, 7,659 places, 230 pause places
+  part 0: 2,512,741,223 points, 67,788 building heights, 153,548 crowns so far
+  height model: trained on 68,898, predicted 109, CV MAE 2.3 m
+== Los Angeles done in 95.6 min: 116.8 MB, 273,270 segments, 69,007 buildings {'osm-levels': 67, 'osm': 66161, 'lidar': 2670, 'model': 109}, 153,548 crowns, 7,730 places, 233 pause places

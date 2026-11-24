@@ -17,4 +17,4 @@
   part 0: 9157 EPT nodes, ~10.5 pts/m², grid (3768, 3909)
   part 0: 618,567,879 points, 15,623 building heights, 54,084 crowns so far
   height model: trained on 15,689, predicted 137, CV MAE 4.1 m
-== Houston done in 11.5 min: 33.64 MB, 80,920 segments, 15,826 buildings {'lidar': 15415, 'osm': 253, 'model': 137, 'osm-levels': 21}, 54,084 crowns, 2,026 places, 176 pause places
+== Houston done in 9.8 min: 33.64 MB, 80,920 segments, 15,826 buildings {'lidar': 15415, 'osm': 253, 'model': 137, 'osm-levels': 21}, 54,084 crowns, 2,026 places, 176 pause places

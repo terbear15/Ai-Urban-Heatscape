@@ -7,10 +7,10 @@
  ],
  "area_km2": 13.24,
  "network": {
-  "nodes": 63153,
-  "edges": 79928,
-  "street_length_km": 1619.85,
-  "intersections": 60044,
+  "nodes": 63172,
+  "edges": 79950,
+  "street_length_km": 1620.31,
+  "intersections": 60065,
   "streets_per_node_avg": 2.53,
   "footpath_share": 0.577,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
@@ -68,5 +68,5 @@
   }
  ],
  "data_mb": 29.74,
- "minutes": 22.3
+ "minutes": 23.9
 }

@@ -1,35 +1,35 @@
 == San Francisco: 8 zone(s)
   OSM tile 10: 12,118 nodes, 2,146 ways, 171 relations
-  OSM tile 20: 37,686 nodes, 6,711 ways, 699 relations
-  OSM tile 30: 65,456 nodes, 12,033 ways, 1,042 relations
-  OSM tile 40: 103,706 nodes, 18,767 ways, 1,274 relations
-  OSM tile 50: 152,675 nodes, 26,879 ways, 1,559 relations
-  OSM tile 60: 217,487 nodes, 37,270 ways, 1,875 relations
-  OSM tile 70: 280,401 nodes, 46,520 ways, 2,179 relations
-  OSM tile 80: 344,567 nodes, 56,517 ways, 2,553 relations
-  OSM tile 90: 419,580 nodes, 66,068 ways, 2,786 relations
-  OSM tile 100: 504,680 nodes, 76,518 ways, 2,998 relations
-  OSM tile 110: 588,666 nodes, 86,733 ways, 3,156 relations
-  OSM tile 120: 676,125 nodes, 96,185 ways, 3,340 relations
-  OSM tile 130: 760,341 nodes, 105,082 ways, 3,542 relations
-  OSM tile 140: 818,771 nodes, 111,580 ways, 3,704 relations
-  OSM tile 150: 872,994 nodes, 117,602 ways, 3,840 relations
-  OSM tile 160: 912,297 nodes, 121,646 ways, 3,961 relations
-  OSM tile 170: 976,376 nodes, 128,809 ways, 4,117 relations
-  OSM tile 180: 1,049,676 nodes, 136,329 ways, 4,307 relations
-  OSM tile 190: 1,109,075 nodes, 142,601 ways, 4,546 relations
-  OSM tile 200: 1,164,492 nodes, 147,907 ways, 4,693 relations
-  OSM tile 210: 1,215,852 nodes, 153,505 ways, 4,757 relations
-  OSM tile 220: 1,256,086 nodes, 158,514 ways, 4,819 relations
-  OSM tile 230: 1,303,263 nodes, 164,498 ways, 4,989 relations
-  OSM tile 240: 1,353,304 nodes, 170,572 ways, 5,089 relations
-  OSM tile 250: 1,392,958 nodes, 175,029 ways, 5,159 relations
-  OSM tile 260: 1,411,013 nodes, 177,608 ways, 5,189 relations
-  OSM tile 264: 1,412,117 nodes, 177,792 ways, 5,196 relations
-  OSMnx walk graph: 161,075 nodes, 193,584 edges
-  78,403 building footprints
+  OSM tile 20: 37,724 nodes, 6,732 ways, 699 relations
+  OSM tile 30: 65,515 nodes, 12,060 ways, 1,042 relations
+  OSM tile 40: 103,788 nodes, 18,805 ways, 1,274 relations
+  OSM tile 50: 152,797 nodes, 26,940 ways, 1,559 relations
+  OSM tile 60: 217,632 nodes, 37,355 ways, 1,875 relations
+  OSM tile 70: 280,571 nodes, 46,618 ways, 2,179 relations
+  OSM tile 80: 344,738 nodes, 56,616 ways, 2,553 relations
+  OSM tile 90: 419,751 nodes, 66,167 ways, 2,786 relations
+  OSM tile 100: 504,869 nodes, 76,638 ways, 2,998 relations
+  OSM tile 110: 588,869 nodes, 86,859 ways, 3,156 relations
+  OSM tile 120: 676,602 nodes, 96,415 ways, 3,337 relations
+  OSM tile 130: 760,878 nodes, 105,324 ways, 3,542 relations
+  OSM tile 140: 819,355 nodes, 111,848 ways, 3,704 relations
+  OSM tile 150: 873,578 nodes, 117,870 ways, 3,840 relations
+  OSM tile 160: 912,947 nodes, 121,930 ways, 3,961 relations
+  OSM tile 170: 977,147 nodes, 129,116 ways, 4,117 relations
+  OSM tile 180: 1,050,578 nodes, 136,676 ways, 4,307 relations
+  OSM tile 190: 1,110,187 nodes, 143,016 ways, 4,546 relations
+  OSM tile 200: 1,165,771 nodes, 148,374 ways, 4,693 relations
+  OSM tile 210: 1,217,131 nodes, 153,972 ways, 4,757 relations
+  OSM tile 220: 1,257,365 nodes, 158,982 ways, 4,819 relations
+  OSM tile 230: 1,304,584 nodes, 164,983 ways, 4,989 relations
+  OSM tile 240: 1,354,700 nodes, 171,074 ways, 5,089 relations
+  OSM tile 250: 1,394,370 nodes, 175,537 ways, 5,159 relations
+  OSM tile 260: 1,412,425 nodes, 178,116 ways, 5,189 relations
+  OSM tile 264: 1,413,529 nodes, 178,300 ways, 5,196 relations
+  OSMnx walk graph: 162,385 nodes, 195,186 edges
+  79,451 building footprints
   LiDAR source: CA_SanFrancisco_1_B23 (year unknown)
   part 0: 29753 EPT nodes, ~8.7 pts/m², grid (4935, 7170)
-  part 0: 1,234,126,654 points, 77,394 building heights, 129,482 crowns so far
-  height model: trained on 78,223, predicted 180, CV MAE 2.6 m
-== San Francisco done in 52.5 min: 103.47 MB, 193,571 segments, 78,403 buildings {'osm': 65908, 'lidar': 12208, 'model': 180, 'osm-levels': 107}, 129,482 crowns, 16,061 places, 860 pause places
+  part 0: 1,234,126,654 points, 78,440 building heights, 130,799 crowns so far
+  height model: trained on 79,269, predicted 182, CV MAE 2.6 m
+== San Francisco done in 52.5 min: 104.5 MB, 195,173 segments, 79,451 buildings {'osm': 66832, 'lidar': 12330, 'model': 182, 'osm-levels': 107}, 130,799 crowns, 16,144 places, 865 pause places

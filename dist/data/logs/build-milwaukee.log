@@ -15,4 +15,4 @@
   part 0: 3002 EPT nodes, ~2.3 pts/m², grid (3142, 4119)
   part 0: 118,745,049 points, 11,142 building heights, 34,655 crowns so far
   height model: trained on 12,691, predicted 199, CV MAE 4.9 m
-== Milwaukee done in 6.4 min: 24.4 MB, 72,315 segments, 12,890 buildings {'lidar': 10544, 'osm-levels': 1107, 'osm': 1040, 'model': 199}, 34,655 crowns, 3,189 places, 502 pause places
+== Milwaukee done in 5.6 min: 24.4 MB, 72,315 segments, 12,890 buildings {'lidar': 10544, 'osm-levels': 1107, 'osm': 1040, 'model': 199}, 34,655 crowns, 3,189 places, 502 pause places

@@ -14,4 +14,4 @@
   part 0: 4531 EPT nodes, ~2.6 pts/m², grid (4470, 2364)
   part 0: 108,033,719 points, 10,355 building heights, 35,541 crowns so far
   height model: trained on 10,395, predicted 316, CV MAE 3.5 m
-== Indianapolis done in 4.9 min: 21.45 MB, 49,154 segments, 10,711 buildings {'lidar': 10291, 'model': 316, 'osm-levels': 10, 'osm': 94}, 35,541 crowns, 1,211 places, 90 pause places
+== Indianapolis done in 4.7 min: 21.45 MB, 49,154 segments, 10,711 buildings {'lidar': 10291, 'model': 316, 'osm-levels': 10, 'osm': 94}, 35,541 crowns, 1,211 places, 90 pause places

@@ -6,7 +6,7 @@
   "Fells Point",
   "Mount Vernon"
  ],
- "area_km2": 8.03,
+ "area_km2": 10.07,
  "network": {
   "nodes": 45680,
   "edges": 57458,
@@ -16,18 +16,18 @@
   "footpath_share": 0.417,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 25652,
+ "buildings": 27359,
  "height_sources": {
-  "lidar": 24913,
-  "model": 147,
-  "osm": 483,
+  "lidar": 26578,
+  "model": 187,
+  "osm": 485,
   "osm-levels": 109
  },
  "height_model": {
-  "known": 25505,
-  "predicted": 147,
+  "known": 27172,
+  "predicted": 187,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 1.86,
+  "cv_mae_m": 1.84,
   "features": [
    "log area",
    "log perimeter",
@@ -38,16 +38,16 @@
    "max known height within 60 m"
   ]
  },
- "trees": 22386,
- "places": 2517,
- "pause_places": 153,
+ "trees": 23245,
+ "places": 2658,
+ "pause_places": 159,
  "pause_by_kind": {
   "community": 22,
   "water": 5,
-  "library": 7,
+  "library": 8,
   "station": 14,
   "mall": 4,
-  "park": 101
+  "park": 106
  },
  "lidar": [
   {
@@ -68,6 +68,6 @@
    "vegetation_classes": false
   }
  ],
- "data_mb": 20.7,
- "minutes": 6.6
+ "data_mb": 21.42,
+ "minutes": 5.3
 }

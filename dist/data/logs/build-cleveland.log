@@ -16,9 +16,9 @@
   OSM tile 150: 239,284 nodes, 36,095 ways, 558 relations
   OSM tile 153: 248,239 nodes, 37,304 ways, 565 relations
   OSMnx walk graph: 49,066 nodes, 60,751 edges
-  9,455 building footprints
+  10,273 building footprints
   LiDAR source: OH_Statewide_Phase1_1_2019 (2019)
   part 0: 29556 EPT nodes, ~13.5 pts/m², grid (3963, 5667)
-  part 0: 1,208,465,154 points, 9,364 building heights, 53,598 crowns so far
-  height model: trained on 9,408, predicted 47, CV MAE 4.5 m
-== Cleveland done in 17.8 min: 30.12 MB, 60,747 segments, 9,455 buildings {'lidar': 9301, 'model': 47, 'osm': 94, 'osm-levels': 13}, 53,598 crowns, 1,622 places, 221 pause places
+  part 0: 1,208,465,154 points, 10,181 building heights, 54,137 crowns so far
+  height model: trained on 10,225, predicted 48, CV MAE 4.4 m
+== Cleveland done in 15.8 min: 30.48 MB, 60,747 segments, 10,273 buildings {'lidar': 10118, 'model': 48, 'osm': 94, 'osm-levels': 13}, 54,137 crowns, 1,636 places, 223 pause places

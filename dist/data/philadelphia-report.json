@@ -6,7 +6,7 @@
   "University City",
   "South Philadelphia"
  ],
- "area_km2": 22.05,
+ "area_km2": 22.29,
  "network": {
   "nodes": 68920,
   "edges": 87713,
@@ -16,18 +16,18 @@
   "footpath_share": 0.432,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 77938,
+ "buildings": 78234,
  "height_sources": {
-  "lidar": 8637,
+  "lidar": 8640,
   "osm-levels": 135,
-  "osm": 68991,
+  "osm": 69284,
   "model": 175
  },
  "height_model": {
-  "known": 77763,
+  "known": 78059,
   "predicted": 175,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.53,
+  "cv_mae_m": 2.52,
   "features": [
    "log area",
    "log perimeter",
@@ -38,13 +38,13 @@
    "max known height within 60 m"
   ]
  },
- "trees": 38412,
- "places": 5182,
- "pause_places": 405,
+ "trees": 38674,
+ "places": 5197,
+ "pause_places": 408,
  "pause_by_kind": {
   "station": 39,
   "water": 10,
-  "park": 310,
+  "park": 313,
   "library": 22,
   "community": 19,
   "mall": 5
@@ -69,6 +69,6 @@
    "vegetation_classes": false
   }
  ],
- "data_mb": 45.03,
- "minutes": 24.5
+ "data_mb": 45.23,
+ "minutes": 24.4
 }

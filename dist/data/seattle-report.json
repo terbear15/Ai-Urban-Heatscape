@@ -10,8 +10,8 @@
  "area_km2": 20.72,
  "network": {
   "nodes": 106368,
-  "edges": 130987,
-  "street_length_km": 1891.79,
+  "edges": 130986,
+  "street_length_km": 1891.71,
   "intersections": 102548,
   "streets_per_node_avg": 2.46,
   "footpath_share": 0.616,
@@ -70,5 +70,5 @@
   }
  ],
  "data_mb": 53.47,
- "minutes": 14.4
+ "minutes": 11.7
 }

@@ -8,28 +8,28 @@
   "Hollywood",
   "West Hollywood and Sunset Strip"
  ],
- "area_km2": 56.62,
+ "area_km2": 58.43,
  "network": {
   "nodes": 224285,
   "edges": 273270,
-  "street_length_km": 5809.62,
+  "street_length_km": 5811.33,
   "intersections": 218094,
   "streets_per_node_avg": 2.44,
   "footpath_share": 0.551,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 67295,
+ "buildings": 69007,
  "height_sources": {
   "osm-levels": 67,
-  "osm": 64483,
-  "lidar": 2636,
+  "osm": 66161,
+  "lidar": 2670,
   "model": 109
  },
  "height_model": {
-  "known": 67186,
+  "known": 68898,
   "predicted": 109,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.34,
+  "cv_mae_m": 2.31,
   "features": [
    "log area",
    "log perimeter",
@@ -40,16 +40,16 @@
    "max known height within 60 m"
   ]
  },
- "trees": 150814,
- "places": 7659,
- "pause_places": 230,
+ "trees": 153548,
+ "places": 7730,
+ "pause_places": 233,
  "pause_by_kind": {
   "water": 11,
   "station": 18,
   "mall": 18,
-  "library": 16,
-  "community": 14,
-  "park": 153
+  "library": 17,
+  "community": 15,
+  "park": 154
  },
  "lidar": [
   {
@@ -70,6 +70,6 @@
    "vegetation_classes": false
   }
  ],
- "data_mb": 115.02,
- "minutes": 99.4
+ "data_mb": 116.8,
+ "minutes": 95.6
 }

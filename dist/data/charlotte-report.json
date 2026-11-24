@@ -5,7 +5,7 @@
   "Uptown",
   "South End"
  ],
- "area_km2": 19.92,
+ "area_km2": 20.43,
  "network": {
   "nodes": 105994,
   "edges": 118836,
@@ -15,18 +15,18 @@
   "footpath_share": 0.516,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 10075,
+ "buildings": 10102,
  "height_sources": {
-  "osm": 1091,
-  "lidar": 8614,
-  "model": 266,
+  "osm": 1101,
+  "lidar": 8629,
+  "model": 268,
   "osm-levels": 104
  },
  "height_model": {
-  "known": 9809,
-  "predicted": 266,
+  "known": 9834,
+  "predicted": 268,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 7.36,
+  "cv_mae_m": 7.37,
   "features": [
    "log area",
    "log perimeter",
@@ -37,15 +37,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 55604,
- "places": 1389,
- "pause_places": 237,
+ "trees": 55925,
+ "places": 1409,
+ "pause_places": 326,
  "pause_by_kind": {
   "station": 12,
-  "water": 48,
+  "water": 49,
   "community": 3,
   "library": 3,
-  "park": 171
+  "park": 259
  },
  "lidar": [
   {
@@ -70,6 +70,6 @@
    "vegetation_classes": true
   }
  ],
- "data_mb": 38.12,
- "minutes": 10.7
+ "data_mb": 38.25,
+ "minutes": 13.4
 }

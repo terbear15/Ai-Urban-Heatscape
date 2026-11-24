@@ -8,25 +8,25 @@
   OSM tile 70: 82,083 nodes, 12,008 ways, 697 relations
   OSM tile 80: 123,171 nodes, 20,813 ways, 1,071 relations
   OSM tile 90: 153,470 nodes, 25,546 ways, 1,198 relations
-  OSM tile 100: 188,740 nodes, 32,630 ways, 1,398 relations
-  OSM tile 110: 238,365 nodes, 42,414 ways, 1,713 relations
-  OSM tile 120: 281,481 nodes, 48,594 ways, 1,822 relations
-  OSM tile 130: 313,228 nodes, 55,158 ways, 1,989 relations
-  OSM tile 140: 361,044 nodes, 63,931 ways, 2,111 relations
-  OSM tile 150: 408,658 nodes, 72,433 ways, 2,211 relations
-  OSM tile 160: 443,154 nodes, 79,892 ways, 2,287 relations
-  OSM tile 170: 488,451 nodes, 88,596 ways, 2,343 relations
-  OSM tile 180: 530,798 nodes, 97,268 ways, 2,428 relations
-  OSM tile 190: 575,509 nodes, 107,761 ways, 2,553 relations
-  OSM tile 200: 619,814 nodes, 117,203 ways, 2,670 relations
-  OSM tile 210: 663,715 nodes, 126,989 ways, 2,800 relations
-  OSM tile 220: 716,344 nodes, 137,561 ways, 2,838 relations
-  OSM tile 230: 752,669 nodes, 145,117 ways, 2,910 relations
-  OSM tile 240: 796,314 nodes, 154,294 ways, 3,011 relations
-  OSMnx walk graph: 119,647 nodes, 154,798 edges
-  41,514 building footprints
+  OSM tile 100: 188,771 nodes, 32,633 ways, 1,398 relations
+  OSM tile 110: 238,396 nodes, 42,417 ways, 1,713 relations
+  OSM tile 120: 281,737 nodes, 48,609 ways, 1,822 relations
+  OSM tile 130: 313,662 nodes, 55,193 ways, 1,989 relations
+  OSM tile 140: 361,478 nodes, 63,966 ways, 2,111 relations
+  OSM tile 150: 409,326 nodes, 72,486 ways, 2,211 relations
+  OSM tile 160: 443,822 nodes, 79,945 ways, 2,287 relations
+  OSM tile 170: 489,186 nodes, 88,664 ways, 2,343 relations
+  OSM tile 180: 531,610 nodes, 97,371 ways, 2,428 relations
+  OSM tile 190: 576,321 nodes, 107,864 ways, 2,553 relations
+  OSM tile 200: 620,904 nodes, 117,357 ways, 2,670 relations
+  OSM tile 210: 665,308 nodes, 127,223 ways, 2,803 relations
+  OSM tile 220: 717,937 nodes, 137,795 ways, 2,841 relations
+  OSM tile 230: 754,660 nodes, 145,437 ways, 2,913 relations
+  OSM tile 240: 798,305 nodes, 154,614 ways, 3,014 relations
+  OSMnx walk graph: 119,931 nodes, 155,199 edges
+  41,645 building footprints
   LiDAR source: USGS_LPC_IL_4County_Cook_2017_LAS_2019 (2019)
-  part 0: 43934 EPT nodes, ~13.4 pts/m², grid (6894, 4999)
-  part 0: 1,852,760,408 points, 40,860 building heights, 80,199 crowns so far
-  height model: trained on 41,196, predicted 318, CV MAE 5.5 m
-== Chicago done in 38.4 min: 56.99 MB, 154,787 segments, 41,514 buildings {'lidar': 40470, 'model': 318, 'osm': 539, 'osm-levels': 187}, 80,199 crowns, 9,048 places, 2585 pause places
+  part 0: 44027 EPT nodes, ~13.4 pts/m², grid (6916, 4999)
+  part 0: 1,857,235,966 points, 40,988 building heights, 80,961 crowns so far
+  height model: trained on 41,325, predicted 320, CV MAE 5.5 m
+== Chicago done in 37.3 min: 57.45 MB, 155,188 segments, 41,645 buildings {'lidar': 40595, 'model': 320, 'osm': 542, 'osm-levels': 188}, 80,961 crowns, 9,107 places, 2594 pause places

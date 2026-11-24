@@ -10,9 +10,9 @@
   OSM tile 90: 296,082 nodes, 44,239 ways, 652 relations
   OSM tile 100: 312,441 nodes, 46,922 ways, 685 relations
   OSMnx walk graph: 105,994 nodes, 118,841 edges
-  10,075 building footprints
+  10,102 building footprints
   LiDAR source: USGS_LPC_NC_Phase4_Mecklenburg_2016_LAS_2019 (2019)
   part 0: 14583 EPT nodes, ~16.5 pts/m², grid (3993, 3172)
-  part 0: 834,654,723 points, 9,379 building heights, 55,604 crowns so far
-  height model: trained on 9,809, predicted 266, CV MAE 7.4 m
-== Charlotte done in 10.7 min: 38.12 MB, 118,836 segments, 10,075 buildings {'osm': 1091, 'lidar': 8614, 'model': 266, 'osm-levels': 104}, 55,604 crowns, 1,389 places, 237 pause places
+  part 0: 834,654,723 points, 9,403 building heights, 55,925 crowns so far
+  height model: trained on 9,834, predicted 268, CV MAE 7.4 m
+== Charlotte done in 13.4 min: 38.25 MB, 118,836 segments, 10,102 buildings {'osm': 1101, 'lidar': 8629, 'model': 268, 'osm-levels': 104}, 55,925 crowns, 1,409 places, 326 pause places

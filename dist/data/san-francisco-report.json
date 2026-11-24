@@ -11,28 +11,28 @@
   "Haight-Ashbury and Inner Sunset",
   "Castro and Twin Peaks"
  ],
- "area_km2": 48.51,
+ "area_km2": 49.06,
  "network": {
-  "nodes": 161075,
-  "edges": 193571,
-  "street_length_km": 3174.18,
-  "intersections": 155902,
+  "nodes": 162385,
+  "edges": 195173,
+  "street_length_km": 3198.49,
+  "intersections": 157201,
   "streets_per_node_avg": 2.4,
-  "footpath_share": 0.6,
+  "footpath_share": 0.604,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 78403,
+ "buildings": 79451,
  "height_sources": {
-  "osm": 65908,
-  "lidar": 12208,
-  "model": 180,
+  "osm": 66832,
+  "lidar": 12330,
+  "model": 182,
   "osm-levels": 107
  },
  "height_model": {
-  "known": 78223,
-  "predicted": 180,
+  "known": 79269,
+  "predicted": 182,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.65,
+  "cv_mae_m": 2.64,
   "features": [
    "log area",
    "log perimeter",
@@ -43,15 +43,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 129482,
- "places": 16061,
- "pause_places": 860,
+ "trees": 130799,
+ "places": 16144,
+ "pause_places": 865,
  "pause_by_kind": {
   "station": 37,
   "water": 172,
   "community": 68,
-  "library": 32,
-  "park": 540,
+  "library": 33,
+  "park": 544,
   "mall": 11
  },
  "lidar": [
@@ -74,6 +74,6 @@
    "vegetation_classes": false
   }
  ],
- "data_mb": 103.47,
+ "data_mb": 104.5,
  "minutes": 52.5
 }

@@ -1,23 +1,26 @@
 == Detroit: 3 zone(s)
-  OSM tile 10: 12,625 nodes, 1,588 ways, 100 relations
-  OSM tile 20: 26,001 nodes, 3,941 ways, 134 relations
-  OSM tile 30: 39,568 nodes, 6,618 ways, 183 relations
-  OSM tile 40: 52,346 nodes, 9,346 ways, 217 relations
-  OSM tile 50: 64,939 nodes, 12,131 ways, 272 relations
-  OSM tile 60: 79,558 nodes, 14,655 ways, 314 relations
-  OSM tile 70: 94,484 nodes, 17,131 ways, 363 relations
-  OSM tile 80: 109,399 nodes, 19,855 ways, 423 relations
-  OSM tile 90: 124,309 nodes, 23,006 ways, 498 relations
-  OSM tile 100: 139,404 nodes, 26,312 ways, 590 relations
-  OSM tile 110: 161,039 nodes, 30,077 ways, 724 relations
-  OSM tile 120: 182,412 nodes, 33,907 ways, 836 relations
-  OSM tile 130: 203,774 nodes, 37,784 ways, 935 relations
-  OSM tile 140: 226,841 nodes, 42,391 ways, 1,033 relations
-  OSM tile 150: 247,968 nodes, 46,855 ways, 1,111 relations
-  OSMnx walk graph: 58,410 nodes, 73,557 edges
-  8,614 building footprints
+  OSM tile 10: 11,723 nodes, 1,745 ways, 101 relations
+  OSM tile 20: 25,964 nodes, 4,341 ways, 156 relations
+  OSM tile 30: 37,936 nodes, 6,731 ways, 181 relations
+  OSM tile 40: 50,882 nodes, 9,221 ways, 239 relations
+  OSM tile 50: 62,385 nodes, 11,696 ways, 273 relations
+  OSM tile 60: 74,969 nodes, 14,499 ways, 313 relations
+  OSM tile 70: 88,215 nodes, 17,060 ways, 364 relations
+  OSM tile 80: 100,323 nodes, 19,088 ways, 406 relations
+  OSM tile 90: 112,394 nodes, 21,229 ways, 449 relations
+  OSM tile 100: 126,205 nodes, 23,614 ways, 509 relations
+  OSM tile 110: 141,572 nodes, 26,626 ways, 581 relations
+  OSM tile 120: 156,483 nodes, 29,925 ways, 673 relations
+  OSM tile 130: 174,253 nodes, 32,790 ways, 743 relations
+  OSM tile 140: 192,803 nodes, 36,124 ways, 864 relations
+  OSM tile 150: 211,988 nodes, 39,745 ways, 955 relations
+  OSM tile 160: 230,361 nodes, 43,374 ways, 1,034 relations
+  OSM tile 170: 252,209 nodes, 47,715 ways, 1,132 relations
+  OSM tile 180: 273,449 nodes, 52,199 ways, 1,210 relations
+  OSMnx walk graph: 61,507 nodes, 77,478 edges
+  10,649 building footprints
   LiDAR source: USGS_LPC_MI_WayneCo_2017_LAS_2018 (2018)
-  part 0: 5878 EPT nodes, ~2.7 pts/m², grid (4474, 4912)
-  part 0: 237,828,455 points, 8,366 building heights, 49,419 crowns so far
-  height model: trained on 8,499, predicted 115, CV MAE 4.4 m
-== Detroit done in 9.0 min: 29.84 MB, 73,555 segments, 8,614 buildings {'lidar': 8278, 'model': 115, 'osm': 148, 'osm-levels': 73}, 49,419 crowns, 2,610 places, 217 pause places
+  part 0: 6608 EPT nodes, ~2.6 pts/m², grid (5187, 4912)
+  part 0: 268,821,499 points, 10,388 building heights, 60,718 crowns so far
+  height model: trained on 10,520, predicted 129, CV MAE 3.8 m
+== Detroit done in 10.3 min: 35.59 MB, 77,476 segments, 10,649 buildings {'lidar': 10301, 'model': 129, 'osm': 148, 'osm-levels': 71}, 60,718 crowns, 2,868 places, 237 pause places

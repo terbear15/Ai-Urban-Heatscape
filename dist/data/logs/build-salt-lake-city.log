@@ -13,4 +13,4 @@
   part 0: 9277 EPT nodes, ~7.8 pts/m², grid (2973, 3652)
   part 0: 340,385,332 points, 7,273 building heights, 31,443 crowns so far
   height model: trained on 7,491, predicted 150, CV MAE 4.3 m
-== Salt Lake City done in 6.5 min: 20.35 MB, 53,903 segments, 7,641 buildings {'lidar': 7114, 'model': 150, 'osm-levels': 146, 'osm': 231}, 31,443 crowns, 1,927 places, 302 pause places
+== Salt Lake City done in 7.4 min: 20.35 MB, 53,903 segments, 7,641 buildings {'lidar': 7114, 'model': 150, 'osm-levels': 146, 'osm': 231}, 31,443 crowns, 1,927 places, 302 pause places

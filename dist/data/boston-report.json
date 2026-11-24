@@ -7,7 +7,7 @@
   "Back Bay",
   "Seaport"
  ],
- "area_km2": 21.15,
+ "area_km2": 22.21,
  "network": {
   "nodes": 106588,
   "edges": 125662,
@@ -17,18 +17,18 @@
   "footpath_share": 0.572,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 22630,
+ "buildings": 23574,
  "height_sources": {
-  "lidar": 20793,
+  "lidar": 21737,
   "model": 162,
   "osm": 1366,
   "osm-levels": 309
  },
  "height_model": {
-  "known": 22468,
+  "known": 23412,
   "predicted": 162,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 4.37,
+  "cv_mae_m": 4.28,
   "features": [
    "log area",
    "log perimeter",
@@ -39,14 +39,14 @@
    "max known height within 60 m"
   ]
  },
- "trees": 56689,
- "places": 5668,
- "pause_places": 596,
+ "trees": 57297,
+ "places": 5763,
+ "pause_places": 600,
  "pause_by_kind": {
   "station": 47,
   "water": 58,
   "library": 66,
-  "park": 403,
+  "park": 407,
   "community": 20,
   "mall": 2
  },
@@ -74,6 +74,6 @@
    "vegetation_classes": true
   }
  ],
- "data_mb": 39.43,
- "minutes": 22.6
+ "data_mb": 39.91,
+ "minutes": 20.0
 }

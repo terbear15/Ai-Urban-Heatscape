@@ -40,7 +40,7 @@
   ]
  },
  "trees": 8887,
- "places": 3759,
+ "places": 3760,
  "pause_places": 139,
  "pause_by_kind": {
   "library": 15,
@@ -73,5 +73,5 @@
   }
  ],
  "data_mb": 23.06,
- "minutes": 12.0
+ "minutes": 11.9
 }

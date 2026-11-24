@@ -7,28 +7,28 @@
   "Museum Campus",
   "Navy Pier"
  ],
- "area_km2": 28.72,
+ "area_km2": 29.67,
  "network": {
-  "nodes": 119647,
-  "edges": 154787,
-  "street_length_km": 3070.61,
-  "intersections": 113765,
+  "nodes": 119931,
+  "edges": 155188,
+  "street_length_km": 3081.0,
+  "intersections": 114048,
   "streets_per_node_avg": 2.59,
   "footpath_share": 0.566,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 41514,
+ "buildings": 41645,
  "height_sources": {
-  "lidar": 40470,
-  "model": 318,
-  "osm": 539,
-  "osm-levels": 187
+  "lidar": 40595,
+  "model": 320,
+  "osm": 542,
+  "osm-levels": 188
  },
  "height_model": {
-  "known": 41196,
-  "predicted": 318,
+  "known": 41325,
+  "predicted": 320,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 5.46,
+  "cv_mae_m": 5.49,
   "features": [
    "log area",
    "log perimeter",
@@ -39,15 +39,15 @@
    "max known height within 60 m"
   ]
  },
- "trees": 80199,
- "places": 9048,
- "pause_places": 2585,
+ "trees": 80961,
+ "places": 9107,
+ "pause_places": 2594,
  "pause_by_kind": {
   "station": 83,
-  "water": 56,
+  "water": 59,
   "library": 12,
   "community": 11,
-  "park": 2416,
+  "park": 2422,
   "mall": 7
  },
  "lidar": [
@@ -55,24 +55,24 @@
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_IL_4County_Cook_2017_LAS_2019/",
    "survey_year": 2019,
-   "points": 1852760408,
+   "points": 1857235966,
    "density_pts_m2": 13.4,
    "classes": {
-    "1": 63093446,
-    "2": 320770588,
-    "7": 5053197,
+    "1": 63130101,
+    "2": 321598839,
+    "7": 5060012,
     "9": 14364944,
-    "6": 230253680,
-    "3": 210042754,
-    "4": 243824872,
-    "5": 750320645,
-    "17": 14899630,
-    "10": 135998,
+    "6": 230727937,
+    "3": 210516624,
+    "4": 244404805,
+    "5": 752380352,
+    "17": 14915690,
+    "10": 136008,
     "18": 654
    },
    "vegetation_classes": true
   }
  ],
- "data_mb": 56.99,
- "minutes": 38.4
+ "data_mb": 57.45,
+ "minutes": 37.3
 }

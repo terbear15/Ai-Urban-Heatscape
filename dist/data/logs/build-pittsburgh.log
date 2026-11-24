@@ -1,15 +1,15 @@
 == Pittsburgh: 2 zone(s)
-  OSM tile 10: 23,071 nodes, 4,890 ways, 173 relations
-  OSM tile 20: 50,728 nodes, 10,618 ways, 258 relations
-  OSM tile 30: 69,820 nodes, 14,442 ways, 301 relations
-  OSM tile 40: 90,414 nodes, 19,075 ways, 386 relations
-  OSM tile 50: 113,248 nodes, 23,819 ways, 560 relations
-  OSM tile 60: 148,222 nodes, 30,364 ways, 752 relations
-  OSM tile 66: 165,671 nodes, 33,203 ways, 804 relations
-  OSMnx walk graph: 35,807 nodes, 42,710 edges
-  4,691 building footprints
+  OSM tile 10: 23,487 nodes, 4,972 ways, 174 relations
+  OSM tile 20: 52,764 nodes, 10,778 ways, 260 relations
+  OSM tile 30: 70,722 nodes, 14,570 ways, 303 relations
+  OSM tile 40: 91,503 nodes, 19,248 ways, 388 relations
+  OSM tile 50: 114,555 nodes, 24,025 ways, 567 relations
+  OSM tile 60: 149,410 nodes, 30,567 ways, 756 relations
+  OSM tile 66: 167,139 nodes, 33,469 ways, 808 relations
+  OSMnx walk graph: 35,895 nodes, 42,815 edges
+  4,692 building footprints
   LiDAR source: PA_WesternPA_2_2019 (2019)
-  part 0: 3841 EPT nodes, ~4.3 pts/m², grid (2462, 3492)
-  part 0: 146,684,406 points, 4,630 building heights, 23,856 crowns so far
-  height model: trained on 4,653, predicted 38, CV MAE 5.3 m
-== Pittsburgh done in 4.3 min: 15.09 MB, 42,706 segments, 4,691 buildings {'lidar': 4220, 'model': 38, 'osm': 421, 'osm-levels': 12}, 23,856 crowns, 1,558 places, 518 pause places
+  part 0: 3841 EPT nodes, ~4.2 pts/m², grid (2495, 3492)
+  part 0: 147,969,523 points, 4,633 building heights, 23,984 crowns so far
+  height model: trained on 4,654, predicted 38, CV MAE 5.3 m
+== Pittsburgh done in 4.2 min: 15.15 MB, 42,811 segments, 4,692 buildings {'lidar': 4223, 'model': 38, 'osm': 421, 'osm-levels': 10}, 23,984 crowns, 1,560 places, 518 pause places

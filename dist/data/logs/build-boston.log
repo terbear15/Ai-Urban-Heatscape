@@ -18,9 +18,12 @@
   OSM tile 170: 436,057 nodes, 80,069 ways, 3,650 relations
   OSM tile 180: 472,641 nodes, 86,709 ways, 4,002 relations
   OSMnx walk graph: 106,588 nodes, 125,683 edges
-  22,630 building footprints
+  23,574 building footprints
   LiDAR source: MA_CentralEastern_1_2021 (2021)
   part 0: 21366 EPT nodes, ~8.4 pts/m², grid (5092, 4860)
-  part 0: 832,730,802 points, 21,599 building heights, 56,689 crowns so far
-  height model: trained on 22,468, predicted 162, CV MAE 4.4 m
-== Boston done in 22.6 min: 39.43 MB, 125,662 segments, 22,630 buildings {'lidar': 20793, 'model': 162, 'osm': 1366, 'osm-levels': 309}, 56,689 crowns, 5,668 places, 596 pause places
+  retry https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MA_CentralEastern_1_2021/ept-data/11-1350-786-1017.laz ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+  retry https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MA_CentralEastern_1_2021/ept-data/11-1355-885-1017.laz ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+  retry https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MA_CentralEastern_1_2021/ept-data/12-2779-1667-2033.laz ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+  part 0: 832,730,802 points, 22,542 building heights, 57,297 crowns so far
+  height model: trained on 23,412, predicted 162, CV MAE 4.3 m
+== Boston done in 20.0 min: 39.91 MB, 125,662 segments, 23,574 buildings {'lidar': 21737, 'model': 162, 'osm': 1366, 'osm-levels': 309}, 57,297 crowns, 5,763 places, 600 pause places

@@ -14,4 +14,4 @@
   part 0: 3476 EPT nodes, ~2.3 pts/m², grid (4272, 2890)
   part 0: 113,628,321 points, 5,717 building heights, 31,470 crowns so far
   height model: trained on 5,791, predicted 93, CV MAE 3.9 m
-== St. Louis done in 6.1 min: 19.7 MB, 62,393 segments, 5,884 buildings {'lidar': 5640, 'osm': 118, 'model': 93, 'osm-levels': 33}, 31,470 crowns, 1,588 places, 2383 pause places
+== St. Louis done in 5.8 min: 19.7 MB, 62,393 segments, 5,884 buildings {'lidar': 5640, 'osm': 118, 'model': 93, 'osm-levels': 33}, 31,470 crowns, 1,588 places, 2383 pause places
