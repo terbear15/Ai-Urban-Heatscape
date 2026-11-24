@@ -170,6 +170,8 @@ NO_GROW = {"new-york", "philadelphia"}
 # Cities with a hand-set size: San Francisco reaches Golden Gate Park and Twin Peaks,
 # Los Angeles reaches West Hollywood and the Sunset Strip (km2, land only).
 TARGET_KM2 = {"san-francisco": 48, "los-angeles": 56}
+# Wider bays to close (metres; default 800): Detroit's V between the river and Woodward.
+BAY_REACH = {"detroit": 2000}
 
 
 def main():
@@ -305,7 +307,8 @@ def main():
                 # final edge still follows tract lines. At most 50% is added.
                 budget = 0.5 * base.area
                 for _ in range(4):
-                    bay = base.buffer(800, quad_segs=8).buffer(-800, quad_segs=8).difference(base)
+                    reach = BAY_REACH.get(key, 800)
+                    bay = base.buffer(reach, quad_segs=8).buffer(-reach, quad_segs=8).difference(base)
                     fill = [t for t in pool if t["id"] not in used and t["geom"].intersects(bay)
                             and t["geom"].intersection(bay).area >= 0.4 * t["geom"].area]
                     fill = [t for t in fill if t["geom"].distance(base) < 5]
