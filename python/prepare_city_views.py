@@ -101,7 +101,7 @@ def tracts(state, city, forward):
     for _, row in table.cx[w:e, s_:n].iterrows():
         geom = transform(forward, row.geometry).buffer(0)
         part = geom.intersection(city).buffer(0)
-        if part.is_empty or part.area < 0.5 * geom.area:
+        if part.is_empty or part.area < 0.2 * geom.area:
             continue
         out.append({"id": row.GEOID, "county": row.COUNTYFP, "geom": part, "density": (pop.get(row.GEOID, 0) if pop else 4000) / max(geom.area / 1e6, 0.01)})
     return out
@@ -280,16 +280,12 @@ def main():
             core_area = base.area
             # 2. Grow by the most densely populated neighbouring tract until the area doubles.
             if key not in NO_GROW:
-                # At least 30% larger than the area currently published (dist/cities/<slug>.geojson).
-                previous = 0.0
-                try:
-                    old = next(f["geometry"] for f in json.loads((OUT / f"{key}.geojson").read_text())["features"]
-                               if f["properties"].get("layer") == "land")
-                    previous = transform(forward, shape(old)).area
-                except (OSError, StopIteration, ValueError):
-                    pass
-                target = max(1.3 * previous, TARGET_KM2.get(key, 0) * 1e6, MIN_AREA if key not in TARGET_KM2 else 0)
-                print(name, f"target {target / 1e6:.1f} km2 (published {previous / 1e6:.1f})")
+                # Land area to reach, in km2, fixed in python/zones/area_targets.json (set in November
+                # at 1.3x the earlier areas) so rebuilding never grows a city again by itself.
+                targets = json.loads((ZONE_DIR / "area_targets.json").read_text()) if (ZONE_DIR / "area_targets.json").exists() else {}
+                previous = targets.get(key, 0) * 1e6
+                target = max(previous, TARGET_KM2.get(key, 0) * 1e6, MIN_AREA if key not in TARGET_KM2 else 0)
+                print(name, f"target {target / 1e6:.1f} km2")
                 wet_all = water(CITIES[key][0], {t["county"] for t in pool}, forward)
                 dry = (lambda g: g.difference(wet_all).area) if wet_all is not None else (lambda g: g.area)
                 while dry(base) < target:
@@ -303,6 +299,18 @@ def main():
                     used.add(best["id"])
                     base = joined_parts(unary_union([base, best["geom"]]).buffer(0))
                 print(name, f"{len(used)} census tracts added; {core_area / 1e6:.1f} -> {base.area / 1e6:.1f} km2")
+            if key != "new-york":
+                # 3. No notches: add every touching tract that lies mostly inside the area's convex
+                # outline, repeatedly, so the area has no bays a walking route would have to skirt.
+                for _ in range(60):
+                    hull = base.convex_hull
+                    fill = [t for t in pool if touches(base, t) and t["geom"].intersection(hull).area >= 0.5 * t["geom"].area]
+                    if not fill:
+                        break
+                    for t in fill:
+                        used.add(t["id"])
+                    base = joined_parts(unary_union([base] + [t["geom"] for t in fill]).buffer(0))
+                print(name, f"after filling notches {base.area / 1e6:.1f} km2")
             final = fill_small_holes(base.buffer(0.5, join_style=2).buffer(-0.5, join_style=2)).intersection(city).buffer(0)
             final = joined_parts(final)
             if key == "new-york":
