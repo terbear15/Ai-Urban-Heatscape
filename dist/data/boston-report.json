@@ -5,30 +5,31 @@
   "Downtown and Freedom Trail",
   "North End",
   "Back Bay",
-  "Seaport"
+  "Seaport",
+  "MIT, Kendall Square and Harvard"
  ],
- "area_km2": 22.21,
+ "area_km2": 21.39,
  "network": {
-  "nodes": 106588,
-  "edges": 125662,
-  "street_length_km": 1869.02,
-  "intersections": 103151,
+  "nodes": 137105,
+  "edges": 161684,
+  "street_length_km": 2271.98,
+  "intersections": 133048,
   "streets_per_node_avg": 2.36,
-  "footpath_share": 0.572,
+  "footpath_share": 0.615,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 23574,
+ "buildings": 23039,
  "height_sources": {
-  "lidar": 21737,
-  "model": 162,
-  "osm": 1366,
-  "osm-levels": 309
+  "lidar": 20299,
+  "model": 188,
+  "osm": 2208,
+  "osm-levels": 344
  },
  "height_model": {
-  "known": 23412,
-  "predicted": 162,
+  "known": 22851,
+  "predicted": 188,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 4.28,
+  "cv_mae_m": 4.86,
   "features": [
    "log area",
    "log perimeter",
@@ -39,41 +40,41 @@
    "max known height within 60 m"
   ]
  },
- "trees": 57297,
- "places": 5763,
- "pause_places": 600,
+ "trees": 58248,
+ "places": 7125,
+ "pause_places": 791,
  "pause_by_kind": {
-  "station": 47,
-  "water": 58,
-  "library": 66,
-  "park": 407,
-  "community": 20,
-  "mall": 2
+  "station": 44,
+  "water": 122,
+  "library": 90,
+  "park": 514,
+  "community": 18,
+  "mall": 3
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/MA_CentralEastern_1_2021/",
    "survey_year": 2021,
-   "points": 832730802,
-   "density_pts_m2": 8.4,
+   "points": 879951621,
+   "density_pts_m2": 8.2,
    "classes": {
-    "1": 98586072,
-    "2": 319206518,
-    "3": 44725618,
-    "6": 195722509,
-    "7": 3819993,
-    "9": 49952338,
-    "18": 12998782,
-    "4": 22799876,
-    "5": 76713596,
-    "17": 7721779,
-    "20": 427279,
-    "22": 56442
+    "1": 95192011,
+    "2": 352736417,
+    "3": 47865660,
+    "6": 216075457,
+    "7": 3565924,
+    "9": 39749721,
+    "18": 10889422,
+    "4": 25069701,
+    "5": 76483048,
+    "17": 11677855,
+    "20": 479452,
+    "22": 166953
    },
    "vegetation_classes": true
   }
  ],
- "data_mb": 39.91,
- "minutes": 20.0
+ "data_mb": 43.19,
+ "minutes": 20.8
 }

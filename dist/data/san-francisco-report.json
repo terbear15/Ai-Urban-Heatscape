@@ -9,30 +9,32 @@
   "Golden Gate Park",
   "Hayes Valley and Western Addition",
   "Haight-Ashbury and Inner Sunset",
-  "Castro and Twin Peaks"
+  "Castro and Twin Peaks",
+  "Presidio",
+  "Richmond, Sea Cliff and Lincoln Park"
  ],
- "area_km2": 49.06,
+ "area_km2": 50.73,
  "network": {
-  "nodes": 162385,
-  "edges": 195173,
-  "street_length_km": 3198.49,
-  "intersections": 157201,
+  "nodes": 162471,
+  "edges": 195271,
+  "street_length_km": 3199.13,
+  "intersections": 157289,
   "streets_per_node_avg": 2.4,
   "footpath_share": 0.604,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 79451,
+ "buildings": 72561,
  "height_sources": {
-  "osm": 66832,
-  "lidar": 12330,
-  "model": 182,
-  "osm-levels": 107
+  "osm": 61174,
+  "lidar": 11085,
+  "model": 199,
+  "osm-levels": 103
  },
  "height_model": {
-  "known": 79269,
-  "predicted": 182,
+  "known": 72362,
+  "predicted": 199,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.64,
+  "cv_mae_m": 2.73,
   "features": [
    "log area",
    "log perimeter",
@@ -43,37 +45,37 @@
    "max known height within 60 m"
   ]
  },
- "trees": 130799,
- "places": 16144,
- "pause_places": 865,
+ "trees": 129190,
+ "places": 15397,
+ "pause_places": 836,
  "pause_by_kind": {
   "station": 37,
-  "water": 172,
+  "water": 167,
   "community": 68,
-  "library": 33,
-  "park": 544,
-  "mall": 11
+  "park": 527,
+  "library": 27,
+  "mall": 10
  },
  "lidar": [
   {
    "part": 0,
    "source": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CA_SanFrancisco_1_B23/",
    "survey_year": 0,
-   "points": 1234126654,
-   "density_pts_m2": 8.7,
+   "points": 1237216798,
+   "density_pts_m2": 8.6,
    "classes": {
-    "1": 944561066,
-    "2": 259417240,
-    "7": 4086371,
-    "9": 22085921,
-    "18": 1032400,
-    "20": 234271,
-    "17": 2701473,
+    "1": 945664843,
+    "2": 259693817,
+    "7": 4089567,
+    "9": 23743262,
+    "18": 1032404,
+    "20": 238041,
+    "17": 2746952,
     "4": 7912
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 104.5,
- "minutes": 52.5
+ "data_mb": 101.77,
+ "minutes": 57.2
 }

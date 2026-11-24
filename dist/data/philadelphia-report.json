@@ -3,31 +3,32 @@
  "slug": "philadelphia",
  "zones": [
   "Center City",
+  "Art Museum, Spring Garden and Callowhill",
   "University City",
   "South Philadelphia"
  ],
- "area_km2": 22.29,
+ "area_km2": 25.68,
  "network": {
-  "nodes": 68920,
-  "edges": 87713,
-  "street_length_km": 1836.4,
-  "intersections": 65958,
-  "streets_per_node_avg": 2.55,
-  "footpath_share": 0.432,
+  "nodes": 74025,
+  "edges": 94170,
+  "street_length_km": 1971.66,
+  "intersections": 70881,
+  "streets_per_node_avg": 2.54,
+  "footpath_share": 0.434,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 78234,
+ "buildings": 84771,
  "height_sources": {
-  "lidar": 8640,
-  "osm-levels": 135,
-  "osm": 69284,
-  "model": 175
+  "osm": 75064,
+  "lidar": 9359,
+  "model": 207,
+  "osm-levels": 141
  },
  "height_model": {
-  "known": 78059,
-  "predicted": 175,
+  "known": 84564,
+  "predicted": 207,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.52,
+  "cv_mae_m": 2.49,
   "features": [
    "log area",
    "log perimeter",
@@ -38,13 +39,13 @@
    "max known height within 60 m"
   ]
  },
- "trees": 38674,
- "places": 5197,
- "pause_places": 408,
+ "trees": 42528,
+ "places": 5705,
+ "pause_places": 442,
  "pause_by_kind": {
-  "station": 39,
-  "water": 10,
-  "park": 313,
+  "park": 343,
+  "station": 41,
+  "water": 12,
   "library": 22,
   "community": 19,
   "mall": 5
@@ -54,21 +55,21 @@
    "part": 0,
    "source": "https://noaa-nos-coastal-lidar-pds.s3.amazonaws.com/entwine/geoid18/9848/",
    "survey_year": 0,
-   "points": 756871036,
-   "density_pts_m2": 16.5,
+   "points": 815080969,
+   "density_pts_m2": 16.0,
    "classes": {
-    "1": 595271410,
-    "7": 560892,
-    "8": 13995638,
-    "18": 62719,
-    "2": 139365872,
-    "9": 1742619,
-    "20": 39195,
-    "17": 5832691
+    "1": 638727823,
+    "7": 573450,
+    "8": 14981378,
+    "9": 5427783,
+    "18": 64531,
+    "2": 148817546,
+    "20": 45070,
+    "17": 6443388
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 45.23,
- "minutes": 24.4
+ "data_mb": 48.97,
+ "minutes": 29.4
 }
