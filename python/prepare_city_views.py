@@ -166,7 +166,7 @@ CENTER_CITY = ROOT / "dist" / "location" / "center-city.geojson"
 ZONE_DIR = ROOT / "python" / "zones"
 # Cities whose connected center runs further than 8 km (Manhattan up to the Upper
 # West and East Sides, Downtown LA to Hollywood).
-REACH = {"new-york": 14000, "los-angeles": 16000, "san-francisco": 10000}
+REACH = {"new-york": 14000, "los-angeles": 16000, "san-francisco": 12000}
 # Each area grows by census tracts to about twice its connected center (NYC is all of Manhattan).
 GROW = 2.6  # about 1.3 times the November areas
 MIN_AREA = 8_000_000  # m2; small downtown cores still get a walkable area
