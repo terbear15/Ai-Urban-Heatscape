@@ -4,31 +4,33 @@
  "zones": [
   "Center City",
   "Art Museum, Spring Garden and Callowhill",
+  "Grays Ferry",
+  "Delaware River waterfront",
   "University City",
   "South Philadelphia"
  ],
- "area_km2": 25.68,
+ "area_km2": 30.99,
  "network": {
-  "nodes": 74025,
-  "edges": 94170,
-  "street_length_km": 1971.66,
-  "intersections": 70881,
+  "nodes": 74238,
+  "edges": 94428,
+  "street_length_km": 1977.22,
+  "intersections": 71087,
   "streets_per_node_avg": 2.54,
   "footpath_share": 0.434,
   "built_with": "OSMnx 2.2.0 graph_from_xml, largest connected component"
  },
- "buildings": 84771,
+ "buildings": 93565,
  "height_sources": {
-  "osm": 75064,
-  "lidar": 9359,
-  "model": 207,
-  "osm-levels": 141
+  "osm": 83558,
+  "lidar": 9639,
+  "model": 226,
+  "osm-levels": 142
  },
  "height_model": {
-  "known": 84564,
-  "predicted": 207,
+  "known": 93339,
+  "predicted": 226,
   "model": "RandomForestRegressor(200 trees)",
-  "cv_mae_m": 2.49,
+  "cv_mae_m": 2.31,
   "features": [
    "log area",
    "log perimeter",
@@ -39,12 +41,12 @@
    "max known height within 60 m"
   ]
  },
- "trees": 42528,
- "places": 5705,
- "pause_places": 442,
+ "trees": 46854,
+ "places": 5962,
+ "pause_places": 453,
  "pause_by_kind": {
-  "park": 343,
-  "station": 41,
+  "station": 42,
+  "park": 353,
   "water": 12,
   "library": 22,
   "community": 19,
@@ -55,21 +57,21 @@
    "part": 0,
    "source": "https://noaa-nos-coastal-lidar-pds.s3.amazonaws.com/entwine/geoid18/9848/",
    "survey_year": 0,
-   "points": 815080969,
-   "density_pts_m2": 16.0,
+   "points": 823910248,
+   "density_pts_m2": 15.9,
    "classes": {
-    "1": 638727823,
-    "7": 573450,
-    "8": 14981378,
-    "9": 5427783,
-    "18": 64531,
-    "2": 148817546,
-    "20": 45070,
-    "17": 6443388
+    "1": 644620333,
+    "7": 574508,
+    "8": 15067693,
+    "9": 7334189,
+    "18": 64854,
+    "20": 49704,
+    "2": 149677577,
+    "17": 6521390
    },
    "vegetation_classes": false
   }
  ],
- "data_mb": 48.97,
- "minutes": 29.4
+ "data_mb": 53.3,
+ "minutes": 31.0
 }

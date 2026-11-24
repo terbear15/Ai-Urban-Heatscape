@@ -1,23 +1,24 @@
-== Philadelphia: 4 zone(s)
-  OSM tile 10: 9,447 nodes, 1,445 ways, 132 relations
-  OSM tile 20: 35,268 nodes, 7,202 ways, 218 relations
-  OSM tile 30: 90,715 nodes, 18,256 ways, 289 relations
-  OSM tile 40: 164,070 nodes, 32,704 ways, 393 relations
-  OSM tile 50: 243,574 nodes, 48,605 ways, 505 relations
-  OSM tile 60: 318,477 nodes, 62,797 ways, 579 relations
-  OSM tile 70: 401,528 nodes, 79,014 ways, 657 relations
-  OSM tile 80: 490,146 nodes, 95,154 ways, 716 relations
-  OSM tile 90: 546,368 nodes, 105,082 ways, 889 relations
-  OSM tile 100: 590,257 nodes, 112,408 ways, 932 relations
-  OSM tile 110: 622,121 nodes, 117,728 ways, 974 relations
-  OSM tile 120: 648,134 nodes, 121,867 ways, 1,016 relations
-  OSM tile 130: 677,259 nodes, 126,677 ways, 1,072 relations
-  OSM tile 140: 714,107 nodes, 132,370 ways, 1,111 relations
-  OSM tile 150: 774,627 nodes, 141,639 ways, 1,142 relations
-  OSM tile 160: 854,678 nodes, 154,561 ways, 1,200 relations
-  OSMnx walk graph: 74,025 nodes, 94,172 edges
-  84,771 building footprints
-  part 0: 19069 EPT nodes, ~16.0 pts/m², grid (3134, 4057)
-  part 0: 815,080,969 points, 84,225 building heights, 42,528 crowns so far
-  height model: trained on 84,564, predicted 207, CV MAE 2.5 m
-== Philadelphia done in 29.4 min: 48.97 MB, 94,170 segments, 84,771 buildings {'osm': 75064, 'lidar': 9359, 'model': 207, 'osm-levels': 141}, 42,528 crowns, 5,705 places, 442 pause places
+== Philadelphia: 6 zone(s)
+  OSM tile 10: 4,272 nodes, 283 ways, 39 relations
+  OSM tile 20: 11,704 nodes, 1,813 ways, 135 relations
+  OSM tile 30: 37,521 nodes, 7,569 ways, 221 relations
+  OSM tile 40: 92,968 nodes, 18,623 ways, 292 relations
+  OSM tile 50: 166,323 nodes, 33,071 ways, 396 relations
+  OSM tile 60: 245,827 nodes, 48,972 ways, 508 relations
+  OSM tile 70: 320,730 nodes, 63,164 ways, 582 relations
+  OSM tile 80: 403,781 nodes, 79,381 ways, 660 relations
+  OSM tile 90: 492,397 nodes, 95,520 ways, 719 relations
+  OSM tile 100: 548,619 nodes, 105,448 ways, 892 relations
+  OSM tile 110: 592,508 nodes, 112,774 ways, 935 relations
+  OSM tile 120: 624,372 nodes, 118,094 ways, 977 relations
+  OSM tile 130: 650,385 nodes, 122,233 ways, 1,019 relations
+  OSM tile 140: 679,510 nodes, 127,043 ways, 1,075 relations
+  OSM tile 150: 716,358 nodes, 132,736 ways, 1,114 relations
+  OSM tile 160: 776,878 nodes, 142,005 ways, 1,145 relations
+  OSM tile 170: 856,929 nodes, 154,927 ways, 1,203 relations
+  OSMnx walk graph: 74,238 nodes, 94,430 edges
+  93,565 building footprints
+  part 0: 19229 EPT nodes, ~15.9 pts/m², grid (3134, 4147)
+  part 0: 823,910,248 points, 92,995 building heights, 46,854 crowns so far
+  height model: trained on 93,339, predicted 226, CV MAE 2.3 m
+== Philadelphia done in 31.0 min: 53.3 MB, 94,428 segments, 93,565 buildings {'osm': 83558, 'lidar': 9639, 'model': 226, 'osm-levels': 142}, 46,854 crowns, 5,962 places, 453 pause places
