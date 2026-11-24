@@ -67,6 +67,7 @@ ZONES = {
         ("Haight-Ashbury and Inner Sunset", -122.450, 37.766, 0.9),
         ("Castro and Twin Peaks", -122.440, 37.755, 1.0),
         ("Presidio", -122.466, 37.798, 1.5),
+        ("Marina and Pacific Heights", -122.435, 37.797, 1.0),
         ("Richmond, Sea Cliff and Lincoln Park", -122.490, 37.780, 1.5),
     ],
     "seattle": [
@@ -216,6 +217,7 @@ OFFICIAL = {
         "Haight-Ashbury and Inner Sunset": ["layer:sf:nhood=Haight Ashbury", "layer:sf:nhood=Inner Sunset", "layer:sf:nhood=Lone Mountain/USF"],
         "Castro and Twin Peaks": ["layer:sf:nhood=Castro/Upper Market", "layer:sf:nhood=Twin Peaks", "layer:sf:nhood=Noe Valley"],
         "Presidio": ["layer:sf:nhood=Presidio"],
+        "Marina and Pacific Heights": ["layer:sf:nhood=Marina", "layer:sf:nhood=Pacific Heights", "layer:sf:nhood=Presidio Heights", "layer:sf:nhood=Japantown"],
         "Richmond, Sea Cliff and Lincoln Park": ["layer:sf:nhood=Seacliff", "layer:sf:nhood=Lincoln Park", "layer:sf:nhood=Outer Richmond", "layer:sf:nhood=Inner Richmond"],
     },
     "seattle": {  # Seattle City Clerk Neighborhood Map Atlas
