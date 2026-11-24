@@ -272,7 +272,7 @@ function create(data) {
     const rings = polygons.flat().map(r => r.map(([lon, lat]) => xy([lon, lat])));
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
     for (const r of rings) for (const [x, y] of r) { if (x < x0) x0 = x; if (y < y0) y0 = y; if (x > x1) x1 = x; if (y > y1) y1 = y; }
-    const cell = Math.max(2, Math.ceil(Math.max(x1 - x0, y1 - y0) / 6000));
+    const cell = Math.max(2, Math.ceil(Math.max(x1 - x0, y1 - y0) / 4000));  // at most 4000 px: phone GPU limit
     const frame = [x0 - cell, y0 - cell, x1 + cell, y1 + cell];
     const mask = new Raster(frame, cell);
     mask.fill(rings, 1);
