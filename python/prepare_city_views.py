@@ -303,7 +303,13 @@ def main():
                 # 3. No notches: fill bays with whole tracts that lie mostly inside the area's convex
                 # outline and already share at least 30% of their border with it, most enclosed
                 # first, adding at most 30% to the area (an L-shaped area keeps its shape).
-                budget = 0.3 * base.area
+                budget = 0.5 * base.area
+                if key in ("baltimore", "detroit"):
+                    hull, edge = base.convex_hull, base.boundary.buffer(6)
+                    for t in pool:
+                        if t["id"] not in used and t["geom"].distance(base) < 300:
+                            print("   cand", t["id"], f"area {t['geom'].area / 1e6:.2f}", f"hull {t['geom'].intersection(hull).area / max(t['geom'].area, 1):.2f}",
+                                  f"share {t['geom'].boundary.intersection(edge).length / t['geom'].boundary.length:.2f}", f"dist {t['geom'].distance(base):.0f}")
                 for _ in range(80):
                     hull, edge = base.convex_hull, base.boundary.buffer(6)
                     scored = []
@@ -317,7 +323,8 @@ def main():
                         break
                     share, best = max(scored, key=lambda x: x[0])
                     if best["geom"].area > budget:
-                        break
+                        pool = [t for t in pool if t is not best]
+                        continue
                     budget -= best["geom"].area
                     used.add(best["id"])
                     base = joined_parts(unary_union([base, best["geom"]]).buffer(0))
