@@ -162,11 +162,14 @@ CENTER_CITY = ROOT / "dist" / "location" / "center-city.geojson"
 ZONE_DIR = ROOT / "python" / "zones"
 # Cities whose connected center runs further than 8 km (Manhattan up to the Upper
 # West and East Sides, Downtown LA to Hollywood).
-REACH = {"new-york": 14000, "los-angeles": 14000}
+REACH = {"new-york": 14000, "los-angeles": 16000, "san-francisco": 10000}
 # Each area grows by census tracts to about twice its connected center (NYC is all of Manhattan).
-GROW = 2.0
-MIN_AREA = 6_000_000  # m2; small downtown cores still get a walkable area
-NO_GROW = {"new-york"}
+GROW = 2.6  # about 1.3 times the November areas
+MIN_AREA = 8_000_000  # m2; small downtown cores still get a walkable area
+NO_GROW = {"new-york", "philadelphia"}
+# Cities with a hand-set size: San Francisco reaches Golden Gate Park and Twin Peaks,
+# Los Angeles reaches West Hollywood and the Sunset Strip (km2, land only).
+TARGET_KM2 = {"san-francisco": 48, "los-angeles": 56}
 
 
 def main():
@@ -220,15 +223,14 @@ def main():
             else:
                 shapes.append(box(*zone[1]))
         # HeatScape works only in the downtown and visitor areas, on land.
-        if key == "philadelphia" and CENTER_CITY.exists():
-            # Philadelphia uses the official Center City neighborhoods (python/prepare_center_city.py).
-            land = shape(json.loads(CENTER_CITY.read_text(encoding="utf-8"))["features"][0]["geometry"])
+        if False:
+            pass
         else:
             # One connected downtown: start from the downtown zone and keep only visitor zones
             # within ~1 km of what is already kept (far-off zones are dropped). Gaps of up to
             # ~700 m between kept zones are filled so the area reads as one piece.
             flat = [transform(forward, g) for g in shapes]
-            core = next((i for i, z in enumerate(zones) if any(w in z[0] for w in ("Downtown", "Loop", "Lower Manhattan", "Union Square"))), 0)
+            core = next((i for i, z in enumerate(zones) if any(w in z[0] for w in ("Downtown", "Loop", "Lower Manhattan", "Union Square", "Center City"))), 0)
             kept, grown = [core], True
             while grown:
                 grown = False
@@ -250,6 +252,15 @@ def main():
 
             def main_part(geom):
                 return max(getattr(geom, "geoms", [geom]), key=lambda g: g.intersection(flat[core]).area + g.area * 1e-9)
+
+            def joined_parts(geom):
+                # The downtown piece plus pieces across a bridged river (gap under 400 m).
+                main = main_part(geom)
+                keep = [main]
+                for g in sorted(getattr(geom, "geoms", [geom]), key=lambda g: g.distance(main)):
+                    if g is not main and g.area > 50000 and unary_union(keep).distance(g) < 400:
+                        keep.append(g)
+                return unary_union(keep)
             # 1. Join the kept zones with whole census tracts (government units that follow streets).
             for _ in range(400):
                 main = main_part(base)
@@ -265,11 +276,11 @@ def main():
                     break  # no tract brings the pieces closer (open water between them)
                 used.add(best["id"])
                 base = unary_union([base, best["geom"]]).buffer(0)
-            base = main_part(base)
+            base = joined_parts(base)
             core_area = base.area
             # 2. Grow by the most densely populated neighbouring tract until the area doubles.
             if key not in NO_GROW:
-                target = max(GROW * core_area, MIN_AREA)
+                target = TARGET_KM2[key] * 1e6 if key in TARGET_KM2 else max(GROW * core_area, MIN_AREA)
                 while base.area < target:
                     cands = [t for t in pool if touches(base, t)]
                     if not cands:
@@ -279,10 +290,10 @@ def main():
                     # first (no thin fingers), weighted by density.
                     best = max(cands, key=lambda t: (t["geom"].boundary.intersection(edge).length / t["geom"].boundary.length) * t["density"] ** 0.5)
                     used.add(best["id"])
-                    base = main_part(unary_union([base, best["geom"]]).buffer(0))
+                    base = joined_parts(unary_union([base, best["geom"]]).buffer(0))
                 print(name, f"{len(used)} census tracts added; {core_area / 1e6:.1f} -> {base.area / 1e6:.1f} km2")
             final = fill_small_holes(base.buffer(0.5, join_style=2).buffer(-0.5, join_style=2)).intersection(city).buffer(0)
-            final = main_part(final)
+            final = joined_parts(final)
             if key == "new-york":
                 # Manhattan only: New York County's tracts, so no Brooklyn or Queens shoreline.
                 manhattan = unary_union([t["geom"] for t in pool if t["county"] == "061"])
