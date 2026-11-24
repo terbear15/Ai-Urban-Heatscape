@@ -10,6 +10,10 @@ BOXES = {
         # An even band north of Center City: Vine St (south) to Fairmount Ave (north), Schuylkill
         # River (west) to the Delaware River (east). Art Museum, Spring Garden, Callowhill, Chinatown North.
         "Art Museum, Spring Garden and Callowhill": [(-75.1830, 39.9675), (-75.1360, 39.9675), (-75.1360, 39.9530), (-75.1830, 39.9530)],
+        # Grays Ferry to the Schuylkill: Christian St (north) to Snyder Ave (south), river (west) to 22nd St (east).
+        "Grays Ferry": [(-75.2060, 39.9420), (-75.1790, 39.9420), (-75.1790, 39.9225), (-75.2060, 39.9225)],
+        # Delaware waterfront: Ben Franklin Bridge (north) to Snyder Ave (south), Front St (west) to the river (east).
+        "Delaware River waterfront": [(-75.1500, 39.9545), (-75.1290, 39.9545), (-75.1290, 39.9225), (-75.1500, 39.9225)],
     },
     "boston": {
         # Cambridge from Kendall Square and MIT to Harvard Square: Charles River (south) to
