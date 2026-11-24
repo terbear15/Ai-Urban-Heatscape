@@ -15,6 +15,7 @@ ZONES = {
         ("Westlake and Koreatown", -118.290, 34.062, 1.6),
         ("Larchmont and Little Armenia", -118.300, 34.079, 0.9),
         ("Hollywood", -118.330, 34.101, 1.4),
+        ("West Hollywood and Sunset Strip", -118.370, 34.090, 1.2),
     ],
     "chicago": [
         ("The Loop", -87.630, 41.881, 1.4),
@@ -34,6 +35,8 @@ ZONES = {
     "philadelphia": [
         # Center City: Vine Street to South Street, Schuylkill to Delaware River.
         ("Center City", (-75.1830, 39.9415, -75.1395, 39.9585)),
+        ("University City", -75.195, 39.953, 1.2),
+        ("South Philadelphia", -75.165, 39.928, 1.6),
     ],
     "san-diego": [
         ("Downtown and Gaslamp Quarter", -117.160, 32.712, 1.3),
@@ -59,6 +62,9 @@ ZONES = {
         ("Embarcadero", -122.394, 37.796, 0.8),
         ("Mission District", -122.418, 37.760, 1.0),
         ("Golden Gate Park", -122.465, 37.770, 1.3),
+        ("Hayes Valley and Western Addition", -122.430, 37.778, 0.9),
+        ("Haight-Ashbury and Inner Sunset", -122.450, 37.766, 0.9),
+        ("Castro and Twin Peaks", -122.440, 37.755, 1.0),
     ],
     "seattle": [
         ("Downtown and Pike Place", -122.337, 47.608, 1.4),
@@ -164,6 +170,7 @@ OFFICIAL = {
         "Westlake and Koreatown": ["lacounty:Los Angeles - Westlake", "lacounty:Los Angeles - Koreatown", "lacounty:Los Angeles - Wilshire Center"],
         "Larchmont and Little Armenia": [],  # street-bounded connector, python/downtown_boxes.py
         "Hollywood": ["lacounty:Los Angeles - Hollywood", "lacounty:Los Angeles - East Hollywood"],
+        "West Hollywood and Sunset Strip": ["lacity:West Hollywood"],
     },
     "chicago": {
         "The Loop": ["Loop, Chicago"],
@@ -201,6 +208,9 @@ OFFICIAL = {
         "Embarcadero": ["layer:sf:nhood=South of Market"],
         "Mission District": ["layer:sf:nhood=Mission"],
         "Golden Gate Park": ["layer:sf:nhood=Golden Gate Park"],
+        "Hayes Valley and Western Addition": ["layer:sf:nhood=Hayes Valley", "layer:sf:nhood=Western Addition"],
+        "Haight-Ashbury and Inner Sunset": ["layer:sf:nhood=Haight Ashbury", "layer:sf:nhood=Inner Sunset", "layer:sf:nhood=Lone Mountain/USF"],
+        "Castro and Twin Peaks": ["layer:sf:nhood=Castro/Upper Market", "layer:sf:nhood=Twin Peaks", "layer:sf:nhood=Noe Valley"],
     },
     "seattle": {  # Seattle City Clerk Neighborhood Map Atlas
         "Downtown and Pike Place": ["layer:seattle:S_HOOD=Central Business District", "layer:seattle:S_HOOD=Pike-Market", "layer:seattle:S_HOOD=Pike Market", "layer:seattle:S_HOOD=Belltown"],
@@ -291,5 +301,14 @@ OFFICIAL = {
     "milwaukee": {
         "Downtown": ["Downtown, Milwaukee", "Westown, Milwaukee", "East Town, Milwaukee"],
         "Third Ward": ["Historic Third Ward, Milwaukee", "Third Ward, Milwaukee"],
+    },
+    "philadelphia": {  # Philadelphia neighborhoods (OpenDataPhilly)
+        "Center City": ["layer:philly:LISTNAME=" + n for n in ("Logan Square", "Rittenhouse", "Fitler Square", "Center City East",
+                        "Washington Square West", "Society Hill", "Old City", "Chinatown")],
+        "University City": ["layer:philly:LISTNAME=" + n for n in ("University City", "Powelton", "West Powelton", "Spruce Hill",
+                            "Cedar Park", "Walnut Hill")],
+        "South Philadelphia": ["layer:philly:LISTNAME=" + n for n in ("Queen Village", "Bella Vista", "Graduate Hospital",
+                               "Passyunk Square", "East Passyunk", "Pennsport", "Dickinson Narrows", "Point Breeze",
+                               "Newbold", "Whitman", "Lower Moyamensing")],
     },
 }

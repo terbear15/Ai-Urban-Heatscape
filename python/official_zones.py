@@ -33,9 +33,12 @@ LAYERS = {
                 "Seattle City Clerk Neighborhood Map Atlas"),
     "atlanta": ("arcgis", "https://gis.atlantaga.gov/dpcd/rest/services/AdministrativeArea/GeopoliticalArea/FeatureServer/1/query",
                 "City of Atlanta Department of City Planning neighborhoods"),
+    "philly": ("geojson", "https://raw.githubusercontent.com/opendataphilly/open-geo-data/master/philadelphia-neighborhoods/philadelphia-neighborhoods.geojson",
+               "Philadelphia neighborhoods (OpenDataPhilly)"),
     "detroit": ("arcgis", "https://services5.arcgis.com/vElyTHUSDMtSHSgT/ArcGIS/rest/services/MyMapService/FeatureServer/1/query",
                 "Detroit neighborhoods layer"),
 }
+WHOLE = {}  # whole-file GeoJSON layers, downloaded once
 # Kinds of OSM objects that are areas people name: boundaries, places and parks. Shops,
 # campuses, buildings and roads are refused even when they share the name.
 GOOD_TYPES = {"administrative", "neighbourhood", "neighborhood", "suburb", "quarter", "district", "borough",
@@ -50,7 +53,8 @@ STATES = {"new-york": "New York", "los-angeles": "California", "chicago": "Illin
           "minneapolis": "Minnesota", "san-jose": "California", "detroit": "Michigan",
           "baltimore": "Maryland", "miami": "Florida", "st-louis": "Missouri", "portland": "Oregon",
           "nashville": "Tennessee", "indianapolis": "Indiana", "cincinnati": "Ohio", "kansas-city": "Missouri",
-          "pittsburgh": "Pennsylvania", "cleveland": "Ohio", "salt-lake-city": "Utah", "milwaukee": "Wisconsin"}
+          "pittsburgh": "Pennsylvania", "cleveland": "Ohio", "salt-lake-city": "Utah", "milwaukee": "Wisconsin",
+          "philadelphia": "Pennsylvania"}
 
 
 def km2(geom):
@@ -108,6 +112,10 @@ def from_dataset(name):
         how, url, src = LAYERS[key]
         if how == "socrata":
             data = get_json(url, {field: value})
+        elif how == "geojson":
+            if url not in WHOLE:
+                WHOLE[url] = get_json(url, {}) or {}
+            data = {"features": [f for f in WHOLE[url].get("features", []) if str((f.get("properties") or {}).get(field)) == value]}
         else:
             data = get_json(url, {"where": f"{field}='{value}'", "outFields": field, "outSR": 4326, "f": "geojson"})
         feats = (data or {}).get("features") or []
