@@ -280,8 +280,19 @@ def main():
             core_area = base.area
             # 2. Grow by the most densely populated neighbouring tract until the area doubles.
             if key not in NO_GROW:
-                target = TARGET_KM2[key] * 1e6 if key in TARGET_KM2 else max(GROW * core_area, MIN_AREA)
-                while base.area < target:
+                # At least 30% larger than the area currently published (dist/cities/<slug>.geojson).
+                previous = 0.0
+                try:
+                    old = next(f["geometry"] for f in json.loads((OUT / f"{key}.geojson").read_text())["features"]
+                               if f["properties"].get("layer") == "land")
+                    previous = transform(forward, shape(old)).area
+                except (OSError, StopIteration, ValueError):
+                    pass
+                target = max(1.3 * previous, TARGET_KM2.get(key, 0) * 1e6, MIN_AREA if key not in TARGET_KM2 else 0)
+                print(name, f"target {target / 1e6:.1f} km2 (published {previous / 1e6:.1f})")
+                wet_all = water(CITIES[key][0], {t["county"] for t in pool}, forward)
+                dry = (lambda g: g.difference(wet_all).area) if wet_all is not None else (lambda g: g.area)
+                while dry(base) < target:
                     cands = [t for t in pool if touches(base, t)]
                     if not cands:
                         break
@@ -298,8 +309,9 @@ def main():
                 # Manhattan only: New York County's tracts, so no Brooklyn or Queens shoreline.
                 manhattan = unary_union([t["geom"] for t in pool if t["county"] == "061"])
                 final = final.intersection(manhattan.buffer(1)).buffer(0)
+                final = main_part(final)  # Manhattan island only (no Governors Island off Brooklyn)
             # Take out rivers, harbors and lakes (Census land boundaries are coarse at the shore).
-            wet = water(CITIES[key][0], {t["county"] for t in pool if t["geom"].intersects(final)}, forward)
+            wet = water(CITIES[key][0], {t["county"] for t in pool}, forward)
             if wet is not None:
                 final = final.difference(wet).buffer(0)
             final = unary_union([p for p in getattr(final, "geoms", [final]) if p.area > 20000])
