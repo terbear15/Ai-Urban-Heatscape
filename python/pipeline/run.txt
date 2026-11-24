@@ -8,6 +8,7 @@ washington
 boston
 atlanta
 seattle
+philadelphia
 miami
 san-jose
 phoenix
@@ -27,4 +28,3 @@ pittsburgh
 cleveland
 salt-lake-city
 milwaukee
-
