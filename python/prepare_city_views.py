@@ -300,34 +300,23 @@ def main():
                     base = joined_parts(unary_union([base, best["geom"]]).buffer(0))
                 print(name, f"{len(used)} census tracts added; {core_area / 1e6:.1f} -> {base.area / 1e6:.1f} km2")
             if key != "new-york":
-                # 3. No notches: fill bays with whole tracts that lie mostly inside the area's convex
-                # outline and already share at least 30% of their border with it, most enclosed
-                # first, adding at most 30% to the area (an L-shaped area keeps its shape).
+                # 3. No notches. A temporary rounded closing of the area (gaps up to ~1.6 km) marks
+                # its bays; whole tracts with at least 40% of their land in a bay are added, so the
+                # final edge still follows tract lines. At most 50% is added.
                 budget = 0.5 * base.area
-                if key in ("baltimore", "detroit"):
-                    hull, edge = base.convex_hull, base.boundary.buffer(6)
-                    for t in pool:
-                        if t["id"] not in used and t["geom"].distance(base) < 300:
-                            print("   cand", t["id"], f"area {t['geom'].area / 1e6:.2f}", f"hull {t['geom'].intersection(hull).area / max(t['geom'].area, 1):.2f}",
-                                  f"share {t['geom'].boundary.intersection(edge).length / t['geom'].boundary.length:.2f}", f"dist {t['geom'].distance(base):.0f}")
-                for _ in range(80):
-                    hull, edge = base.convex_hull, base.boundary.buffer(6)
-                    scored = []
-                    for t in pool:
-                        if not touches(base, t) or t["geom"].intersection(hull).area < 0.5 * t["geom"].area:
-                            continue
-                        share = t["geom"].boundary.intersection(edge).length / t["geom"].boundary.length
-                        if share >= 0.3:
-                            scored.append((share, t))
-                    if not scored:
+                for _ in range(4):
+                    bay = base.buffer(800, quad_segs=8).buffer(-800, quad_segs=8).difference(base)
+                    fill = [t for t in pool if t["id"] not in used and t["geom"].intersects(bay)
+                            and t["geom"].intersection(bay).area >= 0.4 * t["geom"].area]
+                    fill = [t for t in fill if t["geom"].distance(base) < 5]
+                    if not fill:
                         break
-                    share, best = max(scored, key=lambda x: x[0])
-                    if best["geom"].area > budget:
-                        pool = [t for t in pool if t is not best]
-                        continue
-                    budget -= best["geom"].area
-                    used.add(best["id"])
-                    base = joined_parts(unary_union([base, best["geom"]]).buffer(0))
+                    for t in sorted(fill, key=lambda t: -t["geom"].intersection(bay).area / t["geom"].area):
+                        if t["geom"].area > budget:
+                            continue
+                        budget -= t["geom"].area
+                        used.add(t["id"])
+                        base = joined_parts(unary_union([base, t["geom"]]).buffer(0))
                 print(name, f"after filling notches {base.area / 1e6:.1f} km2")
             final = fill_small_holes(base.buffer(0.5, join_style=2).buffer(-0.5, join_style=2)).intersection(city).buffer(0)
             final = joined_parts(final)
